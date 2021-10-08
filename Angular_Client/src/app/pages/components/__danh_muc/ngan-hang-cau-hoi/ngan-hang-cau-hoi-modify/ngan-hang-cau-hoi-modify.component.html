@@ -1,0 +1,165 @@
+<div class="modal-consupplyNamet">
+  <!-- Header Modal -->
+  <div class="modal-header">
+    <div class="modal-title h1" id="example-modal-sizes-title-lg">
+      <ng-container *ngIf="data">
+        <ng-container *ngIf="data.Id">Chỉnh sửa</ng-container>
+        <ng-container *ngIf="!data.Id">Thêm mới</ng-container>
+        câu hỏi
+      </ng-container>
+    </div>
+  </div>
+  <!-- End Header -->
+
+  <!-- Body -->
+  <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px">
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="data">
+      <form action="#" class="form form-label-right" [formGroup]="formGroup">
+        <div class="form-group row">
+          <div class="col-lg-12">
+            <!-- <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+              <ngx-editor
+                [editor]="editor"
+                [ngModel]="html"
+                placeholder="Type here..."
+              ></ngx-editor>
+              <angular-editor placeholder="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor> -->
+            <label class="form-label">Nội dung câu hỏi</label>
+            <ckeditor
+              [editor]="Editor"
+              formControlName="content"
+              [class.is-invalid]="ValidateFormGroupEvent('content', formGroup, 1)"
+              [class.is-valid]="ValidateFormGroupEvent('content', formGroup, 0)"
+            ></ckeditor>
+            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('correctOption', formGroup, 0)">
+              Thông tin chính xác
+            </div>
+            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('correctOption', formGroup, 1)">
+              Vui lòng chọn nhập nội dung câu hỏi
+            </div>
+          </div>
+        </div>
+        <!-- <div class="form-group row">
+          <div class="col-lg-12">
+            <ckeditor [editor]="Editor" formControlName="content"></ckeditor>
+          </div>
+        </div> -->
+        <div class="form-group row">
+          <div class="col-lg-12">
+            <label class="mr-10">Đáp án đúng:</label>
+            <mat-radio-group formControlName="correctOption">
+              <mat-radio-button class="mr-10" value="1">A</mat-radio-button>
+              <mat-radio-button class="mr-10" value="2">B</mat-radio-button>
+              <mat-radio-button class="mr-10" value="3">C</mat-radio-button>
+              <mat-radio-button class="mr-10" value="4">D</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-12">
+            <label class="mr-10">Cấp độ:</label>
+            <mat-radio-group formControlName="level">
+              <mat-radio-button class="mr-10" value="1">Câu biết</mat-radio-button>
+              <mat-radio-button class="mr-10" value="2">Câu hiểu</mat-radio-button>
+              <mat-radio-button class="mr-10" value="3">Câu vận dụng thấp</mat-radio-button>
+              <mat-radio-button class="mr-10" value="4">Câu vận dụng cao</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-6">
+            <label class="form-label">Chương bài học</label>
+            <mat-select
+              disableOptionCentering
+              placeholder="Chọn chương bài học"
+              #focusThietBi
+              formControlName="chuongMonHoc"
+              (selectionChange)="setValueChuongMonHoc($event)"
+              class="form-control form-control-lg"
+            >
+              <mat-select-trigger>
+                {{ getNameChuongMonHoc() }}
+              </mat-select-trigger>
+              <mat-option>
+                <ngx-mat-select-search
+                  [placeholderLabel]="listChuongMonHoc.length > 0 ? 'Tìm kiếm...' : 'Không tìm thấy dữ liệu'"
+                  [noEntriesFoundLabel]="'Không tìm thấy kết quả phù hợp'"
+                  [(ngModel)]="listChuongMonHocFilterCtrl"
+                  [ngModelOptions]="{ standalone: true }"
+                  (ngModelChange)="filterListChuongMonHoc()"
+                >
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let item of filteredListChuongMonHoc | async" value="{{ item.Id }}">
+                {{ item.TenChuong }}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div class="col-lg-6">
+            <label class="form-label">Tên bài học</label>
+            <mat-select
+              disableOptionCentering
+              placeholder="Chọn tên bài học"
+              #focusThietBi
+              formControlName="baiHoc"
+              (selectionChange)="setValueBaiHoc($event)"
+              class="form-control form-control-lg"
+              [class.is-invalid]="ValidateFormGroupEvent('baiHoc', formGroup, 1)"
+              [class.is-valid]="ValidateFormGroupEvent('baiHoc', formGroup, 0)"
+            >
+              <mat-select-trigger>
+                {{ getNameBaiHoc() }}
+              </mat-select-trigger>
+              <mat-option>
+                <ngx-mat-select-search
+                  [placeholderLabel]="listBaiHoc.length > 0 ? 'Tìm kiếm...' : 'Không tìm thấy dữ liệu'"
+                  [noEntriesFoundLabel]="'Không tìm thấy kết quả phù hợp'"
+                  [(ngModel)]="listBaiHocFilterCtrl"
+                  [ngModelOptions]="{ standalone: true }"
+                  (ngModelChange)="filterListBaiHoc()"
+                >
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let item of filteredListBaiHoc | async" value="{{ item.Id }}">
+                {{ item.TenBaiHoc }}
+              </mat-option>
+            </mat-select>
+            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('baiHoc', formGroup, 0)">Thông tin chính xác</div>
+            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('baiHoc', formGroup, 1)">
+              Vui lòng chọn bài học
+            </div>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+  </div>
+  <!-- End Body -->
+
+  <!-- Footer -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss()">Trở về</button>
+    <ng-container *ngIf="data">
+      <button type="submit" class="btn btn-primary" *ngIf="data.Id" (click)="save(false)">Lưu</button>
+      <div class="btn-group mr-3" *ngIf="!data.Id">
+        <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid" (click)="save(true)">
+          Lưu và thêm mới
+        </button>
+        <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+          <button class="btn btn-primary btn-elevate" [disabled]="formGroup.invalid" ngbDropdownToggle>
+            <i class="ki ki-arrow-down icon-sm"></i>
+          </button>
+          <div class="dropdown-menu" ngbDropdownMenu>
+            <button ngbDropdownItem (click)="save(false)">Lưu và đóng</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <!-- End Footer -->
+</div>

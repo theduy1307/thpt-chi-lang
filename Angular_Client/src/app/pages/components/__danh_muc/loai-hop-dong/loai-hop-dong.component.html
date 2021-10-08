@@ -1,0 +1,112 @@
+<div class="card card-custom gutter-b">
+ <!-- Body -->
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">Danh sách loại hợp đồng</h3>
+    </div>
+    <div class="card-toolbar">
+      <button type="button" class="btn btn-primary" (click)="create()">Thêm mới</button>
+    </div>
+  </div>
+
+   <div class="card-body">
+    <div class="form-group row" [formGroup]="searchGroup">
+      <div class="col-lg-6">
+        <input type="text" value="" class="form-control" placeholder="Tìm kiếm" name="searchText"
+          formControlName="searchTerm"
+        />
+        <small class="form-text text-muted"><b>Tìm kiếm</b> dữ liệu</small>
+      </div>
+      <div class="col-lg-6">
+          <mat-select placeholder="Chọn nhóm hợp đồng" class="form-control" formControlName="searchTermHD">
+              <mat-option selected="selected" value=""> Tất cả </mat-option>
+              <mat-option value="1"> Hợp đồng mua </mat-option>
+              <mat-option value="2"> Hợp đồng bán </mat-option>
+          </mat-select>
+        <small class="form-text text-muted"><b>Nhóm</b> hợp đồng</small>
+      </div>
+    </div>
+  </div>
+   
+   <!-- Data table -->
+   <div class="table-responsive angular-bootstrap-table">
+     <table class="table table-head-custom table-vertical-center overflow-hidden ">
+       <thead>
+         <th>#</th>
+         <th>Tên loại hợp đồng
+           <app-sort-icon column="TenLoai" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+             (sort)="sort($event)"></app-sort-icon>
+         </th>
+         <th>Nhóm hợp đồng
+           <app-sort-icon column="NhomHopDong" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+             (sort)="sort($event)"></app-sort-icon>
+         </th>
+         
+         <th>Mô tả
+          <app-sort-icon column="MoTa" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+         <th>Người tạo
+          <app-sort-icon column="TenNguoiLap" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th>
+        <th>Ngày tạo
+          <app-sort-icon column="NgayTao" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+            (sort)="sort($event)"></app-sort-icon>
+        </th> 
+        <th>Thao tác</th> 
+       </thead>
+       <tbody>
+         <tr *ngFor="let item of services.items$ | async; let i = index">
+           <td>{{ (i + 1) }}</td>
+           <td><a style="cursor:pointer" class="active" (click)="getDetail(item.Id)">{{ item.TenLoai}}</a></td>
+           <td *ngIf="item.NhomHopDong==1">Hợp đồng mua</td>
+           <td *ngIf="item.NhomHopDong==2">Hợp đồng bán</td>
+           <td><div [innerHTML] = "item.MoTa">{{item.MoTa}}</div></td>
+           <td>{{ item.TenNguoiLap }}</td> 
+           <td>{{ item.NgayTao | date:'dd/MM/YYYY' }}</td>
+           <ul class="list-inline m-0">         
+             <li class="list-inline-item">
+              <td>
+                <a title="Edit customer" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 "
+                matTooltip="Chỉnh sửa" matTooltipPosition="after" (click)="edit(item.Id)" >
+              <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+                class="svg-icon svg-icon-md svg-icon-primary">
+              </span>
+                </a> 
+              </td>
+              <td>
+                <a _ngcontent-bfp-c200="" title="Delete customer" class="btn btn-icon btn-light btn-hover-danger btn-sm" matTooltip="Xoá" matTooltipPosition="after" (click)="delete(item.Id)">
+                  <span _ngcontent-bfp-c200="" cachesvg="true" class="svg-icon svg-icon-md svg-icon-danger">
+                  <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">                 
+                  
+                  <desc>Created with Sketch.</desc>
+                  <defs></defs>
+                  <g id="Stockholm-icons-/-General-/-Trash" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <rect id="bound" x="0" y="0" width="24" height="24"></rect>
+                      <path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" id="round" fill="#000000" fill-rule="nonzero"></path>
+                      <path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" id="Shape" fill="#000000" opacity="0.3"></path>
+                  </g>
+                  </svg>
+                </span>
+              </a>
+              </td>
+            </li>
+          </ul>        
+         </tr>
+       </tbody>
+     </table>
+     <div class="text-center" style="margin: 20px 0; text-transform: uppercase;" 
+         *ngIf="isEmptyDataSource()">
+         Không có dữ liệu
+     </div>
+   </div>
+   <!-- End Data Table -->
+
+   <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
+     [isLoading]="isLoading" (paginate)="paginate($event)">
+   </app-paginator>
+ 
+ <!-- End Body -->
+
+</div>

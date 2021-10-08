@@ -1,0 +1,78 @@
+﻿@model APICore_SoanDeThi.Models.InteractionModels.IBaiKiemTra
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>BÀI KIỂM TRA</title>
+</head>
+<body>
+    <table class="title">
+        <tr>
+            <td>
+                SỞ GD-ĐT AN GIANG <br />
+                <strong>TRƯỜNG THPT CHI LĂNG</strong>
+            </td>
+            <td>
+                <strong>ĐỀ KIỂM TRA GIỮA KÌ II - NĂM HỌC 2020 - 2021</strong> <br />
+                MÔN TIN HỌC - KHỐI 11 <br />
+                <i>Thời gian làm bài: 45 phút, không kể thời gian phát đề</i>
+                <hr style="margin: auto" width="50%" />
+            </td>
+        </tr>
+    </table>
+    <table class="info">
+        <tr>
+            <td class="info__student">
+                Họ và tên: ................................................. <br />
+                Lớp: ..........................................................
+            </td>
+            <td class="info__code">
+                <div class="info__frame">
+                    <strong>Mã đề thi: @Model.MaDe</strong>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table class="question">
+        <tr>
+            <td colspan="4">
+                <strong>Câu 1: </strong>
+                Kim loại nào sau đây có tính khử mạnh nhất
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>A. </strong>
+                Al
+            </td>
+            <td>
+                <strong>A. </strong>
+                Al
+            </td>
+            <td>
+                <strong>A. </strong>
+                Al
+            </td>
+            <td>
+                <strong>A. </strong>
+                Al
+            </td>
+        </tr>
+    </table>
+    <div style="break-after: page"></div>
+    <h1>BẢNG ĐÁP ÁN</h1>
+    <table class="answer">
+        <tr>
+            <th>Câu hỏi</th>
+            <th>Đáp án</th>
+        </tr>
+        <tr>
+            <td>1.</td>
+            <td>D</td>
+        </tr>
+    </table>
+</body>
+</html>

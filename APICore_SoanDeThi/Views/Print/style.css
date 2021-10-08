@@ -1,0 +1,49 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 12pt;
+    line-height: 1.5;
+}
+
+.info,
+.title {
+    width: 100%;
+}
+
+.title {
+    text-align: center;
+    border: none;
+}
+
+    .title td {
+        vertical-align: top;
+    }
+
+.info {
+    vertical-align: center;
+}
+
+.info__student {
+    text-align: left;
+}
+
+.info__code {
+    text-align: center;
+}
+
+.info__frame {
+    border: solid 1px;
+}
+
+.question {
+    width: 100%;
+}
+
+table.answer,
+table.answer th,
+table.answer td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 2pt 20px;
+}

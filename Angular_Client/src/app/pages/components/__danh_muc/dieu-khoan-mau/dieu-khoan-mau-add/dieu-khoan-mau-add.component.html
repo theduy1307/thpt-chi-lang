@@ -1,0 +1,100 @@
+<div class="modal-consupplyNamet">
+  <!-- Header Modal -->
+  <div class="modal-header">
+    <div class="modal-title h4" id="example-modal-sizes-title-lg">
+      <ng-container>Thêm mới điều khoản mẫu</ng-container>
+    </div>
+    <div class="model-action">
+      <button type="button" class="btn btn-light btn-elevate mr-2" (click)="close()">Trở về</button>
+      <div class="btn-group mr-3">
+        <button type="submit" class="btn btn-primary" (click)="create()" [disabled]="formGroup.invalid">Lưu</button>
+        <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+          <button class="btn btn-primary btn-elevate" [disabled]="formGroup.invalid" ngbDropdownToggle>
+            <i class="ki ki-arrow-down icon-sm"></i>
+          </button>
+          <div class="dropdown-menu" ngbDropdownMenu>
+            <button ngbDropdownItem (click)="saveAndCreate()">Lưu và thêm mới</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Header -->
+
+  <!-- Body -->
+  <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px">
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+    <ng-container>
+      <form action="#" class="form form-label-right" [formGroup]="formGroup">
+        <div class="form-group row">
+          <div class="col-lg-6">
+            <label class="form-label">Nhóm hợp đồng</label>
+            <mat-select
+              placeholder="Chọn nhóm hợp đồng"
+              class="form-control form-control-lg"
+              formControlName="nhomHopDong"
+              (selectionChange)="setValueRule($event)"
+              [class.is-invalid]="ValidateFormGroupEvent('nhomHopDong', formGroup, 1)"
+              [class.is-valid]="ValidateFormGroupEvent('nhomHopDong', formGroup, 0)"
+            >
+              <mat-option value="0"> Hợp đồng mua </mat-option>
+              <mat-option value="1"> Hợp đồng bán </mat-option>
+            </mat-select>
+            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('nhomHopDong', formGroup, 0)">
+              Thông tin chính xác
+            </div>
+            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('nhomHopDong', formGroup, 1)">
+              Vui lòng chọn nhóm hợp đồng
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <label class="form-label">Tên điều khoản</label>
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              placeholder="Nhập tên điều khoản"
+              formControlName="tenDieuKhoan"
+              [class.is-invalid]="ValidateFormGroupEvent('tenDieuKhoan', formGroup, 1)"
+              [class.is-valid]="ValidateFormGroupEvent('tenDieuKhoan', formGroup, 0)"
+            />
+            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('tenDieuKhoan', formGroup, 0)">
+              Thông tin chính xác
+            </div>
+            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('tenDieuKhoan', formGroup, 1)">
+              Vui lòng nhập tên điều khoản
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-12">
+            <label class="form-label">Chi tiết điều khoản</label>
+            <ckeditor
+              rows="12"
+              [editor]="Editor"
+              formControlName="chiTietDieuKhoan"
+              [class.is-invalid]="ValidateFormGroupEvent('chiTietDieuKhoan', formGroup, 1)"
+              [class.is-valid]="ValidateFormGroupEvent('chiTietDieuKhoan', formGroup, 0)"
+            ></ckeditor>
+            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('chiTietDieuKhoan', formGroup, 0)">
+              Thông tin chính xác
+            </div>
+            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('chiTietDieuKhoan', formGroup, 1)">
+              Vui lòng nhập nội dung chi tiết điều khoản
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-12">
+            <label class="form-label">Ghi chú</label>
+            <textarea class="form-control" rows="3" formControlName="ghiChu"></textarea>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+  </div>
+  <!-- End Body -->
+</div>

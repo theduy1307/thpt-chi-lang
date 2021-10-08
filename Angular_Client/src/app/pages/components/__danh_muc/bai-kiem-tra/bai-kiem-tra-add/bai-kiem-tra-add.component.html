@@ -1,0 +1,307 @@
+<div class="card card-custom gutter-b">
+  <!-- Header Modal -->
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">Thêm mới bài kiểm tra</h3>
+    </div>
+    <div class="card-toolbar">
+      <button type="button" class="btn btn-light btn-elevate mr-2" routerLink="/danh-muc/danh-sach-bai-kiem-tra">
+        Trở lại
+      </button>
+      <div class="btn-group mr-3">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+          <button class="btn btn-primary btn-elevate" ngbDropdownToggle>
+            <i class="ki ki-arrow-down icon-sm"></i>
+          </button>
+          <div class="dropdown-menu mt-3" ngbDropdownMenu>
+            <button ngbDropdownItem>Lưu tạm</button>
+            <button ngbDropdownItem>Lưu và thêm mới</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Header -->
+
+  <!-- Body -->
+  <div class="card-body">
+    <mat-horizontal-stepper linear #stepper>
+      <mat-step [stepControl]="firstFormGroup" [editable]="true">
+        <ng-template matStepLabel>Thông tin cơ bản</ng-template>
+        <form action="#" class="form form-label-right" [formGroup]="firstFormGroup">
+          <div class="form-group row">
+            <div class="col-lg-9">
+              <label class="form-label">Tên bài kiểm tra</label>
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                placeholder="Nhập tên bài kiểm tra"
+                formControlName="tenBaiKiemTra"
+                [class.is-invalid]="ValidateFormGroupEvent('tenBaiKiemTra', firstFormGroup, 1)"
+                [class.is-valid]="ValidateFormGroupEvent('tenBaiKiemTra', firstFormGroup, 0)"
+              />
+              <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('tenBaiKiemTra', firstFormGroup, 0)">
+                Thông tin chính xác
+              </div>
+              <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('tenBaiKiemTra', firstFormGroup, 1)">
+                Vui lòng nhập tên bài kiểm tra
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <label class="form-label">Năm học</label>
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                placeholder="Nhập giá trị mặc định"
+                formControlName="namHoc"
+                [class.is-invalid]="ValidateFormGroupEvent('namHoc', firstFormGroup, 1)"
+                [class.is-valid]="ValidateFormGroupEvent('namHoc', firstFormGroup, 0)"
+              />
+              <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('namHoc', firstFormGroup, 0)">
+                Thông tin chính xác
+              </div>
+              <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('namHoc', firstFormGroup, 1)">
+                Vui lòng nhập năm học
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-lg-3">
+              <label class="form-label">Lớp</label>
+              <mat-select class="form-control" placeholder="Chọn lớp" formControlName="lop">
+                <mat-option value="10">Lớp 10</mat-option>
+                <mat-option value="11">Lớp 11</mat-option>
+                <mat-option value="12">Lớp 12</mat-option>
+              </mat-select>
+              <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('hocKy', firstFormGroup, 0)">
+                Thông tin chính xác
+              </div>
+              <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('hocKy', firstFormGroup, 1)">
+                Vui lòng chọn lớp
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <label class="form-label">Số lượng đề</label>
+              <input
+                type="number"
+                class="form-control form-control-lg text-right"
+                placeholder="Nhập giá trị mặc định"
+                formControlName="soLuongDe"
+                [class.is-invalid]="ValidateFormGroupEvent('soLuongDe', firstFormGroup, 1)"
+                [class.is-invalid]="ValidateFormGroupEvent('soLuongDe', firstFormGroup, 1, 'min')"
+                [class.is-valid]="ValidateFormGroupEvent('soLuongDe', firstFormGroup, 0)"
+              />
+              <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('soLuongDe', firstFormGroup, 0)">
+                Thông tin chính xác
+              </div>
+              <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('soLuongDe', firstFormGroup, 1)">
+                Vui lòng nhập số lượng đề
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <label class="form-label">Thời gian làm bài (đơn vị: phút)</label>
+              <input
+                type="number"
+                class="form-control form-control-lg text-right"
+                placeholder="Nhập thời gian làm bài"
+                formControlName="thoiGianLamBai"
+                [class.is-invalid]="ValidateFormGroupEvent('thoiGianLamBai', firstFormGroup, 1)"
+                [class.is-invalid]="ValidateFormGroupEvent('thoiGianLamBai', firstFormGroup, 1, 'min')"
+                [class.is-valid]="ValidateFormGroupEvent('thoiGianLamBai', firstFormGroup, 0)"
+              />
+              <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('thoiGianLamBai', firstFormGroup, 0)">
+                Thông tin chính xác
+              </div>
+              <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('thoiGianLamBai', firstFormGroup, 1)">
+                Vui lòng nhập nhập thời lượng làm bài kiểm tra
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <label class="form-label">Học kỳ</label>
+              <mat-select
+                class="form-control form-control-lg"
+                placeholder="Chọn học kỳ"
+                formControlName="hocKy"
+                (selectionChange)="locDanhSachBaiHoc($event)"
+              >
+                <mat-option value="1">Học kỳ I</mat-option>
+                <mat-option value="2">Học kỳ II</mat-option>
+                <mat-option value="3">Cả hai</mat-option>
+              </mat-select>
+              <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('hocKy', firstFormGroup, 0)">
+                Thông tin chính xác
+              </div>
+              <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('hocKy', firstFormGroup, 1)">
+                Vui lòng chọn học kỳ
+              </div>
+            </div>
+          </div>
+        </form>
+        <div>
+          <button mat-button matStepperNext [disabled]="firstFormGroup.invalid">Tiếp theo</button>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" [editable]="true">
+        <ng-template matStepLabel>Thông tin chi tiết</ng-template>
+        <form action="#" class="form form-label-right" [formGroup]="secondFormGroup">
+          <div class="form-group row">
+            <div class="col-lg-3">
+              <label class="form-label">Số lượng câu dễ</label>
+              <input
+                type="number"
+                class="form-control form-control-lg text-right"
+                placeholder="Nhập số lượng câu dễ"
+                formControlName="cauDe"
+                [class.is-invalid]="ValidateFormGroupEvent('cauDe', secondFormGroup, 1)"
+                [class.is-invalid]="ValidateFormGroupEvent('cauDe', secondFormGroup, 1, 'min')"
+                [class.is-valid]="ValidateFormGroupEvent('cauDe', secondFormGroup, 0)"
+              />
+              <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('cauDe', secondFormGroup, 0)">
+                Thông tin chính xác
+              </div>
+              <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('cauDe', secondFormGroup, 1)">
+                Vui lòng nhập số lượng câu dễ
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <label class="form-label">Số lượng câu trung bình</label>
+              <input
+                type="number"
+                class="form-control form-control-lg text-right"
+                placeholder="Nhập số lượng câu dễ"
+                formControlName="cauTrungBinh"
+                [class.is-invalid]="ValidateFormGroupEvent('cauTrungBinh', secondFormGroup, 1)"
+                [class.is-invalid]="ValidateFormGroupEvent('cauTrungBinh', secondFormGroup, 1, 'min')"
+                [class.is-valid]="ValidateFormGroupEvent('cauTrungBinh', secondFormGroup, 0)"
+              />
+              <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('cauTrungBinh', secondFormGroup, 0)">
+                Thông tin chính xác
+              </div>
+              <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('cauTrungBinh', secondFormGroup, 1)">
+                Vui lòng nhập số lượng câu trung bình
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <label class="form-label">Số lượng câu khó</label>
+              <input
+                type="number"
+                class="form-control form-control-lg text-right"
+                placeholder="Nhập số lượng câu dễ"
+                formControlName="cauKho"
+                [class.is-invalid]="ValidateFormGroupEvent('cauKho', secondFormGroup, 1)"
+                [class.is-invalid]="ValidateFormGroupEvent('cauKho', secondFormGroup, 1, 'min')"
+                [class.is-valid]="ValidateFormGroupEvent('cauKho', secondFormGroup, 0)"
+              />
+              <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('cauKho', secondFormGroup, 0)">
+                Thông tin chính xác
+              </div>
+              <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('cauKho', secondFormGroup, 1)">
+                Vui lòng nhập số lượng câu khó
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <label class="form-label">Số lượng tổng</label>
+              <input
+                type="number"
+                class="form-control form-control-lg text-right"
+                placeholder="Nhập số lượng câu dễ"
+                [value]="getSum()"
+                readonly
+              />
+            </div>
+          </div>
+          <div>
+            <button mat-button matStepperPrevious>Quay về</button>
+            <button mat-button matStepperNext>Tiếp theo</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [editable]="true">
+        <ng-template matStepLabel>Chọn chi tiết bài học</ng-template>
+        <ng-container>
+          <div class="form-group row">
+            <div class="col-lg-6">
+              <table class="table">
+                <thead>
+                  <tr class="text-light bg-primary">
+                    <th>Danh sách bài học có câu hỏi trong bài kiểm tra</th>
+                    <td></td>
+                  </tr>
+                </thead>
+                <tbody *ngIf="this.listBaiHoc.length != 0">
+                  <tr *ngFor="let item of this.listBaiHoc">
+                    <td>Bài {{ item.SoThuTu }}: {{ item.TenBaiHoc }}</td>
+                    <td>
+                      <a
+                        matTooltip="Xóa"
+                        matTooltipPosition="after"
+                        class="btn btn-icon btn-light btn-hover-danger btn-sm"
+                        (click)="deleteItem(item.Id)"
+                      >
+                        <span
+                          [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'"
+                          cacheSVG="true"
+                          class="svg-icon svg-icon-md svg-icon-danger"
+                        >
+                        </span>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot *ngIf="this.listBaiHoc.length == 0">
+                  <tr>
+                    <td colspan="2" class="text-center">Không có dữ liệu</td>
+                  </tr>
+                </tfoot>
+              </table>
+              <!-- <ul class="list-group">
+                <li class="list-group-item active">Danh sách bài học có câu hỏi trong bài kiểm tra</li>
+                <div *ngFor="let item of this.listBaiHoc">
+                  <li class="list-group-item">Bài {{ item.SoThuTu }}: {{ item.TenBaiHoc }}</li>
+                </div>
+              </ul> -->
+            </div>
+            <div class="col-lg-6">
+              <table class="table">
+                <thead>
+                  <tr class="text-light bg-danger">
+                    <th>Danh sách được loại trừ</th>
+                    <td></td>
+                  </tr>
+                </thead>
+                <tbody *ngIf="this.listBaiHocDeleted.length != 0">
+                  <tr *ngFor="let item of this.listBaiHocDeleted">
+                    <td>Bài {{ item.SoThuTu }}: {{ item.TenBaiHoc }}</td>
+                    <td>
+                      <a
+                        matTooltip="Khôi phục"
+                        matTooltipPosition="after"
+                        class="btn btn-icon btn-light btn-hover-primary btn-sm"
+                        (click)="restore(item)"
+                      >
+                        <span
+                          [inlineSVG]="'./assets/media/svg/icons/General/Update.svg'"
+                          cacheSVG="true"
+                          class="svg-icon svg-icon-md svg-icon-primary"
+                        >
+                        </span>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot *ngIf="this.listBaiHocDeleted.length == 0">
+                  <tr>
+                    <td colspan="2" class="text-center">Không có dữ liệu</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </ng-container>
+        <button mat-button (click)="create()">Gửi</button>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+  <!-- End Body -->
+</div>

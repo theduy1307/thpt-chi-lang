@@ -1,0 +1,160 @@
+<div class="modal-consupplyNamet">
+  <!-- Header Modal -->
+  <div class="modal-header">
+    <div class="modal-title h4" id="example-modal-sizes-title-lg">
+      <ng-container *ngIf="data">
+        Thêm mới loại hợp đồng
+        <ng-container *ngIf="data.Id">'{{ data.Id }}'</ng-container>
+      </ng-container>
+    </div>
+    <div class="modal-action">
+      <button
+        type="button"
+        class="btn btn-light btn-elevate mr-2"
+        (click)="modal.dismiss()"
+      >
+        Trở về
+      </button>
+      <div class="btn-group mr-3">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="create()"
+          [disabled]="formGroup.invalid"
+        >
+          Lưu
+        </button>
+        <div
+          class="btn-group"
+          ngbDropdown
+          role="group"
+          aria-label="Button group with nested dropdown"
+        >
+          <button
+            class="btn btn-primary dropdown-toggle-split"
+            ngbDropdownToggle
+            [disabled]="formGroup.invalid"
+          >
+            <i class="ki ki-arrow-down icon-sm"></i>
+          </button>
+          <div class="dropdown-menu" ngbDropdownMenu>
+            <button ngbDropdownItem (click)="SendAndCreate()">
+              Lưu & thêm mới
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Header -->
+
+  <!-- Body -->
+  <div
+    class="overlay overlay-block cursor-default modal-body"
+    style="min-height: 404px"
+  >
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="data">
+      <form action="#" class="form form-label-right" [formGroup]="formGroup">
+        <div class="form-group row">
+          <div class="col-lg-6">
+            <label class="form-label">Nhóm hợp đồng</label>
+            <mat-select
+              placeholder="Chọn nhóm hợp đồng"
+              class="form-control form-control-lg"
+              formControlName="NhomHopDong"
+              [class.is-invalid]="
+                ValidateFormGroupEvent('NhomHopDong', formGroup, 1)
+              "
+              [class.is-valid]="
+                ValidateFormGroupEvent('NhomHopDong', formGroup, 0)
+              "
+            >
+              <mat-option value="1"> Hợp đồng mua </mat-option>
+              <mat-option value="2"> Hợp đồng bán </mat-option>
+            </mat-select>
+            <div
+              class="valid-feedback"
+              *ngIf="ValidateFormGroupEvent('NhomHopDong', formGroup, 0)"
+            >
+              Thông tin chính xác
+            </div>
+            <div
+              class="invalid-feedback"
+              *ngIf="ValidateFormGroupEvent('NhomHopDong', formGroup, 1)"
+            >
+              Vui lòng chọn nhóm hợp đồng
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <label class="form-label">Tên loại</label>
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              placeholder="Tên loại"
+              formControlName="TenLoai"
+              [class.is-invalid]="
+                ValidateFormGroupEvent('TenLoai', formGroup, 1)
+              "
+              [class.is-valid]="ValidateFormGroupEvent('TenLoai', formGroup, 0)"
+            />
+            <div
+              class="valid-feedback"
+              *ngIf="ValidateFormGroupEvent('TenLoai', formGroup, 0)"
+            >
+              Thông tin chính xác
+            </div>
+            <div
+              class="invalid-feedback"
+              *ngIf="ValidateFormGroupEvent('TenLoai', formGroup, 1)"
+            >
+              Vui lòng Tên loại
+            </div>
+          </div>
+        </div>
+        <div class = "form-group row" *ngIf = "this.formGroup.controls.NhomHopDong.value == 1">
+          <div class = "col-lg-3">
+            <input type="radio" formControlName="ThemChiTiet" value = true checked>
+            <label class="form-label">Thêm chi tiết hàng</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-12">
+            <label class="form-label">Mô tả</label>
+            <ckeditor
+              rows="12"
+              [editor]="Editor"
+              formControlName="MoTa"
+              [class.is-invalid]="ValidateFormGroupEvent('MoTa', formGroup, 1)"
+              [class.is-valid]="ValidateFormGroupEvent('MoTa', formGroup, 0)"
+            >
+            </ckeditor>
+            <div
+              class="valid-feedback"
+              *ngIf="ValidateFormGroupEvent('MoTa', formGroup, 0)"
+            >
+              Thông tin chính xác
+            </div>
+            <div
+              class="invalid-feedback"
+              *ngIf="ValidateFormGroupEvent('MoTa', formGroup, 1)"
+            >
+              Vui lòng chọn mô tả
+            </div>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+  </div>
+  <!-- End Body -->
+
+  <!-- Footer -->
+
+  <!-- End Footer -->
+</div>

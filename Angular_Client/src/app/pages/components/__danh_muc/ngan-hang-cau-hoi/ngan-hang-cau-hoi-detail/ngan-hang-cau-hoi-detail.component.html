@@ -1,0 +1,105 @@
+<div class="modal-consupplyNamet">
+  <!-- Header Modal -->
+  <div class="modal-header">
+    <div class="modal-title h1" id="example-modal-sizes-title-lg">
+      <ng-container *ngIf="data"> Chi tiết câu hỏi </ng-container>
+    </div>
+  </div>
+  <!-- End Header -->
+
+  <!-- Body -->
+  <div class="overlay overlay-block cursor-default modal-body">
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="data">
+      <form action="#" class="form form-label-right" [formGroup]="formGroup">
+        <div class="form-group-row">
+          <p class="font-weight-bold text-uppercase" [innerHTML]="this.data.TenChuong"></p>
+          <p class="font-weight-bold" [innerHTML]="this.data.TenBaiHoc"></p>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-12">
+            <p [innerHTML]="this.data.Title"></p>
+            <p
+              *ngIf="!this.isShort"
+              [class.text-danger]="this.data.CorrectOption == 1"
+              [class.font-weight-bold]="this.data.CorrectOption == 1"
+              [innerHTML]="'Câu A: ' + this.data.OptionA"
+            ></p>
+            <p
+              *ngIf="!this.isShort"
+              [class.text-danger]="this.data.CorrectOption == 2"
+              [class.font-weight-bold]="this.data.CorrectOption == 2"
+              [innerHTML]="'Câu B: ' + this.data.OptionB"
+            ></p>
+            <p
+              *ngIf="!this.isShort"
+              [class.text-danger]="this.data.CorrectOption == 3"
+              [class.font-weight-bold]="this.data.CorrectOption == 3"
+              [innerHTML]="'Câu C: ' + this.data.OptionC"
+            ></p>
+            <p
+              *ngIf="!this.isShort"
+              [class.text-danger]="this.data.CorrectOption == 4"
+              [class.font-weight-bold]="this.data.CorrectOption == 4"
+              [innerHTML]="'Câu D: ' + this.data.OptionD"
+            ></p>
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="this.isShort">
+          <div class="col-lg-6">
+            <p
+              [class.text-danger]="this.data.CorrectOption == 1"
+              [class.font-weight-bold]="this.data.CorrectOption == 1"
+              [innerHTML]="'Câu A: ' + this.data.OptionA"
+            ></p>
+            <p
+              [class.text-danger]="this.data.CorrectOption == 3"
+              [class.font-weight-bold]="this.data.CorrectOption == 3"
+              [innerHTML]="'Câu C: ' + this.data.OptionC"
+            ></p>
+          </div>
+          <div class="col-lg-6">
+            <p
+              [class.text-danger]="this.data.CorrectOption == 2"
+              [class.font-weight-bold]="this.data.CorrectOption == 2"
+              [innerHTML]="'Câu B: ' + this.data.OptionB"
+            ></p>
+            <p
+              [class.text-danger]="this.data.CorrectOption == 4"
+              [class.font-weight-bold]="this.data.CorrectOption == 4"
+              [innerHTML]="'Câu D: ' + this.data.OptionD"
+            ></p>
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="!this.isShort">
+          <div class="col-lg-6">
+            <p
+              [class.text-danger]="this.data.CorrectOption == 4"
+              [class.font-weight-bold]="this.data.CorrectOption == 4"
+              [innerHTML]="'Người tạo: ' + this.data.TenNguoiTao"
+            ></p>
+          </div>
+          <div class="col-lg-6">
+            <p
+              [class.text-danger]="this.data.CorrectOption == 4"
+              [class.font-weight-bold]="this.data.CorrectOption == 4"
+              [innerHTML]="'Khối: ' + this.data.Class"
+            ></p>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+  </div>
+  <!-- End Body -->
+
+  <!-- Footer -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss()">Trở về</button>
+  </div>
+  <!-- End Footer -->
+</div>

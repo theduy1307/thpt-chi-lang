@@ -1,0 +1,299 @@
+<div class="card card-custom gutter-b">
+  <!-- Header Modal -->
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">Chỉnh sửa Hợp đồng mẫu</h3>
+    </div>
+    <div class="card-toolbar">
+      <button type="button" class="btn btn-light btn-elevate mr-2" routerLink="/hop-dong/danh-muc/hop-dong-mau">Trở lại</button>
+        <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid" (click)="update()">Lưu</button>
+    </div>
+  </div>
+  <!-- End Header -->
+
+  <!-- Body -->
+  <div class="card-body">
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+    <ng-container>
+      <form action="#" class="form form-label-right" [formGroup]="formGroup">
+        <div class="form-group row">
+          <div class="col-lg-6">
+            <label class="form-label">Nhóm hợp đồng</label>
+            <mat-select
+              placeholder="Chọn nhóm hợp đồng"
+              class="form-control form-control-lg"
+              formControlName="nhomHopDong"
+              (selectionChange)="setValueRule($event)"
+              [class.is-invalid]="ValidateFormGroupEvent('nhomHopDong', formGroup, 1)"
+              [class.is-valid]="ValidateFormGroupEvent('nhomHopDong', formGroup, 0)"
+            >
+              <mat-option value="1"> Hợp đồng mua </mat-option>
+              <mat-option value="2"> Hợp đồng bán </mat-option>
+            </mat-select>
+            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('nhomHopDong', formGroup, 0)">
+              Thông tin chính xác
+            </div>
+            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('nhomHopDong', formGroup, 1)">
+              Vui lòng chọn nhóm hợp đồng
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <label class="form-label">Trạng thái</label>
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-solid"
+              [value]="
+                this.formGroup.controls.trangThai.value == 1
+                  ? 'Chưa áp dụng'
+                  : this.formGroup.controls.trangThai.value == 2
+                  ? 'Đang áp dụng'
+                  : this.formGroup.controls.trangThai.value == 3
+                  ? 'Đã hết hiệu lực'
+                  : 'Không xác định'
+              "
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-6">
+            <label class="form-label">Tên hợp đồng</label>
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              formControlName="tenHopDong"
+              [class.is-invalid]="ValidateFormGroupEvent('tenHopDong', formGroup, 1)"
+              [class.is-valid]="ValidateFormGroupEvent('tenHopDong', formGroup, 0)"
+            />
+            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('tenHopDong', formGroup, 0)">
+              Thông tin chính xác
+            </div>
+            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('tenHopDong', formGroup, 1)">
+              Vui lòng nhập tên hợp đồng
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <label class="form-label">Loại hợp đồng</label>
+            <mat-select
+              disableOptionCentering
+              [placeholder]="getNameLoaiHopDong()"
+              #focusThietBi
+              formControlName="idLoaiHopDong"
+              (selectionChange)="setValueLoaiHopDong($event)"
+              class="form-control form-control-lg"
+            >
+              <mat-select-trigger>
+                {{ getNameLoaiHopDong() }}
+              </mat-select-trigger>
+              <mat-option>
+                <ngx-mat-select-search
+                  [placeholderLabel]="listLoaiHopDong.length > 0 ? 'Tìm kiếm...' : 'Không tìm thấy dữ liệu'"
+                  [noEntriesFoundLabel]="'Không tìm thấy kết quả phù hợp'"
+                  [(ngModel)]="listLoaiHopDongFilterCtrl"
+                  [ngModelOptions]="{ standalone: true }"
+                  (ngModelChange)="filterListLoaiHopDong()"
+                >
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let item of filteredListLoaiHopDong | async" value="{{ item.Id }}">
+                {{ item.TenLoai }}
+              </mat-option>
+            </mat-select>
+            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('loaiHopDong', formGroup, 0)">
+              Thông tin chính xác
+            </div>
+            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('loaiHopDong', formGroup, 1)">
+              Vui lòng chọn loại hợp đồng
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-6">
+            <label>Ngày hiệu lực</label>
+            <div class="input-group">
+              <input
+                type="text"
+                name="dob"
+                class="form-control form-control-lg"
+                autocomplete="off"
+                (click)="d.toggle()"
+                placeholder="dd/mm/yyyy"
+                ngbDatepicker
+                #d="ngbDatepicker"
+                [class.is-invalid]="ValidateFormGroupEvent('ngayHieuLuc', formGroup, 1)"
+                [class.is-valid]="ValidateFormGroupEvent('ngayHieuLuc', formGroup, 0)"
+                formControlName="ngayHieuLuc"
+                readonly="true"
+              />
+              <div class="input-group-append" (click)="d.toggle()">
+                <span class="input-group-text">
+                  <i class="text-dark-50 flaticon-calendar"></i>
+                </span>
+              </div>
+            </div>
+            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('ngayHieuLuc', formGroup, 0)">
+              Thông tin chính xác
+            </div>
+            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('ngayHieuLuc', formGroup, 1)">
+              Vui lòng nhập ngày hiêu lực
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <label>Ngày hết hiệu lực</label>
+            <div class="input-group">
+              <input
+                type="text"
+                name="dob"
+                class="form-control form-control-lg"
+                autocomplete="off"
+                placeholder="dd/mm/yyyy"
+                ngbDatepicker
+                #dc="ngbDatepicker"
+                (click)="dc.toggle()"
+                [class.is-invalid]="ValidateFormGroupEvent('ngayHetHieuLuc', formGroup, 1)"
+                [class.is-valid]="ValidateFormGroupEvent('ngayHetHieuLuc', formGroup, 0)"
+                formControlName="ngayHetHieuLuc"
+                readonly="true"
+              />
+              <div class="input-group-append" (click)="dc.toggle()">
+                <span class="input-group-text">
+                  <i class="text-dark-50 flaticon-calendar"></i>
+                </span>
+              </div>
+            </div>
+            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('ngayHetHieuLuc', formGroup, 0)">
+              Thông tin chính xác
+            </div>
+            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('ngayHetHieuLuc', formGroup, 1)">
+              Vui lòng nhập ngày hết hiêu lực
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-12">
+              <!-- <input type="file"
+                  #fileUpload
+                  name="fileUpload"
+                  id="upload-file"
+                  (change)="FileSelected($event)"
+                  hidden>
+              <input
+                type="text"
+                [value]="this.fileToUpLoadName"
+                style="cursor: pointer;"
+                formControlName="uploadFileName"
+                class="form-control form-control-lg"
+                (click)="selectFile()"
+                readonly="true"
+              /> -->
+              <mat-form-field floatLabel="always" class="mat-form-field-fluid">
+                <mat-label>File đính kèm</mat-label>
+                <input
+                  style="cursor: pointer"
+                  readonly
+                  (click)="selectFile()"
+                  matInput
+                  placeholder="[Chọn file tiêu chuẩn NPL đính kèm]"
+                  formControlName="uploadFileName"
+                  type="text"
+                />
+              </mat-form-field>
+              <input #fileUpload type="file" name="fileUpload" (change)="FileSelected($event)" style="display: none">
+              <!-- <input #fileUpload type="file" name="fileUpload" (change)="FileSelected($event)" style="display: none" />
+              <div
+                class="input-group-append"
+                for="file-upload"
+                onClick="document.querySelector('#upload-file').click()"
+              >
+                <span class="input-group-text">
+                  <i class="text-dark-50 flaticon-attachment"></i> &nbsp; Chọn file
+                </span>
+              </div> -->
+          </div>
+        </div>
+      </form>
+      <ng-container>
+        <form action="#" class="form form-label-right" [formGroup]="formGroup">
+          <div class="form-group row">
+            <div class="col-lg-12">
+              <label>Thông tin hợp đồng</label>
+              <!-- Data table -->
+              <div class="table-responsive angular-bootstrap-table">
+                <table class="table table-head-custom table-vertical-center overflow-hidden">
+                  <thead>
+                    <th>STT</th>
+                    <th>Tên từ khóa</th>
+                    <th>Từ khóa thay thế</th>
+                    <th>Nội dung</th>
+                    <th>Thao tác</th>
+                  </thead>
+                  <tbody
+                    formArrayName="thongTinHopDong"
+                    *ngFor="let item of formGroup.get('thongTinHopDong')['controls']; let i = index"
+                  >
+                    <tr [formGroupName]="i">
+                      <td>{{ i + 1 }}</td>
+                      <td>
+                        <input type="text" class="form-control form-control-lg" formControlName="tenTuKhoa" /><br />
+                      </td>
+                      <td>
+                        <input type="text" class="form-control form-control-lg" formControlName="tuKhoaThayThe" /><br />
+                      </td>
+                      <td>
+                        <input type="text" class="form-control form-control-lg" formControlName="noiDung" /><br />
+                      </td>
+                      <td class="text-center">
+                        <a
+                          matTooltip="Xóa"
+                          matTooltipPosition="after"
+                          class="btn btn-icon btn-light btn-hover-danger btn-sm"
+                          (click)="deleteItem(i)"
+                        >
+                          <span
+                            [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'"
+                            cacheSVG="true"
+                            class="svg-icon svg-icon-md svg-icon-danger"
+                          >
+                          </span>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td class="text-center">
+                        <a
+                          matTooltip="Thêm"
+                          matTooltipPosition="after"
+                          class="btn btn-icon btn-success font-weight-bold "
+                          (click)="addItem()"
+                        >
+                          <i class="ki ki-plus icon-md"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+                <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('thongTinHopDong', formGroup, 0)">
+                  Thông tin chính xác
+                </div>
+                <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('thongTinHopDong', formGroup, 1)">
+                  Vui lòng nhập ngày hết hiêu lực
+                </div>
+              </div>
+              <!-- End Data Table -->
+            </div>
+          </div>
+        </form>
+      </ng-container>
+    </ng-container>
+  </div>
+  <!-- End Body -->
+</div>

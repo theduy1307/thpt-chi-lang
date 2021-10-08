@@ -1,0 +1,77 @@
+<div class="modal-consupplyNamet">
+  <!-- Header Modal -->
+  <div class="modal-header">
+    <div class="modal-title h4" id="example-modal-sizes-title-lg">
+      <ng-container>Chỉnh sửa hạn mục chiết khấu</ng-container>
+    </div>
+    <div class="model-action">
+      <button type="button" class="btn btn-light btn-elevate mr-2" (click)="close()">Trở về</button>
+      <button type="submit" class="btn btn-prisupplyCodery btn-primary" (click)="edit()" [disabled]="formGroup.invalid">Lưu</button>
+    </div>
+  </div>
+  <!-- End Header -->
+
+  <!-- Body -->
+  <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px">
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+    <ng-container>
+      <form action="#" class="form form-label-right" [formGroup]="formGroup">
+        <div class="form-group row">
+          <div class="col-lg-6">
+            <label class="form-label">Tên hạn mục</label>
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              placeholder="Nhập tên hạn mục"
+              formControlName="tenHanMuc"
+              [class.is-invalid]="ValidateFormGroupEvent('tenHanMuc', formGroup, 1)"
+              [class.is-valid]="ValidateFormGroupEvent('tenHanMuc', formGroup, 0)"
+            />
+            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('tenHanMuc', formGroup, 0)">Thông tin chính xác</div>
+            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('tenHanMuc', formGroup, 1)">
+              Vui lòng nhập tên hạn mục
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <label class="form-label">Giá trị mặc định</label>
+            <input
+              type="text"
+              class="form-control form-control-lg text-right"
+              placeholder="Nhập giá trị mặc định"
+              formControlName="giaTriMacDinh"
+              [class.is-invalid]="ValidateFormGroupEvent('giaTriMacDinh', formGroup, 1)"
+              [class.is-valid]="ValidateFormGroupEvent('giaTriMacDinh', formGroup, 0)"
+              (keydown)="keyUpInputNumber($event)"
+              (change)="$event ? changeValueOfFormGroup('giaTriMacDinh', $event) : null"
+            />
+            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('giaTriMacDinh', formGroup, 0)">Thông tin chính xác</div>
+            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('giaTriMacDinh', formGroup, 1)">
+              Vui lòng nhập giá trị mặc định
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-12">
+            <label class="form-label">Mô tả hạn mục</label>
+            <ckeditor
+              rows="12"
+              [editor]="Editor"
+              formControlName="moTa"
+              [class.is-invalid]="ValidateFormGroupEvent('moTa', formGroup, 1)"
+              [class.is-valid]="ValidateFormGroupEvent('moTa', formGroup, 0)"
+            ></ckeditor>
+            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('moTa', formGroup, 0)">Thông tin chính xác</div>
+            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('moTa', formGroup, 1)">
+              Vui lòng nhập nội dung mô tả
+            </div>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+  </div>
+  <!-- End Body -->
+</div>

@@ -1,0 +1,450 @@
+<div class="card card-custom gutter-b">
+  <div class="card-body">
+    <!DOCTYPE html>
+    <html lang="vi">
+      <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>BÀI KIỂM TRA</title>
+      </head>
+      <body>
+        <div *ngFor="let item of data.DanhSachBaiKiemTra">
+          <table class="title">
+            <tr>
+              <td>
+                SỞ GD-ĐT AN GIANG <br />
+                <strong>TRƯỜNG THPT CHI LĂNG</strong>
+              </td>
+              <td>
+                <strong style="text-transform: uppercase"
+                  >ĐỀ KIỂM TRA {{ data.TenBaiKiemTra }}, NĂM HỌC {{ data.NamHoc }}</strong
+                >
+                <br />
+                <p style="text-transform: uppercase">MÔN {{ data.MonHoc }} - KHỐI {{ data.Lop }}<br /></p>
+                <i>Thời gian làm bài: {{ data.ThoiGianLamBai }} phút, không kể thời gian phát đề</i>
+                <hr style="margin: auto" width="50%" />
+              </td>
+            </tr>
+          </table>
+          <table class="info">
+            <tr>
+              <td class="info__student">
+                Họ và tên: ................................................. <br />
+                Lớp: ..........................................................
+              </td>
+              <td class="info__code">
+                <div class="info__frame">
+                  <strong>Mã đề thi: @item.MaDe</strong>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <table class="quiz-table">
+            <tr>
+              <td>#</td>
+              <td>A</td>
+              <td>B</td>
+              <td>C</td>
+              <td>D</td>
+              <td>#</td>
+              <td>A</td>
+              <td>B</td>
+              <td>C</td>
+              <td>D</td>
+              <td>#</td>
+              <td>A</td>
+              <td>B</td>
+              <td>C</td>
+              <td>D</td>
+              <td>#</td>
+              <td>A</td>
+              <td>B</td>
+              <td>C</td>
+              <td>D</td>
+              <td>#</td>
+              <td>A</td>
+              <td>B</td>
+              <td>C</td>
+              <td>D</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>11</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>21</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>31</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>41</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>12</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>22</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>32</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>42</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>13</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>23</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>33</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>43</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>14</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>24</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>34</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>44</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>14</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>24</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>34</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>44</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>15</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>25</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>35</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>45</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>16</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>26</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>36</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>46</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>17</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>27</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>37</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>47</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>18</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>28</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>38</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>48</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>19</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>29</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>39</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>49</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>20</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>30</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>40</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td>50</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+              <td class="dot">&#9675;</td>
+            </tr>
+          </table>
+          <table class="question" *ngFor="let cauHoi of item.DanhSachCauHoi; let i = index">
+            <tbody>
+              <tr>
+                <td colspan="4">
+                  <p>
+                    <strong>Câu {{ i + 1 }}: </strong>
+                  </p>
+                  <p [innerHTML]="cauHoi.TieuDe"></p>
+                </td>
+              </tr>
+              <tr
+                *ngIf="
+                  cauHoi.CauA.length < 5 && cauHoi.CauB.length < 5 && cauHoi.CauC.length < 5 && cauHoi.CauD.length < 5
+                "
+              >
+                <td>
+                  <strong>A. </strong>
+                  {{ cauHoi.CauA }}
+                </td>
+                <td>
+                  <strong>B. </strong>
+                  {{ cauHoi.CauB }}
+                </td>
+                <td>
+                  <strong>C. </strong>
+                  {{ cauHoi.CauC }}
+                </td>
+                <td>
+                  <strong>D. </strong>
+                  {{ cauHoi.CauD }}
+                </td>
+              </tr>
+              <tr
+                *ngIf="
+                  cauHoi.CauA.length >= 5 &&
+                  cauHoi.CauB.length >= 5 &&
+                  cauHoi.CauC.length >= 5 &&
+                  cauHoi.CauD.length >= 5
+                "
+              >
+                <td colspan="4">
+                  <strong>A. </strong>
+                  {{ cauHoi.CauA }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4">
+                  <strong>B. </strong>
+                  {{ cauHoi.CauB }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4">
+                  <strong>C. </strong>
+                  {{ cauHoi.CauC }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4">
+                  <strong>D. </strong>
+                  {{ cauHoi.CauD }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="page-break-after: always"></div>
+        <h1>BẢNG ĐÁP ÁN</h1>
+        <table class="answer">
+          <tr>
+            <th>Câu hỏi</th>
+            <th>Đáp án</th>
+          </tr>
+          <tr>
+            <td>1.</td>
+            <td>D</td>
+          </tr>
+        </table>
+      </body>
+    </html>
+  </div>
+</div>
