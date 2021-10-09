@@ -22,7 +22,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
     /* -----------------CONTROLLER CHO HẠN MỨC CHIẾT KHẤU----------------
    * 
    * MENU:
-   *  Hợp đồng > Danh mục > Hạn mức chiết khấu
+   *  Hợp đồng > Danh mục > Bài kiểm tra
    * 
    * DATABASE: nfc_dbdev
    * 
