@@ -19,7 +19,7 @@ using System.Text.RegularExpressions;
 
 namespace APICore_SoanDeThi.Controllers.QuanTri
 {
-    /* -----------------CONTROLLER CHO HẠN MỨC CHIẾT KHẤU----------------
+    /* -----------------CONTROLLER CHO BÀI KIỂM TRA----------------
    * 
    * MENU:
    *  Hợp đồng > Danh mục > Bài kiểm tra
