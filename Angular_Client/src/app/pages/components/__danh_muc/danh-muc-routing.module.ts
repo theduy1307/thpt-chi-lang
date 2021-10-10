@@ -87,7 +87,7 @@ const routes: Routes = [
         path: "danh-sach-bai-kiem-tra-cau-hinh/them-moi-cau-hinh",
         component: BaiKiemTraCauHinhAddComponent,
       },
-      // thêm mới bài kiểm tra cấu hình
+      // chỉnh sửa bài kiểm tra cấu hình
       {
         path: "danh-sach-bai-kiem-tra-cau-hinh/chinh-sua-cau-hinh/:id",
         component: BaiKiemTraCauHinhEditComponent,

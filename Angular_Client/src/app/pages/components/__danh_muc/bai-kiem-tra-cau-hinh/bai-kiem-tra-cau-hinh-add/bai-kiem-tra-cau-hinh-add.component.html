@@ -9,13 +9,13 @@
         Trở lại
       </button>
       <div class="btn-group mr-3">
-        <button type="submit" class="btn btn-primary" (click)="create()">Lưu</button>
+        <button type="submit" class="btn btn-primary" (click)="create(false)">Lưu</button>
         <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
           <button class="btn btn-primary btn-elevate" ngbDropdownToggle>
             <i class="ki ki-arrow-down icon-sm"></i>
           </button>
           <div class="dropdown-menu mt-3" ngbDropdownMenu>
-            <button ngbDropdownItem>Lưu tạm</button>
+            <button ngbDropdownItem (click)="create(true)">Lưu tạm</button>
             <button ngbDropdownItem>Lưu và thêm mới</button>
           </div>
         </div>

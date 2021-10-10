@@ -60,7 +60,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         [Route("Question_List")]
         //[Authorize(Roles = "")]
         [HttpPost]
-        public BaseModel<object> Question_List([FromBody] ITableState _tableState)
+        public BaseModel<object> CauHoi_List([FromBody] ITableState _tableState)
         {
             //string Token = Utilities._GetHeader(Request);
             //UserLogin loginData = _account._GetInfoUser(Token);
@@ -256,7 +256,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         [Route("_Insert")]
         //[Authorize(Roles = "10012")]
         [HttpPost]
-        public BaseModel<object> HopDongMua_Insert([FromBody] IQuestion data)
+        public BaseModel<object> CauHoi_Insert([FromBody] IQuestion data)
         {
             //string Token = Utilities._GetHeader(Request);
             //UserLogin loginData = _account._GetInfoUser(Token);
@@ -287,6 +287,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 _item.CreateBy = data.CreateBy;
                 _item.ModifyBy = data.ModifyBy;
                 _item.IsDisabled = false;
+                _item.IsCustom = false;
                 
                 _context.Question.Add(_item);
                 _context.SaveChanges();
@@ -306,7 +307,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         [Route("_Detail")]
         //[Authorize(Roles = "10014")]
         [HttpGet]
-        public BaseModel<object> HopDongMua_Detail(long id)
+        public BaseModel<object> CauHoi_Detail(long id)
         {
             //string Token = Utilities._GetHeader(Request);
             //UserLogin loginData = _account._GetInfoUser(Token);
@@ -354,7 +355,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         [Route("_Update")]
         //[Authorize(Roles = "10013")]
         [HttpPost]
-        public BaseModel<object> HopDongMua_Update([FromBody] IQuestion data)
+        public BaseModel<object> CauHoi_Update([FromBody] IQuestion data)
         {
 
             //string Token = Utilities._GetHeader(Request);
@@ -397,7 +398,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         [Route("_Delete")]
         //[Authorize(Roles = "10014")]
         [HttpGet]
-        public BaseModel<object> HopDongMua_Delete(long id)
+        public BaseModel<object> CauHoi_Delete(long id)
         {
             //string Token = Utilities._GetHeader(Request);
             //UserLogin loginData = _account._GetInfoUser(Token);

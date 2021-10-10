@@ -55,7 +55,7 @@ export class BaiKiemTraCauHinhService extends TableService<IBaiKiemTraCauHinh_Gr
 
   find(tableState: ITableState): Observable<TableResponseModel<IBaiKiemTraCauHinh_Group>> {
     return this.http
-      .post<any>(API_ROOT_URL + "/BaiKiemTra_List", tableState, {
+      .post<any>(API_ROOT_URL + "/BaiKiemTraCauHinh_List", tableState, {
         headers: this._httpHeaders,
       })
       .pipe(

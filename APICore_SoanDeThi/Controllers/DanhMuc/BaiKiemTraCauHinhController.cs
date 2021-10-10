@@ -57,10 +57,10 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
 
         #region DANH SÁCH BÀI KIỂM TRA
-        [Route("BaiKiemTra_List")]
+        [Route("BaiKiemTraCauHinh_List")]
         //[Authorize(Roles = "")]
         [HttpPost]
-        public BaseModel<object> BaiKiemTra_List([FromBody] ITableState _tableState)
+        public BaseModel<object> BaiKiemTraCauHinh_List([FromBody] ITableState _tableState)
         {
             //string Token = Utilities._GetHeader(Request);
             //UserLogin loginData = _account._GetInfoUser(Token);
@@ -110,6 +110,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                       NamHoc = x.kiemtra.NamHoc.ToLower(),
                                                       Lop = x.kiemtra.Lop,
                                                       TenNguoiTao = x.nhanvien.HoTen,
+                                                      TrangThai = x.kiemtra.TrangThai
                                                   });
 
 
@@ -169,7 +170,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         [Route("_Insert")]
         //[Authorize(Roles = "10012")]
         [HttpPost]
-        public BaseModel<object> BaiKiemTra_Insert([FromBody] IBaiKiemTraCauHinh_Group data)
+        public BaseModel<object> BaiKiemTraCauHinh_Insert([FromBody] IBaiKiemTraCauHinh_Group data)
         {
             //string Token = Utilities._GetHeader(Request);
             //UserLogin loginData = _account._GetInfoUser(Token);
@@ -202,7 +203,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _item.NguoiTao = 1;
                 _item.NgayTao = DateTime.Now;
                 _item.IsDisabled = false;
-                _item.IsCustom = true;
+                _item.IsCustom = data.IsCustom;
 
                 _context.BaiKiemTra_Group.Add(_item);
                 _context.SaveChanges();

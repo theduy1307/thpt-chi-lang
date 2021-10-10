@@ -19,6 +19,7 @@ export interface IBaiKiemTraCauHinh_Group extends BaseModel {
   NguoiSua: number;
   NgaySua: string;
   TrangThai: number;
+  IsCustom: boolean;
   IsDisabled: boolean;
   DanhSachCauHoi: IQuestion[];
 }
@@ -43,5 +44,5 @@ export interface IQuestion {
   ModifyDate: string;
   ModifyBy: number;
   IsDisabled: boolean;
-  IsCustom: boolean;
+  IsCustom:boolean,
 }

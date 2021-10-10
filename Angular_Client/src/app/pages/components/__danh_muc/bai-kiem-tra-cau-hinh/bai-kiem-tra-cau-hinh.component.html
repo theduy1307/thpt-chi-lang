@@ -112,6 +112,15 @@
               (sort)="sort($event)"
             ></app-sort-icon>
           </th>
+          <th>
+            Trạng thái
+            <app-sort-icon
+              column="Status"
+              [activeColumn]="sorting.column"
+              [activeDirection]="sorting.direction"
+              (sort)="sort($event)"
+            ></app-sort-icon>
+          </th>
           <th>Thao tác</th>
         </thead>
         <tbody>
@@ -127,9 +136,19 @@
               </label>
             </td>
             <td>{{ i + 1 }}</td>
-            <td>{{ formatString(item.TenBaiKiemTra, item.NamHoc) }}</td>
+            <td>{{ item.TenBaiKiemTra}} ({{item.NamHoc}})</td>
             <td>{{ item.SoLuongDe }} đề</td>
             <td>{{ item.Lop }}</td>
+            <td>
+              <span
+                class="label label-lg label-inline"
+                [class.label-primary]="item.TrangThai === 1"
+                [class.label-success]="item.TrangThai === 2"
+              >
+                <ng-container *ngIf="item.TrangThai === 1">Đang soạn thảo</ng-container>
+                <ng-container *ngIf="item.TrangThai === 2">Đã hoàn tất</ng-container>
+              </span>
+            </td>
             <td>
               <a
                 matTooltip="Xem chi tiết"
@@ -144,7 +163,12 @@
                 >
                 </span>
               </a>
-              <a matTooltip="In bài kiểm tra" matTooltipPosition="after" [routerLink]="'./print/' + item.Id">
+              <a 
+                matTooltip="In bài kiểm tra" 
+                matTooltipPosition="after" 
+                [routerLink]="'./print/' + item.Id"
+                class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3"
+              >
                 <span
                   [inlineSVG]="'./assets/media/svg/icons/Devices/Printer.svg'"
                   cacheSVG="true"
@@ -153,6 +177,7 @@
                 </span>
               </a>
               <a
+                *ngIf="item.Level == 1"
                 matTooltip="Chỉnh sửa"
                 matTooltipPosition="after"
                 class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3"

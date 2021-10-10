@@ -76,6 +76,7 @@ export class BaiKiemTraCauHinhAddComponent implements OnInit, OnDestroy {
       NgaySua: "",
       TrangThai: undefined,
       IsDisabled: undefined,
+      IsCustom:undefined,
       DanhSachCauHoi: [],
     };
     return data;
@@ -245,7 +246,7 @@ export class BaiKiemTraCauHinhAddComponent implements OnInit, OnDestroy {
     });
     return danhSachCauHoi;
   }
-  prepareData(): IBaiKiemTraCauHinh_Group {
+  prepareData(isTemp:boolean): IBaiKiemTraCauHinh_Group {
     let result: IBaiKiemTraCauHinh_Group = {
       id: undefined,
       data: undefined,
@@ -267,14 +268,15 @@ export class BaiKiemTraCauHinhAddComponent implements OnInit, OnDestroy {
       NgayTao: moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
       NguoiSua: 1307,
       NgaySua: moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
-      TrangThai: 1,
+      TrangThai: isTemp ? 1 : 2,
       IsDisabled: false,
+      IsCustom:true,
       DanhSachCauHoi: this.createDanhSachCauHoi(),
     };
     return result;
   }
-  create(): void {
-    const data = this.prepareData();
+  create(isTemp:boolean): void {
+    const data = this.prepareData(isTemp);
     const sbCreate = this.services
       .create(data)
       .pipe(

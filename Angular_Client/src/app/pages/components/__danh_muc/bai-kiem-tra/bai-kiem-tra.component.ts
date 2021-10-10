@@ -220,12 +220,5 @@ export class BaiKiemTraComponent implements OnInit, OnDestroy, ISortView, IGroup
     }
     return false;
   }
-  formatString(tenBaiKiemTra:string, namHoc:string):string
-  {
-    let tenBai:string = ""
-    tenBaiKiemTra.charAt(0).toUpperCase().toString()
-    tenBai = `${tenBaiKiemTra}, Năm học ${namHoc}`
-    return tenBai
-  }
   /* -----------------------------------------------------------------------*/
 }

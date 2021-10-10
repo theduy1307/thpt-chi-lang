@@ -23,6 +23,7 @@ import { DeleteManyModalComponent } from "../../_common/_components/delete-many-
 import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.service";
 import { AuthService, UserModel } from "src/app/modules/auth";
 import { BaiKiemTraService } from "../bai-kiem-tra/bai-kiem-tra-service/bai-kiem-tra.service";
+import { BaiKiemTraCauHinhService } from "./bai-kiem-tra-cau-hinh-service/bai-kiem-tra-cau-hinh.service";
 
 export interface PeriodicElement {
   name: string;
@@ -70,7 +71,7 @@ export class BaiKiemTraCauHinhComponent implements OnInit, OnDestroy, ISortView,
     public userService: AuthService,
     private modalService: NgbModal,
     private layoutUtilsService: LayoutUtilsService,
-    public services: BaiKiemTraService
+    public services: BaiKiemTraCauHinhService
   ) {
     this.userService.currentUserSubject
       .asObservable()

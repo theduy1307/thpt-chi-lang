@@ -40,14 +40,14 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
    */
     [Route("api/BaiKiemTra")]
     [EnableCors("ExamPolicy")]
-    public class BaiKiemTraConTroller : ControllerBase
+    public class BaiKiemTraController : ControllerBase
     {
         private readonly IHostingEnvironment _hosting;
         private readonly SoanDeThi_DbContext _context;
         private LoginController _account;
         readonly IGeneratePdf _generatePdf;
 
-        public BaiKiemTraConTroller(IHostingEnvironment hostingEnvironment, IGeneratePdf generatePdf)
+        public BaiKiemTraController(IHostingEnvironment hostingEnvironment, IGeneratePdf generatePdf)
         {
             DbContextOptions<SoanDeThi_DbContext> options = new DbContextOptions<SoanDeThi_DbContext>();
             _hosting = hostingEnvironment;
@@ -102,12 +102,12 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                   .Select(x => new IBaiKiemTra_Group
                                                   {
                                                       Id = x.kiemtra.Id,
-                                                      TenBaiKiemTra = x.kiemtra.TenBaiKiemTra.ToLower(),
+                                                      TenBaiKiemTra = "KIỂM TRA " + x.kiemtra.TenBaiKiemTra.ToUpper(),
                                                       SoLuongDe = x.kiemtra.SoLuongDe,
                                                       CauDe = x.kiemtra.CauBiet,
                                                       CauTrungBinh = x.kiemtra.CauHieu,
                                                       CauKho = x.kiemtra.CauVanDungThap,
-                                                      NamHoc = x.kiemtra.NamHoc.ToLower(),
+                                                      NamHoc = x.kiemtra.NamHoc.ToUpper(),
                                                       Lop = x.kiemtra.Lop,
                                                       TenNguoiTao = x.nhanvien.HoTen,
                                                   });
@@ -200,7 +200,9 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _item.Lop = 12;
                 _item.NguoiTao = 1;
                 _item.NgayTao = DateTime.Now;
+                _item.TrangThai = data.TrangThai;
                 _item.IsDisabled = false;
+                _item.IsCustom = false;
 
                 _context.BaiKiemTra_Group.Add(_item);
                 _context.SaveChanges();
@@ -218,7 +220,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                                 .ToList();
 
                 //tạo đề thi theo số lượng đề
-                for(int i = 0; i< data.SoLuongDe; i++)
+                for (int i = 0; i< data.SoLuongDe; i++)
                 {
                     themMoiChiTietBaiKiemTra(data.Id, danhSachCauHoiDuocChon, data.CauDe, data.CauTrungBinh, data.CauKho, danhSachMaDeThi[i]);
                 }    
@@ -230,6 +232,37 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             catch (Exception ex)
             {
                 return Utilities._responseData(0, "Thêm mới thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
+        #region XÓA BÀI KIỂM TRA
+        [Route("BaiKiemTra_Delete")]
+        //[Authorize(Roles = "10014")]
+        [HttpGet]
+        public BaseModel<object> BaiKiemTra_Delete(long id)
+        {
+            //string Token = Utilities._GetHeader(Request);
+            //UserLogin loginData = _account._GetInfoUser(Token);
+
+            //if (loginData == null)
+            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                var _item = _context.BaiKiemTra_Group.Where(x => x.Id == id && !x.IsDisabled).FirstOrDefault();
+                if (_item == null)
+                    return Utilities._responseData(0, "Không tìm thấy dữ liệu cần xóa, vui lòng tải lại danh sách!!", null);
+
+                _item.IsDisabled = true;
+
+                _context.SaveChanges();
+
+                return Utilities._responseData(1, "", null);
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Xóa thất bại, vui lòng kiểm tra lại!", null);
             }
         }
         #endregion

@@ -121,7 +121,7 @@ export class BaiKiemTraService extends TableService<IBaiKiemTra_Group> implement
 
   delete(id: any): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/_Delete?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/BaiKiemTra_Delete?id=${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});
