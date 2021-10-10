@@ -12,11 +12,11 @@ Frontend: Angular 11 (Template by Metronic).
 Database: PostgreSQL.
 
 ## Yêu cầu cài đặt <a name="install-require"></a>
-[Visual Studio có môi trường .NET 5](https://visualstudio.microsoft.com/) - Đề xuất tải bản Community.
-[Node](https://nodejs.org/en/) - Đề xuất tải bản LTS.
-[Angular](https://angular.io/guide/setup-local) - Tải Node trước mới có thể cài đặt Angular.
-[PostgreSQL](https://www.postgresql.org/)
-Có thể sử dụng [Visual Studio Code](https://code.visualstudio.com/) hoặc editor khác tùy thích.
+- [Visual Studio](https://visualstudio.microsoft.com/) có môi trường .NET 5 - Đề xuất tải bản Community.
+- [Node](https://nodejs.org/en/) - Đề xuất tải bản LTS.
+- [Angular](https://angular.io/guide/setup-local) - Tải Node trước mới có thể cài đặt Angular.
+- [PostgreSQL](https://www.postgresql.org/)
+- Có thể sử dụng [Visual Studio Code](https://code.visualstudio.com/) hoặc editor khác tùy thích.
 
 
 ## Thiết lập trước khi chạy chương trình <a name="pre-setup"></a>
