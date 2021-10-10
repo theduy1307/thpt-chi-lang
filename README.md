@@ -7,9 +7,9 @@ Xây dựng hệ thống soạn đề thi tự động, giúp cho giáo viên c�
 3. [Thiết lập trước khi chạy chương trình](#pre-setup)
 
 ## Công nghệ sử dụng <a name="technology"></a>
-Backend: C# .NET Core.vfd
-Frontend: Angular 11 (Template by Metronic).
-Database: PostgreSQL.
+- Backend: C# .NET Core.vfd
+- Frontend: Angular 11 (Template by Metronic).
+- Database: PostgreSQL.
 
 ## Yêu cầu cài đặt <a name="install-require"></a>
 - [Visual Studio](https://visualstudio.microsoft.com/) có môi trường .NET 5 - Đề xuất tải bản Community.
@@ -21,12 +21,12 @@ Database: PostgreSQL.
 
 ## Thiết lập trước khi chạy chương trình <a name="pre-setup"></a>
 1. PostgreSQL/PgAdmin
-Mở ứng dụng pgAdmin lên, điền mật khẩu để truy cập
-Tại mục Servers/PostgreSQL xx/Databases (xx là số phiên bản), click chuột phải chọn Create > Database...
-Ở General/Database gõ tên là `Exam_Database`, sau đó bấm Save.
-Sau khi tạo xong, click chuột phải vào Database vừa tạo, chọn Restore.
-Ở General/Filename, chọn đến tệp BackupFull.sql nằm trong thpt-chi-lang/PostgreSQL_Scrip/ sau đó nhấn Select.
-Nhấn Restore, đợi thông báo thành công thì ta đã tạo trong cơ sở dữ liệu vả dữ liệu có sẵn.
+- Mở ứng dụng pgAdmin lên, điền mật khẩu để truy cập
+- Tại mục Servers/PostgreSQL xx/Databases (xx là số phiên bản), click chuột phải chọn Create > Database...
+- Ở General/Database gõ tên là `Exam_Database`, sau đó bấm Save.
+- Sau khi tạo xong, click chuột phải vào Database vừa tạo, chọn Restore.
+- Ở General/Filename, chọn đến tệp BackupFull.sql nằm trong thpt-chi-lang/PostgreSQL_Scrip/ sau đó nhấn Select.
+- Nhấn Restore, đợi thông báo thành công thì ta đã tạo trong cơ sở dữ liệu vả dữ liệu có sẵn.
 2. Thư mục APICore_SoanDeThi
 - Tìm đến APICore_SoanDeThi/appsettings.json, tại ConnectionStrings
 ```javascript
@@ -40,7 +40,7 @@ Thông tin như sau:
 + User Id: cứ để nguyên là postgre, vì khi cài đặt nó là account mặc định
 + Password: là password để đăng nhập pgAdmin, thay đổi bằng mật khẩu của máy mình
 4. Thư mục Angular_Client
-Tại thpt-chi-lang/Angular_Client, trên đường dẫn thư mục gõ cmd để mở Command Prompt.
-Gõ `npm install` để tải về các packpage cần thiết.
+- Tại thpt-chi-lang/Angular_Client, trên đường dẫn thư mục gõ cmd để mở Command Prompt.
+- Gõ `npm install` để tải về các packpage cần thiết.
 
 
