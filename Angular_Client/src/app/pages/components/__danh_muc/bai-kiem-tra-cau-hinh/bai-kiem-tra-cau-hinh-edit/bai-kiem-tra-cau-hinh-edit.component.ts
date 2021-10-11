@@ -76,6 +76,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
       NgaySua: "",
       TrangThai: undefined,
       IsDisabled: undefined,
+      IsCustom:undefined,
       DanhSachCauHoi: [],
     };
     return data;
@@ -226,6 +227,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
       ModifyBy: undefined,
       IsDisabled: false,
       IsCustom: false,
+      IdBaiKiemTra_Group:undefined,
     };
     return newQuestion;
   }
@@ -269,6 +271,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
       NgaySua: moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
       TrangThai: 1,
       IsDisabled: false,
+      IsCustom:true,
       DanhSachCauHoi: this.createDanhSachCauHoi(),
     };
     return result;

@@ -204,7 +204,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _item.NgayTao = DateTime.Now;
                 _item.IsDisabled = false;
                 _item.IsCustom = data.IsCustom;
-
+                _item.TrangThai = 2;
                 _context.BaiKiemTra_Group.Add(_item);
                 _context.SaveChanges();
 
@@ -255,6 +255,139 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
         #endregion
 
+        #region LƯU TẠM BÀI KIỂM TRA
+        [Route("_SaveTemp")]
+        //[Authorize(Roles = "10014")]
+        [HttpPost]
+        public BaseModel<object> BaiKiemTra_Insert([FromBody] IBaiKiemTraCauHinh_Group data)
+        {
+            //string Token = Utilities._GetHeader(Request);
+            //UserLogin loginData = _account._GetInfoUser(Token);
+
+            //if (loginData == null)
+            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            try
+            {
+                if(data.DanhSachCauHoi.Count == 0)
+                {
+                    return Utilities._responseData(0, "Chưa có danh sách câu hỏi", null);
+                }
+                _context.Database.BeginTransaction();
+                BaiKiemTra_Group _item = new BaiKiemTra_Group();
+                _item.TenBaiKiemTra = string.IsNullOrEmpty(data.TenBaiKiemTra) ? "" : data.TenBaiKiemTra.ToString().Trim();
+                _item.SoLuongDe = data.SoLuongDe;
+                _item.CauBiet = data.CauBiet;
+                _item.CauHieu = data.CauHieu;
+                _item.CauVanDungThap = data.CauVanDungThap;
+                _item.CauVanDungCao = data.CauVanDungCao;
+                _item.NamHoc = data.NamHoc;
+                _item.IdMonHoc = data.IdMonHoc;
+                _item.ThoiGianLamBai = data.ThoiGianLamBai;
+                _item.HocKy = data.HocKy;
+                _item.Lop = data.Lop;
+                _item.NguoiTao = 1;
+                _item.NgayTao = DateTime.Now;
+                _item.IsDisabled = false;
+                _item.IsCustom = data.IsCustom;
+                _item.TrangThai = 1;
+                _context.BaiKiemTra_Group.Add(_item);
+                _context.SaveChanges();
+
+                //Thêm câu hỏi vào database
+                Parallel.ForEach(data.DanhSachCauHoi, item => {
+                    Question _cauHoi = new Question();
+                    _cauHoi.Title = string.IsNullOrEmpty(item.Title) ? "" : item.Title.ToString().Trim();
+                    _cauHoi.OptionA = string.IsNullOrEmpty(item.OptionA) ? "" : item.OptionA.ToString().Trim();
+                    _cauHoi.OptionB = string.IsNullOrEmpty(item.OptionB) ? "" : item.OptionB.ToString().Trim();
+                    _cauHoi.OptionC = string.IsNullOrEmpty(item.OptionC) ? "" : item.OptionC.ToString().Trim();
+                    _cauHoi.OptionD = string.IsNullOrEmpty(item.OptionD) ? "" : item.OptionD.ToString().Trim();
+                    _cauHoi.CorrectOption = item.CorrectOption;
+                    _cauHoi.IdBaiHoc = item.IdBaiHoc;
+                    _cauHoi.Level = item.Level;
+                    _cauHoi.CreateDate = DateTime.Now;
+                    _cauHoi.CreateBy = item.CreateBy;
+                    _cauHoi.ModifyDate = DateTime.Now;
+                    _cauHoi.CreateBy = item.CreateBy;
+                    _cauHoi.ModifyBy = item.ModifyBy;
+                    _cauHoi.IsDisabled = false;
+                    _cauHoi.IsCustom = true;
+                    _cauHoi.IdBaiKiemTra_Group = data.Id;
+                    _context.Question.Add(_cauHoi);
+                    _context.SaveChanges();
+                });
+
+                _context.Database.CommitTransaction();
+                return Utilities._responseData(1, "", _item);
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Lấy dữ liệu thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
+        #region LẤY CHI TIẾT BÀI KIỂM TRA
+        [Route("_Detail")]
+        //[Authorize(Roles = "10014")]
+        [HttpPost]
+        public BaseModel<object> BaiKiemTra_Detail (long id)
+        {
+            //string Token = Utilities._GetHeader(Request);
+            //UserLogin loginData = _account._GetInfoUser(Token);
+
+            //if (loginData == null)
+            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            try
+            {
+                
+                _context.Database.BeginTransaction();
+                var _item = _context.BaiKiemTra_Group.Where(x => x.Id == id && !x.IsDisabled)
+                                                     .Join(_context.MonHoc, exam => exam.IdMonHoc, subject => subject.Id, (exam, subject) =>  new { exam, subject})
+                                                     .Select(x => new IBaiKiemTraCauHinh_Group 
+                                                     {
+                                                        TenBaiKiemTra = x.exam.TenBaiKiemTra,
+                                                        SoLuongDe = x.exam.SoLuongDe,
+                                                        CauBiet = x.exam.CauBiet,
+                                                        CauHieu = x.exam.CauHieu,
+                                                        CauVanDungThap = x.exam.CauVanDungThap,
+                                                        CauVanDungCao = x.exam.CauVanDungCao,
+                                                        NamHoc = x.exam.NamHoc,
+                                                        IdMonHoc = x.exam.IdMonHoc,
+                                                        ThoiGianLamBai = x.exam.ThoiGianLamBai,
+                                                        HocKy = x.exam.HocKy,
+                                                        Lop = x.exam.Lop,
+                                                        NguoiTao = x.exam.NguoiTao,
+                                                        NgayTao = x.exam.NgayTao,
+                                                        IsDisabled = x.exam.IsDisabled,
+                                                        IsCustom = x.exam.IsCustom,
+                                                        TrangThai = x.exam.TrangThai,
+                                                        DanhSachCauHoi = _context.Question.Where(x=>x.IdBaiKiemTra_Group == id && x.IsCustom && !x.IsDisabled)
+                                                                                          .OrderBy(x=>x.Id)
+                                                                                          .Select(x => new IQuestion
+                                                                                          {
+                                                                                              Id = x.Id,
+                                                                                              Title = x.Title,
+                                                                                              OptionA = x.OptionA,
+                                                                                              OptionB = x.OptionB,
+                                                                                              OptionC = x.OptionC,
+                                                                                              OptionD = x.OptionD,
+                                                                                              CorrectOption = x.CorrectOption,
+                                                                                              Level = x.Level
+                                                                                          }).ToList()
+                                                    });
+                if (_item == null)
+                    return Utilities._responseData(0, "Không tìm thấy dữ liệu, vui lòng tải lại!!", null);
+
+                _context.Database.CommitTransaction();
+                return Utilities._responseData(1, "", _item);
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Lấy dữ liệu thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
         [Route("_Print")]
         //[Authorize(Roles = "10012")]
         [HttpGet]
@@ -294,6 +427,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                     }).FirstOrDefault();
                 return await _generatePdf.GetPdf("Views/Print/index.cshtml", _data);
         }
+
+
         /* -------------------- CÁC HÀM HỖ TRỢ -------------------- */
 
         private List<string> layMaDeThi(int soLuongDe)
@@ -343,7 +478,6 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                     _context.SaveChanges();
                 }
         }
-
         private List<long> Shuffle(List<long> list)
         {
             var rng = new Random();

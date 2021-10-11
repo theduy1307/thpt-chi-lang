@@ -227,6 +227,7 @@ export class BaiKiemTraCauHinhAddComponent implements OnInit, OnDestroy {
       ModifyBy: undefined,
       IsDisabled: false,
       IsCustom: false,
+      IdBaiKiemTra_Group:undefined,
     };
     return newQuestion;
   }
@@ -246,7 +247,7 @@ export class BaiKiemTraCauHinhAddComponent implements OnInit, OnDestroy {
     });
     return danhSachCauHoi;
   }
-  prepareData(isTemp:boolean): IBaiKiemTraCauHinh_Group {
+  prepareData(): IBaiKiemTraCauHinh_Group {
     let result: IBaiKiemTraCauHinh_Group = {
       id: undefined,
       data: undefined,
@@ -268,17 +269,40 @@ export class BaiKiemTraCauHinhAddComponent implements OnInit, OnDestroy {
       NgayTao: moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
       NguoiSua: 1307,
       NgaySua: moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
-      TrangThai: isTemp ? 1 : 2,
+      TrangThai: 1,
       IsDisabled: false,
       IsCustom:true,
       DanhSachCauHoi: this.createDanhSachCauHoi(),
     };
     return result;
   }
-  create(isTemp:boolean): void {
-    const data = this.prepareData(isTemp);
+  create(): void {
+    const data = this.prepareData();
     const sbCreate = this.services
       .create(data)
+      .pipe(
+        tap(() => {}),
+        catchError((errorMessage) => {
+          console.error("UPDATE ERROR", errorMessage);
+          return of(this.data);
+        })
+      )
+      .subscribe((res: IBaiKiemTraCauHinh_Group) => {
+        if (res && res.status == 1) {
+          this.data = res.data;
+          //this.router.navigate(["/danh-muc/danh-sach-bai-kiem-tra/thanh-cong"]);
+          this.layoutUtilsService.openSnackBar("Lưu thành công", "Đóng");
+        } else {
+          this.layoutUtilsService.openSnackBar("Lưu thất bại, vui lòng kiểm tra thông tin", "Đóng");
+        }
+      });
+    this.subscriptions.push(sbCreate);
+  }
+
+  saveTemp():void {
+    const data = this.prepareData();
+    const sbCreate = this.services
+      .saveTemp(data)
       .pipe(
         tap(() => {}),
         catchError((errorMessage) => {

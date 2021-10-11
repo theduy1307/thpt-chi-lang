@@ -100,6 +100,22 @@ export class BaiKiemTraCauHinhService extends TableService<IBaiKiemTraCauHinh_Gr
         finalize(() => this.setLoading(false))
       );
   }
+
+  saveTemp(item: any): Observable<any> {
+    this.initCallService();
+    return this.http
+      .post<IBaiKiemTraCauHinh_Group>(API_ROOT_URL + "/_SaveTemp", item, {
+        headers: this._httpHeaders,
+      })
+      .pipe(
+        catchError((err) => {
+          this.setErrorMess(err);
+          return of({ id: undefined, data: undefined, status: 0 });
+        }),
+        finalize(() => this.setLoading(false))
+      );
+  }
+
   update(item: any): Observable<any> {
     this.initCallService();
     return this.http

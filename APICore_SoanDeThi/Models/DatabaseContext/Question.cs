@@ -55,5 +55,8 @@ namespace APICore_SoanDeThi.Models
 
         [Column(Order = 14)]
         public bool IsCustom { get; set; }
+
+        [Column(Order = 15)]
+        public long? IdBaiKiemTra_Group { get; set; }
     }
 }

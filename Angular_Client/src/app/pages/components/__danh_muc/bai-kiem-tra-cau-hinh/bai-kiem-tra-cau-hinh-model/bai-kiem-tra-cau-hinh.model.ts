@@ -44,5 +44,6 @@ export interface IQuestion {
   ModifyDate: string;
   ModifyBy: number;
   IsDisabled: boolean;
-  IsCustom:boolean,
+  IsCustom:boolean;
+  IdBaiKiemTra_Group:number;
 }
