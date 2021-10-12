@@ -44,7 +44,10 @@ Thông tin như sau:
 - Gõ `npm install` để tải về các packpage cần thiết.
 
 ## Chạy chương trình
+1. Thư mục APICore_SoanDeThi
 - Mở APICore_SoanDeThi bằng Visual Studio lên, sau đó nhấn `Ctrl + F5` hoặc chọn `Debug > Start withou debugging`.
-- Mở Angular_Client bằng Visual Studio Code, chọn `Terminal > New Terminal` để mở Command Line (nếu hiện rồi thì không cần). Gõ `ng serve --o` để start project. Đợi khi trình duyệt mở tab có url là `localhost:4200` và màn hình đăng nhập thì Angular start thành công.
+2. Thư mục Angular_Client
+- Mở Angular_Client bằng Visual Studio Code, chọn `Terminal > New Terminal` để mở Command Line (nếu hiện rồi thì không cần). 
+- Gõ `ng serve --o` để start project. Đợi khi trình duyệt mở tab có url là `localhost:4200` và màn hình đăng nhập thì Angular start thành công.
 - Hiện tại chưa hoàn thiện chức năng đăng nhập nên cứ để default và nhấn Đăng nhập để vào trang.
 
