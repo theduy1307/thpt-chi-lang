@@ -5,6 +5,7 @@ Xây dựng hệ thống soạn đề thi tự động, giúp cho giáo viên c�
 1. [Công nghệ sử dụng](#technology)
 2. [Yêu cầu cài đặt](#install-require)
 3. [Thiết lập trước khi chạy chương trình](#pre-setup)
+4. [Chạy chương trình](#run-project)
 
 ## Công nghệ sử dụng <a name="technology"></a>
 - Backend: C# .NET Core.vfd
@@ -43,7 +44,7 @@ Thông tin như sau:
 - Tại thpt-chi-lang/Angular_Client, trên đường dẫn thư mục gõ cmd để mở Command Prompt.
 - Gõ `npm install` để tải về các packpage cần thiết.
 
-## Chạy chương trình
+## Chạy chương trình <a name="run-project"></a>
 1. Thư mục APICore_SoanDeThi
 - Mở APICore_SoanDeThi bằng Visual Studio lên, sau đó nhấn `Ctrl + F5` hoặc chọn `Debug > Start withou debugging`.
 2. Thư mục Angular_Client
