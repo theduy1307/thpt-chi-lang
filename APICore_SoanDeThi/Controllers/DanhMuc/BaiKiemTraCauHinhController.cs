@@ -227,6 +227,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                     _cauHoi.ModifyBy = item.ModifyBy;
                     _cauHoi.IsDisabled = false;
                     _cauHoi.IsCustom = true;
+                    _cauHoi.IdBaiKiemTra_Group = _item.Id;
                     _context.Question.Add(_cauHoi);
                     _context.SaveChanges();
                     danhSachCauHoi.Add(_cauHoi);
@@ -256,7 +257,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region LƯU TẠM BÀI KIỂM TRA
-        [Route("_SaveTemp")]
+        [Route("BaiKiemTraCauHinh_SaveTemp")]
         //[Authorize(Roles = "10014")]
         [HttpPost]
         public BaseModel<object> BaiKiemTra_Insert([FromBody] IBaiKiemTraCauHinh_Group data)
@@ -294,7 +295,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _context.SaveChanges();
 
                 //Thêm câu hỏi vào database
-                Parallel.ForEach(data.DanhSachCauHoi, item => {
+                foreach(var item in data.DanhSachCauHoi) {
                     Question _cauHoi = new Question();
                     _cauHoi.Title = string.IsNullOrEmpty(item.Title) ? "" : item.Title.ToString().Trim();
                     _cauHoi.OptionA = string.IsNullOrEmpty(item.OptionA) ? "" : item.OptionA.ToString().Trim();
@@ -314,10 +315,10 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                     _cauHoi.IdBaiKiemTra_Group = data.Id;
                     _context.Question.Add(_cauHoi);
                     _context.SaveChanges();
-                });
+                };
 
                 _context.Database.CommitTransaction();
-                return Utilities._responseData(1, "", _item);
+                return Utilities._responseData(1, "Lưu bài kiểm tra thành công", _item);
             }
             catch (Exception ex)
             {
@@ -327,10 +328,10 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region LẤY CHI TIẾT BÀI KIỂM TRA
-        [Route("_Detail")]
+        [Route("BaiKiemTraCauHinh_Detail")]
         //[Authorize(Roles = "10014")]
-        [HttpPost]
-        public BaseModel<object> BaiKiemTra_Detail (long id)
+        [HttpGet]
+        public BaseModel<object> BaiKiemTraCauHinh_Detail (long id)
         {
             //string Token = Utilities._GetHeader(Request);
             //UserLogin loginData = _account._GetInfoUser(Token);
@@ -345,6 +346,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                      .Join(_context.MonHoc, exam => exam.IdMonHoc, subject => subject.Id, (exam, subject) =>  new { exam, subject})
                                                      .Select(x => new IBaiKiemTraCauHinh_Group 
                                                      {
+                                                        Id = x.exam.Id,
                                                         TenBaiKiemTra = x.exam.TenBaiKiemTra,
                                                         SoLuongDe = x.exam.SoLuongDe,
                                                         CauBiet = x.exam.CauBiet,
@@ -374,7 +376,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                                                               CorrectOption = x.CorrectOption,
                                                                                               Level = x.Level
                                                                                           }).ToList()
-                                                    });
+                                                    }).FirstOrDefault();
                 if (_item == null)
                     return Utilities._responseData(0, "Không tìm thấy dữ liệu, vui lòng tải lại!!", null);
 

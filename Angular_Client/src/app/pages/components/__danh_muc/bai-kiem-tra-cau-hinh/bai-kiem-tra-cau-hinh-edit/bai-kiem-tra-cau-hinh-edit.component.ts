@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import * as moment from "moment";
 import { of, Subscription } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
+import { catchError, switchMap, tap } from "rxjs/operators";
 import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.service";
 import * as ClassicEditor from "src/assets/ckeditor5/packages/ckeditor5-build-classic";
 import { FunctionPublic } from "../../../_common/_function/public-function";
@@ -20,6 +20,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
 
   /* --------------------------- Loading.... --------------------------*/
   isLoading$;
+  errorMessage = "";
   isLoadingSpinner: boolean = false;
   public Editor = ClassicEditor;
   data: IBaiKiemTraCauHinh_Group;
@@ -33,6 +34,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
     private commonService: DungChungService,
     private layoutUtilsService: LayoutUtilsService,
     private router: Router,
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     private changeDetectorRefs: ChangeDetectorRef
   ) {}
@@ -41,7 +43,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isLoading$ = this.services.isLoading$;
     this.loadData();
-    this.loadForm();
+
   }
 
   ngOnDestroy(): void {
@@ -50,6 +52,31 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
 
   loadData(): void {
     this.data = this.initialData();
+    this.loadForm();
+    const sb = this.route.paramMap
+      .pipe(
+        switchMap((params) => {
+          // get id from URL
+          this.id = Number(params.get("id"));
+          if (this.id || this.id > 0) {
+            return this.services.getItemById(this.id);
+          }
+          return of(this.initialData());
+        }),
+        catchError((errorMessage) => {
+          this.errorMessage = errorMessage;
+          return of(undefined);
+        })
+      )
+      .subscribe((res: IBaiKiemTraCauHinh_Group) => {
+        if (!res) {
+          this.router.navigate(["/danh-muc/danh-sach-bai-kiem-tra-cau-hinh"], { relativeTo: this.route });
+        }
+        this.data = res.data;
+        this.loadForm();
+        this.setInitialQuestionList();
+      });
+    this.subscriptions.push(sb);
   }
 
   initialData(): IBaiKiemTraCauHinh_Group {
@@ -84,24 +111,83 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
 
   loadForm(): void {
     this.formThongTin = this.fb.group({
-      tenBaiKiemTra: ["", Validators.required],
-      namHoc: ["", Validators.required],
-      soLuongDe: [1, [Validators.required, Validators.min(1)]],
-      thoiGianLamBai: [1, [Validators.required, Validators.min(1)]],
-      hocKy: ["", [Validators.required, Validators.min(1)]],
-      lop: ["", Validators.required],
-      cauBiet: [1, Validators.required],
-      cauHieu: [1, Validators.required],
-      cauVanDungThap: [1, Validators.required],
-      cauVanDungCao: [1, Validators.required],
+      tenBaiKiemTra: [this.data.TenBaiKiemTra, Validators.required],
+      namHoc: [this.data.NamHoc, Validators.required],
+      soLuongDe: [this.data.SoLuongDe, [Validators.required, Validators.min(1)]],
+      thoiGianLamBai: [this.data.ThoiGianLamBai, [Validators.required, Validators.min(1)]],
+      hocKy: [this.data.HocKy+'', [Validators.required, Validators.min(1)]],
+      lop: [this.data.Lop, Validators.required],
+      cauBiet: [this.data.CauBiet, Validators.required],
+      cauHieu: [this.data.CauHieu, Validators.required],
+      cauVanDungThap: [this.data.CauVanDungThap, Validators.required],
+      cauVanDungCao: [this.data.CauVanDungCao, Validators.required],
       cauHoi: new FormArray([]),
     });
+    this.formThongTin.controls["cauBiet"].disable();
+    this.formThongTin.controls["cauHieu"].disable();
+    this.formThongTin.controls["cauVanDungThap"].disable();
+    this.formThongTin.controls["cauVanDungCao"].disable();
   }
 
   get cauHoi() {
     return this.formThongTin.get("cauHoi") as FormArray;
   }
+  setInitialQuestionList() {
+    let arrayNumber: number[] = this.getLevelForFormControls(); //Tạo array nhận số lượng câu hỏi trong đề
+    let contentData = ` <br/>
+                      [A]. <br/>
+                      [B]. <br/>
+                      [C]. <br/>
+                      [D]. <br/>`;
+    arrayNumber.forEach((level) => {
+      const formItem = this.fb.group({
+        content: [contentData],
+        correct: [""],
+        level: [level],
+      });
+      this.cauHoi.push(formItem);
+    });
+    for(let index = 0; index < arrayNumber.length; index++)
+    {
+      let question = this.data.DanhSachCauHoi[index]
+      if(!question) {
 
+        break;
+      }
+      let questionFormArray = this.cauHoi.at(index)
+      let contentData = `${question.Title} <br/>
+      [A]. ${question.OptionA}<br/>
+      [B]. ${question.OptionB}<br/>
+      [C]. ${question.OptionC}<br/>
+      [D]. ${question.OptionD}<br/>
+      `
+      const formItem = this.fb.group({
+        content: [contentData],
+        correct: [question.CorrectOption+''],
+        level: [question.Level],
+      });
+      questionFormArray.patchValue({
+        content: contentData,
+        correct: question.CorrectOption+'',
+        level: question.Level,
+      });
+    }
+
+    // this.data.DanhSachCauHoi.forEach(question=>{
+    //   let contentData = `${question.Title} <br/>
+    //   [A]. ${question.OptionA}<br/>
+    //   [B]. ${question.OptionB}<br/>
+    //   [C]. ${question.OptionC}<br/>
+    //   [D]. ${question.OptionD}<br/>
+    //   `
+    //   const formItem = this.fb.group({
+    //     content: [contentData],
+    //     correct: [question.CorrectOption.toString()],
+    //     level: [question.Level],
+    //   });
+    //   this.cauHoi.push(formItem);
+    // });    
+  }
   //tính tổng số lượng câu hỏi trong đề
   getSum(): number {
     let [cauBiet, cauHieu, cauVanDungThap, cauVanDungCao] = [

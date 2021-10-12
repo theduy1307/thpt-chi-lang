@@ -77,7 +77,7 @@ export class BaiKiemTraCauHinhService extends TableService<IBaiKiemTraCauHinh_Gr
   }
   getItemById(id: number): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/BaiKiemTraCauHinh_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});
@@ -104,7 +104,7 @@ export class BaiKiemTraCauHinhService extends TableService<IBaiKiemTraCauHinh_Gr
   saveTemp(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<IBaiKiemTraCauHinh_Group>(API_ROOT_URL + "/_SaveTemp", item, {
+      .post<IBaiKiemTraCauHinh_Group>(API_ROOT_URL + "/BaiKiemTraCauHinh_SaveTemp", item, {
         headers: this._httpHeaders,
       })
       .pipe(

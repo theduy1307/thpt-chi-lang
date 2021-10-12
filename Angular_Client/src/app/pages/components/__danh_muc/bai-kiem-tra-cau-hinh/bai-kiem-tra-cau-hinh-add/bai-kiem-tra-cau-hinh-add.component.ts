@@ -243,6 +243,7 @@ export class BaiKiemTraCauHinhAddComponent implements OnInit, OnDestroy {
       cauHoi.ModifyDate = moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS");
       cauHoi.ModifyBy = 1307;
       cauHoi.CorrectOption = parseInt(element.correct);
+      cauHoi.Class = parseInt(this.formThongTin.controls["lop"].value)
       danhSachCauHoi.push(cauHoi);
     });
     return danhSachCauHoi;
