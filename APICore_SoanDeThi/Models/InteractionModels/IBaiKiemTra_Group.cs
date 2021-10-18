@@ -26,6 +26,7 @@ namespace APICore_SoanDeThi.Models.InteractionModels
         public DateTime? NgaySua { get; set; }
         public short TrangThai { get; set; }
         public bool IsDisabled { get; set; }
+        public bool IsCustom { get; set; }
         public List<IBaiHoc> DanhSachBaiHoc { get; set; } = new List<IBaiHoc>();
     }
 }

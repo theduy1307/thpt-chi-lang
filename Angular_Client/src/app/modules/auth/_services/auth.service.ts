@@ -5,7 +5,7 @@ import { UserModel } from '../_models/user.model';
 import { AuthModel } from '../_models/auth.model';
 import { AuthHTTPService } from './auth-http';
 import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -43,9 +43,9 @@ export class AuthService implements OnDestroy {
   }
 
   // public methods
-  login(email: string, password: string): Observable<UserModel> {
+  login(username: string, password: string): Observable<UserModel> {    
     this.isLoadingSubject.next(true);
-    return this.authHttpService.login(email, password).pipe(
+    return this.authHttpService.login(username, password).pipe(
       map((auth: AuthModel) => {
         const result = this.setAuthFromLocalStorage(auth);
         return result;
@@ -74,16 +74,49 @@ export class AuthService implements OnDestroy {
 
     this.isLoadingSubject.next(true);
     return this.authHttpService.getUserByToken(auth.accessToken).pipe(
-      map((user: UserModel) => {
+      map((user: any) => {
         if (user) {
-          this.currentUserSubject = new BehaviorSubject<UserModel>(user);
+          this.currentUserSubject = new BehaviorSubject<UserModel>(user.data);
         } else {
           this.logout();
         }
-        return user;
+        return user.data;
       }),
       finalize(() => this.isLoadingSubject.next(false))
     );
+  }
+  // getUserByToken(): Observable<UserModel> {
+  //   // this.route.queryParams.subscribe(params => {
+  //   let auth = new AuthModel();
+  //   let token: string = window.location.search.replace("?sso_token=", "").toString();
+  //   if (token) {
+  //     auth.accessToken = token;
+  //     auth.refreshToken = token;
+  //     auth.expiresIn = new Date(Date.now() + 100 * 24 * 60 * 60 * 1000);
+  //     this.setAuthFromLocalStorage(auth);
+  //   } else {
+  //     auth = this.getAuthFromLocalStorage();
+  //     if (!auth || !auth.accessToken) {
+  //       return of(undefined);
+  //     }
+  //   }
+  //   this.isLoadingSubject.next(true);
+  //   return this.authHttpService.getUserByToken(auth.accessToken).pipe(
+  //     map((result: any) => {
+  //       if (result && result.status == 1) {
+  //         this.currentUserSubject = new BehaviorSubject<UserModel>(result.data);
+  //       } else {
+  //         this.logout();
+  //       }
+  //       return result.data;
+  //     }),
+  //     finalize(() => this.isLoadingSubject.next(false))
+  //   );
+  //   // });
+  // }
+
+  gettoken(route: ActivatedRouteSnapshot) {
+    return route.queryParams["sso_token"];
   }
 
   // need create new user then login
@@ -130,6 +163,27 @@ export class AuthService implements OnDestroy {
       return undefined;
     }
   }
+
+  // verifyUserByToken(sso_token): Observable<Boolean> {
+  //   //set token
+  //   const auth = new AuthModel();
+  //   auth.accessToken = sso_token;
+  //   auth.refreshToken = sso_token;
+  //   auth.expiresIn = new Date(Date.now() + 100 * 24 * 60 * 60 * 1000);
+  //   this.setAuthFromLocalStorage(auth);
+  //   //verify
+  //   return this.authHttpService.getUserByToken(sso_token).pipe(
+  //     map((result: any) => {
+  //       if (result && result.status == 1) {
+  //         this.currentUserSubject = new BehaviorSubject<UserModel>(result.data);
+  //         return true;
+  //       } else {
+  //         return false;
+  //       }
+  //     }),
+  //     finalize(() => {})
+  //   );
+  // }
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());

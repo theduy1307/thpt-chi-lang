@@ -100,9 +100,8 @@ export class DynamicAsideMenuService {
       }
     });
   }
-  GetMenuPhanQuyen() {
-    return this.http.get<any>(API_ROOT_URL + `/getMenuPhanQuyen?args=${environment.Modules}`, {
-      headers: this._httpHeaders,
-    });
-  }
+  GetMenuPhanQuyen(){
+		const httpHeaders = this.httpUtils.getHttpHeaders();
+        return this.http.post<any>(API_ROOT_URL + '/getMenuPhanQuyen', null, { headers: httpHeaders });
+	}
 }

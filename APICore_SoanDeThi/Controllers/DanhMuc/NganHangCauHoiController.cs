@@ -62,11 +62,11 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         [HttpPost]
         public BaseModel<object> CauHoi_List([FromBody] ITableState _tableState)
         {
-            //string Token = Utilities._GetHeader(Request);
-            //UserLogin loginData = _account._GetInfoUser(Token);
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
 
-            //if (loginData == null)
-            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
 
             BaseModel<object> _baseModel = new BaseModel<object>();
             PageModel _pageModel = new PageModel();
@@ -258,11 +258,11 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         [HttpPost]
         public BaseModel<object> CauHoi_Insert([FromBody] IQuestion data)
         {
-            //string Token = Utilities._GetHeader(Request);
-            //UserLogin loginData = _account._GetInfoUser(Token);
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
 
-            //if (loginData == null)
-            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
 
             try
             {
@@ -282,7 +282,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 _item.IdBaiHoc = data.IdBaiHoc;
                 _item.Level = data.Level;
                 _item.CreateDate = DateTime.Now;
-                _item.CreateBy = data.CreateBy;
+                _item.CreateBy = loginData.id;
                 _item.ModifyDate = DateTime.Now;
                 _item.CreateBy = data.CreateBy;
                 _item.ModifyBy = data.ModifyBy;
@@ -309,11 +309,11 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         [HttpGet]
         public BaseModel<object> CauHoi_Detail(long id)
         {
-            //string Token = Utilities._GetHeader(Request);
-            //UserLogin loginData = _account._GetInfoUser(Token);
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
 
-            //if (loginData == null)
-            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
 
             try
             {
@@ -358,11 +358,11 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         public BaseModel<object> CauHoi_Update([FromBody] IQuestion data)
         {
 
-            //string Token = Utilities._GetHeader(Request);
-            //UserLogin loginData = _account._GetInfoUser(Token);
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
 
-            //   if (loginData == null)
-            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
 
             try
             {
@@ -381,7 +381,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 _item.CorrectOption = data.CorrectOption;
                 _item.IdBaiHoc = data.IdBaiHoc;
                 _item.Level = data.Level;
-                _item.ModifyBy = 1;
+                _item.ModifyBy = loginData.id;
                 _item.ModifyDate = DateTime.Now;
                 _context.SaveChanges();
 
@@ -400,11 +400,11 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         [HttpGet]
         public BaseModel<object> CauHoi_Delete(long id)
         {
-            //string Token = Utilities._GetHeader(Request);
-            //UserLogin loginData = _account._GetInfoUser(Token);
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
 
-            //if (loginData == null)
-            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
 
             try
             {

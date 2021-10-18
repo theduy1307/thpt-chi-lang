@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpUtilsService } from 'src/app/_global/_services/http-utils.service';
 import { environment } from 'src/environments/environment';
 import { DynamicHeaderMenuConfig } from '../../configs/dynamic-header-menu.config';
 
@@ -17,7 +18,7 @@ export class DynamicHeaderMenuService {
   private _httpHeaders: HttpHeaders;
   menuConfig$: Observable<any>;
   constructor(
-    private http: HttpClient) {
+    private http: HttpClient, private httpUtils: HttpUtilsService,) {
     this.menuConfig$ = this.menuConfigSubject.asObservable();
     this.loadMenu();
     this.getMenuAccount();
@@ -103,7 +104,8 @@ export class DynamicHeaderMenuService {
       }
     });
   }
-  GetMenuPhanQuyen() {
-    return this.http.get<any>(API_ROOT_URL + `/getMenuPhanQuyen?args=${environment.Modules}`, { headers: this._httpHeaders });
-  }
+  GetMenuPhanQuyen(){
+		const httpHeaders = this.httpUtils.getHttpHeaders();
+        return this.http.post<any>(API_ROOT_URL + '/getMenuPhanQuyen', null, { headers: httpHeaders });
+	}
 }

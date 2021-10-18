@@ -97,8 +97,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 {
                     _rules = _tableState.filter["rules"];
                 }
-                var _data = _context.BaiKiemTra_Group.Where(x => !x.IsDisabled)
-                                                  .Join(_context.ViewNhanVien, kiemtra => kiemtra.NguoiTao, nhanvien => nhanvien.IdNv, (kiemtra, nhanvien) => new {kiemtra, nhanvien})
+                var _data = _context.BaiKiemTra_Group.Where(x => !x.IsDisabled && !x.IsCustom)
+                                                  .Join(_context.ViewNhanVien, kiemtra => kiemtra.NguoiTao, nhanvien => nhanvien.IdNv, (kiemtra, nhanvien) => new { kiemtra, nhanvien })
                                                   .Select(x => new IBaiKiemTra_Group
                                                   {
                                                       Id = x.kiemtra.Id,
@@ -108,6 +108,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                       CauTrungBinh = x.kiemtra.CauHieu,
                                                       CauKho = x.kiemtra.CauVanDungThap,
                                                       NamHoc = x.kiemtra.NamHoc.ToUpper(),
+                                                      IsCustom = x.kiemtra.IsCustom,
                                                       Lop = x.kiemtra.Lop,
                                                       TenNguoiTao = x.nhanvien.HoTen,
                                                   });

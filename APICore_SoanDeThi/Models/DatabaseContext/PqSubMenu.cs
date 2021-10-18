@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APICore_SoanDeThi.Models
 {
+    [Table("PQ_SubMenu")]
     public partial class PqSubMenu
     {
         [Key]

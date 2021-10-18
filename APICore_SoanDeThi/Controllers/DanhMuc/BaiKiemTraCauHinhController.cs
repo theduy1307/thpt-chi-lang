@@ -260,13 +260,13 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         [Route("BaiKiemTraCauHinh_SaveTemp")]
         //[Authorize(Roles = "10014")]
         [HttpPost]
-        public BaseModel<object> BaiKiemTra_Insert([FromBody] IBaiKiemTraCauHinh_Group data)
+        public BaseModel<object> BaiKiemTraCauHinh_SaveTemp([FromBody] IBaiKiemTraCauHinh_Group data)
         {
-            //string Token = Utilities._GetHeader(Request);
-            //UserLogin loginData = _account._GetInfoUser(Token);
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
 
-            //if (loginData == null)
-            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
             try
             {
                 if(data.DanhSachCauHoi.Count == 0)
@@ -312,7 +312,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                     _cauHoi.ModifyBy = item.ModifyBy;
                     _cauHoi.IsDisabled = false;
                     _cauHoi.IsCustom = true;
-                    _cauHoi.IdBaiKiemTra_Group = data.Id;
+                    _cauHoi.IdBaiKiemTra_Group = _item.Id;
                     _context.Question.Add(_cauHoi);
                     _context.SaveChanges();
                 };

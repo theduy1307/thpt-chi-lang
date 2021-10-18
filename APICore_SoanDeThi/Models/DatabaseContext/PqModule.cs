@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APICore_SoanDeThi.Models
 {
-    public partial class PqModule
+    [Table("PQ_Module")]
+    public class PqModule
     {
         [Key]
         public long IdModule { get; set; }

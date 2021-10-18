@@ -3,15 +3,17 @@ using System;
 using APICore_SoanDeThi.Models.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace APICore_SoanDeThi.Migrations
 {
     [DbContext(typeof(SoanDeThi_DbContext))]
-    partial class SoanDeThi_DbContextModelSnapshot : ModelSnapshot
+    [Migration("20211016035232_ChangePqGroupAdminTable")]
+    partial class ChangePqGroupAdminTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,12 +243,10 @@ namespace APICore_SoanDeThi.Migrations
             modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.PqAccountPermit", b =>
                 {
                     b.Property<string>("UserName")
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Code")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserName", "Code");
 
@@ -261,12 +261,10 @@ namespace APICore_SoanDeThi.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.HasKey("IdGroup");
 
@@ -279,8 +277,7 @@ namespace APICore_SoanDeThi.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("text");
 
                     b.HasKey("IdGroup", "UserName");
 
@@ -293,8 +290,7 @@ namespace APICore_SoanDeThi.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Code")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text");
 
                     b.HasKey("IdGroup", "Code");
 
@@ -340,8 +336,7 @@ namespace APICore_SoanDeThi.Migrations
                         .HasColumnType("character varying(20)");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
 
                     b.Property<string>("IdParent")
                         .HasMaxLength(20)

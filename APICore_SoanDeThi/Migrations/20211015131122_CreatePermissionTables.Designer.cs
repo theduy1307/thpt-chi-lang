@@ -3,15 +3,17 @@ using System;
 using APICore_SoanDeThi.Models.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace APICore_SoanDeThi.Migrations
 {
     [DbContext(typeof(SoanDeThi_DbContext))]
-    partial class SoanDeThi_DbContextModelSnapshot : ModelSnapshot
+    [Migration("20211015131122_CreatePermissionTables")]
+    partial class CreatePermissionTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -240,17 +242,23 @@ namespace APICore_SoanDeThi.Migrations
 
             modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.PqAccountPermit", b =>
                 {
-                    b.Property<string>("UserName")
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Code")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text");
 
-                    b.HasKey("UserName", "Code");
+                    b.Property<long>("IdPermit")
+                        .HasColumnType("bigint");
 
-                    b.ToTable("PQ_Account_Permit");
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PqAccountPermit");
                 });
 
             modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.PqGroup", b =>
@@ -261,59 +269,70 @@ namespace APICore_SoanDeThi.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.HasKey("IdGroup");
 
-                    b.ToTable("PQ_Group");
+                    b.ToTable("PqGroup");
                 });
 
             modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.PqGroupAccount", b =>
                 {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
                     b.Property<long>("IdGroup")
                         .HasColumnType("bigint");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("text");
 
-                    b.HasKey("IdGroup", "UserName");
+                    b.HasKey("Id");
 
-                    b.ToTable("PQ_Group_Account");
+                    b.ToTable("PqGroupAccount");
                 });
 
             modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.PqGroupPermit", b =>
                 {
+                    b.Property<long>("IdPermit")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("text");
+
                     b.Property<long>("IdGroup")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Code")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                    b.HasKey("IdPermit");
 
-                    b.HasKey("IdGroup", "Code");
-
-                    b.ToTable("PQ_Group_Permit");
+                    b.ToTable("PqGroupPermit");
                 });
 
             modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.PqPermission", b =>
                 {
+                    b.Property<long>("IdPermit")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
                     b.Property<string>("Code")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text");
 
                     b.Property<string>("CodeGroup")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text");
+
+                    b.Property<long?>("CodeGroupNavigationId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
 
                     b.Property<long?>("IdGroup")
                         .HasColumnType("bigint");
@@ -322,41 +341,43 @@ namespace APICore_SoanDeThi.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.Property<short?>("Position")
                         .HasColumnType("smallint");
 
-                    b.HasKey("Code");
+                    b.HasKey("IdPermit");
 
-                    b.ToTable("PQ_Permission");
+                    b.HasIndex("CodeGroupNavigationId");
+
+                    b.ToTable("PqPermission");
                 });
 
             modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.PqPermissionGroup", b =>
                 {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
                     b.Property<string>("Code")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
 
                     b.Property<string>("IdParent")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.Property<short?>("Position")
                         .HasColumnType("smallint");
 
-                    b.HasKey("Code");
+                    b.HasKey("Id");
 
-                    b.ToTable("PQ_Permission_Group");
+                    b.ToTable("PqPermissionGroup");
                 });
 
             modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.SysConfigDashboard", b =>
@@ -458,7 +479,7 @@ namespace APICore_SoanDeThi.Migrations
 
                     b.HasKey("IdMain");
 
-                    b.ToTable("PQ_MainMenu");
+                    b.ToTable("PqMainMenu");
                 });
 
             modelBuilder.Entity("APICore_SoanDeThi.Models.PqModule", b =>
@@ -539,7 +560,7 @@ namespace APICore_SoanDeThi.Migrations
 
                     b.HasKey("IdSubMenu");
 
-                    b.ToTable("PQ_SubMenu");
+                    b.ToTable("PqSubMenu");
                 });
 
             modelBuilder.Entity("APICore_SoanDeThi.Models.Question", b =>
@@ -1659,6 +1680,20 @@ namespace APICore_SoanDeThi.Migrations
                     b.HasKey("IdNv");
 
                     b.ToTable("ViewNhanVien");
+                });
+
+            modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.PqPermission", b =>
+                {
+                    b.HasOne("APICore_SoanDeThi.Models.DatabaseContext.PqPermissionGroup", "CodeGroupNavigation")
+                        .WithMany("PqPermission")
+                        .HasForeignKey("CodeGroupNavigationId");
+
+                    b.Navigation("CodeGroupNavigation");
+                });
+
+            modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.PqPermissionGroup", b =>
+                {
+                    b.Navigation("PqPermission");
                 });
 #pragma warning restore 612, 618
         }

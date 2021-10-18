@@ -9,7 +9,7 @@
 
   <!-- Body -->
   <div class="card-body">
-    <div class="row" *ngFor="let item of services.items$ | async; let i = index">
+    <div class="d-flex flex-nowrap" *ngFor="let item of services.items$ | async; let i = index">
       <mat-card class="card-info mt-5 bg-success">
         <mat-card-content>
           <h1>{{item.TenMonHoc}}</h1>

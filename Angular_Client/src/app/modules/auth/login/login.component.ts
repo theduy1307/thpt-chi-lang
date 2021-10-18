@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   //   password: '',
   // };
   defaultAuth: any = {
-    email: 'admin@demo.com',
-    password: 'demo',
+    username: 'duy.tt',
+    password: 'Dps@123',
   };
   loginForm: FormGroup;
   hasError: boolean;
@@ -29,12 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private route: ActivatedRoute, private router: Router) {
     this.isLoading$ = this.authService.isLoading$;
     // redirect to home if already logged in
     if (this.authService.currentUserValue) {
@@ -45,9 +40,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initForm();
     // get return url from route parameters or default to '/'
+    /*
+    //Initial function
     this.returnUrl =
         this.route.snapshot.queryParams['returnUrl'.toString()] || '/';
-    }
+    */
+    this.route.queryParams.subscribe((params) => {
+      this.returnUrl = params['returnUrl'] || '/';
+    });
+  }
 
   // convenience getter for easy access to form fields
   get f() {
@@ -56,34 +57,29 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.loginForm = this.fb.group({
-      email: [
-        this.defaultAuth.email,
+      username: [
+        this.defaultAuth.username,
         Validators.compose([
           Validators.required,
-          Validators.email,
           Validators.minLength(3),
           Validators.maxLength(320), // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
         ]),
       ],
       password: [
         this.defaultAuth.password,
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-        ]),
+        Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
       ],
     });
   }
-
+  
   submit() {
     this.hasError = false;
     const loginSubscr = this.authService
-      .login(this.f.email.value, this.f.password.value)
+      .login(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe((user: UserModel) => {
         if (user) {
-          this.router.navigate([this.  returnUrl]);
+          this.router.navigate([this.returnUrl]);
         } else {
           this.hasError = true;
         }

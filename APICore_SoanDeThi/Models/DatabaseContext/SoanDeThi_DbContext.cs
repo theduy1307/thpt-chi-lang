@@ -29,6 +29,14 @@ namespace APICore_SoanDeThi.Models.DatabaseContext
         public virtual DbSet<MonHoc> MonHoc { get; set; }
         public virtual DbSet<ChuongMonHoc> ChuongMonHoc { get; set; }
         public virtual DbSet<BaiHoc> BaiHoc { get; set; }
+        public virtual DbSet<SysConfigDashboard> SysConfigDashboard { get; set; }
+        public virtual DbSet<PqPermission> PqPermission { get; set; }
+        public virtual DbSet<PqAccountPermit> PqAccountPermit { get; set; }
+        public virtual DbSet<PqGroupPermit> PqGroupPermit { get; set; }
+        public virtual DbSet<PqPermissionGroup> PqPermissionGroup { get; set; }
+        public virtual DbSet<PqGroupAccount> PqGroupAccount { get; set; }
+        public virtual DbSet<PqGroup> PqGroup { get; set; }
+        public virtual DbSet<SysRequestLogin> SysRequestLogin { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -45,6 +53,14 @@ namespace APICore_SoanDeThi.Models.DatabaseContext
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
+            modelBuilder.Entity<PqGroupAccount>()
+            .HasKey(o => new { o.IdGroup, o.UserName });
+
+            modelBuilder.Entity<PqAccountPermit>()
+            .HasKey(o => new { o.UserName, o.Code });
+
+            modelBuilder.Entity<PqGroupPermit>()
+            .HasKey(o => new { o.IdGroup, o.Code });
         }
     }
 }

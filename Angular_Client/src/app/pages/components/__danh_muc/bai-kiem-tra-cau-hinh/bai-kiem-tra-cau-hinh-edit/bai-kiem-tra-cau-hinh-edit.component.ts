@@ -333,7 +333,31 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
     });
     return danhSachCauHoi;
   }
-  prepareData(): IBaiKiemTraCauHinh_Group {
+  
+  createTemporaryQuestionList(): IQuestion[] {
+    this.formThongTin.disable();
+    const danhSachCauHoi: IQuestion[] = [];
+    this.cauHoi.value.forEach((element) => {
+      let cauHoi: IQuestion;
+      cauHoi = this.proceed(element.content);
+      cauHoi.Level = element.level;
+      cauHoi.CreateDate = moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS");
+      cauHoi.CreateBy = 1307;
+      cauHoi.ModifyDate = moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS");
+      cauHoi.ModifyBy = 1307;
+      cauHoi.CorrectOption = parseInt(element.correct);
+      cauHoi.Class = parseInt(this.formThongTin.controls["lop"].value)
+      if(cauHoi.Title.length === 0 || cauHoi.OptionA.length ===0||cauHoi.OptionB.length === 0||cauHoi.OptionC.length === 0
+        ||cauHoi.OptionD.length === 0 || !cauHoi.CorrectOption)
+      {
+        return;
+      }
+      danhSachCauHoi.push(cauHoi);
+    });
+    return danhSachCauHoi;
+  }
+
+  prepareData(isTemp:boolean): IBaiKiemTraCauHinh_Group {
     let result: IBaiKiemTraCauHinh_Group = {
       id: undefined,
       data: undefined,
@@ -357,13 +381,14 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
       NgaySua: moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
       TrangThai: 1,
       IsDisabled: false,
-      IsCustom:true,
-      DanhSachCauHoi: this.createDanhSachCauHoi(),
+      IsCustom: isTemp,
+      DanhSachCauHoi: !isTemp ? this.createDanhSachCauHoi() : this.createTemporaryQuestionList(),
     };
     return result;
   }
+  
   create(): void {
-    const data = this.prepareData();
+    const data = this.prepareData(true);
     const sbCreate = this.services
       .create(data)
       .pipe(
@@ -384,6 +409,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
       });
     this.subscriptions.push(sbCreate);
   }
+  saveTemp():void {}
   /* -----------------------------------------------------------------------*/
 
   /*

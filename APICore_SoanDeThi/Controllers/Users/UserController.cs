@@ -1,6 +1,8 @@
 ﻿using APICore_SoanDeThi.Models;
 using APICore_SoanDeThi.Models.Common;
 using APICore_SoanDeThi.Models.DatabaseContext;
+using APICore_SoanDeThi.Models.InteractionModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -23,26 +25,78 @@ namespace APICore_SoanDeThi.Controllers.Users
         private IConfiguration _config;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly SoanDeThi_DbContext _context;
+        private Config _mConfig;
         LoginController lc;
 
-        public UserController(/*IOptions<Config> config,*/ IHostingEnvironment hostingEnvironment, IConfiguration configLogin)
+        public UserController(IOptions<Config> config, IHostingEnvironment hostingEnvironment, IConfiguration configLogin)
         {
             DbContextOptions<SoanDeThi_DbContext> options = new DbContextOptions<SoanDeThi_DbContext>();
-            //lc = new LoginController(configLogin);
+            lc = new LoginController(configLogin);
             _hostingEnvironment = hostingEnvironment;
             _context = new SoanDeThi_DbContext(options);
-            //_mConfig = config.Value;
+            _mConfig = config.Value;
             _config = configLogin;
         }
 
+        //[AllowAnonymous]
+        [HttpPost]
+        [Route("login")]
+        public BaseModel<object> Login([FromBody] UserModel login)
+        {
+            BaseModel<object> model = new BaseModel<object>();
+
+            var user = lc.AuthenticateUser(login.username, login.password);
+
+            if (!user.isEnableError.Value)
+            {
+                model.status = 1;
+
+                model.data = user;
+
+                return model;
+            }
+
+            model.status = 0;
+            model.error.message = user.isMessageError;
+            model.data = null;
+
+            return model;
+        }
+
+        //[AllowAnonymous]
         [HttpGet]
-        //[Authorize]
+        [Route("getUserByToken")]
+        public BaseModel<object> getUserByToken()
+        {
+            BaseModel<object> model = new BaseModel<object>();
+
+            string Token = lc.GetHeader(Request);
+            var user = lc._GetInfoUser(Token);
+
+            if (!user.isEnableError.Value)
+            {
+                model.status = 1;
+
+                model.data = user;
+
+                return model;
+            }
+
+            model.status = 0;
+            model.error.message = user.isMessageError;
+            model.data = null;
+
+            return model;
+        }
+
+        [HttpPost]
+       // [Authorize]
         [Route("getMenuPhanQuyen")]
-        public BaseModel<object> GetMenuPhanQuyen(long[] args)
+        public BaseModel<object> GetMenuPhanQuyen()
         {
             BaseModel<object> _baseModel = new BaseModel<object>();
-            //string Token = lc.GetHeader(Request);
-            //var user = lc._GetInfoUser(Token);
+            string Token = lc.GetHeader(Request);
+            var user = lc._GetInfoUser(Token);
 
             //var username = _context.User.Where(x => x.IdUser == user.Id).FirstOrDefault();
 
@@ -61,7 +115,7 @@ namespace APICore_SoanDeThi.Controllers.Users
                 DataTable _mainmenuTB;
                 DataTable _submenuTB;
 
-                // Lấysubmenu
+                // Lấy submenu
                 _submenu = (from sub in _context.PqSubMenu
                             //where user.roles.Contains(sub.AllowCode.Value)
                             select sub
@@ -82,7 +136,7 @@ namespace APICore_SoanDeThi.Controllers.Users
 
                 //Lấy module
                 _module = (from md in _context.PqModule
-                           where _mainmenu.Select(x => x.IdModule).Contains(md.IdModule) && args.Contains(md.IdModule)
+                           //where _mainmenu.Select(x => x.IdModule).Contains(md.IdModule) && args.Contains(md.IdModule)
                            select md
                                  ).ToList();
 
