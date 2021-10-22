@@ -8,7 +8,7 @@ Xây dựng hệ thống soạn đề thi tự động, giúp cho giáo viên c�
 4. [Chạy chương trình](#run-project)
 
 ## Công nghệ sử dụng <a name="technology"></a>
-- Backend: C# .NET Core.vfd
+- Backend: C# .NET Core (version 5)
 - Frontend: Angular 11 (Template by Metronic).
 - Database: PostgreSQL.
 
