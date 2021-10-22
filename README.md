@@ -46,7 +46,7 @@ Thông tin như sau:
 
 ## Chạy chương trình <a name="run-project"></a>
 ### Thư mục APICore_SoanDeThi
-- Mở APICore_SoanDeThi bằng Visual Studio lên, sau đó nhấn `Ctrl + F5` hoặc chọn `Debug > Start withou debugging`.
+- Mở APICore_SoanDeThi bằng Visual Studio lên, sau đó nhấn `Ctrl + F5` hoặc chọn `Debug > Start without debugging`.
 ### Thư mục Angular_Client
 - Mở Angular_Client bằng Visual Studio Code, chọn `Terminal > New Terminal` để mở Command Line (nếu hiện rồi thì không cần). 
 - Gõ `ng serve --o` để start project. Đợi khi trình duyệt mở tab có url là `localhost:4200` và màn hình đăng nhập thì Angular start thành công.
