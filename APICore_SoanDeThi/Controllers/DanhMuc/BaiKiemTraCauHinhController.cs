@@ -102,7 +102,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                   .Select(x => new IBaiKiemTra_Group
                                                   {
                                                       Id = x.kiemtra.Id,
-                                                      TenBaiKiemTra = x.kiemtra.TenBaiKiemTra.ToUpper(),
+                                                      TenBaiKiemTra = "KIỂM TRA "+x.kiemtra.TenBaiKiemTra.ToUpper(),
                                                       SoLuongDe = x.kiemtra.SoLuongDe,
                                                       CauDe = x.kiemtra.CauBiet,
                                                       CauTrungBinh = x.kiemtra.CauHieu,
@@ -326,6 +326,82 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             }
         }
         #endregion
+
+        #region LƯU TẠM BÀI KIỂM TRA
+        [Route("BaiKiemTraCauHinh_EditSaveTemporary")]
+        //[Authorize(Roles = "10014")]
+        [HttpPost]
+        public BaseModel<object> BaiKiemTraCauHinh_EditSaveTemporary([FromBody] IBaiKiemTraCauHinh_Group data)
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            try
+            {
+                if (data.DanhSachCauHoi.Count == 0)
+                {
+                    return Utilities._responseData(0, "Chưa có danh sách câu hỏi", null);
+                }
+                _context.Database.BeginTransaction();
+                var _item = _context.BaiKiemTra_Group.Where(x => x.Id == data.Id).FirstOrDefault();
+                if (_item == null)
+                    return Utilities._responseData(0, "Không tìm thấy dữ liệu cần cập nhật, vui lòng tải lại danh sách!!", null);
+
+                _item.TenBaiKiemTra = string.IsNullOrEmpty(data.TenBaiKiemTra) ? "" : data.TenBaiKiemTra.ToString().Trim();
+                _item.SoLuongDe = data.SoLuongDe;
+                _item.CauBiet = data.CauBiet;
+                _item.CauHieu = data.CauHieu;
+                _item.CauVanDungThap = data.CauVanDungThap;
+                _item.CauVanDungCao = data.CauVanDungCao;
+                _item.NamHoc = data.NamHoc;
+                _item.IdMonHoc = data.IdMonHoc;
+                _item.ThoiGianLamBai = data.ThoiGianLamBai;
+                _item.HocKy = data.HocKy;
+                _item.Lop = data.Lop;
+                _item.NguoiSua = loginData.id;
+                _item.NgayTao = DateTime.Now;
+                _item.IsDisabled = false;
+                _item.IsCustom = true;
+                _item.TrangThai = data.TrangThai;
+                _context.SaveChanges();
+
+                //Thêm câu hỏi vào database
+                foreach (var item in data.DanhSachCauHoi)
+                {
+                    Question _cauHoi = new Question();
+                    _cauHoi.Title = string.IsNullOrEmpty(item.Title) ? "" : item.Title.ToString().Trim();
+                    _cauHoi.OptionA = string.IsNullOrEmpty(item.OptionA) ? "" : item.OptionA.ToString().Trim();
+                    _cauHoi.OptionB = string.IsNullOrEmpty(item.OptionB) ? "" : item.OptionB.ToString().Trim();
+                    _cauHoi.OptionC = string.IsNullOrEmpty(item.OptionC) ? "" : item.OptionC.ToString().Trim();
+                    _cauHoi.OptionD = string.IsNullOrEmpty(item.OptionD) ? "" : item.OptionD.ToString().Trim();
+                    _cauHoi.CorrectOption = item.CorrectOption;
+                    _cauHoi.IdBaiHoc = item.IdBaiHoc;
+                    _cauHoi.Level = item.Level;
+                    _cauHoi.CreateDate = DateTime.Now;
+                    _cauHoi.CreateBy = item.CreateBy;
+                    _cauHoi.ModifyDate = DateTime.Now;
+                    _cauHoi.CreateBy = item.CreateBy;
+                    _cauHoi.ModifyBy = item.ModifyBy;
+                    _cauHoi.IsDisabled = false;
+                    _cauHoi.IsCustom = true;
+                    _cauHoi.IdBaiKiemTra_Group = _item.Id;
+                    _context.Question.Add(_cauHoi);
+                    _context.SaveChanges();
+                };
+
+                _context.Database.CommitTransaction();
+                return Utilities._responseData(1, "Lưu bài kiểm tra thành công", _item);
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Lấy dữ liệu thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
+
 
         #region LẤY CHI TIẾT BÀI KIỂM TRA
         [Route("BaiKiemTraCauHinh_Detail")]

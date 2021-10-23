@@ -135,6 +135,21 @@ export class BaiKiemTraCauHinhService extends TableService<IBaiKiemTraCauHinh_Gr
       );
   }
 
+  editSaveTemporary(item: any): Observable<any> {
+    this.initCallService();
+    return this.http
+      .post<IBaiKiemTraCauHinh_Group>(API_ROOT_URL + "/BaiKiemTraCauHinh_EditSaveTemporary", item, {
+        headers: this._httpHeaders,
+      })
+      .pipe(
+        catchError((err) => {
+          this.setErrorMess(err);
+          return of({ id: undefined, data: undefined, status: 0 });
+        }),
+        finalize(() => this.setLoading(false))
+      );
+  }
+
   delete(id: any): Observable<any> {
     this.initCallService();
     return this.http.get(`${API_ROOT_URL}/_Delete?id=${id}`, { headers: this._httpHeaders }).pipe(

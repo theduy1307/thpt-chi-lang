@@ -2,20 +2,28 @@
   <!-- Header Page -->
   <div class="card-header">
     <div class="card-title">
-      <h3 class="card-label">Danh sách môn học</h3>
+      <h3 class="card-label">DANH SÁCH MÔN HỌC</h3>
     </div>
   </div>
   <!-- End Header Page -->
-
   <!-- Body -->
-  <div class="card-body">
-    <div class="d-flex flex-nowrap" *ngFor="let item of services.items$ | async; let i = index">
-      <mat-card class="card-info mt-5 bg-success">
-        <mat-card-content>
-          <h1>{{item.TenMonHoc}}</h1>
-        </mat-card-content>
-      </mat-card>
-    </div>
+  <div class="card-body d-flex flex-row bd-highlight flex-wrap justify-content-between">
+    <ng-container *ngFor="let item of services.items$ | async; let i = index">
+        <div class="card mb-3 mr-3" style="width: 23%">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.TenMonHoc }}</h5>
+            <p class="card-text">Trưởng bộ môn: Trần Thế Duy</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{item.QuestionCount.length}} câu hỏi trong ngân hàng</li>
+            <li class="list-group-item">{{item.ExamCount.length}} đề thi</li>
+            <li class="list-group-item">{{item.DanhSachGiaoVien.length}} giáo viên</li>
+          </ul>
+          <div class="card-body">
+            <a href="#" class="card-link">Bổ sung/chỉnh sửa thông tin</a>
+          </div>
+        </div>
+    </ng-container>
   </div>
   <!-- End Body -->
 </div>

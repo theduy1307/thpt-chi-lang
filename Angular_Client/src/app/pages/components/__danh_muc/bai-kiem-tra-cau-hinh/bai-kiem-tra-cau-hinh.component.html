@@ -166,6 +166,7 @@
               <a 
                 matTooltip="In bài kiểm tra" 
                 matTooltipPosition="after" 
+                *ngIf="item.TrangThai!=1"
                 [routerLink]="'./print/' + item.Id"
                 class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3"
               >

@@ -62,11 +62,11 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         [HttpPost]
         public BaseModel<object> MonHoc_List([FromBody] ITableState _tableState)
         {
-            //string Token = Utilities._GetHeader(Request);
-            //UserLogin loginData = _account._GetInfoUser(Token);
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
 
-            //if (loginData == null)
-            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
 
             BaseModel<object> _baseModel = new BaseModel<object>();
             PageModel _pageModel = new PageModel();
@@ -97,24 +97,46 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 {
                     _rules = _tableState.filter["rules"];
                 }
+                var ListQuestion = _context.ChuongMonHoc.Where(p => p.IdMonHoc == 2).Join(_context.BaiHoc, p => p.Id, s => s.IdChuong, (p, s) => new { p = p, s = s })
+                                                                                           .Join(_context.Question, s => s.s.Id, q => q.IdBaiHoc, (s, q) => new { q = q, s = s })
+                                                                                           .Where(q => !q.q.IsDisabled && !q.q.IsCustom)
+                                                                                           .Select(q => new { 
+                                                                                                IdMonHoc = q.s.p.IdMonHoc,
+                                                                                                
+                                                                                           }).ToList();
                 var _data = _context.MonHoc.Where(x => !x.IsDisabled)
                                                   .Select(x => new IMonHoc
                                                   {
                                                       Id = x.Id,
                                                       MaMonHoc = x.MaMonHoc,
-                                                      TenMonHoc = x.TenMonHoc
-                                                  });
+                                                      TenMonHoc = x.TenMonHoc,
+                                                      QuestionCount = _context.ChuongMonHoc.Where(p => p.IdMonHoc == x.Id).Join(_context.BaiHoc, p => p.Id, s => s.IdChuong, (p, s) => new { p = p, s = s })
+                                                                                           .Join(_context.Question, s => s.s.Id, q => q.IdBaiHoc, (s, q) => new { q = q, s = s })
+                                                                                           .Where(q => !q.q.IsDisabled && !q.q.IsCustom)
+                                                                                           .Select(q => q.q.Id).ToList(),
+                                                      ExamCount = _context.BaiKiemTra_Group.Where(e => e.IdMonHoc == x.Id).Select(e=>e.Id).ToList(),
+                                                      DanhSachGiaoVien = _context.ViewNhanVien.Where(emp => emp.Cocauid == x.Id && emp.Disable != 1)
+                                                                                              .Select(emp => new GiaoVien
+                                                                                              {
+                                                                                                  IdNv = emp.IdNv,
+                                                                                                  MaNv = emp.Manv,
+                                                                                                  HoLot = emp.Holot,
+                                                                                                  Ten = emp.Ten,
+                                                                                                  Phai = emp.Phai,
+                                                                                                  BoMon = x.TenMonHoc
+                                                                                              }).ToList()
+                                                  }).ToList();
 
 
-                if (!string.IsNullOrEmpty(_tableState.searchTerm))
-                {
-                    _keywordSearch = _tableState.searchTerm.ToLower().Trim();
-                    _data = _data.Where(x =>
-                          x.MaMonHoc.ToLower().Contains(_keywordSearch)
+                //if (!string.IsNullOrEmpty(_tableState.searchTerm))
+                //{
+                //    _keywordSearch = _tableState.searchTerm.ToLower().Trim();
+                //    _data = _data.Where(x =>
+                //          x.MaMonHoc.ToLower().Contains(_keywordSearch)
 
-                   );
-                    IQueryable<IMonHoc> data = _data;
-                }
+                //   );
+                //    IQueryable<IMonHoc> data = _data;
+                //}
 
                 int _countRows = _data.Count();
                 if (_countRows == 0)
@@ -129,25 +151,25 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 _baseModel.error = null;
                 _baseModel.page = _pageModel;
 
-                List<IMonHoc> listData = new List<IMonHoc>();
-                if (_orderBy_ASC)
-                {
-                    listData = _data
-                        .OrderBy(_orderByExpression)
-                        .Skip((_tableState.paginator.page - 1) * _tableState.paginator.PageSize)
-                        .Take(_tableState.paginator.PageSize)
-                        .ToList();
-                }
-                else
-                {
-                    listData = _data
-                        .OrderByDescending(_orderByExpression)
-                        .Skip((_tableState.paginator.page - 1) * _tableState.paginator.PageSize)
-                        .Take(_tableState.paginator.PageSize)
-                        .ToList();
-                }
+                //List<IMonHoc> listData = new List<IMonHoc>();
+                //if (_orderBy_ASC)
+                //{
+                //    listData = _data
+                //        .OrderBy(_orderByExpression)
+                //        .Skip((_tableState.paginator.page - 1) * _tableState.paginator.PageSize)
+                //        .Take(_tableState.paginator.PageSize)
+                //        .ToList();
+                //}
+                //else
+                //{
+                //    listData = _data
+                //        .OrderByDescending(_orderByExpression)
+                //        .Skip((_tableState.paginator.page - 1) * _tableState.paginator.PageSize)
+                //        .Take(_tableState.paginator.PageSize)
+                //        .ToList();
+                //}
 
-                _baseModel.data = listData;
+                _baseModel.data = _data;
                 return _baseModel;
 
             }

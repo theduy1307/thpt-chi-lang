@@ -9,7 +9,7 @@
           Trở lại
         </button>
         <div class="btn-group mr-3">
-          <button type="submit" class="btn btn-primary" (click)="create()">Lưu</button>
+          <button type="submit" class="btn btn-primary" (click)="create()" [disabled]="this.formThongTin.invalid || this.cauHoi.invalid">Lưu</button>
           <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
             <button class="btn btn-primary btn-elevate" ngbDropdownToggle>
               <i class="ki ki-arrow-down icon-sm"></i>
