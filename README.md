@@ -26,7 +26,7 @@ Xây dựng hệ thống soạn đề thi tự động, giúp cho giáo viên c�
 - Tại mục Servers/PostgreSQL xx/Databases (xx là số phiên bản), click chuột phải chọn Create > Database...
 - Ở General/Database gõ tên là `Exam_Database`, sau đó bấm Save.
 - Sau khi tạo xong, click chuột phải vào Database vừa tạo, chọn Restore.
-- Ở General/Filename, chọn đến tệp BackupFull.sql nằm trong thpt-chi-lang/PostgreSQL_Scrip/ sau đó nhấn Select.
+- Ở General/Filename, chọn đến tệp `Exam_Database Update X.sql` (với X là số lớn nhất trong các mục đó) nằm trong thpt-chi-lang/PostgreSQL_Scrip/ sau đó nhấn Select.
 - Nhấn Restore, đợi thông báo thành công thì ta đã tạo trong cơ sở dữ liệu vả dữ liệu có sẵn.
 ### Thư mục APICore_SoanDeThi
 - Tìm đến APICore_SoanDeThi/appsettings.json, tại ConnectionStrings
