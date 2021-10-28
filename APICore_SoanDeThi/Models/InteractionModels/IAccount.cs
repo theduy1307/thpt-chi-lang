@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace APICore_SoanDeThi.Models
+namespace APICore_SoanDeThi.Models.InteractionModels
 {
-    public partial class ViewNhanVien
+    public class IAccount
     {
-        [Key]
         public long IdNv { get; set; }
         public string Manv { get; set; }
         public string Holot { get; set; }
@@ -24,8 +22,12 @@ namespace APICore_SoanDeThi.Models
         public DateTime? Ngaysinh { get; set; }
         public string Email { get; set; }
         public long? IdChucdanh { get; set; }
+        public string TenChucDanh { get; set; }
         public short? Disable { get; set; }
         public string SodienthoaiNguoilienhe { get; set; }
         public long? Cocauid { get; set; }
+        public string Username { get; set; }
+        public string Picture { get; set; }
+
     }
 }

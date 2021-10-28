@@ -115,7 +115,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                                                                                            .Where(q => !q.q.IsDisabled && !q.q.IsCustom)
                                                                                            .Select(q => q.q.Id).ToList(),
                                                       ExamCount = _context.BaiKiemTra_Group.Where(e => e.IdMonHoc == x.Id).Select(e=>e.Id).ToList(),
-                                                      DanhSachGiaoVien = _context.ViewNhanVien.Where(emp => emp.Cocauid == x.Id && emp.Disable != 1)
+                                                      DanhSachGiaoVien = _context.ViewNhanVien.Where(emp => emp.Cocauid == x.Id && emp.Disable == 0)
                                                                                               .Select(emp => new GiaoVien
                                                                                               {
                                                                                                   IdNv = emp.IdNv,

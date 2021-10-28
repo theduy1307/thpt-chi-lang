@@ -7,7 +7,7 @@ import { ITableState, TableResponseModel, TableService } from "src/app/_metronic
 import { environment } from "src/environments/environment";
 import { IBaiKiemTra_Print } from "../in-bai-kiem-tra-model/bai-kiem-tra.model";
 
-const API_ROOT_URL = environment.ApiRoot + "/BaiKiemTraCauHinh";
+const API_ROOT_URL = environment.ApiRoot + "/BaiKiemTra";
 
 @Injectable({ providedIn: "root" })
 export class InBaiKiemTraService extends TableService<IBaiKiemTra_Print> implements OnDestroy {
@@ -23,7 +23,7 @@ export class InBaiKiemTraService extends TableService<IBaiKiemTra_Print> impleme
   }
   getItemById(id: number): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/BaiKiemTra_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});

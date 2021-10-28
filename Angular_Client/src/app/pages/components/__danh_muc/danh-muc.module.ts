@@ -21,6 +21,8 @@ import { MatStepperModule } from "@angular/material/stepper";
 import { QuestionModifyComponent } from "./ngan-hang-cau-hoi/ngan-hang-cau-hoi-modify/ngan-hang-cau-hoi-modify.component";
 import { QuestionComponent } from "./ngan-hang-cau-hoi/ngan-hang-cau-hoi.component";
 import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
+import {NgxPrintModule} from 'ngx-print';
+
 import { DieuKhoanMauComponent } from "./dieu-khoan-mau/dieu-khoan-mau.component";
 import { DieuKhoanMauAddComponent } from "./dieu-khoan-mau/dieu-khoan-mau-add/dieu-khoan-mau-add.component";
 import { DieuKhoanMauEditComponent } from "./dieu-khoan-mau/dieu-khoan-mau-edit/dieu-khoan-mau-edit.component";
@@ -92,6 +94,7 @@ import { BaiKiemTraCauHinhEditComponent } from './bai-kiem-tra-cau-hinh/bai-kiem
     RouterModule,
     MatTooltipModule,
     MatStepperModule,
+    NgxPrintModule
   ],
   providers: [
     { provide: NgbDateAdapter, useClass: CustomAdapter },

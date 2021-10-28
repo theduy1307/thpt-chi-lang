@@ -409,11 +409,11 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         [HttpGet]
         public BaseModel<object> BaiKiemTraCauHinh_Detail (long id)
         {
-            //string Token = Utilities._GetHeader(Request);
-            //UserLogin loginData = _account._GetInfoUser(Token);
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
 
-            //if (loginData == null)
-            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
             try
             {
                 

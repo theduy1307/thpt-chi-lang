@@ -77,6 +77,11 @@ const routes: Routes = [
         path: "danh-sach-bai-kiem-tra/thanh-cong",
         component: SuccessComponent,
       },
+      // in bài kiểm tra
+      {
+        path: "danh-sach-bai-kiem-tra/print/:id",
+        component: InBaiKiemTraComponent,
+      },
       // danh sách bài kiểm tra cấu hình
       {
         path: "danh-sach-bai-kiem-tra-cau-hinh",

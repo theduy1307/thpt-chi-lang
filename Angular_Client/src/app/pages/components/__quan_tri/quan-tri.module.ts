@@ -21,9 +21,13 @@ import { DieuKhoanMauAddComponent } from "../__danh_muc/dieu-khoan-mau/dieu-khoa
 import { MonHocComponent } from "./quan-li-mon-hoc/quan-li-mon-hoc.component";
 import { QuanTriRoutingModule } from "./quan-tri-routing.module";
 import { QuanTriComponent } from "./quan-tri.component";
+import { QuanLiTaiKhoanComponent } from './quan-li-tai-khoan/quan-li-tai-khoan.component';
+import { QuanLiTaiKhoanCreateComponent } from './quan-li-tai-khoan/quan-li-tai-khoan-create/quan-li-tai-khoan-create.component';
+import { QuanLiTaiKhoanUpdateComponent } from './quan-li-tai-khoan/quan-li-tai-khoan-update/quan-li-tai-khoan-update.component';
+import { QuanLiTaiKhoanDetailComponent } from './quan-li-tai-khoan/quan-li-tai-khoan-detail/quan-li-tai-khoan-detail.component';
 
 @NgModule({
-  declarations: [QuanTriComponent, MonHocComponent],
+  declarations: [QuanTriComponent, MonHocComponent, QuanLiTaiKhoanComponent, QuanLiTaiKhoanCreateComponent, QuanLiTaiKhoanUpdateComponent, QuanLiTaiKhoanDetailComponent],
   imports: [
     CommonModule,
     HttpClientModule,

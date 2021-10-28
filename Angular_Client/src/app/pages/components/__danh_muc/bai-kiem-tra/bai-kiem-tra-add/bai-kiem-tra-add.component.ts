@@ -11,6 +11,7 @@ import * as ClassicEditor from "src/assets/ckeditor5/packages/ckeditor5-build-cl
 import { IBaiHoc, IBaiKiemTra_Group } from "./../bai-kiem-tra-model/bai-kiem-tra.model";
 import { BaiKiemTraService } from "../bai-kiem-tra-service/bai-kiem-tra.service";
 import { Router } from "@angular/router";
+import { AuthService, UserModel } from "src/app/modules/auth";
 const source = "src/assets/SAMPLE.docx";
 const EMPTY_DATA: IBaiKiemTra_Group = {
   id: undefined,
@@ -54,6 +55,10 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
   data: IBaiKiemTra_Group;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+
+  user:UserModel;
+  firstUserState: UserModel;
+  LIST_ROLES_USER: number[] = [];
 
   //Thông tin chương môn học
   listChuongMonHoc: any[] = [];
@@ -105,11 +110,20 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
   constructor(
     private services: BaiKiemTraService,
     private commonService: DungChungService,
+    public userService: AuthService,
     private layoutUtilsService: LayoutUtilsService,
     private router: Router,
     private fb: FormBuilder,
     private changeDetectorRefs: ChangeDetectorRef
-  ) {}
+  ) {
+    this.userService.currentUserSubject.asObservable().pipe(
+      first(user => !!user)
+    ).subscribe(user => {
+      this.user = Object.assign({}, user);
+      this.firstUserState = Object.assign({}, user);
+      this.LIST_ROLES_USER = this.user.roles;
+    })
+  }
 
   /*---------------------------- LOAD DATA --------------------------------*/
   ngOnInit(): void {
@@ -282,7 +296,7 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
       HocKy: parseInt(this.getfirstFormGroup("hocKy")),
       Lop: parseInt(this.getfirstFormGroup("lop")),
       NamHoc: this.getfirstFormGroup("namHoc"),
-      IdMonHoc: 2,
+      IdMonHoc: this.user.id,
       NguoiTao: undefined,
       NgayTao: moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
       NguoiSua: undefined,

@@ -30,5 +30,6 @@ namespace APICore_SoanDeThi.Models
         public short? Iscreateldapaccount { get; set; }
         public short? Isadmin { get; set; }
         public int? Defaultmodule { get; set; }
+        public string Picture { get; set; }
     }
 }
