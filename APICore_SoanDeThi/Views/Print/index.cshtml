@@ -61,6 +61,7 @@
 
     table.quiz-table {
         margin: 20px auto;
+        width: 100%;  
     }
 
         table.quiz-table,
@@ -81,437 +82,221 @@
 <body>
     @foreach (var item in Model.DanhSachBaiKiemTra)
     {
-    <div>
-        <table class="title">
-            <tr>
-                <td>
-                    SỞ GD-ĐT AN GIANG <br />
-                    <strong>TRƯỜNG THPT CHI LĂNG</strong>
-                </td>
-                <td>
-                    <strong style="text-transform: uppercase">ĐỀ KIỂM TRA @Html.DisplayFor(model => model.TenBaiKiemTra), NĂM HỌC @Model.NamHoc</strong> <br />
-                    <p style="text-transform: uppercase">MÔN @Model.MonHoc - KHỐI @Model.Lop<br /></p>
-                    <i>Thời gian làm bài: @Model.ThoiGianLamBai phút, không kể thời gian phát đề</i>
-                    <hr style="margin: auto" width="50%" />
-                </td>
-            </tr>
-        </table>
-        <table class="info">
-            <tr>
-                <td class="info__student">
-                    Họ và tên: ................................................. <br />
-                    Lớp: ..........................................................
-                </td>
-                <td class="info__code">
-                    <div class="info__frame">
-                        <strong>Mã đề thi: @item.MaDe</strong>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <table class="quiz-table">
-            <tr>
-                <td>#</td>
-                <td>A</td>
-                <td>B</td>
-                <td>C</td>
-                <td>D</td>
-                <td>#</td>
-                <td>A</td>
-                <td>B</td>
-                <td>C</td>
-                <td>D</td>
-                <td>#</td>
-                <td>A</td>
-                <td>B</td>
-                <td>C</td>
-                <td>D</td>
-                <td>#</td>
-                <td>A</td>
-                <td>B</td>
-                <td>C</td>
-                <td>D</td>
-                <td>#</td>
-                <td>A</td>
-                <td>B</td>
-                <td>C</td>
-                <td>D</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>11</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>21</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>31</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>41</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>12</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>22</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>32</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>42</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>13</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>23</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>33</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>43</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>14</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>24</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>34</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>44</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>14</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>24</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>34</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>44</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>15</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>25</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>35</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>45</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>16</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>26</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>36</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>46</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>17</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>27</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>37</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>47</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>18</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>28</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>38</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>48</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>19</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>29</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>39</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>49</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>20</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>30</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>40</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td>50</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-                <td class="dot">&#9675;</td>
-            </tr>
-        </table>
-        <table class="question">
-            @foreach (var cauhoi in item.DanhSachCauHoi.Select((value, i) => new { value, i }))
-            {
-                var value = cauhoi.value;
-                var index = cauhoi.i + 1;
-
-                <tbody>
+        <div>
+            <table class="title">
+                <tr>
+                    <td>
+                        SỞ GD-ĐT AN GIANG <br />
+                        <strong>TRƯỜNG THPT CHI LĂNG</strong>
+                    </td>
+                    <td>
+                        <strong style="text-transform: uppercase">ĐỀ KIỂM TRA @Html.DisplayFor(model => model.TenBaiKiemTra), NĂM HỌC @Model.NamHoc</strong> <br />
+                        <p style="text-transform: uppercase">MÔN @Model.MonHoc - KHỐI @Model.Lop<br /></p>
+                        <i>Thời gian làm bài: @Model.ThoiGianLamBai phút, không kể thời gian phát đề</i>
+                        <hr style="margin: auto" width="50%" />
+                    </td>
+                </tr>
+            </table>
+            <table class="info">
+                <tr>
+                    <td class="info__student">
+                        Họ và tên: ................................................. <br />
+                        Lớp: ..........................................................
+                    </td>
+                    <td class="info__code">
+                        <div class="info__frame">
+                            <strong>Mã đề thi: @item.MaDe</strong>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            @*<table class="quiz-table">
                     <tr>
-                        <td colspan="4">
-                            <strong>Câu @index: </strong>
-                            @Html.Raw(value.TieuDe)
-                        </td>
+                        @{
+                            double totalCountTitle = item.DanhSachCauHoi.Count();
+                            int totalColTitle = Convert.ToInt32(Math.Round((totalCountTitle / 10)));
+                            @for (int i = 0; i < totalColTitle; i++)
+                            {
+                                <td>#</td>
+                                <td>A</td>
+                                <td>B</td>
+                                <td>C</td>
+                                <td>D</td>
+                            }
+                        }
+
                     </tr>
-                    @if (value.CauA.Split(" ").Count() < 5 && value.CauB.Split(" ").Count() < 5 && value.CauC.Split(" ").Count() < 5 && value.CauD.Split(" ").Count() < 5)
-                    {
-                        <tr>
-                            <td>
-                                <strong>A. </strong>
-                                @Html.Raw(value.CauA)
-                            </td>
-                            <td>
-                                <strong>B. </strong>
-                                @Html.Raw(value.CauB)
-                            </td>
-                            <td>
-                                <strong>C. </strong>
-                                @Html.Raw(value.CauC)
-                            </td>
-                            <td>
-                                <strong>D. </strong>
-                                @Html.Raw(value.CauD)
-                            </td>
-                        </tr>
+                    @{
+                        double totalCount = item.DanhSachCauHoi.Count();
+                        int totalRow = Convert.ToInt32(Math.Round((totalCount / 5)));
+                        int totalCol = Convert.ToInt32(Math.Round((totalCount / 10)));
+                        int idx = 0;
+                        @for(int iRow = 1; iRow < 11; iRow++){
+                            <tr>
+                                @for(int i = 0; i < totalCol; i++)
+                                {
+                                    idx = i;
+                                    <td>@iRow</td>
+                                    <td class="dot">&#9675;</td>
+                                    <td class="dot">&#9675;</td>
+                                    <td class="dot">&#9675;</td>
+                                    <td class="dot">&#9675;</td>
+                                }
+                            </tr>
+                        }
                     }
-                    else
-                    {
-                        <tr>
-                            <td colspan="4">
-                                <strong>A. </strong>
-                                @Html.Raw(value.CauA)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <strong>B. </strong>
-                                @Html.Raw(value.CauB)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <strong>C. </strong>
-                                @Html.Raw(value.CauC)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <strong>D. </strong>
-                                @Html.Raw(value.CauD)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
+                </table>*@
+            @{
+                double totalCountTitle = item.DanhSachCauHoi.Count();
+                int totalColTitle = Convert.ToInt32(Math.Round((totalCountTitle / 10)));
             }
-        </table>
-    </div>
+            <table class="page" style="width:100%">
+                <tr>
+                    @{
+                        int idx = 0;
+                        @for (int i = 1; i < totalColTitle + 1; i++)
+                        {
+                            <td>
+                                <table class="quiz-table">
+                                    <tr>
+                                        <td>#</td>
+                                        <td>A</td>
+                                        <td>B</td>
+                                        <td>C</td>
+                                        <td>D</td>
+                                    </tr>
+                                    @for (int j = 0; j < 10; j++)
+                                    {
+                                        <tr>
+                                            <td>@((j+1)+idx)</td>
+                                            <td class="dot">&#9675;</td>
+                                            <td class="dot">&#9675;</td>
+                                            <td class="dot">&#9675;</td>
+                                            <td class="dot">&#9675;</td>
+                                        </tr>
+                                    }
+
+                                </table>
+                            </td>
+                            idx += 10;
+                        }
+                    }
+                </tr>
+            </table>
+
+            <table class="question">
+                @foreach (var cauhoi in item.DanhSachCauHoi.Select((value, i) => new { value, i }))
+                {
+                    var value = cauhoi.value;
+                    var index = cauhoi.i + 1;
+
+                    <tbody>
+                        <tr>
+                            <td colspan="4">
+                                <strong>Câu @index: </strong>
+                                @Html.Raw(value.TieuDe)
+                            </td>
+                        </tr>
+                        @if (value.CauA.Split(" ").Count() < 5 && value.CauB.Split(" ").Count() < 5 && value.CauC.Split(" ").Count() < 5 && value.CauD.Split(" ").Count() < 5)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>A. </strong>
+                                    @Html.Raw(value.CauA)
+                                </td>
+                                <td>
+                                    <strong>B. </strong>
+                                    @Html.Raw(value.CauB)
+                                </td>
+                                <td>
+                                    <strong>C. </strong>
+                                    @Html.Raw(value.CauC)
+                                </td>
+                                <td>
+                                    <strong>D. </strong>
+                                    @Html.Raw(value.CauD)
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4">
+                                    <strong>A. </strong>
+                                    @Html.Raw(value.CauA)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <strong>B. </strong>
+                                    @Html.Raw(value.CauB)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <strong>C. </strong>
+                                    @Html.Raw(value.CauC)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <strong>D. </strong>
+                                    @Html.Raw(value.CauD)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                }
+            </table>
+        </div>
         <div style="page-break-after: always"></div>
     }
-    <h1>BẢNG ĐÁP ÁN</h1>
-    <table class="answer">
-        <tr>
-            <th>Câu hỏi</th>
-            <th>Đáp án</th>
-        </tr>
-        <tr>
-            <td>1.</td>
-            <td>D</td>
-        </tr>
-    </table>
+
+    @foreach (var item in Model.DanhSachBaiKiemTra)
+    {
+        
+            double totalCountTitle = item.DanhSachCauHoi.Count();
+            int totalColTitle = Convert.ToInt32(Math.Round((totalCountTitle / 10)));        
+        <h1>BẢNG ĐÁP ÁN ĐỀ @item.MaDe</h1>
+        <table class="page" style="width:100%">
+            <tr>
+                @{
+                    int idx = 0;
+                    @for (int i = 1; i < totalColTitle + 1; i++)
+                    {
+                        <td>
+                            <table class="quiz-table">
+                                <tr>
+                                    <td>#</td>
+                                    <td>A</td>
+                                    <td>B</td>
+                                    <td>C</td>
+                                    <td>D</td>
+                                </tr>
+                                @for (int j = 0; j < 10; j++)
+                                {
+                                    int _addressQuestion = item.DanhSachCauHoi.ElementAt((j + idx)).CauDung;
+                                    <tr>
+                                        <td>@((j + 1) + idx)</td>
+                                        @if (_addressQuestion == 1)
+                                        {<td class="dot">&#9679;</td>} else { <td class="dot">&#9675;</td>}
+                                        @if (_addressQuestion == 2)
+                                        {<td class="dot">&#9679;</td>} else { <td class="dot">&#9675;</td>}
+                                        @if (_addressQuestion == 3)
+                                        {<td class="dot">&#9679;</td>} else { <td class="dot">&#9675;</td>}
+                                        @if (_addressQuestion == 4)
+                                        {<td class="dot">&#9679;</td>} else { <td class="dot">&#9675;</td>}
+                                    </tr>
+                                }
+
+                            </table>
+                        </td>
+                        idx += 10;
+                    }
+                }
+            </tr>
+        </table>
+        <div style="page-break-after: always"></div>
+    }
 </body>
 </html>

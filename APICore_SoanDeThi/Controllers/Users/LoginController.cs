@@ -98,7 +98,8 @@ namespace APICore_SoanDeThi.Controllers.Users
                         roles = permissions,
                         timeZone = "International Date Line West",
                         username = user.Username,
-                        website = "https://keenthemes.com"
+                        website = "https://keenthemes.com",
+                        coCauId = 8
                     };
 
                     userLogin.accessToken = GenerateJSONWebToken(userLogin);

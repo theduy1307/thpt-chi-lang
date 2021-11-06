@@ -38,16 +38,16 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
    * #region xóa hạn mức chiết khấu
    *   
    */
-    [Route("api/BaiKiemTra")]
+    [Route("api/BaiKiemTraOnline")]
     [EnableCors("ExamPolicy")]
-    public class BaiKiemTraController : ControllerBase
+    public class BaiKiemTraOnlineController : ControllerBase
     {
         private readonly IHostingEnvironment _hosting;
         private readonly SoanDeThi_DbContext _context;
         private LoginController _account;
         readonly IGeneratePdf _generatePdf;
 
-        public BaiKiemTraController(IHostingEnvironment hostingEnvironment, IGeneratePdf generatePdf)
+        public BaiKiemTraOnlineController(IHostingEnvironment hostingEnvironment, IGeneratePdf generatePdf)
         {
             DbContextOptions<SoanDeThi_DbContext> options = new DbContextOptions<SoanDeThi_DbContext>();
             _hosting = hostingEnvironment;
@@ -111,6 +111,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                       IsCustom = x.kiemtra.IsCustom,
                                                       Lop = x.kiemtra.Lop,
                                                       TenNguoiTao = x.nhanvien.HoTen,
+                                                      ThoiGianLamBai = x.kiemtra.ThoiGianLamBai
                                                   });
 
 

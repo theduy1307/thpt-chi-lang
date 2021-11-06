@@ -16,6 +16,7 @@ import { LoaiHopDongComponent } from "./loai-hop-dong/loai-hop-dong.component";
 import { QuestionComponent } from "./ngan-hang-cau-hoi/ngan-hang-cau-hoi.component";
 import { InBaiKiemTraComponent } from "./in-bai-kiem-tra/in-bai-kiem-tra.component";
 import { BaiKiemTraCauHinhEditComponent } from "./bai-kiem-tra-cau-hinh/bai-kiem-tra-cau-hinh-edit/bai-kiem-tra-cau-hinh-edit.component";
+import { BaiKiemTraTrucTuyenComponent } from "./bai-kiem-tra-truc-tuyen/bai-kiem-tra-truc-tuyen.component";
 
 const routes: Routes = [
   {
@@ -102,7 +103,11 @@ const routes: Routes = [
         path: "danh-sach-bai-kiem-tra-cau-hinh/print/:id",
         component: InBaiKiemTraComponent,
       },
-      
+      // danh sách bài kiểm tra trực tuyến
+      {
+        path: "danh-sach-bai-kiem-tra-truc-tuyen",
+        component: BaiKiemTraTrucTuyenComponent,
+      },
       { path: "", redirectTo: "cau-hoi", pathMatch: "full" },
       { path: "**", redirectTo: "cau-hoi", pathMatch: "full" },
     ],
