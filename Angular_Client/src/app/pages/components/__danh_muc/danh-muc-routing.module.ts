@@ -17,6 +17,7 @@ import { QuestionComponent } from "./ngan-hang-cau-hoi/ngan-hang-cau-hoi.compone
 import { InBaiKiemTraComponent } from "./in-bai-kiem-tra/in-bai-kiem-tra.component";
 import { BaiKiemTraCauHinhEditComponent } from "./bai-kiem-tra-cau-hinh/bai-kiem-tra-cau-hinh-edit/bai-kiem-tra-cau-hinh-edit.component";
 import { BaiKiemTraTrucTuyenComponent } from "./bai-kiem-tra-truc-tuyen/bai-kiem-tra-truc-tuyen.component";
+import { BaiKiemTraTrucTuyenEditComponent } from "./bai-kiem-tra-truc-tuyen/bai-kiem-tra-truc-tuyen-edit/bai-kiem-tra-truc-tuyen-edit.component";
 
 const routes: Routes = [
   {
@@ -107,6 +108,11 @@ const routes: Routes = [
       {
         path: "danh-sach-bai-kiem-tra-truc-tuyen",
         component: BaiKiemTraTrucTuyenComponent,
+      },
+      // danh sách bài kiểm tra trực tuyến
+      {
+        path: "danh-sach-bai-kiem-tra-truc-tuyen/chinh-sua/:id",
+        component: BaiKiemTraTrucTuyenEditComponent,
       },
       { path: "", redirectTo: "cau-hoi", pathMatch: "full" },
       { path: "**", redirectTo: "cau-hoi", pathMatch: "full" },

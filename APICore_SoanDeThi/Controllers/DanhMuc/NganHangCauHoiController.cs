@@ -298,7 +298,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
             }
             catch (Exception ex)
             {
-                return Utilities._responseData(0, "Thêm mới thất bại, vui lòng kiểm tra lại!", null);
+                return Utilities._responseData(0, "Thêm mới thất bại, vui lòng kiểm tra lại! Lỗi: "+ex.Message, null);
             }
         }
         #endregion

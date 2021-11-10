@@ -1,0 +1,38 @@
+<div class="card card-custom gutter-b">
+  <!-- Header Modal -->
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">Chỉnh sửa bài kiểm tra</h3>
+    </div>
+    <div class="card-toolbar">
+      <button type="button" class="btn btn-light btn-elevate mr-2">
+        Trở lại
+      </button>
+      <button type="button" class="btn btn-primary mr-2">Lưu</button>
+    </div>
+  </div>
+  <!-- End Header -->
+  <!-- Body -->
+  <div class="card-body">
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="data">
+      <ng-container *ngFor="let item of this.data.DanhSachCauHoi; let i = index">
+        <div class="card text-left mb-5">
+          <div class="card-header"><h5>Câu {{i+1}}</h5></div>
+          <div class="card-body">
+            <p class="card-text">
+              {{item.TieuDe}}
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+          <div class="card-footer text-muted">2 days ago</div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+  <!-- End Body -->
+</div>

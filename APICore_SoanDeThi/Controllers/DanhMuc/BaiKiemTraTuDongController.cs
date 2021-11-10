@@ -221,7 +221,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             }
             catch (Exception ex)
             {
-                return Utilities._responseData(0, "Lấy dữ liệu thất bại, vui lòng kiểm tra lại!", null);
+                return Utilities._responseData(0, "Lấy dữ liệu thất bại, vui lòng kiểm tra lại! Lỗi: "+ ex.Message, null);
             }
         }
         #endregion
@@ -367,6 +367,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                 }).FirstOrDefault();
             return await _generatePdf.GetPdf("Views/Print/index.cshtml", _data);
         }
+
         /* -------------------- CÁC HÀM HỖ TRỢ -------------------- */
 
         private List<int> layMaDeThi(int soLuongDe)

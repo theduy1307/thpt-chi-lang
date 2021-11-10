@@ -168,10 +168,10 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region LẤY CHI TIẾT BÀI KIỂM TRA
-        [Route("BaiKiemTra_Detail")]
+        [Route("BaiKiemTraTrucTuyen_Detail")]
         //[Authorize(Roles = "10014")]
         [HttpGet]
-        public BaseModel<object> BaiKiemTra_Detail(long id)
+        public BaseModel<object> BaiKiemTraTrucTuyen_Detail(long id)
         {
             string Token = Utilities._GetHeader(Request);
             UserLogin loginData = _account._GetInfoUser(Token);
@@ -183,42 +183,43 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
                 _context.Database.BeginTransaction();
                 var _item = _context.BaiKiemTra.Join(_context.BaiKiemTra_Group, baikiemtra => baikiemtra.IdGroup, group => group.Id, (baikiemtra, group) => new { baikiemtra, group })
-                                                .Where(group => group.group.Id == id)
-                                                .Select(x => new IBaiKiemTra
-                                                {
-                                                    Id = x.baikiemtra.Id,
-                                                    IdGroup = x.group.Id,
-                                                    MaDe = x.baikiemtra.MaDe,
-                                                    DanhSachCauHoi = _context.BaiKiemTra_ChiTiet.Where(chitiet => chitiet.IdBaiKiemTra == x.baikiemtra.Id)
-                                                                                                .Join(_context.Question, chitiet => chitiet.IdCauHoi, cauhoi => cauhoi.Id, (chitiet, cauhoi) => new { chitiet, cauhoi })
-                                                                                                .Select(x => new IBaiKiemTra_ChiTiet
-                                                                                                {
-                                                                                                    Id = x.chitiet.Id,
-                                                                                                    TieuDe = x.cauhoi.Title,
-                                                                                                    CauA = x.cauhoi.OptionA,
-                                                                                                    CauB = x.cauhoi.OptionB,
-                                                                                                    CauC = x.cauhoi.OptionC,
-                                                                                                    CauD = x.cauhoi.OptionD,
-                                                                                                    CauDung = x.cauhoi.CorrectOption,
-                                                                                                }).ToList()
-                                                }).ToList();
-                var _data = _context.BaiKiemTra_Group.Where(x => x.Id == id).Join(_context.MonHoc, kiemtra => kiemtra.IdMonHoc, monhoc => monhoc.Id, (kiemtra, monhoc) => new { kiemtra, monhoc })
-                                                    .Select(x => new IBaiKiemTra_Print
-                                                    {
-                                                        Id = x.kiemtra.Id,
-                                                        TenBaiKiemTra = x.kiemtra.TenBaiKiemTra,
-                                                        ThoiGianLamBai = x.kiemtra.ThoiGianLamBai,
-                                                        NamHoc = x.kiemtra.NamHoc,
-                                                        MonHoc = x.monhoc.TenMonHoc,
-                                                        HocKy = x.kiemtra.HocKy,
-                                                        Lop = x.kiemtra.Lop,
-                                                        DanhSachBaiKiemTra = _item
-                                                    }).FirstOrDefault();
-                if (_data == null)
+                                            .Where(group => group.group.Id == id)
+                                            .Select(x => new IBaiKiemTra
+                                            {
+                                                Id = x.baikiemtra.Id,
+                                                IdGroup = x.group.Id,
+                                                MaDe = x.baikiemtra.MaDe,
+                                                DanhSachCauHoi = _context.BaiKiemTra_ChiTiet.Where(chitiet => chitiet.IdBaiKiemTra == x.baikiemtra.Id)
+                                                                                            .Join(_context.Question, chitiet => chitiet.IdCauHoi, cauhoi => cauhoi.Id, (chitiet, cauhoi) => new { chitiet, cauhoi })
+                                                                                            .Select(x => new IBaiKiemTra_ChiTiet
+                                                                                            {
+                                                                                                Id = x.chitiet.Id,
+                                                                                                TieuDe = x.cauhoi.Title,
+                                                                                                CauA = x.cauhoi.OptionA,
+                                                                                                CauB = x.cauhoi.OptionB,
+                                                                                                CauC = x.cauhoi.OptionC,
+                                                                                                CauD = x.cauhoi.OptionD,
+                                                                                                CauDung = x.cauhoi.CorrectOption,
+                                                                                            }).ToList()
+                                            }).FirstOrDefault();
+                //var _data = _context.BaiKiemTra_Group.Where(x => x.Id == id).Join(_context.MonHoc, kiemtra => kiemtra.IdMonHoc, monhoc => monhoc.Id, (kiemtra, monhoc) => new { kiemtra, monhoc })
+                //                                    .Select(x => new IBaiKiemTra_Print
+                //                                    {
+                //                                        Id = x.kiemtra.Id,
+                //                                        TenBaiKiemTra = x.kiemtra.TenBaiKiemTra,
+                //                                        ThoiGianLamBai = x.kiemtra.ThoiGianLamBai,
+                //                                        NamHoc = x.kiemtra.NamHoc,
+                //                                        MonHoc = x.monhoc.TenMonHoc,
+                //                                        HocKy = x.kiemtra.HocKy,
+                //                                        Lop = x.kiemtra.Lop,
+                //                                        DanhSachBaiKiemTra = _item
+                //                                    }).FirstOrDefault();
+
+                if (_item == null)
                     return Utilities._responseData(0, "Không tìm thấy dữ liệu, vui lòng tải lại!!", null);
 
                 _context.Database.CommitTransaction();
-                return Utilities._responseData(1, "", _data);
+                return Utilities._responseData(1, "", _item);
             }
             catch (Exception ex)
             {
@@ -324,7 +325,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             }
             catch (Exception ex)
             {
-                return Utilities._responseData(0, "Xóa thất bại, vui lòng kiểm tra lại!", null);
+                return Utilities._responseData(0, "Xóa thất bại, vui lòng kiểm tra lại! Lỗi: "+ex.Message, null);
             }
         }
         #endregion
@@ -351,7 +352,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                                                                 CauB = x.cauhoi.OptionB,
                                                                                                 CauC = x.cauhoi.OptionC,
                                                                                                 CauD = x.cauhoi.OptionD,
-                                                                                                CauDung = x.cauhoi.CorrectOption,
+                                                                                                CauDung = x.cauhoi.CorrectOption,                                                                                                
                                                                                             }).ToList()
                                             }).ToList();
             var _data = _context.BaiKiemTra_Group.Where(x => x.Id == id).Join(_context.MonHoc, kiemtra => kiemtra.IdMonHoc, monhoc => monhoc.Id, (kiemtra, monhoc) => new {kiemtra, monhoc})

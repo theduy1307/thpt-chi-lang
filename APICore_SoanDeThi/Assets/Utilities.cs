@@ -23,7 +23,7 @@ namespace APICore_SoanDeThi.Assets
             }
             catch (Exception ex)
             {
-                return string.Empty;
+                return ex.Message;
             }
         }
 

@@ -505,8 +505,6 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                 }).FirstOrDefault();
             return await _generatePdf.GetPdf("Views/Print/index.cshtml", _data);
         }
-
-
         /* -------------------- CÁC HÀM HỖ TRỢ -------------------- */
 
         private List<string> layMaDeThi(int soLuongDe)

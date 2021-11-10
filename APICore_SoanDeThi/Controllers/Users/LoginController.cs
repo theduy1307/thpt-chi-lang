@@ -203,7 +203,8 @@ namespace APICore_SoanDeThi.Controllers.Users
                 pic = userInfo.pic,
                 refreshToken = userInfo.refreshToken,
                 timeZone = userInfo.timeZone,
-                website = userInfo.website
+                website = userInfo.website,
+                coCauId = 8
             };
 
             claims.Add(new Claim(JwtRegisteredClaimNames.Sub, account.username));

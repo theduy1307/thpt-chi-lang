@@ -275,18 +275,32 @@
                                 </tr>
                                 @for (int j = 0; j < 10; j++)
                                 {
-                                    int _addressQuestion = item.DanhSachCauHoi.ElementAt((j + idx)).CauDung;
-                                    <tr>
-                                        <td>@((j + 1) + idx)</td>
-                                        @if (_addressQuestion == 1)
-                                        {<td class="dot">&#9679;</td>} else { <td class="dot">&#9675;</td>}
-                                        @if (_addressQuestion == 2)
-                                        {<td class="dot">&#9679;</td>} else { <td class="dot">&#9675;</td>}
-                                        @if (_addressQuestion == 3)
-                                        {<td class="dot">&#9679;</td>} else { <td class="dot">&#9675;</td>}
-                                        @if (_addressQuestion == 4)
-                                        {<td class="dot">&#9679;</td>} else { <td class="dot">&#9675;</td>}
-                                    </tr>
+                                    var _addressQuestion = item.DanhSachCauHoi.ElementAtOrDefault((j + idx));
+                                    if(_addressQuestion != null)
+                                    {
+                                        <tr>
+                                            <td>@((j + 1) + idx)</td>
+                                            @if (_addressQuestion.CauDung == 1)
+                                            {<td class="dot">&#9679;</td>} else { <td class="dot">&#9675;</td>}
+                                            @if (_addressQuestion.CauDung == 2)
+                                            {<td class="dot">&#9679;</td>} else { <td class="dot">&#9675;</td>}
+                                            @if (_addressQuestion.CauDung == 3)
+                                            {<td class="dot">&#9679;</td>} else { <td class="dot">&#9675;</td>}
+                                            @if (_addressQuestion.CauDung == 4)
+                                            {<td class="dot">&#9679;</td>} else { <td class="dot">&#9675;</td>}
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                            <tr>
+                                <td>@((j + 1) + idx)</td>
+                                <td class="dot">&#9675;</td>
+                                <td class="dot">&#9675;</td>
+                                <td class="dot">&#9675;</td>
+                                <td class="dot">&#9675;</td>
+                            </tr>
+                                    }
+
                                 }
 
                             </table>

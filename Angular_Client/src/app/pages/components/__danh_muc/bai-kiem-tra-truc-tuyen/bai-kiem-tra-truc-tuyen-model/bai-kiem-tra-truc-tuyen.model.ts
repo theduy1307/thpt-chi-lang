@@ -4,22 +4,24 @@ export interface IBaiKiemTra_Group extends BaseModel {
   Id: number;
   TenBaiKiemTra: string;
   SoLuongDe: number;
-  CauDe: number;
-  CauTrungBinh: number;
-  CauKho: number;
+  CauBiet: number;
+  CauHieu: number;
+  CauVanDungThap: number;
+  CauVanDungCao: number;
   ThoiGianLamBai: number;
   HocKy: number;
   Lop: number;
-  NamHoc:string;
-  IdMonHoc:number
+  NamHoc: string;
+  IdMonHoc: number;
   NguoiTao: number;
   TenNguoiTao: string;
   NgayTao: string;
   NguoiSua: number;
   NgaySua: string;
   TrangThai: number;
+  IsCustom: boolean;
   IsDisabled: boolean;
-  DanhSachBaiHoc: IBaiHoc[];
+  DanhSachCauHoi: IQuestion[];
 }
 export interface IBaiHoc {
   Id: number;
@@ -27,4 +29,28 @@ export interface IBaiHoc {
   SoThuTu: number;
   MaBaiHoc: string;
   TenBaiHoc: string;
+}
+
+export interface IQuestion {
+  Id: number;
+  Title: string;
+  OptionA: string;
+  OptionB: string;
+  OptionC: string;
+  OptionD: string;
+  CorrectOption: number;
+  IdBaiHoc: number;
+  TenBaiHoc: string;
+  IdChuong: number;
+  TenChuong: string;
+  Class: number;
+  Level: number;
+  TenNguoiTao: string;
+  CreateDate: string;
+  CreateBy: number;
+  ModifyDate: string;
+  ModifyBy: number;
+  IsDisabled: boolean;
+  IsCustom:boolean;
+  IdBaiKiemTra_Group:number;
 }

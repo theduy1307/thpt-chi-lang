@@ -35,7 +35,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             _account = new LoginController();
         }
 
-        #region DANH SÁCH BÀI KIỂM TRA
+        #region DANH SÁCH NGƯỜI DÙNG
         [Route("Account_List")]
         //[Authorize(Roles = "")]
         [HttpPost]
