@@ -26,6 +26,7 @@
     "@angular/router": "~11.0.0",
     "@ckeditor/ckeditor5-alignment": "^29.0.0",
     "@ckeditor/ckeditor5-angular": "^2.0.1",
+    "@ckeditor/ckeditor5-build-classic": "^31.0.0",
     "@ckeditor/ckeditor5-font": "^29.0.0",
     "@ckeditor/ckeditor5-highlight": "^29.0.0",
     "@ckeditor/ckeditor5-horizontal-line": "^29.0.0",

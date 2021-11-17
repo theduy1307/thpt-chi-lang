@@ -7,7 +7,7 @@ import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.servi
 import { FunctionPublic } from "../../../_common/_function/public-function";
 import { DungChungService } from "../../../_common/_services/dung-chung.service";
 import { IHanMucChietKhau } from "../han-muc-chiet-khau-model/han-muc-chiet-khau.model";
-import * as ClassicEditor from "src/assets/ckeditor5/packages/ckeditor5-build-classic";
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Router } from "@angular/router";
 import { DeleteModalComponent } from "../../../_common/_components/delete-modal/delete-modal.component";
 import { HanMucChietKhauService } from "../han-muc-chiet-khau-service/han-muc-chiet-khau.service";

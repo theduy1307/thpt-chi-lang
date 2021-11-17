@@ -11,7 +11,7 @@ import { FunctionPublic } from "../../../_common/_function/public-function";
 import { DungChungService } from "../../../_common/_services/dung-chung.service";
 import { ILoaiHopDong } from "../loai-hop-dong-model/loai-hop-dong.model";
 import { LoaiHopDongService } from "../loai-hop-dong-service/loai-hop-dong.service";
-import * as ClassicEditor from "src/assets/ckeditor5/packages/ckeditor5-build-classic";
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: "app-loai-hop-dong-add",

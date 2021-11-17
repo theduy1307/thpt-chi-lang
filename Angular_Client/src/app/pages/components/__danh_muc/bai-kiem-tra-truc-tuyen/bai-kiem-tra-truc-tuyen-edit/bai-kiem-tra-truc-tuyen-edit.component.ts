@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { of, Subscription } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { LayoutUtilsService } from 'src/app/_global/_services/layout-utils.service';
-import * as ClassicEditor from 'src/assets/ckeditor5/packages/ckeditor5-build-classic';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { DeleteModalComponent } from '../../../_common/_components/delete-modal/delete-modal.component';
 import { FunctionPublic } from '../../../_common/_function/public-function';
 import { DungChungService } from '../../../_common/_services/dung-chung.service';

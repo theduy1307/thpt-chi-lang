@@ -5,7 +5,7 @@ import * as moment from "moment";
 import { of, Subscription } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.service";
-import * as ClassicEditor from "src/assets/ckeditor5/packages/ckeditor5-build-classic";
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { FunctionPublic } from "../../../_common/_function/public-function";
 import { DungChungService } from "../../../_common/_services/dung-chung.service";
 import { BaiKiemTraCauHinhService } from "../bai-kiem-tra-cau-hinh-service/bai-kiem-tra-cau-hinh.service";

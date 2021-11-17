@@ -7,7 +7,7 @@ import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.servi
 import { FunctionPublic } from "../../../_common/_function/public-function";
 import { DungChungService } from "../../../_common/_services/dung-chung.service";
 import * as moment from "moment";
-import * as ClassicEditor from "src/assets/ckeditor5/packages/ckeditor5-build-classic";
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { IBaiHoc, IBaiKiemTra_Group } from "./../bai-kiem-tra-model/bai-kiem-tra.model";
 import { BaiKiemTraService } from "../bai-kiem-tra-service/bai-kiem-tra.service";
 import { Router } from "@angular/router";

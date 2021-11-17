@@ -9,7 +9,7 @@ import { DungChungService } from "../../../_common/_services/dung-chung.service"
 import * as moment from "moment";
 import { IQuestion } from "../ngan-hang-cau-hoi-model/ngan-hang-cau-hoi.model";
 import { QuestionService } from "../ngan-hang-cau-hoi-service/ngan-hang-cau-hoi.service";
-import * as ClassicEditor from "src/assets/ckeditor5/packages/ckeditor5-build-classic";
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const EMPTY_DATA: IQuestion = {
   id: undefined,
