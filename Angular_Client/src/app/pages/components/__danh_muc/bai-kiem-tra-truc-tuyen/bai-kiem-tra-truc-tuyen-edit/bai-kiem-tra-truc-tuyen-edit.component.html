@@ -22,14 +22,13 @@
     <ng-container *ngIf="data">
       <ng-container *ngFor="let item of this.data.DanhSachCauHoi; let i = index">
         <div class="card text-left mb-5">
-          <div class="card-header"><h5>Câu {{i+1}}</h5></div>
+          <div class="card-header"><p class="text-header" [innerHTML]="'<strong>Câu '+(i+1)+': </strong> '+item.TieuDe"></p></div>
           <div class="card-body">
-            <p class="card-text">
-              {{item.TieuDe}}
-            </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <p class="card-text text-header" [innerHTML]="'<strong>A. </strong> '+item.CauA"></p>
+            <p class="card-text text-header" [innerHTML]="'<strong>B. </strong> '+item.CauB"></p>
+            <p class="card-text text-header" [innerHTML]="'<strong>C. </strong> '+item.CauC"></p>
+            <p class="card-text text-header" [innerHTML]="'<strong>D. </strong> '+item.CauD"></p>
           </div>
-          <div class="card-footer text-muted">2 days ago</div>
         </div>
       </ng-container>
     </ng-container>

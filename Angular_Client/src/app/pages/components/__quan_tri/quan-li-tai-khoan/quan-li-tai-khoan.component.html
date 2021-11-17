@@ -95,6 +95,15 @@
               ></app-sort-icon>
             </th>
             <th>
+              Tên đăng nhập
+              <app-sort-icon
+                column="TypeAccount"
+                [activeColumn]="sorting.column"
+                [activeDirection]="sorting.direction"
+                (sort)="sort($event)"
+              ></app-sort-icon>
+            </th>
+            <th>
               Loại tài khoản
               <app-sort-icon
                 column="TypeAccount"
@@ -110,6 +119,7 @@
               <td>{{ i + 1 }}</td>
               <td>{{ item.Holot }}</td>
               <td>{{ item.Ten }}</td>
+              <td>{{ item.Username }}</td>
               <td>
                 <span
                   class="label label-lg label-inline"
@@ -126,7 +136,7 @@
                 <a
                   matTooltip="Xem chi tiết"
                   matTooltipPosition="after"
-                  class="btn btn-icon btn-light btn-hover-primary btn-sm"
+                  class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3"
                 >
                   <!-- (click)="detail(item.IdQuestion)" -->
                   <span
@@ -139,7 +149,8 @@
                 <a
                   matTooltip="Chỉnh sửa"
                   matTooltipPosition="after"
-                  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+                  class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3"
+                  [routerLink]="'./chinh-sua/'+item.Id"
                 >
                   <span
                     [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'"

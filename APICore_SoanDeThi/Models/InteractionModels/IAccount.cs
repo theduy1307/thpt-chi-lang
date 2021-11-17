@@ -22,11 +22,12 @@ namespace APICore_SoanDeThi.Models.InteractionModels
         public DateTime? Ngaysinh { get; set; }
         public string Email { get; set; }
         public long? IdChucdanh { get; set; }
-        public string TenChucDanh { get; set; }
+        public string? TenChucDanh { get; set; }
         public short? Disable { get; set; }
         public string SodienthoaiNguoilienhe { get; set; }
         public long? Cocauid { get; set; }
         public string Username { get; set; }
+        public string Password { get; set; }
         public string Picture { get; set; }
 
     }

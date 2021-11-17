@@ -1,1 +1,73 @@
-<p>quan-li-tai-khoan-create works!</p>
+<div class="card card-custom gutter-b">
+    <!-- Header Modal -->
+    <div class="card-header">
+      <div class="card-title">
+        <h3 class="card-label">Thêm mới tài khoản</h3>
+      </div>
+      <div class="card-toolbar">
+        <button type="button" class="btn btn-light btn-elevate mr-2" routerLink="/hop-dong/danh-muc/hop-dong-mau">Trở lại</button>
+        <button type="button" class="btn btn-primary" routerLink="/danh-muc/danh-sach-bai-kiem-tra-cau-hinh">
+            Lưu
+          </button>
+      </div>
+    </div>
+    <!-- End Header -->
+  
+    <!-- Body -->
+    <div class="card-body">
+      <ng-container *ngIf="isLoading$ | async">
+        <div class="overlay-layer bg-transparent">
+          <div class="spinner spinner-lg spinner-success"></div>
+        </div>        
+      </ng-container>
+      <ng-container>
+        <form action="#" class="form form-label-right" [formGroup]="informationFormGroup">
+          <div class="form-group row">
+            <div class="col-lg-4">
+              <label class="form-label">Họ và tên lót</label>
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                formControlName="hoLot"
+                [class.is-invalid]="ValidateFormGroupEvent('hoLot', informationFormGroup, 1)"
+                [class.is-valid]="ValidateFormGroupEvent('hoLot', informationFormGroup, 0)"
+              />
+              <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('hoLot', informationFormGroup, 0)">
+                Thông tin chính xác
+              </div>
+              <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('hoLot', informationFormGroup, 1)">
+                Vui lòng nhập đúng thông tin
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">Tên</label>
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                formControlName="ten"
+                [class.is-invalid]="ValidateFormGroupEvent('ten', informationFormGroup, 1)"
+                [class.is-valid]="ValidateFormGroupEvent('ten', informationFormGroup, 0)"
+              />
+              <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('ten', informationFormGroup, 0)">
+                Thông tin chính xác
+              </div>
+              <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('ten', informationFormGroup, 1)">
+                Vui lòng nhập tên
+              </div>
+            </div>
+            <div class="col-lg-4 align-middle">
+              <label class="form-label">Giới tính</label>
+              <ng-container>
+                <mat-radio-group aria-label="Select an option">
+                  <mat-radio-button value="1">Option 1</mat-radio-button>
+                  <mat-radio-button value="2">Option 2</mat-radio-button>
+                </mat-radio-group>
+              </ng-container>              
+            </div>
+          </div>
+        </form>
+      </ng-container>
+    </div>
+    <!-- End Body -->
+  </div>
+  

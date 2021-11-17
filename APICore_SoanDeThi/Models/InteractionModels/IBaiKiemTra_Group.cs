@@ -11,9 +11,10 @@ namespace APICore_SoanDeThi.Models.InteractionModels
         public long Id { get; set; }
         public string TenBaiKiemTra { get; set; }
         public int SoLuongDe { get; set; }
-        public int CauDe { get; set; }
-        public int CauTrungBinh { get; set; }
-        public int CauKho { get; set; }
+        public int CauBiet { get; set; }
+        public int CauHieu { get; set; }
+        public int CauVanDungThap { get; set; }
+        public int CauVanDungCao { get; set; }
         public int ThoiGianLamBai { get; set; }
         public int HocKy { get; set; }
         public byte Lop { get; set; }

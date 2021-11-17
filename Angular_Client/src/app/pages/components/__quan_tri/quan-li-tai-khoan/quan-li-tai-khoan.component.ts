@@ -23,6 +23,7 @@ import { DeleteManyModalComponent } from "../../_common/_components/delete-many-
 import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.service";
 import { AuthService, UserModel } from "src/app/modules/auth";
 import { AccountService } from "./quan-li-tai-khoan-services/quan-li-tai-khoan-services";
+import { Router } from "@angular/router";
 
 export interface PeriodicElement {
   name: string;
@@ -69,6 +70,7 @@ export class QuanLiTaiKhoanComponent implements OnInit, OnDestroy, ISortView, IG
   constructor(
     private fb: FormBuilder,
     public userService: AuthService,
+    private router: Router,
     private modalService: NgbModal,
     private layoutUtilsService: LayoutUtilsService,
     public services: AccountService
@@ -133,7 +135,7 @@ export class QuanLiTaiKhoanComponent implements OnInit, OnDestroy, ISortView, IG
   }
 
   create() {
-    //this.edit(undefined);
+    this.router.navigate(["quan-tri/quan-li-tai-khoan/them-moi"])
   }
   // edit(id: number) {
   //   const modalRef = this.modalService.open(QuestionModifyComponent, {

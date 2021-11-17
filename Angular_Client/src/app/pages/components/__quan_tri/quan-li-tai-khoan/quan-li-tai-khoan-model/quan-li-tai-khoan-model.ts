@@ -1,4 +1,6 @@
-export interface IAccount {
+import { BaseModel } from "src/app/_metronic/shared/crud-table";
+
+export interface IAccount extends BaseModel {
     IdNv: number;
     Manv: string;
     Holot: string;
@@ -13,5 +15,6 @@ export interface IAccount {
     SodienthoaiNguoilienhe: string;
     Cocauid: number | null;
     Username: string;
+    Password: string;
     Picture: string;
 }

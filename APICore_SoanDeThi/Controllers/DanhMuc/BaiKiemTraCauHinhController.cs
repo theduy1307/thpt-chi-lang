@@ -104,9 +104,10 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                       Id = x.kiemtra.Id,
                                                       TenBaiKiemTra = "KIỂM TRA "+x.kiemtra.TenBaiKiemTra.ToUpper(),
                                                       SoLuongDe = x.kiemtra.SoLuongDe,
-                                                      CauDe = x.kiemtra.CauBiet,
-                                                      CauTrungBinh = x.kiemtra.CauHieu,
-                                                      CauKho = x.kiemtra.CauVanDungThap,
+                                                      CauBiet = x.kiemtra.CauBiet,
+                                                      CauHieu = x.kiemtra.CauHieu,
+                                                      CauVanDungThap = x.kiemtra.CauVanDungThap,
+                                                      CauVanDungCao = x.kiemtra.CauVanDungCao,
                                                       NamHoc = x.kiemtra.NamHoc.ToLower(),
                                                       Lop = x.kiemtra.Lop,
                                                       TenNguoiTao = x.nhanvien.HoTen,
@@ -172,11 +173,11 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         [HttpPost]
         public BaseModel<object> BaiKiemTraCauHinh_Insert([FromBody] IBaiKiemTraCauHinh_Group data)
         {
-            //string Token = Utilities._GetHeader(Request);
-            //UserLogin loginData = _account._GetInfoUser(Token);
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
 
-            //if (loginData == null)
-            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
             List<string> danhSachMaDeThi = layMaDeThi(data.SoLuongDe);
             List<Question> danhSachCauHoi = new List<Question>();
             try
@@ -196,7 +197,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _item.CauVanDungThap = data.CauVanDungThap;
                 _item.CauVanDungCao = data.CauVanDungCao;
                 _item.NamHoc = data.NamHoc;
-                _item.IdMonHoc = data.IdMonHoc;
+                _item.IdMonHoc = loginData.coCauId;
                 _item.ThoiGianLamBai = data.ThoiGianLamBai;
                 _item.HocKy = data.HocKy;
                 _item.Lop = data.Lop;
@@ -356,7 +357,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _item.CauVanDungThap = data.CauVanDungThap;
                 _item.CauVanDungCao = data.CauVanDungCao;
                 _item.NamHoc = data.NamHoc;
-                _item.IdMonHoc = data.IdMonHoc;
+                _item.IdMonHoc = loginData.coCauId;
                 _item.ThoiGianLamBai = data.ThoiGianLamBai;
                 _item.HocKy = data.HocKy;
                 _item.Lop = data.Lop;
@@ -370,25 +371,49 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 //Thêm câu hỏi vào database
                 foreach (var item in data.DanhSachCauHoi)
                 {
-                    Question _cauHoi = new Question();
-                    _cauHoi.Title = string.IsNullOrEmpty(item.Title) ? "" : item.Title.ToString().Trim();
-                    _cauHoi.OptionA = string.IsNullOrEmpty(item.OptionA) ? "" : item.OptionA.ToString().Trim();
-                    _cauHoi.OptionB = string.IsNullOrEmpty(item.OptionB) ? "" : item.OptionB.ToString().Trim();
-                    _cauHoi.OptionC = string.IsNullOrEmpty(item.OptionC) ? "" : item.OptionC.ToString().Trim();
-                    _cauHoi.OptionD = string.IsNullOrEmpty(item.OptionD) ? "" : item.OptionD.ToString().Trim();
-                    _cauHoi.CorrectOption = item.CorrectOption;
-                    _cauHoi.IdBaiHoc = item.IdBaiHoc;
-                    _cauHoi.Level = item.Level;
-                    _cauHoi.CreateDate = DateTime.Now;
-                    _cauHoi.CreateBy = item.CreateBy;
-                    _cauHoi.ModifyDate = DateTime.Now;
-                    _cauHoi.CreateBy = item.CreateBy;
-                    _cauHoi.ModifyBy = item.ModifyBy;
-                    _cauHoi.IsDisabled = false;
-                    _cauHoi.IsCustom = true;
-                    _cauHoi.IdBaiKiemTra_Group = _item.Id;
-                    _context.Question.Add(_cauHoi);
-                    _context.SaveChanges();
+                    if(item.Id != 0)
+                    {
+                        var _question = _context.Question.Where(x => x.Id == item.Id).FirstOrDefault();
+                        _question.Title = string.IsNullOrEmpty(item.Title) ? "" : item.Title.ToString().Trim();
+                        _question.OptionA = string.IsNullOrEmpty(item.OptionA) ? "" : item.OptionA.ToString().Trim();
+                        _question.OptionB = string.IsNullOrEmpty(item.OptionB) ? "" : item.OptionB.ToString().Trim();
+                        _question.OptionC = string.IsNullOrEmpty(item.OptionC) ? "" : item.OptionC.ToString().Trim();
+                        _question.OptionD = string.IsNullOrEmpty(item.OptionD) ? "" : item.OptionD.ToString().Trim();
+                        _question.CorrectOption = item.CorrectOption;
+                        _question.IdBaiHoc = item.IdBaiHoc;
+                        _question.Level = item.Level;
+                        _question.CreateDate = DateTime.Now;
+                        _question.CreateBy = item.CreateBy;
+                        _question.ModifyDate = DateTime.Now;
+                        _question.CreateBy = item.CreateBy;
+                        _question.ModifyBy = item.ModifyBy;
+                        _question.IsDisabled = false;
+                        _question.IsCustom = true;
+                        _question.IdBaiKiemTra_Group = _item.Id;
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        Question _question = new Question();
+                        _question.Title = string.IsNullOrEmpty(item.Title) ? "" : item.Title.ToString().Trim();
+                        _question.OptionA = string.IsNullOrEmpty(item.OptionA) ? "" : item.OptionA.ToString().Trim();
+                        _question.OptionB = string.IsNullOrEmpty(item.OptionB) ? "" : item.OptionB.ToString().Trim();
+                        _question.OptionC = string.IsNullOrEmpty(item.OptionC) ? "" : item.OptionC.ToString().Trim();
+                        _question.OptionD = string.IsNullOrEmpty(item.OptionD) ? "" : item.OptionD.ToString().Trim();
+                        _question.CorrectOption = item.CorrectOption;
+                        _question.IdBaiHoc = item.IdBaiHoc;
+                        _question.Level = item.Level;
+                        _question.CreateDate = DateTime.Now;
+                        _question.CreateBy = item.CreateBy;
+                        _question.ModifyDate = DateTime.Now;
+                        _question.CreateBy = item.CreateBy;
+                        _question.ModifyBy = item.ModifyBy;
+                        _question.IsDisabled = false;
+                        _question.IsCustom = true;
+                        _question.IdBaiKiemTra_Group = _item.Id;
+                        _context.Question.Add(_question);
+                        _context.SaveChanges();
+                    }                    
                 };
 
                 _context.Database.CommitTransaction();

@@ -15,6 +15,7 @@ import { IBaiKiemTra_Group, IQuestion } from './../bai-kiem-tra-truc-tuyen-model
 @Component({
   selector: 'app-bai-kiem-tra-truc-tuyen-edit',
   templateUrl: './bai-kiem-tra-truc-tuyen-edit.component.html',
+  styleUrls: ['./bai-kiem-tra-truc-tuyen-edit.component.scss']
 })
 export class BaiKiemTraTrucTuyenEditComponent implements OnInit, OnDestroy {
 /* ------------------------ Inject Event Data -----------------------*/

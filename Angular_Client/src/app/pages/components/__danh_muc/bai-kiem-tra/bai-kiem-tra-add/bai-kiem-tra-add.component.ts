@@ -21,9 +21,10 @@ const EMPTY_DATA: IBaiKiemTra_Group = {
   TenBaiKiemTra: "",
   TenNguoiTao: "",
   SoLuongDe: undefined,
-  CauDe: undefined,
-  CauTrungBinh: undefined,
-  CauKho: undefined,
+  CauBiet: undefined,
+  CauHieu: undefined,
+  CauVanDungThap: undefined,
+  CauVanDungCao: undefined,
   ThoiGianLamBai: undefined,
   NamHoc: "",
   IdMonHoc: undefined,
@@ -149,20 +150,22 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
       lop: ["", Validators.required],
     });
     this.secondFormGroup = this.fb.group({
-      cauDe: [1, Validators.required],
-      cauTrungBinh: [1, Validators.required],
-      cauKho: [1, Validators.required],
+      cauBiet: [1, Validators.required],
+      cauHieu: [1, Validators.required],
+      cauVanDungThap: [1, Validators.required],
+      cauVanDungCao: [1, Validators.required],
       soLuongTong: [0],
     });
     this.secondFormGroup.controls["soLuongTong"].disable();
   }
   getSum() {
-    let [cauDe, cauTrungBinh, cauKho] = [
-      this.getsecondFormGroup("cauDe"),
-      this.getsecondFormGroup("cauTrungBinh"),
-      this.getsecondFormGroup("cauKho"),
+    let [cauBiet, cauHieu, cauVanDungThap, cauVanDungCao] = [
+      this.getsecondFormGroup("cauBiet"),
+      this.getsecondFormGroup("cauHieu"),
+      this.getsecondFormGroup("cauVanDungThap"),
+      this.getsecondFormGroup("cauVanDungCao"),
     ];
-    let sum: number = cauDe + cauTrungBinh + cauKho;
+    let sum: number = cauBiet + cauHieu + cauVanDungThap + cauVanDungCao;
     return sum;
   }
   getsecondFormGroup(controlName: string): any {
@@ -289,9 +292,10 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
       TenBaiKiemTra: this.getfirstFormGroup("tenBaiKiemTra"),
       TenNguoiTao: "",
       SoLuongDe: this.getfirstFormGroup("soLuongDe"),
-      CauDe: this.getsecondFormGroup("cauDe"),
-      CauTrungBinh: this.getsecondFormGroup("cauTrungBinh"),
-      CauKho: this.getsecondFormGroup("cauKho"),
+      CauBiet: this.getsecondFormGroup("cauBiet"),
+      CauHieu: this.getsecondFormGroup("cauHieu"),
+      CauVanDungThap: this.getsecondFormGroup("cauVanDungThap"),
+      CauVanDungCao: this.getsecondFormGroup("cauVanDungCao"),
       ThoiGianLamBai: this.getfirstFormGroup("thoiGianLamBai"),
       HocKy: parseInt(this.getfirstFormGroup("hocKy")),
       Lop: parseInt(this.getfirstFormGroup("lop")),

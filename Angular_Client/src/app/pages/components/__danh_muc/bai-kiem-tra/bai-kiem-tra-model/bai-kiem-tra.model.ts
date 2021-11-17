@@ -4,9 +4,10 @@ export interface IBaiKiemTra_Group extends BaseModel {
   Id: number;
   TenBaiKiemTra: string;
   SoLuongDe: number;
-  CauDe: number;
-  CauTrungBinh: number;
-  CauKho: number;
+  CauBiet: number;
+  CauHieu: number;
+  CauVanDungThap: number;
+  CauVanDungCao: number;
   ThoiGianLamBai: number;
   HocKy: number;
   Lop: number;

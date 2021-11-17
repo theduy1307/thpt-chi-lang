@@ -143,6 +143,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
                       [D]. <br/>`;
     arrayNumber.forEach((level) => {
       const formItem = this.fb.group({
+        id:[0],
         content: [contentData],
         correct: [''],
         level: [level],
@@ -161,12 +162,8 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
       [C]. ${question.OptionC}<br/>
       [D]. ${question.OptionD}<br/>
       `;
-      const formItem = this.fb.group({
-        content: [contentData],
-        correct: [question.CorrectOption + ''],
-        level: [question.Level],
-      });
       questionFormArray.patchValue({
+        id: question.Id,
         content: contentData,
         correct: question.CorrectOption + '',
         level: question.Level,
@@ -340,6 +337,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
     this.cauHoi.value.forEach((element) => {
       let cauHoi: IQuestion;
       cauHoi = this.proceed(element.content);
+      cauHoi.Id = element.id
       cauHoi.Level = element.level;
       cauHoi.CreateDate = moment(new Date()).format('YYYY-MM-DD[T]HH:mm:ss.SSS');
       cauHoi.CreateBy = 1307;
@@ -378,7 +376,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
       HocKy: parseInt(this.formThongTin.controls['hocKy'].value),
       Lop: parseInt(this.formThongTin.controls['lop'].value),
       NamHoc: this.formThongTin.controls['namHoc'].value,
-      IdMonHoc: 2,
+      IdMonHoc: 8,
       NguoiTao: 1307,
       TenNguoiTao: '',
       NgayTao: moment(new Date()).format('YYYY-MM-DD[T]HH:mm:ss.SSS'),
@@ -430,7 +428,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
     modalRef.result.then(
       (result) => {
         if (result) {
-          const valid = this.detectValidationPreviousSubmit()
+          //const valid = this.detectValidationPreviousSubmit()
           const data = this.prepareData(false);
           const sbCreate = this.services
             .create(data)
@@ -444,7 +442,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
             .subscribe((res: IBaiKiemTraCauHinh_Group) => {
               if (res && res.status == 1) {
                 this.data = res.data;
-                //this.router.navigate(["/danh-muc/danh-sach-bai-kiem-tra/thanh-cong"]);
+                this.router.navigate(["/danh-muc/danh-sach-bai-kiem-tra-cau-hinh"]);
                 this.layoutUtilsService.openSnackBar('Lưu thành công', 'Đóng');
               } else {
                 this.layoutUtilsService.openSnackBar('Lưu thất bại, vui lòng kiểm tra thông tin', 'Đóng');

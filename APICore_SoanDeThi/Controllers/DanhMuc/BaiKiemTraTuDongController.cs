@@ -104,9 +104,10 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                       Id = x.kiemtra.Id,
                                                       TenBaiKiemTra = "KIỂM TRA " + x.kiemtra.TenBaiKiemTra.ToUpper(),
                                                       SoLuongDe = x.kiemtra.SoLuongDe,
-                                                      CauDe = x.kiemtra.CauBiet,
-                                                      CauTrungBinh = x.kiemtra.CauHieu,
-                                                      CauKho = x.kiemtra.CauVanDungThap,
+                                                      CauBiet = x.kiemtra.CauBiet,
+                                                      CauHieu = x.kiemtra.CauHieu,
+                                                      CauVanDungThap = x.kiemtra.CauVanDungThap,
+                                                      CauVanDungCao = x.kiemtra.CauVanDungCao,
                                                       NamHoc = x.kiemtra.NamHoc.ToUpper(),
                                                       IsCustom = x.kiemtra.IsCustom,
                                                       Lop = x.kiemtra.Lop,
@@ -244,16 +245,16 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 if (string.IsNullOrEmpty(data.TenBaiKiemTra))
                     return Utilities._responseData(0, "Vui lòng nhập số hợp đồng mua!!", null);
 
-                _context.Database.BeginTransaction();
-                
+                _context.Database.BeginTransaction();                
 
                 BaiKiemTra_Group _item = new BaiKiemTra_Group();
 
                 _item.TenBaiKiemTra = string.IsNullOrEmpty(data.TenBaiKiemTra) ? "" : data.TenBaiKiemTra.ToString().Trim();
                 _item.SoLuongDe = data.SoLuongDe;
-                _item.CauBiet = data.CauDe;
-                _item.CauHieu = data.CauTrungBinh;
-                _item.CauVanDungThap = data.CauKho;
+                _item.CauBiet = data.CauBiet;
+                _item.CauHieu = data.CauHieu;
+                _item.CauVanDungThap = data.CauVanDungThap;
+                _item.CauVanDungCao = data.CauVanDungCao;
                 _item.NamHoc = data.NamHoc;
                 _item.IdMonHoc = loginData.coCauId;
                 _item.ThoiGianLamBai = data.ThoiGianLamBai;
@@ -283,7 +284,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 //tạo đề thi theo số lượng đề
                 for (int i = 0; i< data.SoLuongDe; i++)
                 {
-                    themMoiChiTietBaiKiemTra(data.Id, danhSachCauHoiDuocChon, data.CauDe, data.CauTrungBinh, data.CauKho, danhSachMaDeThi[i]);
+                    themMoiChiTietBaiKiemTra(data.Id, danhSachCauHoiDuocChon, data.CauBiet, data.CauHieu, data.CauVanDungThap, data.CauVanDungCao, danhSachMaDeThi[i]);
                 }    
 
                 _context.Database.CommitTransaction();
@@ -377,12 +378,13 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             return randomNumbers;
         }
 
-        private void  themMoiChiTietBaiKiemTra(long id, List<Question> danhSach, int cauDe, int cauTrungBinh, int cauKho, int maDe)
+        private void  themMoiChiTietBaiKiemTra(long id, List<Question> danhSach, int cauBiet, int cauHieu, int cauVanDungThap, int cauVanDungCao, int maDe)
         {
-            var danhSachCauHoiDe = danhSach.Where(x => x.Level == 1).OrderBy(r => Guid.NewGuid()).Take(cauDe).Select(x => x.Id).ToList();
-            var danhSachCauHoiTrungBinh = danhSach.Where(x => x.Level == 2).OrderBy(r => Guid.NewGuid()).Take(cauTrungBinh).Select(x => x.Id).ToList();
-            var danhSachCauHoiKho = danhSach.Where(x => x.Level == 3).OrderBy(r => Guid.NewGuid()).Take(cauKho).Select(x => x.Id).ToList();
-            var finalList = danhSachCauHoiDe.Union(danhSachCauHoiTrungBinh).Union(danhSachCauHoiKho).ToList();
+            var danhSachCauHoiBiet = danhSach.Where(x => x.Level == 1).OrderBy(r => Guid.NewGuid()).Take(cauBiet).Select(x => x.Id).ToList();
+            var danhSachCauHoiHieu = danhSach.Where(x => x.Level == 2).OrderBy(r => Guid.NewGuid()).Take(cauHieu).Select(x => x.Id).ToList();
+            var danhSachCauHoiVanDungThap = danhSach.Where(x => x.Level == 3).OrderBy(r => Guid.NewGuid()).Take(cauVanDungThap).Select(x => x.Id).ToList();
+            var danhSachCauHoiVanDungCao = danhSach.Where(x => x.Level == 4).OrderBy(r => Guid.NewGuid()).Take(cauVanDungCao).Select(x => x.Id).ToList();
+            var finalList = danhSachCauHoiBiet.Union(danhSachCauHoiHieu).Union(danhSachCauHoiVanDungThap).Union(danhSachCauHoiVanDungCao).ToList();
             BaiKiemTra _item = new BaiKiemTra();
             _item.IdGroup = id;
             _item.MaDe = maDe.ToString();
