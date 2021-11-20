@@ -7,7 +7,7 @@ import { ITableState, TableResponseModel, TableService } from "src/app/_metronic
 import { environment } from "src/environments/environment";
 import { IAccount } from "../quan-li-tai-khoan-model/quan-li-tai-khoan-model";
 
-const API_ROOT_URL = environment.ApiRoot + "/Account";
+const API_ROOT_URL = environment.ApiRoot + "/account";
 
 @Injectable({ providedIn: "root" })
 export class AccountService extends TableService<IAccount> implements OnDestroy {
@@ -89,7 +89,7 @@ export class AccountService extends TableService<IAccount> implements OnDestroy 
   create(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<IAccount>(API_ROOT_URL + "/_Insert", item, {
+      .post<IAccount>(API_ROOT_URL + "/create", item, {
         headers: this._httpHeaders,
       })
       .pipe(

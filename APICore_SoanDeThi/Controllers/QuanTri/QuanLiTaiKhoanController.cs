@@ -19,7 +19,7 @@ using System.Text.RegularExpressions;
 
 namespace APICore_SoanDeThi.Controllers.QuanTri
 {
-    [Route("api/Account")]
+    [Route("api/account")]
     [EnableCors("ExamPolicy")]
     public class QuanLiTaiKhoanController : ControllerBase
     {
@@ -85,6 +85,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                                                 Ngaysinh = x.emp.Ngaysinh,
                                                                                 Email = x.emp.Email,
                                                                                 IdChucdanh = x.emp.IdChucdanh,
+                                                                                LoaiTaiKhoan = x.acc.Loaitaikhoan,
                                                                                 Cocauid = x.emp.Cocauid,
                                                                                 Username = x.acc.Username,
                                                                                 Picture = x.acc.Picture
@@ -142,5 +143,73 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             }
         }
         #endregion
+
+        #region THÊM MỚI TÀI KHOẢN
+        [Route("create")]
+        //[Authorize(Roles = "10012")]
+        [HttpPost]
+        public BaseModel<object> Account_Create([FromBody] IAccount data)
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                if (string.IsNullOrEmpty(data.Username))
+                    return Utilities._responseData(0, "Vui lòng nhập tên đắng nhập", null);
+
+                _context.Database.BeginTransaction();
+
+                ViewNhanVien _emp = new ViewNhanVien();
+                _emp.Manv = "CK-HCM0310330";
+                _emp.Holot = data.Holot;
+                _emp.Ten = data.Ten;
+                _emp.Phai = data.Phai;
+                _emp.Ngaysinh = data.Ngaysinh;
+                _emp.Email = data.Email;
+                _emp.IdChucdanh = data.IdChucdanh;
+                _emp.Disable = 0;
+                _emp.SodienthoaiNguoilienhe = data.SodienthoaiNguoilienhe;
+                _emp.Cocauid = data.Cocauid;
+                _context.ViewNhanVien.Add(_emp);
+                _context.SaveChanges();
+
+                ViewAccount _item = new ViewAccount();
+
+                _item.Username = string.IsNullOrEmpty(data.Username) ? "" : data.Username.ToString().Trim();
+                _item.IdNv = _emp.IdNv;
+                _item.Lock = 0;
+                _item.Disable = 0;
+                _item.Password = EncryptPassword(data.Password);
+                _item.Lastlogin = DateTime.Now;
+                _item.Lastpasschg = DateTime.Now;
+                _item.Email = data.Email;
+                _item.Token = "2021091118030131";
+                _item.Loaitaikhoan = 1;
+                _item.Isadmin = 1;
+                _item.Picture = string.IsNullOrEmpty(data.Picture) ? "" : data.Picture.ToString().Trim();
+
+                _context.ViewAccount.Add(_item);
+                _context.SaveChanges();
+
+                _context.Database.CommitTransaction();
+                return Utilities._responseData(1, "", data);
+
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Thêm mới thất bại, vui lòng kiểm tra lại! Lỗi: " + ex.Message, null);
+            }
+        }
+        #endregion
+
+        private static string EncryptPassword(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
     }
 }

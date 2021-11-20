@@ -74,7 +74,7 @@ namespace APICore_SoanDeThi.Controllers.Common
         }
         #endregion
 
-        #region DANH SÁCH CHƯƠNG MÔN HỌC
+        #region DANH SÁCH BÀI HỌC
         [Route("GetList_BaiHoc")]
         //[Authorize(Roles = "01011")]
         [HttpGet]
@@ -101,6 +101,46 @@ namespace APICore_SoanDeThi.Controllers.Common
                               SoThuTu = x.SoThuTu,
                               TenBaiHoc = x.TenBaiHoc,
                               IdChuong = x.IdChuong
+                          });
+
+                _baseModel.status = 1;
+                _baseModel.error = null;
+                _baseModel.page = _pageModel;
+                _baseModel.data = _data;
+                return _baseModel;
+
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Lỗi dữ liệu!", null);
+            }
+        }
+        #endregion
+
+        #region DANH SÁCH BỘ MON
+        [Route("GetList_BoMon")]
+        //[Authorize(Roles = "01011")]
+        [HttpGet]
+        public BaseModel<object> GetList_BoMon()
+        {
+            //string Token = Utilities._GetHeader(Request);
+            //UserLogin loginData = _account._GetInfoUser(Token);
+
+            //if (loginData == null)
+            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            BaseModel<object> _baseModel = new BaseModel<object>();
+            PageModel _pageModel = new PageModel();
+            ErrorModel _error = new ErrorModel();
+
+            try
+            {
+                var _data = _context.MonHoc.Where(x => !x.IsDisabled)
+                          .OrderBy(x => x.TenMonHoc)
+                          .Select(x => new MonHoc
+                          {
+                              Id = x.Id,
+                              TenMonHoc = x.TenMonHoc
                           });
 
                 _baseModel.status = 1;

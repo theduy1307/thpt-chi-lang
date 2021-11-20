@@ -1,73 +1,192 @@
 <div class="card card-custom gutter-b">
-    <!-- Header Modal -->
-    <div class="card-header">
-      <div class="card-title">
-        <h3 class="card-label">Thêm mới tài khoản</h3>
-      </div>
-      <div class="card-toolbar">
-        <button type="button" class="btn btn-light btn-elevate mr-2" routerLink="/hop-dong/danh-muc/hop-dong-mau">Trở lại</button>
-        <button type="button" class="btn btn-primary" routerLink="/danh-muc/danh-sach-bai-kiem-tra-cau-hinh">
-            Lưu
-          </button>
-      </div>
+  <!-- Header Modal -->
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">Thêm mới tài khoản</h3>
     </div>
-    <!-- End Header -->
-  
-    <!-- Body -->
-    <div class="card-body">
-      <ng-container *ngIf="isLoading$ | async">
-        <div class="overlay-layer bg-transparent">
-          <div class="spinner spinner-lg spinner-success"></div>
-        </div>        
-      </ng-container>
-      <ng-container>
-        <form action="#" class="form form-label-right" [formGroup]="informationFormGroup">
-          <div class="form-group row">
-            <div class="col-lg-4">
-              <label class="form-label">Họ và tên lót</label>
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                formControlName="hoLot"
-                [class.is-invalid]="ValidateFormGroupEvent('hoLot', informationFormGroup, 1)"
-                [class.is-valid]="ValidateFormGroupEvent('hoLot', informationFormGroup, 0)"
+    <div class="card-toolbar">
+      <button type="button" class="btn btn-light btn-elevate mr-2" routerLink="../">Trở lại</button>
+      <button type="button" class="btn btn-primary" (click)="create()">Thêm mới</button>
+    </div>
+  </div>
+  <!-- End Header -->
+
+  <!-- Body -->
+  <div class="card-body">
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+    <ng-container>
+      <form action="#" class="form form-label-right" [formGroup]="informationFormGroup">
+        <div class="form-group row">
+          <div class="col-lg-4">
+            <div class="form-group row">
+              <img
+                [src]="imageUrl"
+                class="rounded mx-auto d-block"
+                alt="Ảnh đại diện"
+                width="150"
+                height="150"
+                (click)="selectFile()"
+                style="cursor: pointer"
               />
-              <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('hoLot', informationFormGroup, 0)">
-                Thông tin chính xác
-              </div>
-              <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('hoLot', informationFormGroup, 1)">
-                Vui lòng nhập đúng thông tin
+            </div>
+            <div class="form-group row">
+              <div class="col-lg-12 text-center">
+                <button (click)="selectFile()" type="button" class="btn btn-success">Chọn ảnh từ máy tính</button>
+                <input #fileUpload type="file" formControlName="uploadFileName" name="fileUpload" (change)="selectFileUpload($event)" hidden />
               </div>
             </div>
-            <div class="col-lg-4">
-              <label class="form-label">Tên</label>
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                formControlName="ten"
-                [class.is-invalid]="ValidateFormGroupEvent('ten', informationFormGroup, 1)"
-                [class.is-valid]="ValidateFormGroupEvent('ten', informationFormGroup, 0)"
-              />
-              <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('ten', informationFormGroup, 0)">
-                Thông tin chính xác
+            <hr />
+          </div>
+          <div class="col-lg-8">
+            <div class="form-group row">
+              <div class="col-lg-6">
+                <label class="form-label">Họ và tên lót</label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  placeholder="Nguyễn Hạ Hưng"
+                  formControlName="hoLot"
+                  [class.is-invalid]="ValidateFormGroupEvent('hoLot', informationFormGroup, 1)"
+                  [class.is-valid]="ValidateFormGroupEvent('hoLot', informationFormGroup, 0)"
+                />
+                <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('hoLot', informationFormGroup, 0)">Thông tin chính xác</div>
+                <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('hoLot', informationFormGroup, 1)">Vui lòng nhập đúng thông tin</div>
               </div>
-              <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('ten', informationFormGroup, 1)">
-                Vui lòng nhập tên
+              <div class="col-lg-6">
+                <label class="form-label">Tên</label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  placeholder="Sơn"
+                  formControlName="ten"
+                  [class.is-invalid]="ValidateFormGroupEvent('ten', informationFormGroup, 1)"
+                  [class.is-valid]="ValidateFormGroupEvent('ten', informationFormGroup, 0)"
+                />
+                <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('ten', informationFormGroup, 0)">Thông tin chính xác</div>
+                <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('ten', informationFormGroup, 1)">Vui lòng nhập tên</div>
               </div>
             </div>
-            <div class="col-lg-4 align-middle">
-              <label class="form-label">Giới tính</label>
-              <ng-container>
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="1">Option 1</mat-radio-button>
-                  <mat-radio-button value="2">Option 2</mat-radio-button>
-                </mat-radio-group>
-              </ng-container>              
+            <div class="form-group row">
+              <div class="col-lg-6">
+                <label class="form-label">Giới tính</label><br />
+                <ng-container>
+                  <mat-radio-group formControlName="gioiTinh" class="form-control form-control-lg" style="border: 0">
+                    <mat-radio-button value="1">Nam</mat-radio-button>
+                    <mat-radio-button value="2">Nữ</mat-radio-button>
+                  </mat-radio-group>
+                </ng-container>
+              </div>
+              <div class="col-lg-6">
+                <label class="form-label">Ngày sinh</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    name="dob"
+                    class="form-control form-control-lg"
+                    autocomplete="off"
+                    (click)="d.toggle()"
+                    placeholder="dd/mm/yyyy"
+                    ngbDatepicker
+                    #d="ngbDatepicker"
+                    [class.is-invalid]="ValidateFormGroupEvent('ngaySinh', informationFormGroup, 1)"
+                    [class.is-valid]="ValidateFormGroupEvent('ngaySinh', informationFormGroup, 0)"
+                    formControlName="ngaySinh"
+                    readonly="true"
+                  />
+                  <div class="input-group-append" (click)="d.toggle()">
+                    <span class="input-group-text">
+                      <i class="text-dark-50 flaticon-calendar"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('ngaySinh', informationFormGroup, 0)">Thông tin chính xác</div>
+                <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('ngaySinh', informationFormGroup, 1)">Vui lòng nhập ngày sinh</div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-lg-6">
+                <label class="form-label">Email</label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  placeholder="vidu@gmail.com"
+                  formControlName="email"
+                  [class.is-invalid]="ValidateFormGroupEvent('email', informationFormGroup, 1)"
+                  [class.is-valid]="ValidateFormGroupEvent('email', informationFormGroup, 0)"
+                />
+                <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('email', informationFormGroup, 0)">Thông tin chính xác</div>
+                <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('email', informationFormGroup, 1)">
+                  Vui lòng nhập đúng định dạng email
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <label class="form-label">Số điện thoại</label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  placeholder="0123456789"
+                  formControlName="sodienthoai"
+                  [class.is-invalid]="ValidateFormGroupEvent('sodienthoai', informationFormGroup, 1)"
+                  [class.is-valid]="ValidateFormGroupEvent('sodienthoai', informationFormGroup, 0)"
+                />
+                <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('sodienthoai', informationFormGroup, 0)">Thông tin chính xác</div>
+                <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('sodienthoai', informationFormGroup, 1)">
+                  Vui lòng nhập đúng định dạng số điện thoại
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-lg-6">
+                <label class="form-label"></label>
+                <section class="form-control form-control-lg" style="border: 0">
+                  <mat-checkbox class="example-margin">Là giáo viên chủ nhiệm</mat-checkbox>
+                </section>
+                <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('email', informationFormGroup, 0)">Thông tin chính xác</div>
+                <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('email', informationFormGroup, 1)">
+                  Vui lòng nhập đúng định dạng email
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <label class="form-label">Bộ môn giảng dạy</label>
+                <mat-select
+                  disableOptionCentering
+                  placeholder="Chọn môn học học"
+                  #focusThietBi
+                  formControlName="boMon"
+                  (selectionChange)="setValueBoMon($event)"
+                  class="form-control form-control-lg"
+                >
+                  <mat-select-trigger>
+                    {{ getNameBoMon() }}
+                  </mat-select-trigger>
+                  <mat-option>
+                    <ngx-mat-select-search
+                      [placeholderLabel]="listBoMon.length > 0 ? 'Tìm kiếm...' : 'Không tìm thấy dữ liệu'"
+                      [noEntriesFoundLabel]="'Không tìm thấy kết quả phù hợp'"
+                      [(ngModel)]="listBoMonFilterCtrl"
+                      [ngModelOptions]="{ standalone: true }"
+                      (ngModelChange)="filterListBoMon()"
+                    >
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option *ngFor="let item of filteredListBoMon | async" value="{{ item.Id }}">
+                    {{ item.TenMonHoc }}
+                  </mat-option>
+                </mat-select>
+                <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('boMon', informationFormGroup, 0)">Thông tin chính xác</div>
+                <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('boMon', informationFormGroup, 1)">
+                  Vui lòng chọn bộ môn giảng dạy
+                </div>
+              </div>
             </div>
           </div>
-        </form>
-      </ng-container>
-    </div>
-    <!-- End Body -->
+        </div>
+      </form>
+    </ng-container>
   </div>
-  
+  <!-- End Body -->
+</div>

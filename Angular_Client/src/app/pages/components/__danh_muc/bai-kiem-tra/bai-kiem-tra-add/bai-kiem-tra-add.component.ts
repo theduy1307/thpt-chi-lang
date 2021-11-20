@@ -12,6 +12,8 @@ import { IBaiHoc, IBaiKiemTra_Group } from "./../bai-kiem-tra-model/bai-kiem-tra
 import { BaiKiemTraService } from "../bai-kiem-tra-service/bai-kiem-tra.service";
 import { Router } from "@angular/router";
 import { AuthService, UserModel } from "src/app/modules/auth";
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+
 const source = "src/assets/SAMPLE.docx";
 const EMPTY_DATA: IBaiKiemTra_Group = {
   id: undefined,
@@ -348,6 +350,18 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
     this.subscriptions.push(sbCreate);
   }
 
+  drop(event: CdkDragDrop<any[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+  }
   // onCloseMember() {
   //   this.data = EMPTY_DATA;
   //   //this.c.reset();

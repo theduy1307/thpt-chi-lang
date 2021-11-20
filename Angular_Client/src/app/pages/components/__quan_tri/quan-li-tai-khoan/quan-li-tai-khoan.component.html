@@ -123,13 +123,13 @@
               <td>
                 <span
                   class="label label-lg label-inline"
-                  [class.label-success]="item.IdChucdanh === 1"
-                  [class.label-primary]="item.IdChucdanh === 2"
-                  [class.label-primary]="item.IdChucdanh === 3"
+                  [class.label-success]="item.LoaiTaiKhoan === 1"
+                  [class.label-primary]="item.LoaiTaiKhoan === 2"
+                  [class.label-primary]="item.LoaiTaiKhoan === 3"
                 >
-                  <ng-container *ngIf="item.IdChucdanh === 1">Quản trị</ng-container>
-                  <ng-container *ngIf="item.IdChucdanh === 2">Giáo viên</ng-container>
-                  <ng-container *ngIf="item.IdChucdanh === 3">Học sinh</ng-container>
+                  <ng-container *ngIf="item.LoaiTaiKhoan === 1">Quản trị</ng-container>
+                  <ng-container *ngIf="item.LoaiTaiKhoan === 2">Giáo viên</ng-container>
+                  <ng-container *ngIf="item.LoaiTaiKhoan === 3">Học sinh</ng-container>
                 </span>
               </td>
               <td>

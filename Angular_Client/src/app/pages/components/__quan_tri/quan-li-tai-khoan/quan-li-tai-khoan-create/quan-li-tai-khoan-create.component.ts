@@ -1,101 +1,44 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ReplaySubject, Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
-import { AuthService, UserModel } from 'src/app/modules/auth';
-import { LayoutUtilsService } from 'src/app/_global/_services/layout-utils.service';
-import { FunctionPublic } from '../../../_common/_function/public-function';
-import { DungChungService } from '../../../_common/_services/dung-chung.service';
-import { IAccount } from '../quan-li-tai-khoan-model/quan-li-tai-khoan-model';
-import { AccountService } from '../quan-li-tai-khoan-services/quan-li-tai-khoan-services';
-
-const EMPTY_DATA: IAccount = {
-  id: undefined,
-  data: undefined,
-  status: undefined,
-  IdNv: undefined,
-  Manv: "",
-    Holot: "",
-    Ten: "",
-    HoTen: "",
-    Phai: "",
-    Ngaysinh: "",
-    Email: "",
-    IdChucdanh: undefined,
-    TenChucDanh: "",
-    Disable: undefined,
-    Cocauid:undefined,
-    SodienthoaiNguoilienhe:"",
-    Username: "",
-    Password: "",
-    Picture: "",
-};
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import * as moment from "moment";
+import { of, ReplaySubject, Subscription } from "rxjs";
+import { catchError, first, tap } from "rxjs/operators";
+import { AuthService, UserModel } from "src/app/modules/auth";
+import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.service";
+import { DeleteModalComponent } from "../../../_common/_components/delete-modal/delete-modal.component";
+import { FunctionPublic } from "../../../_common/_function/public-function";
+import { DungChungService } from "../../../_common/_services/dung-chung.service";
+import { IAccount } from "../quan-li-tai-khoan-model/quan-li-tai-khoan-model";
+import { AccountService } from "../quan-li-tai-khoan-services/quan-li-tai-khoan-services";
+import { EMPTY_DATA } from "../quan-li-tai-khoan-model/quan-li-tai-khoan-model";
 
 @Component({
-  selector: 'app-quan-li-tai-khoan-create',
-  templateUrl: './quan-li-tai-khoan-create.component.html',
-  styleUrls: ['./quan-li-tai-khoan-create.component.scss']
+  selector: "app-quan-li-tai-khoan-create",
+  templateUrl: "./quan-li-tai-khoan-create.component.html",
+  styleUrls: ["./quan-li-tai-khoan-create.component.scss"],
 })
 export class QuanLiTaiKhoanCreateComponent implements OnInit {
   /* ------------------------ Inject Event Data -----------------------*/
   @Input() id: number;
+  @ViewChild("fileUpload", { static: true }) fileUpload;
   /* ------------------------------------------------------------------*/
   isLinear = false;
-
+  imageUrl = "assets/media/users/blank.png";
   /* --------------------------- Loading.... --------------------------*/
   isLoading$;
   data: IAccount;
   informationFormGroup: FormGroup;
 
-  user:UserModel;
+  user: UserModel;
   firstUserState: UserModel;
   LIST_ROLES_USER: number[] = [];
 
   //Thông tin chương môn học
-  listChuongMonHoc: any[] = [];
-  /*
-  public class ChuongMonHoc
-    {
-        public long Id { get; set; }
-        public long IdMonHoc { get; set; }
-        public int SoThuTu { get; set; }
-        public string MaChuong { get; set; }
-        public string TenChuong { get; set; }
-        public byte Lop  { get; set; }
-        public long NguoiTao { get; set; }
-        public DateTime NgayTao { get; set; }
-        public long NguoiSua { get; set; }
-        public DateTime NgaySua { get; set; }
-        public bool IsDisabled { get; set; }
-    }
-   */
-  filteredListChuongMonHoc: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
-  listChuongMonHocFilterCtrl: string = "";
-
-  //Thông tin bài học
-  listBaiHoc: any[] = [];
-  listFullBaiHoc: any[] = [];
-  listBaiHocDeleted: any[] = [];
-  /*
-  public class ChuongMonHoc
-    {
-        public long Id { get; set; }
-        public long IdMonHoc { get; set; }
-        public int SoThuTu { get; set; }
-        public string MaChuong { get; set; }
-        public string TenChuong { get; set; }
-        public byte Lop  { get; set; }
-        public long NguoiTao { get; set; }
-        public DateTime NgayTao { get; set; }
-        public long NguoiSua { get; set; }
-        public DateTime NgaySua { get; set; }
-        public bool IsDisabled { get; set; }
-    }
-   */
-  filteredListBaiHoc: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
-  listBaiHocFilterCtrl: string = "";
+  listBoMon: any[] = [];
+  filteredListBoMon: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  listBoMonFilterCtrl: string = "";
 
   private subscriptions: Subscription[] = [];
   /* ------------------------------------------------------------------*/
@@ -108,21 +51,22 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private changeDetectorRefs: ChangeDetectorRef
-  ) { 
-    this.userService.currentUserSubject.asObservable().pipe(
-      first(user => !!user)
-    ).subscribe(user => {
-      this.user = Object.assign({}, user);
-      this.firstUserState = Object.assign({}, user);
-      this.LIST_ROLES_USER = this.user.roles;
-    })
+  ) {
+    this.userService.currentUserSubject
+      .asObservable()
+      .pipe(first((user) => !!user))
+      .subscribe((user) => {
+        this.user = Object.assign({}, user);
+        this.firstUserState = Object.assign({}, user);
+        this.LIST_ROLES_USER = this.user.roles;
+      });
   }
 
   ngOnInit(): void {
     this.isLoading$ = this.services.isLoading$;
     this.loadData();
     // this.loadListChuongMonHoc();
-    //this.loadListBaiHoc();
+    this.loadListBoMon();
     this.loadForm();
   }
 
@@ -135,18 +79,149 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
 
   loadForm() {
     this.informationFormGroup = this.fb.group({
-      hoLot: ["", Validators.required],
-      ten: ["", Validators.required],
-      gioiTinh: [true, Validators.required],
+      hoLot: ["",  Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])],
+      ten: ["",  Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)])],
+      gioiTinh: ["1", Validators.required],
       ngaySinh: ["", Validators.required],
-      email: ["", Validators.required],
+      email: ["", Validators.compose([Validators.required, Validators.email])],
       quyen: ["", Validators.required],
-      sodienthoai: [""],
-      username: ["", Validators.required],
-      password: ["", Validators.required],
+      sodienthoai: ["", Validators.required],
+      boMon: ["", Validators.required],
+      uploadFileName: ["", Validators.required],
     });
   }
 
+  setUsername():string
+  {
+    const formData = this.informationFormGroup.value;
+    let firstName = this.splitFirstName(formData.hoLot)
+    let lastName = FunctionPublic.removeVietnameseTones(formData.ten);
+    const username = `${firstName}.${lastName}`;
+    return username.toLowerCase()
+  }
+
+  splitFirstName(str:string):string
+  {
+    let firstName = FunctionPublic.removeVietnameseTones(str)
+    let newString:string = "";
+    firstName.split(" ").map(x=>{newString += x.charAt(0)})
+    return newString;
+  }
+
+  selectFile() {
+    let el: HTMLElement = this.fileUpload.nativeElement as HTMLElement;
+    el.click();
+  }
+  selectFileUpload(event: any) {
+    if (event.target.files) {
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (event: any) => {
+        this.imageUrl = event.target.result;
+      };
+    }
+  }
+
+  create() {
+    const modalRef = this.modalService.open(DeleteModalComponent);
+    modalRef.componentInstance.id = undefined;
+    modalRef.componentInstance.title = "Lưu thông tin";
+    modalRef.componentInstance.message = "Xác nhận lưu thông tin tài khoản?";
+    modalRef.componentInstance.loadingMsg = "";
+    modalRef.componentInstance.submitButtonMsg = "Xác nhận";
+    modalRef.componentInstance.cancelButtonMsg = "Đóng";
+    modalRef.result.then(
+      (result) => {
+        if (result) {
+          let dataItems = this.prepareData();
+          const sbCreate = this.services
+            .create(dataItems)
+            .pipe(
+              tap(() => this.router.navigate(["/quan-tri/quan-li-tai-khoan"])),
+              catchError((errorMessage) => {
+                console.error("UPDATE ERROR", errorMessage);
+                return of(this.data);
+              })
+            )
+            .subscribe((res: IAccount) => {
+              if (res && res.status == 1) {
+                this.data = res.data;
+                this.layoutUtilsService.openSnackBar("Thêm mới thành công", "Đóng");
+              } else {
+                this.layoutUtilsService.openSnackBar("Thêm mới thất bại, vui lòng kiểm tra thông tin", "Đóng");
+              }
+            });
+          this.subscriptions.push(sbCreate);
+        }
+      },
+      () => {}
+    );
+  }
+
+  //#region DROPDOWN Tên chương
+  loadListBoMon() {
+    this.commonService.getListBoMon().subscribe((res) => {
+      if (res && res.status === 1) {
+        this.listBoMon = res.data;
+        this.filteredListBoMon.next(this.listBoMon.slice());
+        this.changeDetectorRefs.detectChanges();
+      }
+    });
+  }
+  filterListBoMon() {
+    if (!this.listBoMon) {
+      return;
+    }
+    let search = this.listBoMonFilterCtrl;
+    if (!search) {
+      this.filteredListBoMon.next(this.listBoMon.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    this.filteredListBoMon.next(
+      this.listBoMon.filter((ts) => ts.TenMonHoc.toLowerCase().indexOf(search) > -1)
+    );
+    this.changeDetectorRefs.detectChanges();
+  }
+  getNameBoMon() {
+    var item = this.listBoMon.find((res) => res.Id == +this.informationFormGroup.controls.boMon.value);
+    if (item) {
+      return item.TenMonHoc;
+    }
+    return "";
+  }
+  setValueBoMon(event: any) {
+    let item = this.listBoMon.find((x) => x.Id == parseInt(event.value));
+  }
+  //#endregion
+  
+  prepareData(): IAccount {
+    const formData = this.informationFormGroup.value;
+    const data: IAccount = {
+      id: undefined,
+      data: undefined,
+      status: undefined,
+      IdNv: undefined,
+      Manv: "",
+      Holot: formData.hoLot,
+      Ten: formData.ten,
+      HoTen: "",
+      Phai: formData.gioiTinh,
+      Ngaysinh: this.formatDate(formData.ngaySinh),
+      Email: formData.email,
+      IdChucdanh: undefined,
+      LoaiTaiKhoan: undefined,
+      TenChucDanh: "",
+      Disable: 0,
+      Cocauid: parseInt(formData.boMon),
+      SodienthoaiNguoilienhe: formData.sodienthoai,
+      Username: this.setUsername(),
+      Password: "thptchilang@123",
+      Picture: "",
+    };
+    return data
+  }
   /* ----------------------------- Inject Event Data ---------------------------
     @Type:
     0: isControlValid()
@@ -154,10 +229,12 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
     2: isControlTouched()
     3: controlHasError()*/
 
-    ValidateFormGroupEvent(controlName: string, formGroup: FormGroup, type: number, validation: string = "") {
-      return FunctionPublic.ValidateFormGroupEvent(controlName, formGroup, type, validation);
-    }
-  
-    /* -----------------------------------------------------------------------*/
-
+  ValidateFormGroupEvent(controlName: string, formGroup: FormGroup, type: number, validation: string = "") {
+    return FunctionPublic.ValidateFormGroupEvent(controlName, formGroup, type, validation);
+  }
+  formatDate(date)
+  {
+    return moment(new Date(date)).format("YYYY-MM-DD[T]HH:mm:ss.SSS")
+  }
+  /* -----------------------------------------------------------------------*/
 }

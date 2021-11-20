@@ -23,6 +23,7 @@ namespace APICore_SoanDeThi.Models.InteractionModels
         public string Email { get; set; }
         public long? IdChucdanh { get; set; }
         public string? TenChucDanh { get; set; }
+        public short? LoaiTaiKhoan { get; set; }
         public short? Disable { get; set; }
         public string SodienthoaiNguoilienhe { get; set; }
         public long? Cocauid { get; set; }

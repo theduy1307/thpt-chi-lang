@@ -105,6 +105,11 @@ export class DungChungService {
     const url = API_ROOT_URL + "/GetList_BaiHoc";
     return this.http.get<any>(url, { headers: httpHeaders });
   }
+  getListBoMon(): Observable<any> {
+    const httpHeaders = this.httpUtils.getHttpHeaders();
+    const url = API_ROOT_URL + "/GetList_BoMon";
+    return this.http.get<any>(url, { headers: httpHeaders });
+  }
   downloadTemplate(Id: number): Observable<Blob> {
     const httpHeaders = this.httpUtils.getHttpHeaders();
     const httpParams = new HttpParams().set("Id", Id.toString());

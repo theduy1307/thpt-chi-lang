@@ -10,6 +10,7 @@ export interface IAccount extends BaseModel {
     Ngaysinh: string | null;
     Email: string;
     IdChucdanh: number | null;
+    LoaiTaiKhoan:number |null;
     TenChucDanh: string;
     Disable: number | null;
     SodienthoaiNguoilienhe: string;
@@ -18,3 +19,26 @@ export interface IAccount extends BaseModel {
     Password: string;
     Picture: string;
 }
+
+export const EMPTY_DATA: IAccount = {
+    id: undefined,
+    data: undefined,
+    status: undefined,
+    IdNv: undefined,
+    Manv: "",
+    Holot: "",
+    Ten: "",
+    HoTen: "",
+    Phai: "",
+    Ngaysinh: "",
+    Email: "",
+    IdChucdanh: undefined,
+    LoaiTaiKhoan:undefined,
+    TenChucDanh: "",
+    Disable: undefined,
+    Cocauid: undefined,
+    SodienthoaiNguoilienhe: "",
+    Username: "",
+    Password: "",
+    Picture: "",
+  };

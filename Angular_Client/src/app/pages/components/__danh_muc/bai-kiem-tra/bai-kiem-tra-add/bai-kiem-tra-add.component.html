@@ -224,7 +224,14 @@
         <ng-template matStepLabel>Chọn chi tiết bài học</ng-template>
         <ng-container>
           <div class="form-group row">
-            <div class="col-lg-6">
+            <div 
+              class="col-lg-6"
+              cdkDropList
+              #itemList="cdkDropList"
+              [cdkDropListData]="listBaiHoc"
+              [cdkDropListConnectedTo]="[removedList]"
+              (cdkDropListDropped)="drop($event)"
+            >
               <table class="table">
                 <thead>
                   <tr class="text-light bg-primary">
@@ -233,7 +240,7 @@
                   </tr>
                 </thead>
                 <tbody *ngIf="this.listBaiHoc.length != 0">
-                  <tr *ngFor="let item of this.listBaiHoc">
+                  <tr *ngFor="let item of this.listBaiHoc" cdkDrag>
                     <td>Bài {{ item.SoThuTu }}: {{ item.TenBaiHoc }}</td>
                     <td>
                       <a
@@ -265,7 +272,14 @@
                 </div>
               </ul> -->
             </div>
-            <div class="col-lg-6">
+            <div 
+              class="col-lg-6"
+              cdkDropList
+              #removedList="cdkDropList"
+              [cdkDropListData]="listBaiHocDeleted"
+              [cdkDropListConnectedTo]="[itemList]"
+              (cdkDropListDropped)="drop($event)"
+            >
               <table class="table">
                 <thead>
                   <tr class="text-light bg-danger">
@@ -274,7 +288,7 @@
                   </tr>
                 </thead>
                 <tbody *ngIf="this.listBaiHocDeleted.length != 0">
-                  <tr *ngFor="let item of this.listBaiHocDeleted">
+                  <tr *ngFor="let item of this.listBaiHocDeleted" cdkDrag>
                     <td>Bài {{ item.SoThuTu }}: {{ item.TenBaiHoc }}</td>
                     <td>
                       <a
