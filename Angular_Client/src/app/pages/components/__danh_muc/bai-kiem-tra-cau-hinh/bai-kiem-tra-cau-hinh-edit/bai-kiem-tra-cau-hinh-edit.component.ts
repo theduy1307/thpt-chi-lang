@@ -439,13 +439,13 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
                 return of(this.data);
               })
             )
-            .subscribe((res: IBaiKiemTraCauHinh_Group) => {
+            .subscribe((res: any) => {
               if (res && res.status == 1) {
                 this.data = res.data;
                 this.router.navigate(["/danh-muc/danh-sach-bai-kiem-tra-cau-hinh"]);
-                this.layoutUtilsService.openSnackBar('Lưu thành công', 'Đóng');
+                this.layoutUtilsService.openSnackBar(res.error.message, 'Đóng');
               } else {
-                this.layoutUtilsService.openSnackBar('Lưu thất bại, vui lòng kiểm tra thông tin', 'Đóng');
+                this.layoutUtilsService.openSnackBar(res.error.message, 'Đóng');
               }
             });
           this.subscriptions.push(sbCreate);
@@ -465,13 +465,13 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
           return of(this.data);
         })
       )
-      .subscribe((res: IBaiKiemTraCauHinh_Group) => {
+      .subscribe((res: any) => {
         if (res && res.status == 1) {
           this.data = res.data;
           //this.router.navigate(["/danh-muc/danh-sach-bai-kiem-tra/thanh-cong"]);
-          this.layoutUtilsService.openSnackBar('Lưu thành công', 'Đóng');
+          this.layoutUtilsService.openSnackBar(res.error.message, 'Đóng');
         } else {
-          this.layoutUtilsService.openSnackBar('Lưu thất bại, vui lòng kiểm tra thông tin', 'Đóng');
+          this.layoutUtilsService.openSnackBar(res.error.message, 'Đóng');
         }
       });
     this.subscriptions.push(sbCreate);

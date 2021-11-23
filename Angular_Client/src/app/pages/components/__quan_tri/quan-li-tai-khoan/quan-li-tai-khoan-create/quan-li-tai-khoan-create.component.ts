@@ -158,6 +158,10 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
     );
   }
 
+  back(){
+    
+  }
+
   //#region DROPDOWN Tên chương
   loadListBoMon() {
     this.commonService.getListBoMon().subscribe((res) => {

@@ -247,7 +247,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 
 
                 _context.Database.CommitTransaction();
-                return Utilities._responseData(1, "", data);
+                return Utilities._responseData(1, "Thêm mới bài kiểm tra thành công", data);
 
             }
             catch (Exception ex)
@@ -348,7 +348,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _context.Database.BeginTransaction();
                 var _item = _context.BaiKiemTra_Group.Where(x => x.Id == data.Id).FirstOrDefault();
                 if (_item == null)
-                    return Utilities._responseData(0, "Không tìm thấy dữ liệu cần cập nhật, vui lòng tải lại danh sách!!", null);
+                    return Utilities._responseData(0, "Không tìm thấy bài kiểm tra cần cập nhật, vui lòng tải lại danh sách!!", null);
 
                 _item.TenBaiKiemTra = string.IsNullOrEmpty(data.TenBaiKiemTra) ? "" : data.TenBaiKiemTra.ToString().Trim();
                 _item.SoLuongDe = data.SoLuongDe;
@@ -421,7 +421,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             }
             catch (Exception ex)
             {
-                return Utilities._responseData(0, "Lấy dữ liệu thất bại, vui lòng kiểm tra lại!", null);
+                return Utilities._responseData(0, "Lấy bài kiểm tra thất bại, vui lòng kiểm tra lại!", null);
             }
         }
         #endregion

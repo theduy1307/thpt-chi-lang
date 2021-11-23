@@ -191,9 +191,9 @@ export class QuestionComponent implements OnInit, OnDestroy, ISortView, IGroupin
             )
             .subscribe((res) => {
               if (res && res.status == 1) {
-                this.layoutUtilsService.openSnackBar("Xóa dữ liệu thành công", "Đóng");
+                this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
               } else {
-                this.layoutUtilsService.openSnackBar("Xóa dữ liệu thất bại, vui lòng kiểm tra thông tin", "Đóng");
+                this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
               }
             });
           this.subscriptions.push(sb);

@@ -126,7 +126,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                     _keywordSearch = _tableState.searchTerm.ToLower().Trim();
                     _data = _data.Where(x =>
                           x.Title.ToLower().Contains(_keywordSearch)
-                          || x.OptionA.ToString().ToLower().Contains(_keywordSearch)
+                          || x.OptionA.ToLower().Contains(_keywordSearch)
                           || x.OptionB.ToLower().Contains(_keywordSearch)
                           || x.OptionC.ToLower().Contains(_keywordSearch)
                           || x.OptionD.ToLower().Contains(_keywordSearch)
@@ -410,17 +410,17 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
             {
                 var _item = _context.Question.Where(x => x.Id == id && !x.IsDisabled).FirstOrDefault();
                 if (_item == null)
-                    return Utilities._responseData(0, "Không tìm thấy dữ liệu cần xóa, vui lòng tải lại danh sách!!", null);
+                    return Utilities._responseData(0, "Không tìm thấy câu hỏi cần xóa, vui lòng tải lại danh sách!!", null);
 
                 _item.IsDisabled = true;
 
                 _context.SaveChanges();
 
-                return Utilities._responseData(1, "", null);
+                return Utilities._responseData(1, "Xóa câu hỏi thành công", null);
             }
             catch (Exception ex)
             {
-                return Utilities._responseData(0, "Xóa thất bại, vui lòng kiểm tra lại!", null);
+                return Utilities._responseData(0, "Xóa câu hỏi thất bại, vui lòng kiểm tra lại!", null);
             }
         }
         #endregion

@@ -457,6 +457,12 @@ create(): void {
     () => {}
   );
 }
+
+radioChecked(id, event)
+{
+  console.log(id)
+  console.log(event.target.value)
+}
 /* -----------------------------------------------------------------------*/
 
 /*
