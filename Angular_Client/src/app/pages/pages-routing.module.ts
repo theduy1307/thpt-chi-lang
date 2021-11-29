@@ -40,15 +40,20 @@ const routes: Routes = [
         path: "material",
         loadChildren: () => import("../modules/material/material.module").then((m) => m.MaterialModule),
       },
-      //Module danh mục
+      //Module danh mục dành cho giáo viên bộ môn
       {
         path: "danh-muc",
         loadChildren: () => import("../pages/components/__danh_muc/danh-muc.module").then((m) => m.DanhMucModule),
       },
-      //Module danh mục
+      //Module dành cho quản trị
       {
         path: "quan-tri",
         loadChildren: () => import("../pages/components/__quan_tri/quan-tri.module").then((m) => m.QuanTriModule),
+      },
+      //Module dành cho học sinh
+      {
+        path: "hoc-sinh",
+        loadChildren: () => import("../pages/components/__hoc_sinh/hoc-sinh.module").then((m) => m.HocSinhModule),
       },
       {
         path: "",
