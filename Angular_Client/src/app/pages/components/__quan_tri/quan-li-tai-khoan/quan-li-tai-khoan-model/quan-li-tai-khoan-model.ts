@@ -18,6 +18,34 @@ export interface IAccount extends BaseModel {
     Username: string;
     Password: string;
     Picture: string;
+    FileImport: FileImport
+}
+
+export class FileImport {
+    idLoaiHH: number;
+    base64: string;
+    fileByte: any;
+    filename: string;
+    dienGiai: string;
+    extension: string;
+
+    clear() {
+        this.idLoaiHH = 0;
+        this.base64 = '';
+        this.fileByte = null;
+        this.filename = '';
+        this.dienGiai = '';
+        this.extension = '';
+    }
+
+    copy(item: FileImport) {
+        this.idLoaiHH = item.idLoaiHH;
+        this.base64 = item.base64;
+        this.fileByte = item.fileByte;
+        this.filename = item.filename;
+        this.dienGiai = item.dienGiai;
+        this.extension = item.extension;
+    }
 }
 
 export const EMPTY_DATA: IAccount = {
@@ -41,4 +69,5 @@ export const EMPTY_DATA: IAccount = {
     Username: "",
     Password: "",
     Picture: "",
+    FileImport: new FileImport()
   };

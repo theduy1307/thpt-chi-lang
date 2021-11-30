@@ -16,6 +16,7 @@ using APICore_SoanDeThi.Models.DatabaseContext;
 using Wkhtmltopdf.NetCore;
 using Mammoth;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace APICore_SoanDeThi.Controllers.QuanTri
 {
@@ -192,6 +193,24 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _item.Isadmin = 1;
                 _item.Picture = string.IsNullOrEmpty(data.Picture) ? "" : data.Picture.ToString().Trim();
 
+                if(data.FileImport != null && !string.IsNullOrEmpty(data.FileImport.filename))
+                {
+                    string _path = "DuLieu/AccountImage/";
+                    string _targetPath = Path.Combine(_hosting.ContentRootPath, _path);
+                    if (!Directory.Exists(_targetPath))
+                        Directory.CreateDirectory(_targetPath);
+                    string _fileName = _targetPath + data.FileImport.filename + "." + data.FileImport.extension;
+                    
+                    byte[] _fileByte = null;
+
+                    if (data.FileImport.fileByte != null)
+                        _fileByte = data.FileImport.fileByte;
+                    else
+                        _fileByte = Convert.FromBase64String(data.FileImport.base64);
+                    System.IO.File.WriteAllBytes(_fileName, _fileByte);
+
+                    _item.Picture = _path + data.FileImport.filename + "." + data.FileImport.extension;
+                }
                 _context.ViewAccount.Add(_item);
                 _context.SaveChanges();
 

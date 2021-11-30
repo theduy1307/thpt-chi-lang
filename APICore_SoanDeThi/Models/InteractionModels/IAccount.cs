@@ -1,4 +1,5 @@
-﻿using System;
+﻿using APICore_SoanDeThi.Models.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,6 +30,7 @@ namespace APICore_SoanDeThi.Models.InteractionModels
         public long? Cocauid { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public FileImport FileImport { get; set; }
         public string Picture { get; set; }
 
     }

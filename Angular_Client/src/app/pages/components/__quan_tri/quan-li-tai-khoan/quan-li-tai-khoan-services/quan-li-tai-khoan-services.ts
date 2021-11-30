@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable, OnDestroy } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { catchError, finalize, map, tap } from "rxjs/operators";
 import { HttpUtilsService } from "src/app/_global/_services/http-utils.service";
 import { ITableState, TableResponseModel, TableService } from "src/app/_metronic/shared/crud-table";
@@ -12,7 +12,8 @@ const API_ROOT_URL = environment.ApiRoot + "/account";
 @Injectable({ providedIn: "root" })
 export class AccountService extends TableService<IAccount> implements OnDestroy {
   private _httpHeaders: HttpHeaders;
-
+  data_import: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  
   constructor(@Inject(HttpClient) http, private httpUtils: HttpUtilsService) {
     super(http);
     this._httpHeaders = this.httpUtils.getHttpHeaders();

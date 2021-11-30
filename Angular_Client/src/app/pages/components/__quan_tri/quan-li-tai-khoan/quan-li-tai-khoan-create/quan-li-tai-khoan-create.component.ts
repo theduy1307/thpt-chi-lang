@@ -10,7 +10,7 @@ import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.servi
 import { DeleteModalComponent } from "../../../_common/_components/delete-modal/delete-modal.component";
 import { FunctionPublic } from "../../../_common/_function/public-function";
 import { DungChungService } from "../../../_common/_services/dung-chung.service";
-import { IAccount } from "../quan-li-tai-khoan-model/quan-li-tai-khoan-model";
+import { FileImport, IAccount } from "../quan-li-tai-khoan-model/quan-li-tai-khoan-model";
 import { AccountService } from "../quan-li-tai-khoan-services/quan-li-tai-khoan-services";
 import { EMPTY_DATA } from "../quan-li-tai-khoan-model/quan-li-tai-khoan-model";
 
@@ -30,6 +30,11 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
   isLoading$;
   data: IAccount;
   informationFormGroup: FormGroup;
+
+  fileToUpload: File | null = null;
+  fileToUpLoadName: string | "";
+  flagFileImport: FileImport = new FileImport();
+  flagFileDownload: any;
 
   user: UserModel;
   firstUserState: UserModel;
@@ -68,6 +73,17 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
     // this.loadListChuongMonHoc();
     this.loadListBoMon();
     this.loadForm();
+    this.services.data_import.subscribe((res) => {
+      if (res != null && res != undefined) {
+        for (let i = 0; i < res.length; i++) {
+          this.flagFileImport = new FileImport();
+          this.flagFileImport.clear();
+          this.flagFileImport.filename = res[i].fileName;
+          this.flagFileImport.extension = res[i].extension;
+          this.flagFileImport.base64 = res[i].base64;
+        }
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -119,7 +135,53 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
       reader.onload = (event: any) => {
         this.imageUrl = event.target.result;
       };
+      this.FileSelected(event)
     }
+  }
+
+  FileSelected(evt: any) {
+    if (evt.target.files && evt.target.files.length) {
+      let fileNameList = [];
+      for (let i = 0; i < evt.target.files.length; i++) {
+        let file = evt.target.files[i];
+        this.flagFileDownload = file;
+        let fileName = file.name;
+        fileNameList.push(fileName);
+      }
+      let listFileNameStr = fileNameList[0];
+      for (var i = 1; i < fileNameList.length; i++) {
+        listFileNameStr += ", " + fileNameList[i];
+      }
+
+      let el: any = this.fileUpload.nativeElement;
+      var service = this.services;
+      var useBase64: boolean = true;
+      let tmpDataArray: any = [];
+
+      for (var idx = 0; idx < el.files.length; idx++) {
+        var extension = el.files[idx].name.split(".").pop();
+        var fileName = el.files[idx].name.substring(0, el.files[idx].name.indexOf(extension) - 1);
+
+        let reader = new FileReader();
+        reader.readAsDataURL(el.files[idx]);
+        reader.onload = function () {
+          let base64Str = reader.result as String;
+          var metaIdx = base64Str.indexOf(";base64,");
+
+          base64Str = base64Str.substr(metaIdx + 8);
+          var data = {
+            fileName: fileName,
+            base64: base64Str,
+            extension: extension,
+          };
+
+          tmpDataArray.push(data);
+          service.data_import.next(tmpDataArray);
+        };
+      }
+    }
+    evt.target.type = "text";
+    evt.target.type = "file";
   }
 
   create() {
@@ -223,6 +285,7 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
       Username: this.setUsername(),
       Password: "thptchilang@123",
       Picture: "",
+      FileImport: this.flagFileImport,
     };
     return data
   }
