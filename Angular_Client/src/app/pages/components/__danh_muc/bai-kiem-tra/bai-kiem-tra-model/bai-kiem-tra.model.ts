@@ -29,3 +29,27 @@ export interface IBaiHoc {
   MaBaiHoc: string;
   TenBaiHoc: string;
 }
+
+export const EMPTY_DATA:IBaiKiemTra_Group = {
+  id:undefined, data:undefined, status:undefined,
+  Id: undefined,
+  TenBaiKiemTra: "",
+  SoLuongDe: undefined,
+  CauBiet: undefined,
+  CauHieu: undefined,
+  CauVanDungThap: undefined,
+  CauVanDungCao: undefined,
+  ThoiGianLamBai: undefined,
+  HocKy: undefined,
+  Lop: undefined,
+  NamHoc:"",
+  IdMonHoc:undefined,
+  NguoiTao: undefined,
+  TenNguoiTao: "",
+  NgayTao: "",
+  NguoiSua: undefined,
+  NgaySua: "",
+  TrangThai: undefined,
+  IsDisabled: undefined,
+  DanhSachBaiHoc: []
+}

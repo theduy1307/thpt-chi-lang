@@ -50,6 +50,7 @@ import { BaiKiemTraCauHinhEditComponent } from './bai-kiem-tra-cau-hinh/bai-kiem
 import { BaiKiemTraTrucTuyenComponent } from './bai-kiem-tra-truc-tuyen/bai-kiem-tra-truc-tuyen.component';
 import { BaiKiemTraTrucTuyenEditComponent } from './bai-kiem-tra-truc-tuyen/bai-kiem-tra-truc-tuyen-edit/bai-kiem-tra-truc-tuyen-edit.component';
 import { BaiKiemTraTrucTuyenCreateComponent } from './bai-kiem-tra-truc-tuyen/bai-kiem-tra-truc-tuyen-create/bai-kiem-tra-truc-tuyen-create.component';
+import { BaiKiemTraEditComponent } from './bai-kiem-tra/bai-kiem-tra-edit/bai-kiem-tra-edit.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { BaiKiemTraTrucTuyenCreateComponent } from './bai-kiem-tra-truc-tuyen/ba
     BaiKiemTraTrucTuyenComponent,
     BaiKiemTraTrucTuyenEditComponent,
     BaiKiemTraTrucTuyenCreateComponent,
+    BaiKiemTraEditComponent,
   ],
   imports: [
     CommonModule,

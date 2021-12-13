@@ -195,7 +195,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
                 if(data.FileImport != null && !string.IsNullOrEmpty(data.FileImport.filename))
                 {
-                    string _path = "DuLieu/AccountImage/";
+                    string _path = "wwwroot/assets/account-images/";
+                    string _pathToSave = "assets/account-images/";
                     string _targetPath = Path.Combine(_hosting.ContentRootPath, _path);
                     if (!Directory.Exists(_targetPath))
                         Directory.CreateDirectory(_targetPath);
@@ -209,7 +210,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                         _fileByte = Convert.FromBase64String(data.FileImport.base64);
                     System.IO.File.WriteAllBytes(_fileName, _fileByte);
 
-                    _item.Picture = _path + data.FileImport.filename + "." + data.FileImport.extension;
+                    _item.Picture = _pathToSave + data.FileImport.filename + "." + data.FileImport.extension;
                 }
                 _context.ViewAccount.Add(_item);
                 _context.SaveChanges();

@@ -329,6 +329,49 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
         #endregion
 
+        #region CẬP NHẬT BÀI KIỂM TRA
+        [Route("_Update")]
+        //[Authorize(Roles = "10013")]
+        [HttpPost]
+        public BaseModel<object> BaiKiemTra_Update([FromBody] IBaiKiemTra_Group data)
+        {
+
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                _context.Database.BeginTransaction();
+                if (string.IsNullOrEmpty(data.TenBaiKiemTra))
+                {
+                    _context.Database.RollbackTransaction();
+                    return Utilities._responseData(0, "Vui lòng chọn số phiếu!!", null);
+                }
+
+                var _item = _context.BaiKiemTra_Group.Where(x => x.Id == data.Id && !x.IsDisabled).FirstOrDefault();
+                if (_item == null)
+                    return Utilities._responseData(0, "Không tìm thấy dữ liệu cần cập nhật, vui lòng tải lại danh sách!!", null);
+
+                _item.TenBaiKiemTra = data.TenBaiKiemTra.ToString().Trim();
+                _item.NamHoc = data.NamHoc.ToString().Trim();
+                _item.ThoiGianLamBai = data.ThoiGianLamBai;
+                _item.NgaySua = DateTime.Now;
+                _context.SaveChanges();
+
+                _context.Database.CommitTransaction();
+                return Utilities._responseData(1, "", data);
+            }
+            catch (Exception ex)
+            {
+                _context.Database.RollbackTransaction();
+                return Utilities._responseData(0, "Cập nhật thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
         [Route("_Print")]
         //[Authorize(Roles = "10012")]
         [HttpGet]

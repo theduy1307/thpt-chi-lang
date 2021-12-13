@@ -23,6 +23,7 @@ import { DeleteManyModalComponent } from "../../_common/_components/delete-many-
 import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.service";
 import { AuthService, UserModel } from "src/app/modules/auth";
 import { BaiKiemTraService } from "./bai-kiem-tra-service/bai-kiem-tra.service";
+import { BaiKiemTraEditComponent } from "./bai-kiem-tra-edit/bai-kiem-tra-edit.component";
 
 export interface PeriodicElement {
   name: string;
@@ -172,6 +173,16 @@ export class BaiKiemTraComponent implements OnInit, OnDestroy, ISortView, IGroup
           this.subscriptions.push(sb);
         }
       },
+      () => {}
+    );
+  }
+  edit(id: number) {
+    const modalRef = this.modalService.open(BaiKiemTraEditComponent, {
+      size: "md",
+    });
+    modalRef.componentInstance.id = id;
+    modalRef.result.then(
+      () => this.services.fetch(),
       () => {}
     );
   }

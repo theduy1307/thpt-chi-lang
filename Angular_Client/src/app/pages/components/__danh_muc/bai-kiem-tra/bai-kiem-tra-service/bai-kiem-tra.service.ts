@@ -77,7 +77,7 @@ export class BaiKiemTraService extends TableService<IBaiKiemTra_Group> implement
   }
   getItemById(id: number): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/BaiKiemTra_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});

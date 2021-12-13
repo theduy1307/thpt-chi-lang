@@ -9,6 +9,7 @@ export const environment = {
   isMockEnabled: true,
   apiUrl: "api",
   ApiRoot: "https://localhost:44300/api",
+  plainApi: "https://localhost:44300/",
   Modules: [1],
 };
 

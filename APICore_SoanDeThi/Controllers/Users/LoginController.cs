@@ -93,7 +93,7 @@ namespace APICore_SoanDeThi.Controllers.Users
                         occupation = _context.ViewChucDanh.Where(x => x.IdRow == nhanvien.IdChucdanh && x.Disable.Value == 0).Select(x => x.Tenchucdanh).FirstOrDefault(),
                         password = "",
                         phone = nhanvien.SodienthoaiNguoilienhe,
-                        pic = "localhost:44300/"+user.Picture,
+                        pic = user.Picture,
                         refreshToken = "none",
                         roles = permissions,
                         timeZone = "International Date Line West",

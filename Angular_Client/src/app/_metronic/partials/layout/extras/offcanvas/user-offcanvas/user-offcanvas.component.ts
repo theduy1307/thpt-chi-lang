@@ -3,6 +3,7 @@ import { LayoutService } from '../../../../../core';
 import { Observable } from 'rxjs';
 import { UserModel } from '../../../../../../modules/auth/_models/user.model';
 import { AuthService } from '../../../../../../modules/auth/_services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-offcanvas',
@@ -12,9 +13,8 @@ import { AuthService } from '../../../../../../modules/auth/_services/auth.servi
 export class UserOffcanvasComponent implements OnInit {
   extrasUserOffcanvasDirection = 'offcanvas-right';
   user$: Observable<UserModel>;
-
   constructor(private layout: LayoutService, private auth: AuthService) {}
-
+  env = environment.plainApi
   ngOnInit(): void {
     this.extrasUserOffcanvasDirection = `offcanvas-${this.layout.getProp(
       'extras.user.offcanvas.direction'
