@@ -79,6 +79,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 }
                 var _data = _context.ViewNhanVien.Where(x => x.Disable != 1).Join(_context.ViewAccount, emp => emp.IdNv, acc => acc.IdNv, (emp, acc) => new { emp = emp, acc = acc })
                                                                             .Select(x => new IAccount { 
+                                                                                Id = x.acc.Id,
                                                                                 IdNv = x.emp.IdNv,
                                                                                 Holot = x.emp.Holot,
                                                                                 Ten = x.emp.Ten,
@@ -91,7 +92,6 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                                                 Username = x.acc.Username,
                                                                                 Picture = x.acc.Picture
                                                                             });
-
 
                 if (!string.IsNullOrEmpty(_tableState.searchTerm))
                 {
@@ -180,7 +180,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
                 ViewAccount _item = new ViewAccount();
 
-                _item.Username = string.IsNullOrEmpty(data.Username) ? "" : data.Username.ToString().Trim();
+                _item.Username = setNewUserName(data.Username, data.Username, 0);//string.IsNullOrEmpty(data.Username) ? "" : data.Username.ToString().Trim();
                 _item.IdNv = _emp.IdNv;
                 _item.Lock = 0;
                 _item.Disable = 0;
@@ -226,6 +226,118 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
         #endregion
 
+        #region LẤY CHI TIẾT CÂU HỎI
+        [Route("account_detail")]
+        //[Authorize(Roles = "10014")]
+        [HttpGet]
+        public BaseModel<object> Account_Detail(long id)
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                //var _item = _context.Question.Where(x => x.Id == id && !x.IsDisabled)
+                //                            .Join(_context.BaiHoc, question => question.IdBaiHoc, subject => subject.Id, (question, subject) => new { question, subject })
+                //                            .Join(_context.ChuongMonHoc, question => question.subject.IdChuong, chapter => chapter.Id, (question, chapter) => new { question, chapter })
+                //                            .Join(_context.ViewNhanVien, question => question.question.question.CreateBy, emp => emp.IdNv, (question, emp) => new { question, emp })
+                //                            .Select(x => new IQuestion
+                //                            {
+                //                                Id = x.question.question.question.Id,
+                //                                Title = x.question.question.question.Title,
+                //                                OptionA = x.question.question.question.OptionA,
+                //                                OptionB = x.question.question.question.OptionB,
+                //                                OptionC = x.question.question.question.OptionC,
+                //                                OptionD = x.question.question.question.OptionD,
+                //                                Class = x.question.chapter.Lop,
+                //                                CorrectOption = x.question.question.question.CorrectOption,
+                //                                TenNguoiTao = x.emp.HoTen,
+                //                                IdBaiHoc = x.question.question.question.IdBaiHoc,
+                //                                TenBaiHoc = x.question.question.subject.TenBaiHoc,
+                //                                TenChuong = x.question.chapter.TenChuong,
+                //                                Level = x.question.question.question.Level,
+                //                            }).FirstOrDefault();
+                var _item = _context.ViewAccount.Where(x => x.Id == id && x.Disable == 0)
+                                                .Join(_context.ViewNhanVien, acc => acc.IdNv, emp => emp.IdNv,(acc, emp)=>new { acc, emp })
+                                                .Join(_context.MonHoc, acc => acc.emp.Cocauid, org => org.Id, (acc, org)=>new {acc, org })
+                                                .Select(x => new IAccount { 
+                                                    Id = x.acc.acc.Id,
+                                                    IdNv = x.acc.acc.IdNv ??0,
+                                                    Manv = x.acc.emp.Manv,
+                                                    Holot = x.acc.emp.Holot,
+                                                    Ten = x.acc.emp.Ten,
+                                                    Phai = x.acc.emp.Phai,
+                                                    Ngaysinh = x.acc.emp.Ngaysinh,
+                                                    Email = x.acc.emp.Email,
+                                                    LoaiTaiKhoan = x.acc.acc.Loaitaikhoan,
+                                                    Disable = x.acc.acc.Disable,
+                                                    SodienthoaiNguoilienhe = x.acc.emp.SodienthoaiNguoilienhe,
+                                                    Cocauid = x.acc.emp.Cocauid,
+                                                    Username = x.acc.acc.Username,
+                                                    Password = x.acc.acc.Password,
+                                                    Picture = x.acc.acc.Picture
+                                                })
+                                                .FirstOrDefault();
+
+
+                if (_item == null)
+                    return Utilities._responseData(0, "Không tìm thấy dữ liệu, vui lòng tải lại!!", null);
+
+                return Utilities._responseData(1, "", _item);
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Lấy dữ liệu thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
+        #region CẤP LẠI MẬT KHẨU
+        [Route("reset_password")]
+        //[Authorize(Roles = "10014")]
+        [HttpGet]
+        public BaseModel<object> Account_ResetPassword(long id)
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                var _item = _context.ViewAccount.Where(x => x.Id == id && x.Disable == 0).FirstOrDefault();
+                if (_item == null)
+                    return Utilities._responseData(0, "Không tìm thấy tài khoản cần cấp lại mật khẩu, vui lòng tải lại danh sách!!", null);
+
+                _item.Password = EncryptPassword("thptchilang@123");
+
+                _context.SaveChanges();
+
+                return Utilities._responseData(1, "Cập nhật mật khẩu mới thành công", null);
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Cập nhật mật khẩu mới thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
+        private string setNewUserName(string initialUsername, string? primaryUsername, int count)
+        {
+            string newUsername = initialUsername;
+            var username = _context.ViewAccount.Where(x => x.Username.Equals(initialUsername)).Select(x=>x.Username).FirstOrDefault();
+            if(username != null)
+            {
+                count++;
+                newUsername = (primaryUsername + count).ToString();
+                newUsername = setNewUserName(newUsername, primaryUsername, count);
+            }
+            return newUsername;
+        }
         private static string EncryptPassword(string plainText)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);

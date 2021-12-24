@@ -137,8 +137,8 @@
                   matTooltip="Xem chi tiết"
                   matTooltipPosition="after"
                   class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3"
+                  (click)="detail(item.Id)"
                 >
-                  <!-- (click)="detail(item.IdQuestion)" -->
                   <span
                     [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'"
                     cacheSVG="true"
@@ -154,6 +154,19 @@
                 >
                   <span
                     [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'"
+                    cacheSVG="true"
+                    class="svg-icon svg-icon-md svg-icon-primary"
+                  >
+                  </span>
+                </a>
+                <a
+                  matTooltip="Cấp lại mật khẩu"
+                  matTooltipPosition="after"
+                  class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3"
+                  (click)="resetPassword(item.Id, item.HoTen)"
+                >
+                  <span
+                    [inlineSVG]="'./assets/media/svg/icons/General/Update.svg'"
                     cacheSVG="true"
                     class="svg-icon svg-icon-md svg-icon-primary"
                   >

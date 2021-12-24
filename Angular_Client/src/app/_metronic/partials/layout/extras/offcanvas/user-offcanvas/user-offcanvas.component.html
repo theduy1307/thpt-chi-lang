@@ -16,10 +16,16 @@
     <div class="offcanvas-content pr-5 mr-n5">
       <!--begin::Header-->
       <div class="d-flex align-items-center mt-5">
-        <div class="symbol symbol-100 mr-5">
-            <img  class="symbol-label" [src]="env+_user.pic" />   
-          <i class="symbol-badge bg-success"></i>
+        <div class="symbol symbol-100 mr-5" *ngIf="_user.pic">
+            <img  class="symbol-label" [src]="env+_user.pic" style="object-fit: cover;cursor: pointer;"/>   
         </div>
+        <!--begin::Symbol-->
+        <div class="symbol symbol-100 bg-white-o-15 mr-3" *ngIf="!_user.pic">
+          <span class="symbol-label text-success font-weight-bold font-size-h1">{{
+            _user.lastname | firstLetter
+          }}</span>
+        </div>
+        <!--end::Symbol-->
         <div class="d-flex flex-column">
           <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
             {{ _user.firstname }} {{ _user.lastname }}

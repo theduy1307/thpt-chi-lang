@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-success",
@@ -6,7 +7,18 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./success.component.scss"],
 })
 export class SuccessComponent implements OnInit {
-  constructor() {}
+  @Input() back: string;
+  @Input() create: string;
+  
+  constructor(private router: Router,) {}
 
   ngOnInit(): void {}
+
+  handleBack() {
+    this.router.navigate([this.back]);
+  }
+
+  handleCreate() {
+    this.router.navigateByUrl("/", { skipLocationChange: true }).then(() => this.router.navigate([this.create]));
+  }
 }

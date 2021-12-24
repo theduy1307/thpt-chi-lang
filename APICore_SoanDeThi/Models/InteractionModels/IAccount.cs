@@ -8,6 +8,7 @@ namespace APICore_SoanDeThi.Models.InteractionModels
 {
     public class IAccount
     {
+        public long Id { get; set; }
         public long IdNv { get; set; }
         public string Manv { get; set; }
         public string Holot { get; set; }

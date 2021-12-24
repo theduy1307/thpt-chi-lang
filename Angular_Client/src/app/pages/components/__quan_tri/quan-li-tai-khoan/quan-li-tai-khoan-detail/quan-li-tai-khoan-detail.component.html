@@ -1,1 +1,37 @@
-<p>quan-li-tai-khoan-detail works!</p>
+<div class="modal-consupplyNamet">
+  <!-- Header Modal -->
+  <div class="modal-header">
+    <div class="modal-title h1" id="example-modal-sizes-title-lg">
+      <ng-container *ngIf="data"> CHI TIẾT TÀI KHOẢN </ng-container>
+    </div>
+  </div>
+  <!-- End Header -->
+
+  <!-- Body -->
+  <div class="overlay overlay-block cursor-default modal-body">
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="data">
+      <div class="form-group row text-center">
+        <img
+          [src]="env+data.Picture"
+          class="rounded mx-auto d-block"
+          alt="Ảnh đại diện"
+          width="200"
+          height="200"
+          style="object-fit: cover;"
+        />
+      </div>
+      <div class="form-group row">
+        <table>
+
+        </table>
+      </div>
+    </ng-container>
+  </div>
+  <!-- End Body -->
+</div>

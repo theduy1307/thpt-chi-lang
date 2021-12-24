@@ -275,7 +275,7 @@ export class HopDongMauDetailComponent implements OnInit, OnDestroy {
   //             ).subscribe((res: IMauHopDong) => {
   //                 if (res && res.status == 1) {
   //                     this.data = res.data
-  //                     this.layoutUtilsService.openSnackBar("Thêm mới thành công", "Đóng");
+  //                     this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
   //                 } else {
   //                     this.layoutUtilsService.openSnackBar("Thêm mới thất bại, vui lòng nhập lại thông tin", "Đóng");
   //                 }

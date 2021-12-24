@@ -24,6 +24,7 @@ import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.servi
 import { AuthService, UserModel } from "src/app/modules/auth";
 import { AccountService } from "./quan-li-tai-khoan-services/quan-li-tai-khoan-services";
 import { Router } from "@angular/router";
+import { QuanLiTaiKhoanDetailComponent } from "./quan-li-tai-khoan-detail/quan-li-tai-khoan-detail.component";
 
 export interface PeriodicElement {
   name: string;
@@ -147,16 +148,16 @@ export class QuanLiTaiKhoanComponent implements OnInit, OnDestroy, ISortView, IG
   //     () => {}
   //   );
   // }
-  // detail(id: number) {
-  //   const modalRef = this.modalService.open(QuestionDetailComponent, {
-  //     size: "md",
-  //   });
-  //   modalRef.componentInstance.id = id;
-  //   modalRef.result.then(
-  //     () => this.services.fetch(),
-  //     () => {}
-  //   );
-  // }
+  detail(id: number) {
+    const modalRef = this.modalService.open(QuanLiTaiKhoanDetailComponent, {
+      size: "lg",      
+    });
+    modalRef.componentInstance.id = id;
+    modalRef.result.then(
+      () => this.services.fetch(),
+      () => {}
+    );
+  }
   // Chuẩn hóa dữ liệu
   formatData(value: string): string {
     value = value
@@ -193,6 +194,38 @@ export class QuanLiTaiKhoanComponent implements OnInit, OnDestroy, ISortView, IG
                 this.layoutUtilsService.openSnackBar("Xóa dữ liệu thành công", "Đóng");
               } else {
                 this.layoutUtilsService.openSnackBar("Xóa dữ liệu thất bại, vui lòng kiểm tra thông tin", "Đóng");
+              }
+            });
+          this.subscriptions.push(sb);
+        }
+      },
+      () => {}
+    );
+  }
+  resetPassword(id: number, name:string) {
+    const modalRef = this.modalService.open(DeleteModalComponent);
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.title = "Cấp lại mật khẩu";
+    modalRef.componentInstance.message = `Bạn có chắc muốn cấp lại mật khẩu cho ${name}`;
+    modalRef.componentInstance.loadingMsg = "";
+    modalRef.componentInstance.submitButtonMsg = "Xác nhận";
+    modalRef.componentInstance.cancelButtonMsg = "Đóng";
+    modalRef.result.then(
+      (result) => {
+        if (result) {
+          const sb = this.services
+            .resetPassword(id)
+            .pipe(
+              tap(() => this.services.fetch()),
+              catchError((err) => {
+                return of(undefined);
+              })
+            )
+            .subscribe((res) => {
+              if (res && res.status == 1) {
+                this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
+              } else {
+                this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
               }
             });
           this.subscriptions.push(sb);

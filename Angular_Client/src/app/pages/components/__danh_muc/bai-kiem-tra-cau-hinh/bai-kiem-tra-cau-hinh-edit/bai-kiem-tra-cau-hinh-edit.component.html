@@ -35,13 +35,13 @@
               class="form-control form-control-lg"
               placeholder="Nhập tên bài kiểm tra"
               formControlName="tenBaiKiemTra"
-              [class.is-invalid]="ValidateFormGroupEvent('tenBaiKiemTra', formThongTin, 1)"
-              [class.is-valid]="ValidateFormGroupEvent('tenBaiKiemTra', formThongTin, 0)"
+              [class.is-invalid]="validateFormGroupEvent('tenBaiKiemTra', formThongTin, 1)"
+              [class.is-valid]="validateFormGroupEvent('tenBaiKiemTra', formThongTin, 0)"
             />
-            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('tenBaiKiemTra', formThongTin, 0)">
+            <div class="valid-feedback" *ngIf="validateFormGroupEvent('tenBaiKiemTra', formThongTin, 0)">
               Thông tin chính xác
             </div>
-            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('tenBaiKiemTra', formThongTin, 1)">
+            <div class="invalid-feedback" *ngIf="validateFormGroupEvent('tenBaiKiemTra', formThongTin, 1)">
               Vui lòng nhập tên bài kiểm tra
             </div>
           </div>
@@ -52,13 +52,13 @@
               class="form-control form-control-lg"
               placeholder="Nhập giá trị mặc định"
               formControlName="namHoc"
-              [class.is-invalid]="ValidateFormGroupEvent('namHoc', formThongTin, 1)"
-              [class.is-valid]="ValidateFormGroupEvent('namHoc', formThongTin, 0)"
+              [class.is-invalid]="validateFormGroupEvent('namHoc', formThongTin, 1)"
+              [class.is-valid]="validateFormGroupEvent('namHoc', formThongTin, 0)"
             />
-            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('namHoc', formThongTin, 0)">
+            <div class="valid-feedback" *ngIf="validateFormGroupEvent('namHoc', formThongTin, 0)">
               Thông tin chính xác
             </div>
-            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('namHoc', formThongTin, 1)">
+            <div class="invalid-feedback" *ngIf="validateFormGroupEvent('namHoc', formThongTin, 1)">
               Vui lòng nhập năm học
             </div>
           </div>
@@ -71,8 +71,8 @@
               <mat-option value="11">Lớp 11</mat-option>
               <mat-option value="12">Lớp 12</mat-option>
             </mat-select>
-            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('hocKy', formThongTin, 0)">Thông tin chính xác</div>
-            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('hocKy', formThongTin, 1)">
+            <div class="valid-feedback" *ngIf="validateFormGroupEvent('hocKy', formThongTin, 0)">Thông tin chính xác</div>
+            <div class="invalid-feedback" *ngIf="validateFormGroupEvent('hocKy', formThongTin, 1)">
               Vui lòng chọn học kỳ
             </div>
           </div>
@@ -83,14 +83,14 @@
               class="form-control form-control-lg text-right"
               placeholder="Nhập giá trị mặc định"
               formControlName="soLuongDe"
-              [class.is-invalid]="ValidateFormGroupEvent('soLuongDe', formThongTin, 1)"
-              [class.is-invalid]="ValidateFormGroupEvent('soLuongDe', formThongTin, 1, 'min')"
-              [class.is-valid]="ValidateFormGroupEvent('soLuongDe', formThongTin, 0)"
+              [class.is-invalid]="validateFormGroupEvent('soLuongDe', formThongTin, 1)"
+              [class.is-invalid]="validateFormGroupEvent('soLuongDe', formThongTin, 1, 'min')"
+              [class.is-valid]="validateFormGroupEvent('soLuongDe', formThongTin, 0)"
             />
-            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('soLuongDe', formThongTin, 0)">
+            <div class="valid-feedback" *ngIf="validateFormGroupEvent('soLuongDe', formThongTin, 0)">
               Thông tin chính xác
             </div>
-            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('soLuongDe', formThongTin, 1)">
+            <div class="invalid-feedback" *ngIf="validateFormGroupEvent('soLuongDe', formThongTin, 1)">
               Vui lòng nhập số lượng đề
             </div>
           </div>
@@ -101,14 +101,14 @@
               class="form-control form-control-lg text-right"
               placeholder="Nhập thời gian làm bài"
               formControlName="thoiGianLamBai"
-              [class.is-invalid]="ValidateFormGroupEvent('thoiGianLamBai', formThongTin, 1)"
-              [class.is-invalid]="ValidateFormGroupEvent('thoiGianLamBai', formThongTin, 1, 'min')"
-              [class.is-valid]="ValidateFormGroupEvent('thoiGianLamBai', formThongTin, 0)"
+              [class.is-invalid]="validateFormGroupEvent('thoiGianLamBai', formThongTin, 1)"
+              [class.is-invalid]="validateFormGroupEvent('thoiGianLamBai', formThongTin, 1, 'min')"
+              [class.is-valid]="validateFormGroupEvent('thoiGianLamBai', formThongTin, 0)"
             />
-            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('thoiGianLamBai', formThongTin, 0)">
+            <div class="valid-feedback" *ngIf="validateFormGroupEvent('thoiGianLamBai', formThongTin, 0)">
               Thông tin chính xác
             </div>
-            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('thoiGianLamBai', formThongTin, 1)">
+            <div class="invalid-feedback" *ngIf="validateFormGroupEvent('thoiGianLamBai', formThongTin, 1)">
               Vui lòng nhập thời lượng làm bài kiểm tra
             </div>
           </div>
@@ -119,8 +119,8 @@
               <mat-option value="2">Học kỳ II</mat-option>
               <mat-option value="3">Cả hai</mat-option>
             </mat-select>
-            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('hocKy', formThongTin, 0)">Thông tin chính xác</div>
-            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('hocKy', formThongTin, 1)">
+            <div class="valid-feedback" *ngIf="validateFormGroupEvent('hocKy', formThongTin, 0)">Thông tin chính xác</div>
+            <div class="invalid-feedback" *ngIf="validateFormGroupEvent('hocKy', formThongTin, 1)">
               Vui lòng chọn học kỳ
             </div>
           </div>
@@ -133,14 +133,14 @@
               class="form-control form-control-lg text-right"
               placeholder="Nhập số lượng câu hiểu"
               formControlName="cauBiet"
-              [class.is-invalid]="ValidateFormGroupEvent('cauBiet', formThongTin, 1)"
-              [class.is-invalid]="ValidateFormGroupEvent('cauBiet', formThongTin, 1, 'min')"
-              [class.is-valid]="ValidateFormGroupEvent('cauBiet', formThongTin, 0)"
+              [class.is-invalid]="validateFormGroupEvent('cauBiet', formThongTin, 1)"
+              [class.is-invalid]="validateFormGroupEvent('cauBiet', formThongTin, 1, 'min')"
+              [class.is-valid]="validateFormGroupEvent('cauBiet', formThongTin, 0)"
             />
-            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('cauBiet', formThongTin, 0)">
+            <div class="valid-feedback" *ngIf="validateFormGroupEvent('cauBiet', formThongTin, 0)">
               Thông tin chính xác
             </div>
-            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('cauBiet', formThongTin, 1)">
+            <div class="invalid-feedback" *ngIf="validateFormGroupEvent('cauBiet', formThongTin, 1)">
               Vui lòng nhập số lượng câu dễ
             </div>
           </div>
@@ -151,14 +151,14 @@
               class="form-control form-control-lg text-right"
               placeholder="Nhập số lượng câu dễ"
               formControlName="cauHieu"
-              [class.is-invalid]="ValidateFormGroupEvent('cauHieu', formThongTin, 1)"
-              [class.is-invalid]="ValidateFormGroupEvent('cauHieu', formThongTin, 1, 'min')"
-              [class.is-valid]="ValidateFormGroupEvent('cauHieu', formThongTin, 0)"
+              [class.is-invalid]="validateFormGroupEvent('cauHieu', formThongTin, 1)"
+              [class.is-invalid]="validateFormGroupEvent('cauHieu', formThongTin, 1, 'min')"
+              [class.is-valid]="validateFormGroupEvent('cauHieu', formThongTin, 0)"
             />
-            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('cauHieu', formThongTin, 0)">
+            <div class="valid-feedback" *ngIf="validateFormGroupEvent('cauHieu', formThongTin, 0)">
               Thông tin chính xác
             </div>
-            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('cauHieu', formThongTin, 1)">
+            <div class="invalid-feedback" *ngIf="validateFormGroupEvent('cauHieu', formThongTin, 1)">
               Vui lòng nhập số lượng câu trung bình
             </div>
           </div>
@@ -169,14 +169,14 @@
               class="form-control form-control-lg text-right"
               placeholder="Nhập số lượng câu vận dụng thấp"
               formControlName="cauVanDungThap"
-              [class.is-invalid]="ValidateFormGroupEvent('cauVanDungThap', formThongTin, 1)"
-              [class.is-invalid]="ValidateFormGroupEvent('cauVanDungThap', formThongTin, 1, 'min')"
-              [class.is-valid]="ValidateFormGroupEvent('cauVanDungThap', formThongTin, 0)"
+              [class.is-invalid]="validateFormGroupEvent('cauVanDungThap', formThongTin, 1)"
+              [class.is-invalid]="validateFormGroupEvent('cauVanDungThap', formThongTin, 1, 'min')"
+              [class.is-valid]="validateFormGroupEvent('cauVanDungThap', formThongTin, 0)"
             />
-            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('cauVanDungThap', formThongTin, 0)">
+            <div class="valid-feedback" *ngIf="validateFormGroupEvent('cauVanDungThap', formThongTin, 0)">
               Thông tin chính xác
             </div>
-            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('cauVanDungThap', formThongTin, 1)">
+            <div class="invalid-feedback" *ngIf="validateFormGroupEvent('cauVanDungThap', formThongTin, 1)">
               Vui lòng nhập số lượng câu vận dụng thấp
             </div>
           </div>
@@ -187,14 +187,14 @@
               class="form-control form-control-lg text-right"
               placeholder="Nhập số lượng câu vận dụng cao"
               formControlName="cauVanDungCao"
-              [class.is-invalid]="ValidateFormGroupEvent('cauVanDungCao', formThongTin, 1)"
-              [class.is-invalid]="ValidateFormGroupEvent('cauVanDungCao', formThongTin, 1, 'min')"
-              [class.is-valid]="ValidateFormGroupEvent('cauVanDungCao', formThongTin, 0)"
+              [class.is-invalid]="validateFormGroupEvent('cauVanDungCao', formThongTin, 1)"
+              [class.is-invalid]="validateFormGroupEvent('cauVanDungCao', formThongTin, 1, 'min')"
+              [class.is-valid]="validateFormGroupEvent('cauVanDungCao', formThongTin, 0)"
             />
-            <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('cauVanDungCao', formThongTin, 0)">
+            <div class="valid-feedback" *ngIf="validateFormGroupEvent('cauVanDungCao', formThongTin, 0)">
               Thông tin chính xác
             </div>
-            <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('cauVanDungCao', formThongTin, 1)">
+            <div class="invalid-feedback" *ngIf="validateFormGroupEvent('cauVanDungCao', formThongTin, 1)">
               Vui lòng nhập số lượng câu vận dụng cao
             </div>
           </div>
@@ -224,6 +224,9 @@
                     <strong>Câu {{ i + 1 }} -</strong>
                     <span
                       class="ml-3 label label-lg label-inline"
+                      matTooltip="Nhấn để thay đổi cấp độ"
+                      style="cursor: pointer;"
+                      (click)="changeLevel(i)"
                       [class.label-success]="this.cauHoi.value[i].level === 1"
                       [class.label-primary]="this.cauHoi.value[i].level === 2"
                       [class.label-warning]="this.cauHoi.value[i].level === 3"

@@ -1,15 +1,13 @@
-﻿using System;
+﻿using APICore_SoanDeThi.Models.DatabaseContext;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace APICore_SoanDeThi.Models.InteractionModels
 {
-    public class IBaiKiemTra
+    public class IBaiKiemTra : BaiKiemTra
     {
-        public long Id { get; set; }
-        public long IdGroup { get; set; }
-        public string MaDe { get; set; }
         public List<IBaiKiemTra_ChiTiet> DanhSachCauHoi { get; set; } = new List<IBaiKiemTra_ChiTiet>();
     }
 }

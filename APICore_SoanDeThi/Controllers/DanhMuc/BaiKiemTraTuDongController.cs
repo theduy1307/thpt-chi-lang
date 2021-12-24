@@ -259,8 +259,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _item.IdMonHoc = loginData.coCauId;
                 _item.ThoiGianLamBai = data.ThoiGianLamBai;
                 _item.HocKy = data.HocKy;
-                _item.Lop = 12;
-                _item.NguoiTao = 1;
+                _item.Lop = data.Lop;
+                _item.NguoiTao = loginData.id;
                 _item.NgayTao = DateTime.Now;
                 _item.TrangThai = data.TrangThai;
                 _item.IsDisabled = false;

@@ -63,6 +63,11 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
   firstUserState: UserModel;
   LIST_ROLES_USER: number[] = [];
 
+  //Thông tin khi tạo mới thành công
+  flagSuccess:boolean = false
+  backUrl:string = "/danh-muc/danh-sach-bai-kiem-tra"
+  createUrl:string = "/danh-muc/danh-sach-bai-kiem-tra/them-moi"
+
   //Thông tin chương môn học
   listChuongMonHoc: any[] = [];
   /*
@@ -341,7 +346,8 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
       .subscribe((res: IBaiKiemTra_Group) => {
         if (res && res.status == 1) {
           this.data = res.data;
-          this.router.navigate(["/danh-muc/danh-sach-bai-kiem-tra/thanh-cong"]);
+          this.flagSuccess = !this.flagSuccess;
+          //this.router.navigate(["/danh-muc/danh-sach-bai-kiem-tra/thanh-cong"]);
         } else {
           this.router.navigate(["/danh-muc/danh-sach-bai-kiem-tra/"]);
           this.layoutUtilsService.openSnackBar("Lưu thất bại, vui lòng kiểm tra thông tin", "Đóng");

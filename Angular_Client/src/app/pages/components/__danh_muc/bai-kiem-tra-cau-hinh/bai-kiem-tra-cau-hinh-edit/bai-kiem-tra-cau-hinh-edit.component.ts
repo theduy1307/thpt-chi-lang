@@ -486,9 +486,16 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
     2: isControlTouched()
     3: controlHasError()*/
 
-  ValidateFormGroupEvent(controlName: string, formGroup: FormGroup, type: number, validation: string = '') {
+  validateFormGroupEvent(controlName: string, formGroup: FormGroup, type: number, validation: string = '') {
     return FunctionPublic.ValidateFormGroupEvent(controlName, formGroup, type, validation);
   }
-
+  changeLevel(index:number) {
+    let currentLevel:number = this.cauHoi.at(index).get('level').value
+    let newLevel = currentLevel+1;
+    if(currentLevel == 4 ) 
+      this.cauHoi.at(index).get('level').patchValue(1)
+    else 
+      this.cauHoi.at(index).get('level').patchValue(newLevel)
+  }
   /* -----------------------------------------------------------------------*/
 }

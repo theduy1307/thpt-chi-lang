@@ -101,7 +101,7 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
       ngaySinh: ["", Validators.required],
       email: ["", Validators.compose([Validators.required, Validators.email])],
       quyen: ["", Validators.required],
-      sodienthoai: ["", Validators.required],
+      sodienthoai: ["",  Validators.compose([Validators.required, Validators.maxLength(10)])],
       boMon: ["", Validators.required],
       uploadFileName: ["", Validators.required],
     });
@@ -205,12 +205,12 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
                 return of(this.data);
               })
             )
-            .subscribe((res: IAccount) => {
+            .subscribe((res: any) => {
               if (res && res.status == 1) {
                 this.data = res.data;
-                this.layoutUtilsService.openSnackBar("Thêm mới thành công", "Đóng");
+                this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
               } else {
-                this.layoutUtilsService.openSnackBar("Thêm mới thất bại, vui lòng kiểm tra thông tin", "Đóng");
+                this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
               }
             });
           this.subscriptions.push(sbCreate);
@@ -221,7 +221,27 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
   }
 
   back(){
-    
+    if(this.informationFormGroup.dirty)
+    {
+      const modalRef = this.modalService.open(DeleteModalComponent);
+    modalRef.componentInstance.title = "Trở về trang chủ";
+    modalRef.componentInstance.message = "Dữ liệu chưa được lưu, thầy cô có muốn trở về không?";
+    modalRef.componentInstance.loadingMsg = "";
+    modalRef.componentInstance.submitButtonMsg = "Trở về";
+    modalRef.componentInstance.cancelButtonMsg = "Đóng";
+    modalRef.result.then(
+      (result) => {
+        if (result) {
+          this.router.navigate(["/quan-tri/quan-li-tai-khoan"])
+        }
+      },
+      () => {}
+    );
+    }
+    else
+    {
+      this.router.navigate(["/quan-tri/quan-li-tai-khoan"])
+    }
   }
 
   //#region DROPDOWN Tên chương

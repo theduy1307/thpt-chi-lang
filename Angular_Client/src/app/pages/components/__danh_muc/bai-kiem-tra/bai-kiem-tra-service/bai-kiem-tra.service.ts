@@ -132,6 +132,10 @@ export class BaiKiemTraService extends TableService<IBaiKiemTra_Group> implement
   print(id: number) {
     window.open(`${API_ROOT_URL}/_Print?id=${id}`);
   }
+
+  public setLoadingQuestion(value: boolean): void {
+      this.setLoadingQuestion(value)
+  }
   // deleteItems(ids: number[] = []): Observable<any> {
   // 	this.initCallService();
   // 	return this.http.post(API_ROOT_URL + '/_Delete_Many', ids, { headers: this._httpHeaders }).pipe(

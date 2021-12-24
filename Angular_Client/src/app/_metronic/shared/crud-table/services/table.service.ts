@@ -22,6 +22,7 @@ const DEFAULT_STATE: ITableState = {
 export abstract class TableService<T> {
   // Private fields
   private _items$ = new BehaviorSubject<T[]>([]);
+  private _loadingQuestion$ = new BehaviorSubject<boolean>(false);
   private _isLoading$ = new BehaviorSubject<boolean>(false);
   private _isFirstLoading$ = new BehaviorSubject<boolean>(true);
   private _tableState$ = new BehaviorSubject<ITableState>(DEFAULT_STATE);
@@ -37,6 +38,9 @@ export abstract class TableService<T> {
   }
   get isLoading$() {
     return this._isLoading$.asObservable();
+  }
+  get loadingQuestion$() {
+    return this._loadingQuestion$.asObservable()
   }
   get isFirstLoading$() {
     return this._isFirstLoading$.asObservable();
@@ -258,5 +262,9 @@ export abstract class TableService<T> {
 
   public tableStateClearRows(ids: any[]){
 		return this._tableState$.value.grouping.clearRows(ids)
+  }
+
+  public setLoadingQuestion(value: any){
+    this._loadingQuestion$.next(value)
   }
 }

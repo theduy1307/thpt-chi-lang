@@ -78,7 +78,7 @@ export class AccountService extends TableService<IAccount> implements OnDestroy 
   }
   getItemById(id: number): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/account_detail?id=${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});
@@ -123,6 +123,16 @@ export class AccountService extends TableService<IAccount> implements OnDestroy 
   delete(id: any): Observable<any> {
     this.initCallService();
     return this.http.get(`${API_ROOT_URL}/_Delete?id=${id}`, { headers: this._httpHeaders }).pipe(
+      catchError((err) => {
+        this.setErrorMess(err);
+        return of({});
+      }),
+      finalize(() => this.setLoading(false))
+    );
+  }
+  resetPassword(id: any): Observable<any> {
+    this.initCallService();
+    return this.http.get(`${API_ROOT_URL}/reset_password?id=${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});

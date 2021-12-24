@@ -1,4 +1,4 @@
-<div class="card card-custom gutter-b">
+<div class="card card-custom gutter-b" [class.d-none]="flagSuccess">
   <!-- Header Modal -->
   <div class="card-header">
     <div class="card-title">
@@ -14,6 +14,11 @@
 
   <!-- Body -->
   <div class="card-body">
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
     <mat-horizontal-stepper linear #stepper>
       <mat-step [stepControl]="firstFormGroup" [editable]="true">
         <ng-template matStepLabel>Thông tin cơ bản</ng-template>
@@ -322,3 +327,4 @@
   </div>
   <!-- End Body -->
 </div>
+<app-success [class.d-none]="!flagSuccess" [back]="backUrl" [create]="createUrl"></app-success>

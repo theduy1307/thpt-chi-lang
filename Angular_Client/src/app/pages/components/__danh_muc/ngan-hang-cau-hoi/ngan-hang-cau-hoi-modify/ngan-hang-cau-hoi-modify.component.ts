@@ -375,12 +375,12 @@ export class QuestionModifyComponent implements OnInit, OnDestroy {
           return of(this.data);
         })
       )
-      .subscribe((res: IQuestion) => {
+      .subscribe((res: any) => {
         if (res && res.status == 1) {
           this.data = res.data;
-          this.layoutUtilsService.openSnackBar("Thêm mới thành công", "Đóng");
+          this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
         } else {
-          this.layoutUtilsService.openSnackBar("Thêm mới thất bại, vui lòng kiểm tra thông tin", "Đóng");
+          this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
         }
       });
     this.subscriptions.push(sbCreate);
