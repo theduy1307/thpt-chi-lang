@@ -25,9 +25,11 @@ import { QuanLiTaiKhoanComponent } from './quan-li-tai-khoan/quan-li-tai-khoan.c
 import { QuanLiTaiKhoanCreateComponent } from './quan-li-tai-khoan/quan-li-tai-khoan-create/quan-li-tai-khoan-create.component';
 import { QuanLiTaiKhoanUpdateComponent } from './quan-li-tai-khoan/quan-li-tai-khoan-update/quan-li-tai-khoan-update.component';
 import { QuanLiTaiKhoanDetailComponent } from './quan-li-tai-khoan/quan-li-tai-khoan-detail/quan-li-tai-khoan-detail.component';
+import { QuanLiMonHocCreateComponent } from './quan-li-mon-hoc/quan-li-mon-hoc-create/quan-li-mon-hoc-create.component';
+import { QuanLiTaiKhoanEditComponent } from './quan-li-tai-khoan/quan-li-tai-khoan-edit/quan-li-tai-khoan-edit.component';
 
 @NgModule({
-  declarations: [QuanTriComponent, MonHocComponent, QuanLiTaiKhoanComponent, QuanLiTaiKhoanCreateComponent, QuanLiTaiKhoanUpdateComponent, QuanLiTaiKhoanDetailComponent],
+  declarations: [QuanTriComponent, MonHocComponent, QuanLiTaiKhoanComponent, QuanLiTaiKhoanCreateComponent, QuanLiTaiKhoanUpdateComponent, QuanLiTaiKhoanDetailComponent, QuanLiMonHocCreateComponent, QuanLiTaiKhoanEditComponent],
   imports: [
     CommonModule,
     HttpClientModule,

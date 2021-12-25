@@ -1,6 +1,7 @@
 import { BaseModel } from "src/app/_metronic/shared/crud-table";
 
 export interface IAccount extends BaseModel {
+    Id: number;
     IdNv: number;
     Manv: string;
     Holot: string;
@@ -10,15 +11,16 @@ export interface IAccount extends BaseModel {
     Ngaysinh: string | null;
     Email: string;
     IdChucdanh: number | null;
-    LoaiTaiKhoan:number |null;
-    TenChucDanh: string;
+    TenChucDanh: string | null;
+    LoaiTaiKhoan: number | null;
     Disable: number | null;
     SodienthoaiNguoilienhe: string;
     Cocauid: number | null;
+    TenCoCau:string
     Username: string;
     Password: string;
+    FileImport: FileImport;
     Picture: string;
-    FileImport: FileImport
 }
 
 export class FileImport {
@@ -52,6 +54,7 @@ export const EMPTY_DATA: IAccount = {
     id: undefined,
     data: undefined,
     status: undefined,
+    Id: undefined,
     IdNv: undefined,
     Manv: "",
     Holot: "",
@@ -65,6 +68,7 @@ export const EMPTY_DATA: IAccount = {
     TenChucDanh: "",
     Disable: undefined,
     Cocauid: undefined,
+    TenCoCau:"",
     SodienthoaiNguoilienhe: "",
     Username: "",
     Password: "",

@@ -10,7 +10,7 @@ namespace APICore_SoanDeThi.Models.InteractionModels
     {
         public long Id { get; set; }
         public long IdNv { get; set; }
-        public string Manv { get; set; }
+        public string? Manv { get; set; }
         public string Holot { get; set; }
         public string Ten { get; set; }
         public string HoTen
@@ -28,11 +28,12 @@ namespace APICore_SoanDeThi.Models.InteractionModels
         public short? LoaiTaiKhoan { get; set; }
         public short? Disable { get; set; }
         public string SodienthoaiNguoilienhe { get; set; }
+        public string TenCoCau { get; set; }
         public long? Cocauid { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public FileImport FileImport { get; set; }
-        public string Picture { get; set; }
+        public string? Picture { get; set; }
 
     }
 }

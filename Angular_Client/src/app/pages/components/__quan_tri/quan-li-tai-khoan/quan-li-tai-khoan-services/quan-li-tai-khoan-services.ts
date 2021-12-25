@@ -104,7 +104,7 @@ export class AccountService extends TableService<IAccount> implements OnDestroy 
   update(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<IAccount>(API_ROOT_URL + "/_Update", item, {
+      .post<IAccount>(API_ROOT_URL + "/update", item, {
         headers: this._httpHeaders,
       })
       .pipe(

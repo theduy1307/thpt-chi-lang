@@ -184,14 +184,12 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _item.IdNv = _emp.IdNv;
                 _item.Lock = 0;
                 _item.Disable = 0;
-                _item.Password = EncryptPassword(data.Password);
                 _item.Lastlogin = DateTime.Now;
                 _item.Lastpasschg = DateTime.Now;
                 _item.Email = data.Email;
                 _item.Token = "2021091118030131";
                 _item.Loaitaikhoan = 1;
                 _item.Isadmin = 1;
-                _item.Picture = string.IsNullOrEmpty(data.Picture) ? "" : data.Picture.ToString().Trim();
 
                 if(data.FileImport != null && !string.IsNullOrEmpty(data.FileImport.filename))
                 {
@@ -216,12 +214,97 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _context.SaveChanges();
 
                 _context.Database.CommitTransaction();
-                return Utilities._responseData(1, "", data);
+                return Utilities._responseData(1, "Thêm mới tài khoản thành công", data);
 
             }
             catch (Exception ex)
             {
                 return Utilities._responseData(0, "Thêm mới thất bại, vui lòng kiểm tra lại! Lỗi: " + ex.Message, null);
+            }
+        }
+        #endregion
+
+        #region CẬP NHẬT BÀI KIỂM TRA
+        [Route("update")]
+        //[Authorize(Roles = "10013")]
+        [HttpPost]
+        public BaseModel<object> BaiKiemTra_Update([FromBody] IAccount data)
+        {
+
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                _context.Database.BeginTransaction();
+                if (string.IsNullOrEmpty(data.Username))
+                {
+                    _context.Database.RollbackTransaction();
+                    return Utilities._responseData(0, "Chưa có tên đăng nhập!!", null);
+                }
+
+                var _emp = _context.ViewNhanVien.Where(x => x.IdNv == data.IdNv && x.Disable == 0).FirstOrDefault();
+                var _item = _context.ViewAccount.Where(x => x.Id == data.Id && x.Disable == 0).FirstOrDefault();
+                if (_emp == null || _item == null)
+                {
+                    _context.Database.RollbackTransaction();
+                    return Utilities._responseData(0, "Không tìm thấy dữ liệu cần cập nhật, vui lòng tải lại danh sách!!", null);
+                }
+
+                _emp.Manv = "CK-HCM0310330";
+                _emp.Holot = data.Holot;
+                _emp.Ten = data.Ten;
+                _emp.Phai = data.Phai;
+                _emp.Ngaysinh = data.Ngaysinh;
+                _emp.Email = data.Email;
+                _emp.IdChucdanh = data.IdChucdanh;
+                _emp.SodienthoaiNguoilienhe = data.SodienthoaiNguoilienhe;
+                _emp.Cocauid = data.Cocauid;
+                _context.SaveChanges();
+
+                _item.Username = _item.Username.Equals(data.Username) ? _item.Username : setNewUserName(data.Username, data.Username, 0);//string.IsNullOrEmpty(data.Username) ? "" : data.Username.ToString().Trim();
+                _item.IdNv = _emp.IdNv;
+                _item.Lock = 0;
+                _item.Disable = 0;
+                _item.Password = EncryptPassword(data.Password);
+                _item.Lastlogin = DateTime.Now;
+                _item.Lastpasschg = DateTime.Now;
+                _item.Email = data.Email;
+                _item.Loaitaikhoan = 1;
+                _item.Isadmin = 1;
+                _item.Picture = string.IsNullOrEmpty(data.Picture) ? "" : data.Picture.ToString().Trim();
+
+                if (data.FileImport != null && !string.IsNullOrEmpty(data.FileImport.filename))
+                {
+                    string _path = "wwwroot/assets/account-images/";
+                    string _pathToSave = "assets/account-images/";
+                    string _targetPath = Path.Combine(_hosting.ContentRootPath, _path);
+                    if (!Directory.Exists(_targetPath))
+                        Directory.CreateDirectory(_targetPath);
+                    string _fileName = _targetPath + data.FileImport.filename + "." + data.FileImport.extension;
+
+                    byte[] _fileByte = null;
+
+                    if (data.FileImport.fileByte != null)
+                        _fileByte = data.FileImport.fileByte;
+                    else
+                        _fileByte = Convert.FromBase64String(data.FileImport.base64);
+                    System.IO.File.WriteAllBytes(_fileName, _fileByte);
+
+                    _item.Picture = _pathToSave + data.FileImport.filename + "." + data.FileImport.extension;
+                }
+                _context.SaveChanges();
+
+                _context.Database.CommitTransaction();
+                return Utilities._responseData(1, "Cập nhật tài khoản thành công", data);
+            }
+            catch (Exception ex)
+            {
+                _context.Database.RollbackTransaction();
+                return Utilities._responseData(0, "Cập nhật thất bại, vui lòng kiểm tra lại!", null);
             }
         }
         #endregion
@@ -261,11 +344,11 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 //                                Level = x.question.question.question.Level,
                 //                            }).FirstOrDefault();
                 var _item = _context.ViewAccount.Where(x => x.Id == id && x.Disable == 0)
-                                                .Join(_context.ViewNhanVien, acc => acc.IdNv, emp => emp.IdNv,(acc, emp)=>new { acc, emp })
-                                                .Join(_context.MonHoc, acc => acc.emp.Cocauid, org => org.Id, (acc, org)=>new {acc, org })
-                                                .Select(x => new IAccount { 
+                                                .Join(_context.ViewNhanVien, acc => acc.IdNv, emp => emp.IdNv, (acc, emp) => new { acc, emp })
+                                                .Join(_context.MonHoc, acc => acc.emp.Cocauid, org => org.Id, (acc, org) => new { acc, org })
+                                                .Select(x => new IAccount {
                                                     Id = x.acc.acc.Id,
-                                                    IdNv = x.acc.acc.IdNv ??0,
+                                                    IdNv = x.acc.acc.IdNv ?? 0,
                                                     Manv = x.acc.emp.Manv,
                                                     Holot = x.acc.emp.Holot,
                                                     Ten = x.acc.emp.Ten,
@@ -278,7 +361,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                     Cocauid = x.acc.emp.Cocauid,
                                                     Username = x.acc.acc.Username,
                                                     Password = x.acc.acc.Password,
-                                                    Picture = x.acc.acc.Picture
+                                                    Picture = x.acc.acc.Picture,
+                                                    TenCoCau = _context.MonHoc.Where(o => o.Id == x.acc.emp.Cocauid).Select(o => o.TenMonHoc).FirstOrDefault()
                                                 })
                                                 .FirstOrDefault();
 

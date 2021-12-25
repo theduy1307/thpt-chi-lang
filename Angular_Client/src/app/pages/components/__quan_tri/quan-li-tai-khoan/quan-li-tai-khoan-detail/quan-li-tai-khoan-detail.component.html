@@ -4,6 +4,7 @@
     <div class="modal-title h1" id="example-modal-sizes-title-lg">
       <ng-container *ngIf="data"> CHI TIẾT TÀI KHOẢN </ng-container>
     </div>
+    <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss()">Trở về</button>
   </div>
   <!-- End Header -->
 
@@ -27,8 +28,31 @@
         />
       </div>
       <div class="form-group row">
-        <table>
-
+        <table class="table table-bordered">
+          <tr>
+            <td style="font-weight: bold;">Họ và tên: </td>
+            <td>{{data.HoTen}}</td>
+            <td style="font-weight: bold;">Tên đăng nhập: </td>
+            <td>{{data.Username}}</td>            
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Bộ môn: </td>
+            <td>{{data.TenCoCau}}</td>
+            <td style="font-weight: bold;">Giáo viên chủ nhiệm: </td>
+            <td>{{data.Phai == '1' ? 'Có' : 'Không'}}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Ngày sinh: </td>
+            <td>Ngày {{data.Ngaysinh | date:'dd'}} tháng {{data.Ngaysinh | date:'MM'}} năm {{data.Ngaysinh | date:'YYYY'}}</td>
+            <td style="font-weight: bold;">Giới tính: </td>
+            <td>{{data.Phai == '1' ? 'Nam' : 'Nữ'}}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Email: </td>
+            <td>{{data.Email}}</td>
+            <td style="font-weight: bold;">Số điện thoại: </td>
+            <td>{{data.SodienthoaiNguoilienhe}}</td>
+          </tr>
         </table>
       </div>
     </ng-container>

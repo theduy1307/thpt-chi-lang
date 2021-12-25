@@ -1,32 +1,32 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ActivatedRoute, Router } from "@angular/router";
+import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as moment from "moment";
 import { of, ReplaySubject, Subscription } from "rxjs";
-import { catchError, first, tap } from "rxjs/operators";
-import { AuthService, UserModel } from "src/app/modules/auth";
+import { catchError, first, switchMap, tap } from "rxjs/operators";
+import { UserModel } from "src/app/modules/auth";
 import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.service";
+import { environment } from "src/environments/environment";
 import { DeleteModalComponent } from "../../../_common/_components/delete-modal/delete-modal.component";
 import { FunctionPublic } from "../../../_common/_function/public-function";
 import { DungChungService } from "../../../_common/_services/dung-chung.service";
-import { FileImport, IAccount } from "../quan-li-tai-khoan-model/quan-li-tai-khoan-model";
+import { EMPTY_DATA, FileImport, IAccount } from "../quan-li-tai-khoan-model/quan-li-tai-khoan-model";
 import { AccountService } from "../quan-li-tai-khoan-services/quan-li-tai-khoan-services";
-import { EMPTY_DATA } from "../quan-li-tai-khoan-model/quan-li-tai-khoan-model";
 
 @Component({
-  selector: "app-quan-li-tai-khoan-create",
-  templateUrl: "./quan-li-tai-khoan-create.component.html",
-  styleUrls: ["./quan-li-tai-khoan-create.component.scss"],
+  selector: "app-quan-li-tai-khoan-edit",
+  templateUrl: "./quan-li-tai-khoan-edit.component.html",
+  styleUrls: ["./quan-li-tai-khoan-edit.component.scss"],
 })
-export class QuanLiTaiKhoanCreateComponent implements OnInit {
+export class QuanLiTaiKhoanEditComponent implements OnInit {
   /* ------------------------ Inject Event Data -----------------------*/
   @Input() id: number;
   @ViewChild("fileUpload", { static: true }) fileUpload;
   /* ------------------------------------------------------------------*/
-  isLinear = false;
-  imageUrl = "assets/media/users/blank.png";
+
   /* --------------------------- Loading.... --------------------------*/
+  env = environment.plainApi;
   isLoading$;
   data: IAccount;
   informationFormGroup: FormGroup;
@@ -35,8 +35,9 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
   fileToUpLoadName: string | "";
   flagFileImport: FileImport = new FileImport();
   flagFileDownload: any;
+  imageUrl = "";
 
-  user: UserModel;
+  user: any;
   firstUserState: UserModel;
   LIST_ROLES_USER: number[] = [];
 
@@ -47,32 +48,23 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
 
   private subscriptions: Subscription[] = [];
   /* ------------------------------------------------------------------*/
+
   constructor(
     private services: AccountService,
     private commonService: DungChungService,
-    private router: Router,
-    public userService: AuthService,
     private layoutUtilsService: LayoutUtilsService,
-    private modalService: NgbModal,
+    private router: Router,
+    private route: ActivatedRoute,
     private fb: FormBuilder,
+    private modalService: NgbModal,
     private changeDetectorRefs: ChangeDetectorRef
-  ) {
-    this.userService.currentUserSubject
-      .asObservable()
-      .pipe(first((user) => !!user))
-      .subscribe((user) => {
-        this.user = Object.assign({}, user);
-        this.firstUserState = Object.assign({}, user);
-        this.LIST_ROLES_USER = this.user.roles;
-      });
-  }
+  ) {}
 
+  /*---------------------------- LOAD DATA --------------------------------*/
   ngOnInit(): void {
     this.isLoading$ = this.services.isLoading$;
     this.loadData();
-    // this.loadListChuongMonHoc();
     this.loadListBoMon();
-    this.loadForm();
     this.services.data_import.subscribe((res) => {
       if (res != null && res != undefined) {
         for (let i = 0; i < res.length; i++) {
@@ -85,44 +77,86 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
       }
     });
   }
-
   ngOnDestroy(): void {
     this.subscriptions.forEach((sb) => sb.unsubscribe());
   }
   loadData() {
     this.data = EMPTY_DATA;
+    this.loadForm()
+    const sb = this.route.paramMap
+      .pipe(
+        switchMap((params) => {
+          // get id from URL
+          this.id = Number(params.get("id"));
+          if (this.id || this.id > 0) {
+            return this.services.getItemById(this.id);
+          }
+          return of(EMPTY_DATA);
+        }),
+        catchError(() => {
+          return of(undefined);
+        })
+      )
+      .subscribe((res: any) => {
+        if (!res) {
+          this.router.navigate(["/hop-dong-mau"], { relativeTo: this.route });
+        }
+        this.data = res.data;
+        this.loadForm();
+      });
+    this.subscriptions.push(sb);
   }
 
   loadForm() {
     this.informationFormGroup = this.fb.group({
-      hoLot: ["",  Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])],
-      ten: ["",  Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)])],
-      gioiTinh: ["1", Validators.required],
-      ngaySinh: ["", Validators.required],
-      email: ["", Validators.compose([Validators.required, Validators.email])],
+      hoLot: [this.data.Holot, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])],
+      ten: [this.data.Ten, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)])],
+      gioiTinh: [this.data.Phai, Validators.required],
+      ngaySinh: [this.formatDateAngular(this.data.Ngaysinh), Validators.required],
+      email: [this.data.Email, Validators.compose([Validators.required, Validators.email])],
       quyen: ["", Validators.required],
-      sodienthoai: ["",  Validators.compose([Validators.required, Validators.maxLength(10)])],
-      boMon: ["", Validators.required],
-      uploadFileName: ["", Validators.required],
+      sodienthoai: [this.data.SodienthoaiNguoilienhe, Validators.compose([Validators.required, Validators.maxLength(10)])],
+      boMon: [this.data.Cocauid+'', Validators.required],
+      uploadFileName: [this.data.Picture, Validators.required],
+    });
+    this.imageUrl = this.env+this.data.Picture
+  }
+
+  //#region DROPDOWN Bộ môn
+  loadListBoMon() {
+    this.commonService.getListBoMon().subscribe((res) => {
+      if (res && res.status === 1) {
+        this.listBoMon = res.data;
+        this.filteredListBoMon.next(this.listBoMon.slice());
+        this.changeDetectorRefs.detectChanges();
+      }
     });
   }
-
-  setUsername():string
-  {
-    const formData = this.informationFormGroup.value;
-    let firstName = this.splitFirstName(formData.hoLot)
-    let lastName = FunctionPublic.removeVietnameseTones(formData.ten);
-    const username = `${firstName}.${lastName}`;
-    return username.toLowerCase()
+  filterListBoMon() {
+    if (!this.listBoMon) {
+      return;
+    }
+    let search = this.listBoMonFilterCtrl;
+    if (!search) {
+      this.filteredListBoMon.next(this.listBoMon.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    this.filteredListBoMon.next(this.listBoMon.filter((ts) => ts.TenMonHoc.toLowerCase().indexOf(search) > -1));
+    this.changeDetectorRefs.detectChanges();
   }
-
-  splitFirstName(str:string):string
-  {
-    let firstName = FunctionPublic.removeVietnameseTones(str)
-    let newString:string = "";
-    firstName.split(" ").map(x=>{newString += x.charAt(0)})
-    return newString;
+  getNameBoMon() {
+    var item = this.listBoMon.find((res) => res.Id == +this.informationFormGroup.controls.boMon.value);
+    if (item) {
+      return item.TenMonHoc;
+    }
+    return "";
   }
+  setValueBoMon(event: any) {
+    let item = this.listBoMon.find((x) => x.Id == parseInt(event.value));
+  }
+  //#endregion
 
   selectFile() {
     let el: HTMLElement = this.fileUpload.nativeElement as HTMLElement;
@@ -197,7 +231,7 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
         if (result) {
           let dataItems = this.prepareData();
           const sbCreate = this.services
-            .create(dataItems)
+            .update(dataItems)
             .pipe(
               tap(() => this.router.navigate(["/quan-tri/quan-li-tai-khoan"])),
               catchError((errorMessage) => {
@@ -220,110 +254,86 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
     );
   }
 
-  back(){
-    if(this.informationFormGroup.dirty)
-    {
+  back() {
+    if (this.informationFormGroup.dirty) {
       const modalRef = this.modalService.open(DeleteModalComponent);
-    modalRef.componentInstance.title = "Trở về trang chủ";
-    modalRef.componentInstance.message = "Dữ liệu chưa được lưu, thầy cô có muốn trở về không?";
-    modalRef.componentInstance.loadingMsg = "";
-    modalRef.componentInstance.submitButtonMsg = "Trở về";
-    modalRef.componentInstance.cancelButtonMsg = "Đóng";
-    modalRef.result.then(
-      (result) => {
-        if (result) {
-          this.router.navigate(["/quan-tri/quan-li-tai-khoan"])
-        }
-      },
-      () => {}
-    );
-    }
-    else
-    {
-      this.router.navigate(["/quan-tri/quan-li-tai-khoan"])
+      modalRef.componentInstance.title = "Trở về trang chủ";
+      modalRef.componentInstance.message = "Dữ liệu chưa được lưu, thầy cô có muốn trở về không?";
+      modalRef.componentInstance.loadingMsg = "";
+      modalRef.componentInstance.submitButtonMsg = "Trở về";
+      modalRef.componentInstance.cancelButtonMsg = "Đóng";
+      modalRef.result.then(
+        (result) => {
+          if (result) {
+            this.router.navigate(["/quan-tri/quan-li-tai-khoan"]);
+          }
+        },
+        () => {}
+      );
+    } else {
+      this.router.navigate(["/quan-tri/quan-li-tai-khoan"]);
     }
   }
 
-  //#region DROPDOWN Tên chương
-  loadListBoMon() {
-    this.commonService.getListBoMon().subscribe((res) => {
-      if (res && res.status === 1) {
-        this.listBoMon = res.data;
-        this.filteredListBoMon.next(this.listBoMon.slice());
-        this.changeDetectorRefs.detectChanges();
-      }
-    });
-  }
-  filterListBoMon() {
-    if (!this.listBoMon) {
-      return;
-    }
-    let search = this.listBoMonFilterCtrl;
-    if (!search) {
-      this.filteredListBoMon.next(this.listBoMon.slice());
-      return;
-    } else {
-      search = search.toLowerCase();
-    }
-    this.filteredListBoMon.next(
-      this.listBoMon.filter((ts) => ts.TenMonHoc.toLowerCase().indexOf(search) > -1)
-    );
-    this.changeDetectorRefs.detectChanges();
-  }
-  getNameBoMon() {
-    var item = this.listBoMon.find((res) => res.Id == +this.informationFormGroup.controls.boMon.value);
-    if (item) {
-      return item.TenMonHoc;
-    }
-    return "";
-  }
-  setValueBoMon(event: any) {
-    let item = this.listBoMon.find((x) => x.Id == parseInt(event.value));
-  }
-  //#endregion
-  
   prepareData(): IAccount {
     const formData = this.informationFormGroup.value;
     const data: IAccount = {
       id: undefined,
       data: undefined,
       status: undefined,
-      Id:undefined,
-      IdNv: undefined,
-      Manv: "",
+      Id: this.data.Id,
+      IdNv: this.data.IdNv,
+      Manv: this.data.Manv,
       Holot: formData.hoLot,
       Ten: formData.ten,
       HoTen: "",
       Phai: formData.gioiTinh,
-      Ngaysinh: this.formatDate(formData.ngaySinh),
+      Ngaysinh: this.formatDateApi(formData.ngaySinh),
       Email: formData.email,
       IdChucdanh: undefined,
       LoaiTaiKhoan: undefined,
       TenChucDanh: "",
-      Disable: 0,
+      Disable: this.data.Disable,
       Cocauid: parseInt(formData.boMon),
-      TenCoCau:"",
+      TenCoCau: "",
       SodienthoaiNguoilienhe: formData.sodienthoai,
-      Username: this.setUsername(),
-      Password: "thptchilang@123",
-      Picture: "aaa",
+      /*
+        * Nếu họ tên có thay đổi thì set lại username
+        * Còn không thì không làm gì hết
+      */
+      Username: this.data.Username.replace(/[0-9]/g, '') === this.setUsername() ? this.data.Username : this.setUsername(),
+      Password: "",
+      Picture: "",
       FileImport: this.flagFileImport,
     };
-    return data
+    return data;
   }
-  /* ----------------------------- Inject Event Data ---------------------------
-    @Type:
-    0: isControlValid()
-    1: isControlInvalid()
-    2: isControlTouched()
-    3: controlHasError()*/
 
-  ValidateFormGroupEvent(controlName: string, formGroup: FormGroup, type: number, validation: string = "") {
-    return FunctionPublic.ValidateFormGroupEvent(controlName, formGroup, type, validation);
+  setUsername(): string {
+    const formData = this.informationFormGroup.value;
+    let firstName = this.splitFirstName(formData.hoLot);
+    let lastName = FunctionPublic.removeVietnameseTones(formData.ten);
+    const username = `${firstName}.${lastName}`;
+    return username.toLowerCase();
   }
-  formatDate(date)
-  {
-    return moment(new Date(date)).format("YYYY-MM-DD[T]HH:mm:ss.SSS")
+  splitFirstName(str: string): string {
+    let firstName = FunctionPublic.removeVietnameseTones(str);
+    let newString: string = "";
+    firstName.split(" ").map((x) => {
+      newString += x.charAt(0);
+    });
+    return newString;
+  }
+  /* ------------------*/
+
+  formatDateAngular(date: string) {
+    return moment(new Date(date)).format("MM/DD/YYYY");
+  }
+  formatDateApi(date) {
+    return moment(new Date(date)).format("YYYY-MM-DD[T]HH:mm:ss.SSS");
+  }
+  validateFormGroupEvent(controlName: string, formGroup: FormGroup, type: number, validation: string = "") {
+    return FunctionPublic.ValidateFormGroupEvent(controlName, formGroup, type, validation);
   }
   /* -----------------------------------------------------------------------*/
 }
