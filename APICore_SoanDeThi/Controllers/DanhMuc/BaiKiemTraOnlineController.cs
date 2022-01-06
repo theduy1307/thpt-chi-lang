@@ -19,25 +19,6 @@ using System.Text.RegularExpressions;
 
 namespace APICore_SoanDeThi.Controllers.QuanTri
 {
-    /* -----------------CONTROLLER CHO BÀI KIỂM TRA----------------
-   * 
-   * MENU:
-   *  Hợp đồng > Danh mục > Bài kiểm tra
-   * 
-   * DATABASE: nfc_dbdev
-   * 
-   * 
-   * 
-   * Tham chiếu DB:
-   *   HD_HanMucChietKhau
-   *   
-   * #region danh sách hạn mức chiết khấu
-   * #region thêm mới hạn mức chiết khấu
-   * #region cập nhật hạn mức chiết khấu
-   * #region chi tiết hạn mức chiết khấu
-   * #region xóa hạn mức chiết khấu
-   *   
-   */
     [Route("api/BaiKiemTraOnline")]
     [EnableCors("ExamPolicy")]
     public class BaiKiemTraOnlineController : ControllerBase

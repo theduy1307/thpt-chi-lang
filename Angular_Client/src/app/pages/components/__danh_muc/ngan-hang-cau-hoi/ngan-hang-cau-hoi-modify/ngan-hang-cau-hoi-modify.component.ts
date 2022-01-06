@@ -42,6 +42,7 @@ const EMPTY_DATA: IQuestion = {
 export class QuestionModifyComponent implements OnInit, OnDestroy {
   /* ------------------------ Inject Event Data -----------------------*/
   @Input() id: number;
+  test: any;
   public Editor = ClassicEditor;
   /* ------------------------------------------------------------------*/
 
@@ -49,7 +50,6 @@ export class QuestionModifyComponent implements OnInit, OnDestroy {
   isLoading$;
   data: IQuestion;
   formGroup: FormGroup;
-
   //Thông tin chương môn học
   listChuongMonHoc: any[] = [];
   /*
@@ -69,6 +69,7 @@ export class QuestionModifyComponent implements OnInit, OnDestroy {
     }
    */
   filteredListChuongMonHoc: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  listChuongMonHocFilterd: any[] = [];
   listChuongMonHocFilterCtrl: string = "";
 
   //Thông tin bài học
@@ -152,16 +153,20 @@ export class QuestionModifyComponent implements OnInit, OnDestroy {
       content: [contentData, Validators.compose([Validators.required])],
       correctOption: [`${this.data.CorrectOption}`, Validators.compose([Validators.required])],
       level: [`${this.data.Level}`, Validators.compose([Validators.required])],
-      chuongMonHoc: [`${this.data.IdChuong}`],
+      chuongMonHoc: [`${this.data.IdChuong}`,Validators.compose([Validators.required])],
       baiHoc: [`${this.data.IdBaiHoc}`, Validators.compose([Validators.required])],
+      lop: ["", Validators.compose([Validators.required])]
     });
   }
-
+  
   //#region DROPDOWN Tên chương
   loadListChuongMonHoc() {
     this.commonService.getListChuongMonHoc().subscribe((res) => {
       if (res && res.status === 1) {
         this.listChuongMonHoc = res.data;
+        let temp = this.formGroup.controls.lop.value;
+        this.listChuongMonHocFilterd = this.listChuongMonHoc.filter(x => x.Lop == temp);
+        this.listChuongMonHoc = [...this.listChuongMonHocFilterd];
         this.filteredListChuongMonHoc.next(this.listChuongMonHoc.slice());
         this.changeDetectorRefs.detectChanges();
       }
@@ -186,7 +191,7 @@ export class QuestionModifyComponent implements OnInit, OnDestroy {
   getNameChuongMonHoc() {
     var item = this.listChuongMonHoc.find((res) => res.Id == +this.formGroup.controls.chuongMonHoc.value);
     if (item) {
-      return item.TenChuong;
+      return "Chương:" +item.SoThuTu +" - "+item.TenChuong;
     }
     return "";
   }
@@ -260,6 +265,7 @@ export class QuestionModifyComponent implements OnInit, OnDestroy {
     this.data.ModifyDate = newQuestion.ModifyDate;
     this.data.ModifyBy = newQuestion.ModifyBy;
     this.data.IsDisabled = newQuestion.IsDisabled;
+    this.data.Class = newQuestion.Class;
   }
   save(coThemMoi: boolean) {
     this.prepareQuestion();
@@ -329,7 +335,7 @@ export class QuestionModifyComponent implements OnInit, OnDestroy {
       TenBaiHoc: "",
       TenChuong: "",
       TenNguoiTao: "",
-      Class: undefined,
+      Class: this.formGroup.controls.lop.value,
       Level: undefined,
       CorrectOption: undefined,
       CreateDate: moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
@@ -401,6 +407,7 @@ export class QuestionModifyComponent implements OnInit, OnDestroy {
       level: [`${this.data.Level}`, Validators.compose([Validators.required])],
       chuongMonHoc: [`${this.data.IdChuong}`],
       baiHoc: [`${this.data.IdBaiHoc}`, Validators.compose([Validators.required])],
+      lop: [""]
     });
     //this.loadData();
     this.modifyService.fetch();

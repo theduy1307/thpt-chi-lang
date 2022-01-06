@@ -35,6 +35,8 @@ namespace APICore_SoanDeThi.Models.DatabaseContext
         public virtual DbSet<PqGroupPermit> PqGroupPermit { get; set; }
         public virtual DbSet<PqPermissionGroup> PqPermissionGroup { get; set; }
         public virtual DbSet<PqGroupAccount> PqGroupAccount { get; set; }
+        public virtual DbSet<NienKhoa> NienKhoa { get; set; }
+        public virtual DbSet<Lop> Lop { get; set; }
         public virtual DbSet<PqGroup> PqGroup { get; set; }
         public virtual DbSet<SysRequestLogin> SysRequestLogin { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

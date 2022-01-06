@@ -1,0 +1,105 @@
+<div class="modal-consupplyNamet">
+    <!-- Header Modal -->
+    <div class="modal-header">
+        <div class="modal-title h4" id="example-modal-sizes-title-lg">
+            <ng-container>Chỉnh sửa lớp</ng-container>
+        </div>
+        <div class="model-action">
+            <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.close()">Trở về</button>
+            <div class="btn-group mr-3">
+                <button type="submit" class="btn btn-primary" (click)="edit()">Lưu</button>
+            </div>
+        </div>
+    </div>
+    <!-- End Header -->
+
+    <!-- Body -->
+    <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px">
+        <ng-container *ngIf="isLoading$ | async">
+            <div class="overlay-layer bg-transparent">
+                <div class="spinner spinner-lg spinner-success"></div>
+            </div>
+        </ng-container>
+        <ng-container>
+            <form action="#" class="form form-label-right" [formGroup]="formGroup">
+                <div class="form-group row">
+                    <div class="col-lg-3">
+                        <label class="form-label">Tên lớp</label>
+                        <input type="text" class="form-control form-control-lg" placeholder="Nhập tên lớp" style="text-transform:uppercase"
+                            formControlName="TenLop" [class.is-invalid]="ValidateFormGroupEvent('TenLop', formGroup, 1)"
+                            [class.is-valid]="ValidateFormGroupEvent('TenLop', formGroup, 0)" />
+                        <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('TenLop', formGroup, 0)">Thông tin
+                            chính xác</div>
+                        <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('TenLop', formGroup, 1)">
+                            Vui lòng nhập tên lớp
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <label class="form-label">Niên khóa</label>
+                        <mat-select disableOptionCentering placeholder="Chọn niên khóa" #focusThietBi
+                            formControlName="TenNienKhoa" (selectionChange)="setValueNienKhoa($event)"
+                            class="form-control form-control-lg"
+                            [class.is-invalid]=" ValidateFormGroupEvent('TenNienKhoa', formGroup, 1)"
+                            [class.is-valid]="ValidateFormGroupEvent('TenNienKhoa', formGroup, 0)">
+                            <mat-select-trigger>
+                                {{ getNameNienKhoa() }}
+                            </mat-select-trigger>
+                            <mat-option>
+                                <ngx-mat-select-search
+                                    [placeholderLabel]="listNienKhoa.length > 0 ? 'Tìm kiếm...' : 'Không tìm thấy dữ liệu'"
+                                    [noEntriesFoundLabel]="'Không tìm thấy kết quả phù hợp'"
+                                    [(ngModel)]="listNienKhoaFilterCtrl" [ngModelOptions]="{ standalone: true }"
+                                    (ngModelChange)="filterListNienKhoa()">
+                                </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let item of filteredListNienKhoa | async" value="{{ item.Id }}">
+                                {{ item.TenNienKhoa }}
+                            </mat-option>
+                        </mat-select>
+                        <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('TenNienKhoa', formGroup, 0)">
+                        </div>
+                        <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('TenNienKhoa', formGroup, 1)">
+                            Vui lòng chọn mã niên khóa
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <label class="form-label">Tên chủ nhiệm</label>
+                        <mat-select disableOptionCentering placeholder="Chọn chủ nhiệm" #focusThietBi
+                            formControlName="TenChuNhiem" (selectionChange)="setValueChuNhiem($event)"
+                            class="form-control form-control-lg"
+                            [class.is-invalid]=" ValidateFormGroupEvent('TenChuNhiem', formGroup, 1)"
+                            [class.is-valid]="ValidateFormGroupEvent('TenChuNhiem', formGroup, 0)">
+                            <mat-select-trigger>
+                                {{ getNameChuNhiem() }}
+                            </mat-select-trigger>
+                            <mat-option>
+                                <ngx-mat-select-search
+                                    [placeholderLabel]="listChuNhiem.length > 0 ? 'Tìm kiếm...' : 'Không tìm thấy dữ liệu'"
+                                    [noEntriesFoundLabel]="'Không tìm thấy kết quả phù hợp'"
+                                    [(ngModel)]="listChuNhiemFilterCtrl" [ngModelOptions]="{ standalone: true }"
+                                    (ngModelChange)="filterListChuNhiem()">
+                                </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let item of filteredListChuNhiem | async" value="{{ item.Id_NV }}">
+                                {{ item.TenNV }}
+                            </mat-option>
+                        </mat-select>
+                        <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('TenChuNhiem', formGroup, 0)">
+                        </div>
+                        <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('TenChuNhiem', formGroup, 1)">
+                            Vui lòng chọn mã chủ nhiệm
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <label class="form-label form-control-solid">Người tạo</label>
+                        <input type="text" class="form-control form-control-lg" placeholder="Người tạo"
+                            formControlName="TenNguoiTao"
+                            [class.is-invalid]="ValidateFormGroupEvent('TenNguoiTao', formGroup, 1)"
+                            [class.is-valid]="ValidateFormGroupEvent('TenNguoiTao', formGroup, 0)" />
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+    </div>
+    <!-- End Body -->
+</div>

@@ -110,6 +110,16 @@ export class DungChungService {
     const url = API_ROOT_URL + "/GetList_BoMon";
     return this.http.get<any>(url, { headers: httpHeaders });
   }
+  getListNienKhoa(): Observable<any> {
+    const httpHeaders = this.httpUtils.getHttpHeaders();
+    const url = API_ROOT_URL + "/GetList_NienKhoa";
+    return this.http.get<any>(url, { headers: httpHeaders });
+  }
+  getListChuNhiem(): Observable<any> {
+    const httpHeaders = this.httpUtils.getHttpHeaders();
+    const url = API_ROOT_URL + "/GetList_ChuNhiem";
+    return this.http.get<any>(url, { headers: httpHeaders });
+  }
   downloadTemplate(Id: number): Observable<Blob> {
     const httpHeaders = this.httpUtils.getHttpHeaders();
     const httpParams = new HttpParams().set("Id", Id.toString());

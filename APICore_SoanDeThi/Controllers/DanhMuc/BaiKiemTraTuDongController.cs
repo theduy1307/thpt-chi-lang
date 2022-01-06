@@ -238,12 +238,44 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
             if (loginData == null)
                 return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            foreach(var item in data.DanhSachBaiHoc)
+            {
+                var temp = _context.Question.Where(x => x.IsDisabled == false && x.IdBaiHoc == item.Id).ToList();
+                if (temp == null || temp.Count() == 0)
+                {
+                    return Utilities._responseData(0, "Ngân hàng câu hỏi ko đủ", null);
+                }
+                else
+                {
+                    var lv1 = temp.Where(x => x.Level == 1).Count();
+                    if(lv1 < data.CauBiet)
+                    {
+                        return Utilities._responseData(0, "Ngân hàng không đủ câu hỏi", null);
+                    }
+                    var lv2 = temp.Where(x => x.Level == 2).Count();
+                    if (lv2 < data.CauHieu)
+                    {
+                        return Utilities._responseData(0, "Ngân hàng không đủ câu hỏi", null);
+                    }
+                    var lv3 = temp.Where(x => x.Level == 3).Count();
+                    if (lv3 < data.CauVanDungThap)
+                    {
+                        return Utilities._responseData(0, "Ngân hàng không đủ câu hỏi", null);
+                    }
+                    var lv4 = temp.Where(x => x.Level == 4).Count();
+                    if (lv4 < data.CauVanDungCao)
+                    {
+                        return Utilities._responseData(0, "Ngân hàng không đủ câu hỏi", null);
+                    }
+                }
+                
+            }
             List<int> danhSachMaDeThi = layMaDeThi(data.SoLuongDe);
             List<long> danhSachBaiHocId = data.DanhSachBaiHoc.Select(x => x.Id).ToList();
             try
             {
                 if (string.IsNullOrEmpty(data.TenBaiKiemTra))
-                    return Utilities._responseData(0, "Vui lòng nhập số hợp đồng mua!!", null);
+                    return Utilities._responseData(0, "Vui lòng nhập số tên bài kiểm tra!!", null);
 
                 _context.Database.BeginTransaction();                
 

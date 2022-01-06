@@ -1,0 +1,58 @@
+<div class="modal-consupplyNamet">
+    <!-- Header Modal -->
+    <div class="modal-header">
+      <div class="modal-title h4" id="example-modal-sizes-title-lg">
+        <ng-container>Chỉnh sửa niên khóa</ng-container>
+      </div>
+      <div class="model-action">
+        <button type="button" class="btn btn-light btn-elevate mr-2" (click) = "modal.close()">Trở về</button>
+        <div class="btn-group mr-3">
+          <button type="submit" class="btn btn-primary" (click)="edit()">Lưu</button>
+        </div>
+      </div>
+    </div>
+    <!-- End Header -->
+  
+    <!-- Body -->
+    <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px">
+      <ng-container *ngIf="isLoading$ | async">
+        <div class="overlay-layer bg-transparent">
+          <div class="spinner spinner-lg spinner-success"></div>
+        </div>
+      </ng-container>
+      <ng-container>
+        <form action="#" class="form form-label-right" [formGroup]="formGroup">
+          <div class="form-group row">
+            <div class="col-lg-6">
+              <label class="form-label">Tên niên khóa</label>
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                placeholder="Nhập tên niên khóa"
+                formControlName="TenNienKhoa"
+                [class.is-invalid]="ValidateFormGroupEvent('TenNienKhoa', formGroup, 1)"
+                [class.is-valid]="ValidateFormGroupEvent('TenNienKhoa', formGroup, 0)"
+              />
+              <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('TenNienKhoa', formGroup, 0)">Thông tin chính xác</div>
+              <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('TenNienKhoa', formGroup, 1)">
+                Vui lòng nhập tên niên khóa
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <label class="form-label form-control-solid">Người tạo</label>
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                placeholder="Người tạo"
+                formControlName="TenNguoiTao"
+                [class.is-invalid]="ValidateFormGroupEvent('TenNguoiTao', formGroup, 1)"
+                [class.is-valid]="ValidateFormGroupEvent('TenNguoiTao', formGroup, 0)"
+              />
+            </div>
+          </div>
+        </form>
+      </ng-container>
+    </div>
+    <!-- End Body -->
+  </div>
+  

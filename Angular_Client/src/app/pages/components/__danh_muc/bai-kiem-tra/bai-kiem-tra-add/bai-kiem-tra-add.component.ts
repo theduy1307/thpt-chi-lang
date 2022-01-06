@@ -150,7 +150,7 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
   loadForm() {
     this.firstFormGroup = this.fb.group({
       tenBaiKiemTra: ["", Validators.required],
-      namHoc: ["", Validators.required],
+      namHoc: [FunctionPublic.getFullYear(), Validators.required],
       soLuongDe: [1, [Validators.required, Validators.min(1)]],
       thoiGianLamBai: [1, [Validators.required, Validators.min(1)]],
       hocKy: [""],
@@ -343,14 +343,14 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
           return of(this.data);
         })
       )
-      .subscribe((res: IBaiKiemTra_Group) => {
+      .subscribe((res) => {
         if (res && res.status == 1) {
           this.data = res.data;
           this.flagSuccess = !this.flagSuccess;
           //this.router.navigate(["/danh-muc/danh-sach-bai-kiem-tra/thanh-cong"]);
         } else {
           this.router.navigate(["/danh-muc/danh-sach-bai-kiem-tra/"]);
-          this.layoutUtilsService.openSnackBar("Lưu thất bại, vui lòng kiểm tra thông tin", "Đóng");
+          this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
         }
       });
     this.subscriptions.push(sbCreate);

@@ -205,6 +205,45 @@ namespace APICore_SoanDeThi.Migrations
                     b.ToTable("ChuongMonHoc");
                 });
 
+            modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.Lop", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<bool>("Disabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("IdChuNhiem")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("IdNienKhoa")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Loai")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NgaySua")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NgayTao")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("NguoiSua")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("NguoiTao")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("TenLop")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Lop");
+                });
+
             modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.MonHoc", b =>
                 {
                     b.Property<long>("Id")
@@ -236,6 +275,36 @@ namespace APICore_SoanDeThi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MonHoc");
+                });
+
+            modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.NienKhoa", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<bool>("Disabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("NgaySua")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NgayTao")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("NguoiSua")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("NguoiTao")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("TenNienKhoa")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NienKhoa");
                 });
 
             modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.PqAccountPermit", b =>
@@ -903,6 +972,12 @@ namespace APICore_SoanDeThi.Migrations
                     b.Property<long?>("IdChucdanh")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("IdLop")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("IdMonHoc")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Manv")
                         .HasColumnType("text");
 
@@ -917,6 +992,9 @@ namespace APICore_SoanDeThi.Migrations
 
                     b.Property<string>("Ten")
                         .HasColumnType("text");
+
+                    b.Property<bool?>("isStudent")
+                        .HasColumnType("boolean");
 
                     b.HasKey("IdNv");
 
