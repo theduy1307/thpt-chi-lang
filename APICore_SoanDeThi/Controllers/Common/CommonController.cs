@@ -58,6 +58,7 @@ namespace APICore_SoanDeThi.Controllers.Common
                               Id = x.Id,
                               SoThuTu = x.SoThuTu,
                               TenChuong = x.TenChuong,
+                              Lop = x.Lop
                           });
 
                 _baseModel.status = 1;
@@ -141,6 +142,85 @@ namespace APICore_SoanDeThi.Controllers.Common
                           {
                               Id = x.Id,
                               TenMonHoc = x.TenMonHoc
+                          });
+
+                _baseModel.status = 1;
+                _baseModel.error = null;
+                _baseModel.page = _pageModel;
+                _baseModel.data = _data;
+                return _baseModel;
+
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Lỗi dữ liệu!", null);
+            }
+        }
+        #endregion
+
+        #region DANH SÁCH NIÊN KHÓA
+        [Route("GetList_NienKhoa")]
+        //[Authorize(Roles = "01011")]
+        [HttpGet]
+        public BaseModel<object> GetList_NienKhoa()
+        {
+            //string Token = Utilities._GetHeader(Request);
+            //UserLogin loginData = _account._GetInfoUser(Token);
+
+            //if (loginData == null)
+            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            BaseModel<object> _baseModel = new BaseModel<object>();
+            PageModel _pageModel = new PageModel();
+            ErrorModel _error = new ErrorModel();
+
+            try
+            {
+                var _data = _context.NienKhoa.Where(x => !x.Disabled)
+                          .OrderBy(x => x.Id)
+                          .Select(x => new INienKhoa
+                          {
+                              Id = x.Id,
+                              TenNienKhoa = x.TenNienKhoa,
+                          });
+
+                _baseModel.status = 1;
+                _baseModel.error = null;
+                _baseModel.page = _pageModel;
+                _baseModel.data = _data;
+                return _baseModel;
+
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Lỗi dữ liệu!", null);
+            }
+        }
+        #endregion
+
+        #region DANH SÁCH CHỦ NHIỆM
+        [Route("GetList_ChuNhiem")]
+        //[Authorize(Roles = "01011")]
+        [HttpGet]
+        public BaseModel<object> GetList_ChuNhiem()
+        {
+            //string Token = Utilities._GetHeader(Request);
+            //UserLogin loginData = _account._GetInfoUser(Token);
+
+            //if (loginData == null)
+            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            BaseModel<object> _baseModel = new BaseModel<object>();
+            PageModel _pageModel = new PageModel();
+            ErrorModel _error = new ErrorModel();
+
+            try
+            {
+                var _data = _context.ViewNhanVien.Where(x => x.Disable == Convert.ToInt16(false))
+                          .Select(x => new IViewNhanVien
+                          {
+                              Id_NV = x.IdNv,
+                              TenNV = x.HoTen
                           });
 
                 _baseModel.status = 1;

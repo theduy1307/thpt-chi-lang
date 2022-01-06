@@ -1,0 +1,169 @@
+<div class="card card-custom gutter-b">
+    <!-- Header Page -->
+    <div class="card-header">
+      <div class="card-title">
+        <h3 class="card-label">Danh sách lớp</h3>
+      </div>
+      <div class="card-toolbar">
+        <button type="button" class="btn btn-primary" (click) = "create()">Thêm mới</button>
+      </div>
+    </div>
+    <!-- End Header Page -->
+  
+    <!-- Body -->
+    <div class="card-body">
+      <!-- Search Filter -->
+      <div class="form form-label-right">
+        <div class="form-group row" [formGroup]="searchGroup">
+          <div class="col-lg-6">
+            <input
+              type="text"
+              value=""
+              class="form-control"
+              placeholder="Tìm kiếm tên niên khóa"
+              name="searchText"
+              formControlName="searchTerm"
+            />
+            <small class="form-text text-muted"><b>Tìm kiếm</b> dữ liệu</small>
+          </div>
+        </div>
+      </div>
+      <!-- End Search Filter -->
+  
+      <!-- Action with multiple selected -->
+      <!-- <ng-container *ngIf="grouping.getSelectedRowsCount()">
+        <div class="form">
+          <div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
+            <div class="col-xl-12">
+              <div class="form-group form-group-inline">
+                <div class="form-label form-label-no-wrap">
+                  <label class="font-bold font-danger"
+                    ><span
+                      >Số lượng đang chọn: <b>{{ grouping.getSelectedRowsCount() }}</b></span
+                    ></label
+                  >
+                </div>
+                <div>
+                  <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1">
+                    <i class="fa fa-trash"></i> Xóa tất cả</button
+                  >&nbsp;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container> -->
+      <!-- End Action -->
+  
+      <!-- Data table -->
+      <div class="table-responsive angular-bootstrap-table">
+        <table class="table table-head-custom table-vertical-center overflow-hidden">
+          <thead>
+            <th>STT</th>
+            <th>
+              Tên lớp
+              <app-sort-icon
+                column="TenLop"
+                [activeColumn]="sorting.column"
+                [activeDirection]="sorting.direction"
+                (sort)="sort($event)"
+              ></app-sort-icon>
+            </th>       
+            <th>
+                Tên niên khóa
+                <app-sort-icon
+                  column="TenNienKhoa"
+                  [activeColumn]="sorting.column"
+                  [activeDirection]="sorting.direction"
+                  (sort)="sort($event)"
+                ></app-sort-icon>
+            </th>
+            <th>
+                Tên chủ nhiệm
+                <app-sort-icon
+                  column="TenChuNhiem"
+                  [activeColumn]="sorting.column"
+                  [activeDirection]="sorting.direction"
+                  (sort)="sort($event)"
+                ></app-sort-icon>
+            </th>
+            <th>
+              Người tạo
+              <app-sort-icon
+                column="TenNguoiTao"
+                [activeColumn]="sorting.column"
+                [activeDirection]="sorting.direction"
+                (sort)="sort($event)"
+              ></app-sort-icon>
+            </th>
+            <th>
+              Ngày tạo
+              <app-sort-icon
+                column="NgayTao"
+                [activeColumn]="sorting.column"
+                [activeDirection]="sorting.direction"
+                (sort)="sort($event)"
+              ></app-sort-icon>
+            </th>
+            <th>Thao tác</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of services.items$ | async; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td style="text-transform:uppercase">{{ item.TenLop }}</td>
+              <td>{{ item.TenNienKhoa }}</td>
+              <td>{{ item.TenChuNhiem }}</td>
+              <td>{{ item.TenNguoiTao }}</td>
+              <td>{{ item.NgayTao | date: "dd/MM/YYYY" }}</td>
+              <ul class="list-inline m-0">
+                <li class="list-inline-item">
+                  <td>
+                    <a
+                      matTooltip="Chỉnh sửa"
+                      matTooltipPosition="after"
+                      class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3"
+                      (click) = "edit(item.Id)"
+                    >
+                      <span
+                        [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'"
+                        cacheSVG="true"
+                        class="svg-icon svg-icon-md svg-icon-primary"
+                      >
+                      </span>
+                    </a>
+                    <a
+                      matTooltip="Xóa"
+                      matTooltipPosition="after"
+                      class="btn btn-icon btn-light btn-hover-danger btn-sm"
+                      (click) = "delete(item.Id)"
+                    >
+                      <span
+                        [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'"
+                        cacheSVG="true"
+                        class="svg-icon svg-icon-md svg-icon-danger"
+                      >
+                      </span>
+                    </a>
+                  </td>
+                </li>
+              </ul>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center" style="margin: 20px 0; text-transform: uppercase" *ngIf="isEmptyDataSource()">
+          Không có dữ liệu
+        </div>
+      </div>
+      <!-- End Data Table -->
+  
+      <app-paginator
+        class="d-flex justify-content-between align-items-center flex-wrap"
+        [paginator]="paginator"
+        [isLoading]="isLoading"
+        (paginate)="paginate($event)"
+      >
+      </app-paginator>
+    </div>
+    <!-- End Body -->
+  </div>
+  

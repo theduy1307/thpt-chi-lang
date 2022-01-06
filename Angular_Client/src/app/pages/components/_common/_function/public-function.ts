@@ -29,6 +29,10 @@ export class FunctionPublic{
 		var date = new Date();
 		return date.getFullYear() + this.addZero(date.getMonth() + 1) + this.addZero(date.getDate()) + this.addZero(date.getHours()) + this.addZero(date.getMinutes()) + this.addZero(date.getSeconds());
 	}
+	static getFullYear() {
+		var date = new Date();
+		return date.getFullYear();
+	}
 	static addZero(e) {
 		return e < 10 ? '0' + e : '' + e;
 	}

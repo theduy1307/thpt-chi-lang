@@ -1,7 +1,12 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+<<<<<<< HEAD
 import { QuanLiMonHocEditComponent } from "./quan-li-mon-hoc/quan-li-mon-hoc-edit/quan-li-mon-hoc-edit.component";
+=======
+import { QuanLiLopComponent } from "./quan-li-lop/quan-li-lop.component";
+>>>>>>> c68cca637ddac5878bd6bd992ca4828dcb89cbe4
 import { MonHocComponent } from "./quan-li-mon-hoc/quan-li-mon-hoc.component";
+import { QuanLiNienKhoaComponent } from "./quan-li-nien-khoa/quan-li-nien-khoa.component";
 import { QuanLiTaiKhoanCreateComponent } from "./quan-li-tai-khoan/quan-li-tai-khoan-create/quan-li-tai-khoan-create.component";
 import { QuanLiTaiKhoanEditComponent } from "./quan-li-tai-khoan/quan-li-tai-khoan-edit/quan-li-tai-khoan-edit.component";
 import { QuanLiTaiKhoanComponent } from "./quan-li-tai-khoan/quan-li-tai-khoan.component";
@@ -12,7 +17,11 @@ const routes: Routes = [
     path: "",
     component: QuanTriComponent,
     children: [
+<<<<<<< HEAD
       //Danh sách môn hoc4
+=======
+      //Quản lý môn học
+>>>>>>> c68cca637ddac5878bd6bd992ca4828dcb89cbe4
       {
         path: "quan-li-mon-hoc",
         component: MonHocComponent,
@@ -36,6 +45,16 @@ const routes: Routes = [
       {
         path: "quan-li-tai-khoan/chinh-sua/:id",
         component: QuanLiTaiKhoanEditComponent,
+      },
+      //Quản lý niên khóa
+       {
+        path: "quan-li-nien-khoa",
+        component: QuanLiNienKhoaComponent,
+      },
+      //Quản lý lớp
+      {
+        path: "quan-li-lop",
+        component: QuanLiLopComponent,
       },
       { path: "", redirectTo: "error/404", pathMatch: "full" },
       { path: "**", redirectTo: "error/404", pathMatch: "full" },
