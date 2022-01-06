@@ -18,8 +18,8 @@ namespace APICore_SoanDeThi.Models.DatabaseContext
         public string TenBaiHoc { get; set; }
         public long NguoiTao { get; set; }
         public DateTime NgayTao { get; set; }
-        public long NguoiSua { get; set; }
-        public DateTime NgaySua { get; set; }
+        public long? NguoiSua { get; set; }
+        public DateTime? NgaySua { get; set; }
         public bool IsDisabled { get; set; }
     }
 }

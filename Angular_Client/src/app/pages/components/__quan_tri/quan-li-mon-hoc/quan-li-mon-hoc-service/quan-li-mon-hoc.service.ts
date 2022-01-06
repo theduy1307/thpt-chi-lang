@@ -5,7 +5,7 @@ import { catchError, finalize, map, tap } from "rxjs/operators";
 import { HttpUtilsService } from "src/app/_global/_services/http-utils.service";
 import { ITableState, TableResponseModel, TableService } from "src/app/_metronic/shared/crud-table";
 import { environment } from "src/environments/environment";
-import { IMonHoc } from "../quan-li-mon-hoc-model/mon-hoc.model";
+import { IBaiHoc, IMonHoc } from "../quan-li-mon-hoc-model/mon-hoc.model";
 
 const API_ROOT_URL = environment.ApiRoot + "/MonHoc";
 
@@ -77,7 +77,18 @@ export class MonHocService extends TableService<IMonHoc> implements OnDestroy {
   }
   getItemById(id: number): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+      catchError((err) => {
+        this.setErrorMess(err);
+        return of({});
+      }),
+      finalize(() => this.setLoading(false))
+    );
+  }
+
+  getBaiHoc(id: number): Observable<any> {
+    this.initCallService();
+    return this.http.get(`${API_ROOT_URL}/detail-subject?id=${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});
@@ -100,7 +111,17 @@ export class MonHocService extends TableService<IMonHoc> implements OnDestroy {
         finalize(() => this.setLoading(false))
       );
   }
-  update(item: any): Observable<any> {
+  delete(id: any): Observable<any> {
+    this.initCallService();
+    return this.http.get(`${API_ROOT_URL}/_Delete?id=${id}`, { headers: this._httpHeaders }).pipe(
+      catchError((err) => {
+        this.setErrorMess(err);
+        return of({});
+      }),
+      finalize(() => this.setLoading(false))
+    );
+  }
+  updateChuong(item: any): Observable<any> {
     this.initCallService();
     return this.http
       .post<IMonHoc>(API_ROOT_URL + "/_Update", item, {
@@ -119,21 +140,38 @@ export class MonHocService extends TableService<IMonHoc> implements OnDestroy {
       );
   }
 
-  delete(id: any): Observable<any> {
+  updateBaiHoc(item: IBaiHoc[]): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/_Delete?id=${id}`, { headers: this._httpHeaders }).pipe(
-      catchError((err) => {
-        this.setErrorMess(err);
-        return of({});
-      }),
-      finalize(() => this.setLoading(false))
-    );
+    return this.http
+      .post<IBaiHoc>(API_ROOT_URL + "/_UpdateBaiHoc", item, {
+        headers: this._httpHeaders,
+      })
+      .pipe(
+        catchError((err) => {
+          this.setErrorMess(err);
+          return of({
+            id: undefined,
+            data: undefined,
+            status: undefined,
+          });
+        }),
+        finalize(() => this.setLoading(false))
+      );
   }
+
+  importFileMauNCC(fileToUpload) : Observable<any>{
+		
+		let fileUpload= <File>fileToUpload[0];
+		const formData: FormData = new FormData();
+		formData.append('File', fileUpload, fileUpload.name);
+		const httpHeaders = this.httpUtils.getHttpHeaders();
+		return this.http.post<any>(API_ROOT_URL+'/ImportFileImport_NhaCC',formData ,{ headers: this._httpHeaders });
+	}
   // deleteItems(ids: number[] = []): Observable<any> {
   // 	this.initCallService();
   // 	return this.http.post(API_ROOT_URL + '/_Delete_Many', ids, { headers: this._httpHeaders }).pipe(
   // 		catchError(err => {
-  // 			this.setErrorMess(err);
+  // 			this.setErrorMess(err); 
   // 			return of([]);
   // 		}),
   // 		finalize(() => this.setLoading(false))

@@ -1,0 +1,41 @@
+<div class="table-responsive angular-bootstrap-table" style="margin-top: 20px">
+  <table id="print-section" class="table table-head-custom table-vertical-center overflow-hidden">
+    <thead style="text-align: center;">
+      <th>STT</th>
+      <th>Tên chương</th>
+      <th>Thao tác</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of danhSachChuong; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>
+          <ng-container>{{item.TenChuong  }}</ng-container>
+        </td>
+        <td style="text-align: center;">
+          <a matTooltip="Chỉnh sửa tiêu đề" matTooltipPosition="before"
+            class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3"
+            (click)="detail(item.TenChuong, item.Id)"
+          >
+            <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+              class="svg-icon svg-icon-md svg-icon-primary">
+            </span>
+          </a>
+          <a matTooltip="Chỉnh sửa danh sách bài học" matTooltipPosition="before"
+            class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3"
+            (click)="subject(item.Id)"
+          >
+            <span [inlineSVG]="'./assets/media/svg/icons/Communication/Dial-numbers.svg'" cacheSVG="true"
+              class="svg-icon svg-icon-md svg-icon-primary">
+            </span>
+          </a>
+          <a matTooltip="Xóa" matTooltipPosition="before" class="btn btn-icon btn-light btn-hover-danger btn-sm" (click)="delete(item.Id)">
+            <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
+              class="svg-icon svg-icon-md svg-icon-danger"> </span>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="text-center" style="margin: 20px 0; text-transform: uppercase" *ngIf="danhSachChuong.length == 0">Không
+    có dữ liệu</div>
+</div>

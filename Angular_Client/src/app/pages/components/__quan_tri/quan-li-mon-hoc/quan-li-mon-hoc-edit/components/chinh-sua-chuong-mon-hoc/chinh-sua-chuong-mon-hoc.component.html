@@ -1,0 +1,18 @@
+<!-- Header Modal -->
+<div class="modal-header">
+    <div class="modal-title">
+        CHƯƠNG MÔN HỌC
+    </div>
+    <span class="dot" matTooltip="Đóng" (click)="close()"></span>
+</div>
+<!-- End Header -->
+<div class="modal-body">
+    <form class="form-group row" [formGroup]="formGroup" (submit)="save()" >
+        <div class="col-12">
+            <input type="text" class="form-control form-control-lg" formControlName="name">
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="save()">Lưu</button>
+</div>
