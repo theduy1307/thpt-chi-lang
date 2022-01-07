@@ -34,6 +34,7 @@ namespace APICore_SoanDeThi.Models
         public string language { get; set; }
         public string timeZone { get; set; }
         public long coCauId { get; set; }
+        public int allowCode { get; set; }
 
         public string isMessageError { get; set; } = "";
         public bool? isEnableError { get; set; } = false;

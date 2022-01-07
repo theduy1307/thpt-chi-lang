@@ -29,6 +29,7 @@ namespace APICore_SoanDeThi.Models
         public long? Cocauid { get; set; }
         public long? IdMonHoc { get; set; }
         public string? IdLop { get; set; }
+        public int AllowCode { get; set; }
         public bool? isStudent { get; set; }
 
     }
