@@ -390,6 +390,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                     {
                         BaiHoc baiHoc = new BaiHoc();
                         baiHoc.IdChuong = item.IdChuong;
+                        baiHoc.TenBaiHoc = item.TenBaiHoc;
                         baiHoc.SoThuTu = 1;
                         baiHoc.HocKy = item.HocKy;
                         baiHoc.IsDisabled = false;

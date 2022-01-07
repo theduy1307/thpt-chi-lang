@@ -128,4 +128,7 @@ export class DanhSachBaiHocModifyComponent implements OnInit {
     })
     return list;
   }
+  deleteBaiHoc(index) {
+    this.formBaiHoc.removeAt(index)
+  }
 }
