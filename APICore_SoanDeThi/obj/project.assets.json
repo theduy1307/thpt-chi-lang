@@ -2890,19 +2890,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vipth\\.nuget\\packages\\": {}
+    "C:\\Users\\ASUS\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\THPT CHI LANG\\APICore_SoanDeThi\\APICore_SoanDeThi.csproj",
+      "projectUniqueName": "D:\\ChiLang\\thpt-chi-lang\\APICore_SoanDeThi\\APICore_SoanDeThi.csproj",
       "projectName": "APICore_SoanDeThi",
-      "projectPath": "D:\\THPT CHI LANG\\APICore_SoanDeThi\\APICore_SoanDeThi.csproj",
-      "packagesPath": "C:\\Users\\vipth\\.nuget\\packages\\",
-      "outputPath": "D:\\THPT CHI LANG\\APICore_SoanDeThi\\obj\\",
+      "projectPath": "D:\\ChiLang\\thpt-chi-lang\\APICore_SoanDeThi\\APICore_SoanDeThi.csproj",
+      "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
+      "outputPath": "D:\\ChiLang\\thpt-chi-lang\\APICore_SoanDeThi\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\vipth\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3015,7 +3019,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   },
