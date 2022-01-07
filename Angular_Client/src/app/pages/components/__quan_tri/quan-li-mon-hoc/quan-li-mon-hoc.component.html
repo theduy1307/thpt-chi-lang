@@ -20,7 +20,7 @@
             <li class="list-group-item">{{item.DanhSachGiaoVien.length}} giáo viên</li>
           </ul>
           <div class="card-body">
-            <a href="#" class="card-link">Bổ sung/chỉnh sửa thông tin</a>
+            <a href="#" class="card-link" [routerLink]="'./chinh-sua/'+item.Id">Bổ sung/chỉnh sửa thông tin</a>
           </div>
         </div>
     </ng-container>

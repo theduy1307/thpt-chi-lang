@@ -179,149 +179,272 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
             }
         }
         #endregion
-        /*
-        #region THÊM MỚI BÀI KIỂM TRA
-        [Route("_Insert")]
-        //[Authorize(Roles = "10012")]
-        [HttpPost]
-        public BaseModel<object> BaiKiemTra_Insert([FromBody] IBaiKiemTra_Group data)
-        {
-            //string Token = Utilities._GetHeader(Request);
-            //UserLogin loginData = _account._GetInfoUser(Token);
 
-            //if (loginData == null)
-            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
-            List<int> danhSachMaDeThi = layMaDeThi(data.SoLuongDe);
-            List<long> danhSachBaiHocId = data.DanhSachBaiHoc.Select(x => x.Id).ToList();
+        #region LẤY CHI TIẾT CHƯƠNG MÔN HỌC
+        [Route("detail")]
+        //[Authorize(Roles = "10014")]
+        [HttpGet]
+        public BaseModel<object> ChuongMonHoc_Detail(long id)
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
             try
             {
-                if (string.IsNullOrEmpty(data.TenBaiKiemTra))
-                    return Utilities._responseData(0, "Vui lòng nhập số hợp đồng mua!!", null);
+                //var _item = _context.Question.Where(x => x.Id == id && !x.IsDisabled)
+                //                            .Join(_context.BaiHoc, question => question.IdBaiHoc, subject => subject.Id, (question, subject) => new { question, subject })
+                //                            .Join(_context.ChuongMonHoc, question => question.subject.IdChuong, chapter => chapter.Id, (question, chapter) => new { question, chapter })
+                //                            .Join(_context.ViewNhanVien, question => question.question.question.CreateBy, emp => emp.IdNv, (question, emp) => new { question, emp })
+                //                            .Select(x => new IQuestion
+                //                            {
+                //                                Id = x.question.question.question.Id,
+                //                                Title = x.question.question.question.Title,
+                //                                OptionA = x.question.question.question.OptionA,
+                //                                OptionB = x.question.question.question.OptionB,
+                //                                OptionC = x.question.question.question.OptionC,
+                //                                OptionD = x.question.question.question.OptionD,
+                //                                Class = x.question.chapter.Lop,
+                //                                CorrectOption = x.question.question.question.CorrectOption,
+                //                                TenNguoiTao = x.emp.HoTen,
+                //                                IdBaiHoc = x.question.question.question.IdBaiHoc,
+                //                                TenBaiHoc = x.question.question.subject.TenBaiHoc,
+                //                                TenChuong = x.question.chapter.TenChuong,
+                //                                Level = x.question.question.question.Level,
+                //                            }).FirstOrDefault();
+                var _item = _context.ChuongMonHoc.Where(x => x.IdMonHoc == id && !x.IsDisabled)
+                                                 .Select(x => new IChuongMonHoc
+                                                 {
+                                                     Id = x.Id,
+                                                     IdMonHoc = x.IdMonHoc,
+                                                     SoThuTu = x.SoThuTu,
+                                                     MaChuong = x.MaChuong,
+                                                     TenChuong = x.TenChuong,
+                                                     Lop = x.Lop,
+                                                     DanhSachBaiHoc = _context.BaiHoc.Where(s => s.IdChuong == x.Id && !s.IsDisabled).Select(s => new IBaiHoc
+                                                     {
+                                                         Id = s.Id,
+                                                         IdChuong = s.IdChuong,
+                                                         SoThuTu = s.SoThuTu,
+                                                         MaBaiHoc = s.MaBaiHoc,
+                                                         TenBaiHoc = s.TenBaiHoc,
+                                                         HocKy = s.HocKy
+                                                     }).ToList(),
+                                                 }).ToList();
 
-                _context.Database.BeginTransaction();
-                
+                if (_item == null)
+                    return Utilities._responseData(0, "Không tìm thấy dữ liệu, vui lòng tải lại!!", null);
 
-                BaiKiemTra_Group _item = new BaiKiemTra_Group();
-
-                _item.TenBaiKiemTra = string.IsNullOrEmpty(data.TenBaiKiemTra) ? "" : data.TenBaiKiemTra.ToString().Trim();
-                _item.SoLuongDe = data.SoLuongDe;
-                _item.CauDe = data.CauDe;
-                _item.CauTrungBinh = data.CauTrungBinh;
-                _item.CauKho = data.CauKho;
-                _item.NamHoc = data.NamHoc;
-                _item.IdMonHoc = data.IdMonHoc;
-                _item.ThoiGianLamBai = data.ThoiGianLamBai;
-                _item.HocKy = data.HocKy;
-                _item.Lop = 12;
-                _item.NguoiTao = 1;
-                _item.NgayTao = DateTime.Now;
-                _item.IsDisabled = false;
-
-                _context.BaiKiemTra_Group.Add(_item);
-                _context.SaveChanges();
-
-                //lấy Id của BaiKiemTra_Group
-                data.Id = _item.Id;
-
-                var danhSachCauHoiDuocChon = _context.Question.Where(x => !x.IsDisabled && danhSachBaiHocId.Contains(x.IdBaiHoc))
-                                                                .Select(x => new Question
-                                                                {
-                                                                    Id = x.Id,
-                                                                    IdBaiHoc = x.IdBaiHoc,
-                                                                    Level = x.Level,
-                                                                })
-                                                                .ToList();
-
-                //tạo đề thi theo số lượng đề
-                for(int i = 0; i< data.SoLuongDe; i++)
-                {
-                    themMoiChiTietBaiKiemTra(data.Id, danhSachCauHoiDuocChon, data.CauDe, data.CauTrungBinh, data.CauKho, danhSachMaDeThi[i]);
-                }    
-
-                _context.Database.CommitTransaction();
-                return Utilities._responseData(1, "", data);
-
+                return Utilities._responseData(1, "", _item);
             }
             catch (Exception ex)
             {
-                return Utilities._responseData(0, "Thêm mới thất bại, vui lòng kiểm tra lại!", null);
+                return Utilities._responseData(0, "Lấy dữ liệu thất bại, vui lòng kiểm tra lại!", null);
             }
         }
         #endregion
 
-        [Route("_Print")]
-        //[Authorize(Roles = "10012")]
+        #region LẤY CHI TIẾT BÀI HỌC
+        [Route("detail-subject")]
+        //[Authorize(Roles = "10014")]
         [HttpGet]
-        public async Task<IActionResult> _Print(long id)
+        public BaseModel<object> BaiHoc_Detail(long id)
         {
-            var _item = _context.BaiKiemTra.Join(_context.BaiKiemTra_Group, baikiemtra => baikiemtra.IdGroup, group => group.Id, (baikiemtra, group) => new { baikiemtra, group })
-                                            .Where(group => group.group.Id == id)
-                                            .Select(x => new IBaiKiemTra
-                                            {
-                                                Id = x.baikiemtra.Id,
-                                                IdGroup = x.group.Id,
-                                                MaDe = x.baikiemtra.MaDe,
-                                                DanhSachCauHoi = _context.BaiKiemTra_ChiTiet.Where(chitiet => chitiet.IdBaiKiemTra == x.baikiemtra.Id)
-                                                                                            .Join(_context.Question, chitiet => chitiet.IdCauHoi, cauhoi => cauhoi.Id, (chitiet, cauhoi) => new { chitiet, cauhoi })
-                                                                                            .Select(x => new IBaiKiemTra_ChiTiet
-                                                                                            {
-                                                                                                Id = x.chitiet.Id,
-                                                                                                TieuDe = x.cauhoi.Title,
-                                                                                                CauA = x.cauhoi.OptionA,
-                                                                                                CauB = x.cauhoi.OptionB,
-                                                                                                CauC = x.cauhoi.OptionC,
-                                                                                                CauD = x.cauhoi.OptionD,
-                                                                                                CauDung = x.cauhoi.CorrectOption,
-                                                                                            }).ToList()
-                                            }).ToList();
-            var _data = _context.BaiKiemTra_Group.Where(x => x.Id == id).Join(_context.MonHoc, kiemtra => kiemtra.IdMonHoc, monhoc => monhoc.Id, (kiemtra, monhoc) => new {kiemtra, monhoc})
-                                                .Select(x => new IBaiKiemTra_Print
-                                                {
-                                                    Id = x.kiemtra.Id,
-                                                    TenBaiKiemTra = x.kiemtra.TenBaiKiemTra,
-                                                    ThoiGianLamBai = x.kiemtra.ThoiGianLamBai,
-                                                    NamHoc = x.kiemtra.NamHoc,
-                                                    MonHoc = x.monhoc.TenMonHoc,
-                                                    HocKy = x.kiemtra.HocKy,
-                                                    Lop = x.kiemtra.Lop,
-                                                    DanhSachBaiKiemTra = _item
-                                                }).FirstOrDefault();
-            return await _generatePdf.GetPdf("Views/Print/index.cshtml", _data);
-        }
-        /* -------------------- CÁC HÀM HỖ TRỢ -------------------- */
-        /*
-        private List<int> layMaDeThi(int soLuongDe)
-        {
-            var rnd = new Random();
-            var randomNumbers = Enumerable.Range(100, 999).OrderBy(x => rnd.Next()).Take(soLuongDe).ToList();
-            return randomNumbers;
-        }
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
 
-        private void  themMoiChiTietBaiKiemTra(long id, List<Question> danhSach, int cauDe, int cauTrungBinh, int cauKho, int maDe)
-        {
-            var danhSachCauHoiDe = danhSach.Where(x => x.Level == 1).OrderBy(r => Guid.NewGuid()).Take(cauDe).Select(x => x.Id).ToList();
-            var danhSachCauHoiTrungBinh = danhSach.Where(x => x.Level == 2).OrderBy(r => Guid.NewGuid()).Take(cauTrungBinh).Select(x => x.Id).ToList();
-            var danhSachCauHoiKho = danhSach.Where(x => x.Level == 3).OrderBy(r => Guid.NewGuid()).Take(cauKho).Select(x => x.Id).ToList();
-            var finalList = danhSachCauHoiDe.Union(danhSachCauHoiTrungBinh).Union(danhSachCauHoiKho).ToList();
-            BaiKiemTra _item = new BaiKiemTra();
-            _item.IdGroup = id;
-            _item.MaDe = maDe.ToString();
-            _context.BaiKiemTra.Add(_item);
-            _context.SaveChanges();
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
 
-            long baiKiemTraId = _item.Id;
-            foreach(var item in finalList)
+            try
             {
-                BaiKiemTra_ChiTiet _baiKiemTraChiTiet = new BaiKiemTra_ChiTiet();
-                _baiKiemTraChiTiet.IdBaiKiemTra = baiKiemTraId;
-                _baiKiemTraChiTiet.IdCauHoi = item;
-                _context.BaiKiemTra_ChiTiet.Add(_baiKiemTraChiTiet);
-                _context.SaveChanges();
+                //var _item = _context.Question.Where(x => x.Id == id && !x.IsDisabled)
+                //                            .Join(_context.BaiHoc, question => question.IdBaiHoc, subject => subject.Id, (question, subject) => new { question, subject })
+                //                            .Join(_context.ChuongMonHoc, question => question.subject.IdChuong, chapter => chapter.Id, (question, chapter) => new { question, chapter })
+                //                            .Join(_context.ViewNhanVien, question => question.question.question.CreateBy, emp => emp.IdNv, (question, emp) => new { question, emp })
+                //                            .Select(x => new IQuestion
+                //                            {
+                //                                Id = x.question.question.question.Id,
+                //                                Title = x.question.question.question.Title,
+                //                                OptionA = x.question.question.question.OptionA,
+                //                                OptionB = x.question.question.question.OptionB,
+                //                                OptionC = x.question.question.question.OptionC,
+                //                                OptionD = x.question.question.question.OptionD,
+                //                                Class = x.question.chapter.Lop,
+                //                                CorrectOption = x.question.question.question.CorrectOption,
+                //                                TenNguoiTao = x.emp.HoTen,
+                //                                IdBaiHoc = x.question.question.question.IdBaiHoc,
+                //                                TenBaiHoc = x.question.question.subject.TenBaiHoc,
+                //                                TenChuong = x.question.chapter.TenChuong,
+                //                                Level = x.question.question.question.Level,
+                //                            }).FirstOrDefault();
+                var _item = _context.BaiHoc.Where(x => x.IdChuong == id && !x.IsDisabled)
+                                                 .Select(x => new IBaiHoc
+                                                 {
+                                                     Id = x.Id,
+                                                     IdChuong = x.IdChuong,
+                                                     SoThuTu = x.SoThuTu,
+                                                     HocKy = x.HocKy,
+                                                     MaBaiHoc = x.MaBaiHoc,
+                                                     TenBaiHoc = x.TenBaiHoc,
+                                                     NguoiTao = x.NguoiTao,
+                                                     NgaySua = x.NgaySua,
+                                                     NguoiSua = x.NguoiSua,
+                                                     IsDisabled = x.IsDisabled
+                                                 }).ToList();
+
+                if (_item == null)
+                    return Utilities._responseData(0, "Không tìm thấy dữ liệu, vui lòng tải lại!!", null);
+
+                return Utilities._responseData(1, "", _item);
             }
-
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Lấy dữ liệu thất bại, vui lòng kiểm tra lại!", null);
+            }
         }
+        #endregion
 
-        */
+        #region CẬP NHẬT CHƯƠNG MÔN HỌC
+        [Route("_Update")]
+        //[Authorize(Roles = "10013")]
+        [HttpPost]
+        public BaseModel<object> ChuongMonHoc_Update([FromBody] IChuongMonHoc data)
+        {
+
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                if (string.IsNullOrEmpty(data.TenChuong))
+                    return Utilities._responseData(0, "Vui lòng chọn số phiếu!!", null);
+
+                var _item = _context.ChuongMonHoc.Where(x => x.Id == data.Id && !x.IsDisabled).FirstOrDefault();
+                if (_item == null)
+                    return Utilities._responseData(0, "Không tìm thấy dữ liệu cần cập nhật, vui lòng tải lại danh sách!!", null);
+
+                _item.TenChuong = string.IsNullOrEmpty(data.TenChuong) ? "" : data.TenChuong.ToString().Trim();
+                _item.NguoiSua = loginData.id;
+                _item.NgaySua = DateTime.Now;
+                _context.SaveChanges();
+
+                return Utilities._responseData(1, "Cập nhật dữ liệu thành công", data);
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Cập nhật thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
+        #region CẬP NHẬT CHƯƠNG MÔN HỌC
+        [Route("_UpdateBaiHoc")]
+        //[Authorize(Roles = "10013")]
+        [HttpPost]
+        public BaseModel<object> BaiHoc_Update([FromBody] List<IBaiHoc> data)
+        {
+
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                _context.Database.BeginTransaction();
+                if (data.Count() == 0 || data == null)
+                {
+                    _context.Database.RollbackTransaction();
+                    return Utilities._responseData(0, "Chưa có bài học nào được bổ sung", null);
+
+                }
+
+                var listBaiHoc = _context.BaiHoc.Where(x => x.IdChuong == data.FirstOrDefault().IdChuong && !x.IsDisabled).ToList();
+                listBaiHoc.ToList().ForEach(c => c.IsDisabled = true); //Cập nhật bài học tình trạng bài học thành đã xóa
+                _context.SaveChanges();
+
+                foreach (var item in data)
+                {
+                    if(item.Id != 0) //Cập nhật bài học
+                    {
+                        var element = _context.BaiHoc.Where(x => x.Id == item.Id).FirstOrDefault();
+                        if(element == null)
+                        {
+                            _context.Database.RollbackTransaction();
+                            return Utilities._responseData(0, "Lỗi cập nhật dữ liệu", null);
+                        }
+                        element.HocKy = item.HocKy;
+                        element.NgaySua = DateTime.Now;
+                        element.NguoiSua = loginData.id;
+                        element.TenBaiHoc = item.TenBaiHoc;
+                        element.SoThuTu = item.SoThuTu;
+                        element.IsDisabled = false;
+                        _context.SaveChanges();
+
+                    }
+                    else //Thêm mới bài học
+                    {
+                        IBaiHoc baiHoc = new IBaiHoc();
+                        baiHoc.IdChuong = item.IdChuong;
+                        baiHoc.IsDisabled = false;
+                        baiHoc.MaBaiHoc = "MABAIHOC";
+                        baiHoc.NguoiTao = loginData.id;
+                        baiHoc.NgayTao = DateTime.Now;
+                        baiHoc.HocKy = item.HocKy;
+                        _context.BaiHoc.Add(baiHoc);
+                    }
+                }
+                _context.SaveChanges();
+                _context.Database.CommitTransaction();
+                return Utilities._responseData(1, "Cập nhật dữ liệu thành công", data);
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Cập nhật thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
+        #region XÓA CHƯƠNG MÔN HỌC
+        [Route("_Delete")]
+        //[Authorize(Roles = "10014")]
+        [HttpGet]
+        public BaseModel<object> ChuongMonHoc_Delete(long id)
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                var _item = _context.ChuongMonHoc.Where(x => x.Id == id && !x.IsDisabled).FirstOrDefault();
+                if (_item == null)
+                    return Utilities._responseData(0, "Không tìm thấy chương cần xóa, vui lòng tải lại danh sách!!", null);
+
+                _item.IsDisabled = true;
+
+                var _baihoc = _context.BaiHoc.Where(x => x.IdChuong == id && !x.IsDisabled).ToList();
+                _baihoc.ToList().ForEach(c => c.IsDisabled = true); //Cập nhật bài học tình trạng bài học thành đã xóa
+
+                _context.SaveChanges();
+
+                return Utilities._responseData(1, "Xóa dữ liệu thành công", null);
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Xóa dữ liệu thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
     }
 
 }

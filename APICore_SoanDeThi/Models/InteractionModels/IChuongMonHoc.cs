@@ -8,5 +8,6 @@ namespace APICore_SoanDeThi.Models.InteractionModels
 {
     public class IChuongMonHoc : ChuongMonHoc
     {
+        public List<IBaiHoc> DanhSachBaiHoc { get; set; } = new List<IBaiHoc>();
     }
 }

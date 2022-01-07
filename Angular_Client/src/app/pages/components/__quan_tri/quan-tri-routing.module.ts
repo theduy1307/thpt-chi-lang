@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { QuanLiMonHocEditComponent } from "./quan-li-mon-hoc/quan-li-mon-hoc-edit/quan-li-mon-hoc-edit.component";
 import { QuanLiLopComponent } from "./quan-li-lop/quan-li-lop.component";
 import { MonHocComponent } from "./quan-li-mon-hoc/quan-li-mon-hoc.component";
 import { QuanLiNienKhoaComponent } from "./quan-li-nien-khoa/quan-li-nien-khoa.component";
@@ -13,10 +14,16 @@ const routes: Routes = [
     path: "",
     component: QuanTriComponent,
     children: [
+      //Danh sách môn hoc4
       //Quản lý môn học
       {
         path: "quan-li-mon-hoc",
         component: MonHocComponent,
+      },
+      //Quản lí môn học
+      {
+        path: "quan-li-mon-hoc/chinh-sua/:id",
+        component: QuanLiMonHocEditComponent,
       },
       //Quản lí tài khoản
       {

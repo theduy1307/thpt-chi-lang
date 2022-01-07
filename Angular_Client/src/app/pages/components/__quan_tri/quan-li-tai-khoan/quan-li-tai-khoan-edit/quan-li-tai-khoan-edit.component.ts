@@ -305,6 +305,7 @@ export class QuanLiTaiKhoanEditComponent implements OnInit {
       Password: "",
       Picture: "",
       FileImport: this.flagFileImport,
+      Role:[],
     };
     return data;
   }

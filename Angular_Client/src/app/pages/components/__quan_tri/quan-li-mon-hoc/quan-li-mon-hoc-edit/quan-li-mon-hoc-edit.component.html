@@ -1,0 +1,16 @@
+<div class="card card-custom gutter-b">
+  <!-- Header Modal -->
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">CHI TIẾT MÔN HỌC</h3>
+    </div>
+  </div>
+  <!-- End Header -->
+  <div class="card-body">
+    <mat-tab-group>
+      <ng-container *ngFor="let item of danhSachLop">
+        <mat-tab label="{{'Lớp ' +item}}"><app-danh-sach-chuong-mon-hoc (editNameEvent)="editNameEvent($event)" (deleteItem)="deleteItem($event)" [danhSachChuong]="data" [lop]="item"></app-danh-sach-chuong-mon-hoc></mat-tab>
+      </ng-container>
+    </mat-tab-group>
+  </div>
+</div>

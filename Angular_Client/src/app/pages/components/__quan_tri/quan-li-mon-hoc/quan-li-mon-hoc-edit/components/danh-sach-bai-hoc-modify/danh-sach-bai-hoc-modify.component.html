@@ -1,0 +1,69 @@
+<!-- Header Modal -->
+<div class="modal-header">
+    <div class="modal-title">
+        DANH SÁCH BÀI HỌC
+    </div>
+    <span class="dot" matTooltip="Đóng" (click)="modal.close()"></span>
+</div>
+<!-- End Header -->
+<div class="modal-body">
+
+    <div class="table-responsive angular-bootstrap-table" style="margin-top: 20px">
+        <table class="table table-head-custom table-vertical-center overflow-hidden">
+            <thead style="text-align: center;">
+                <th>STT</th>
+                <th>Tên bài học</th>
+                <th>Học kỳ</th>
+                <th>Thao tác</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let baiHoc of formBaiHoc.controls; let i = index;">
+                    <ng-container [formGroup]="baiHoc">
+                        <td style="text-align: center;">{{i+1}}</td>
+                        <td><input class="form-control form-control-lg" formControlName="tenBaiHoc" /></td>
+                        <td>
+                            <mat-select disableOptionCentering placeholder="Chọn học kỳ" formControlName="hocKy"
+                                class="form-control form-control-lg">
+                                <mat-option value="1">
+                                    Học kỳ 1
+                                </mat-option>
+                                <mat-option value="2">
+                                    Học kỳ 2
+                                </mat-option>
+                            </mat-select>
+                        </td>
+                        <td></td>
+                    </ng-container>
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align: right;">
+                        <a matTooltip="Thêm hàng" matTooltipPosition="after"
+                        (click)="addItem()"
+                            class="btn btn-icon btn-light btn-hover-success btn-sm">
+                            <!-- (click)="detail(item.IdQuestion)" -->
+                            <span [inlineSVG]="'./assets/media/svg/icons/Code/Plus.svg'" cacheSVG="true"
+                                class="svg-icon svg-icon-md svg-icon-success">
+                            </span>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="btn-group mr-3">
+        <button type="submit" class="btn btn-primary">
+            Import từ file mẫu
+        </button>
+        <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+            <button class="btn btn-primary btn-elevate" ngbDropdownToggle>
+                <i class="ki ki-arrow-down icon-sm"></i>
+            </button>
+            <div class="dropdown-menu" ngbDropdownMenu>
+                <button ngbDropdownItem>Tải về file mẫu</button>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="create()">Lưu</button>
+</div>

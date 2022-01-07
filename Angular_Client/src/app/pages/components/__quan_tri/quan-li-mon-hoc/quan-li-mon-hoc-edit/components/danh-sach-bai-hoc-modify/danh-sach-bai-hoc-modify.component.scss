@@ -1,0 +1,12 @@
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: #DD5144;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot:hover {
+    background-color: red;
+    cursor: pointer;
+}

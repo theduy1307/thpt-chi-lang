@@ -308,6 +308,7 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
       Password: "thptchilang@123",
       Picture: "aaa",
       FileImport: this.flagFileImport,
+      Role:[]
     };
     return data
   }
