@@ -97,7 +97,12 @@ namespace APICore_SoanDeThi.Controllers.Users
             BaseModel<object> _baseModel = new BaseModel<object>();
             string Token = lc.GetHeader(Request);
             var user = lc._GetInfoUser(Token);
-
+            var allowCode = user.allowCode.ToString().ToCharArray();
+            List<string> list = new List<string>();
+            foreach(var item in allowCode)
+            {
+                list.Add(item.ToString());
+            }
             //var username = _context.User.Where(x => x.IdUser == user.Id).FirstOrDefault();
 
             //if (username == null)
@@ -135,10 +140,7 @@ namespace APICore_SoanDeThi.Controllers.Users
                                        .ToList();
 
                 //Lấy module
-                _module = (from md in _context.PqModule
-                           //where _mainmenu.Select(x => x.IdModule).Contains(md.IdModule) && args.Contains(md.IdModule)
-                           select md
-                                 ).ToList();
+                _module = (from md in _context.PqModule where list.Contains(md.IdModule.ToString()) select md).ToList();
 
                 _moduleTB = ConvertToDataTable(_module);
                 _mainmenuTB = ConvertToDataTable(_mainmenu);

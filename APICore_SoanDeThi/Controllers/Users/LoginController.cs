@@ -99,7 +99,7 @@ namespace APICore_SoanDeThi.Controllers.Users
                         timeZone = "International Date Line West",
                         username = user.Username,
                         website = "https://keenthemes.com",
-                        coCauId = 8
+                        allowCode = nhanvien.AllowCode
                     };
 
                     userLogin.accessToken = GenerateJSONWebToken(userLogin);
@@ -204,7 +204,7 @@ namespace APICore_SoanDeThi.Controllers.Users
                 refreshToken = userInfo.refreshToken,
                 timeZone = userInfo.timeZone,
                 website = userInfo.website,
-                coCauId = 8
+                allowCode = userInfo.allowCode
             };
 
             claims.Add(new Claim(JwtRegisteredClaimNames.Sub, account.username));
