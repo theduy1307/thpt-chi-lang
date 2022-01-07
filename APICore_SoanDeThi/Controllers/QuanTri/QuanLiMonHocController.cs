@@ -368,7 +368,6 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
 
                 var listBaiHoc = _context.BaiHoc.Where(x => x.IdChuong == data.FirstOrDefault().IdChuong && !x.IsDisabled).ToList();
                 listBaiHoc.ToList().ForEach(c => c.IsDisabled = true); //Cập nhật bài học tình trạng bài học thành đã xóa
-                _context.SaveChanges();
 
                 foreach (var item in data)
                 {
@@ -386,18 +385,17 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                         element.TenBaiHoc = item.TenBaiHoc;
                         element.SoThuTu = item.SoThuTu;
                         element.IsDisabled = false;
-                        _context.SaveChanges();
-
                     }
                     else //Thêm mới bài học
                     {
-                        IBaiHoc baiHoc = new IBaiHoc();
+                        BaiHoc baiHoc = new BaiHoc();
                         baiHoc.IdChuong = item.IdChuong;
+                        baiHoc.SoThuTu = 1;
+                        baiHoc.HocKy = item.HocKy;
                         baiHoc.IsDisabled = false;
                         baiHoc.MaBaiHoc = "MABAIHOC";
                         baiHoc.NguoiTao = loginData.id;
                         baiHoc.NgayTao = DateTime.Now;
-                        baiHoc.HocKy = item.HocKy;
                         _context.BaiHoc.Add(baiHoc);
                     }
                 }
