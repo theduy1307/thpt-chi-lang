@@ -60,7 +60,7 @@ import { BaiKiemTraEditExamComponent } from './bai-kiem-tra/bai-kiem-tra-edit-ex
     DieuKhoanMauComponent,
     DieuKhoanMauAddComponent,
     DieuKhoanMauEditComponent,
-    DieuKhoanMauDetailComponent,
+    DieuKhoanMauDetailComponent,   
     HanMucChietKhauComponent,
     HanMucChietKhauAddComponent,
     HanMucChietKhauDetailComponent,

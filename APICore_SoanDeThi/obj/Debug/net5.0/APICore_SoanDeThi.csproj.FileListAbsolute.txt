@@ -381,7 +381,6 @@ D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Views\Print\index.csht
 D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\DocumentFormat.OpenXml.dll
 D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\System.IO.Packaging.dll
 D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Mammoth.dll
-D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.csproj.AssemblyReference.cache
 D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Xceed.Document.NET.dll
 D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Xceed.Words.NET.dll
 D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\appsettings.Development.json

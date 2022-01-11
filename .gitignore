@@ -1,2 +1,4 @@
-#Angular_Client
 node_modules/
+APICore_SoanDeThi/obj/
+APICore_SoanDeThi/bin/
+APICore_SoanDeThi/appsettings.json
