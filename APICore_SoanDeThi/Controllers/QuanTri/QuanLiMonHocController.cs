@@ -194,26 +194,6 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
 
             try
             {
-                //var _item = _context.Question.Where(x => x.Id == id && !x.IsDisabled)
-                //                            .Join(_context.BaiHoc, question => question.IdBaiHoc, subject => subject.Id, (question, subject) => new { question, subject })
-                //                            .Join(_context.ChuongMonHoc, question => question.subject.IdChuong, chapter => chapter.Id, (question, chapter) => new { question, chapter })
-                //                            .Join(_context.ViewNhanVien, question => question.question.question.CreateBy, emp => emp.IdNv, (question, emp) => new { question, emp })
-                //                            .Select(x => new IQuestion
-                //                            {
-                //                                Id = x.question.question.question.Id,
-                //                                Title = x.question.question.question.Title,
-                //                                OptionA = x.question.question.question.OptionA,
-                //                                OptionB = x.question.question.question.OptionB,
-                //                                OptionC = x.question.question.question.OptionC,
-                //                                OptionD = x.question.question.question.OptionD,
-                //                                Class = x.question.chapter.Lop,
-                //                                CorrectOption = x.question.question.question.CorrectOption,
-                //                                TenNguoiTao = x.emp.HoTen,
-                //                                IdBaiHoc = x.question.question.question.IdBaiHoc,
-                //                                TenBaiHoc = x.question.question.subject.TenBaiHoc,
-                //                                TenChuong = x.question.chapter.TenChuong,
-                //                                Level = x.question.question.question.Level,
-                //                            }).FirstOrDefault();
                 var _item = _context.ChuongMonHoc.Where(x => x.IdMonHoc == id && !x.IsDisabled)
                                                  .Select(x => new IChuongMonHoc
                                                  {
@@ -343,7 +323,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         }
         #endregion
 
-        #region CẬP NHẬT CHƯƠNG MÔN HỌC
+        #region CẬP NHẬT BÀI HỌC
         [Route("_UpdateBaiHoc")]
         //[Authorize(Roles = "10013")]
         [HttpPost]
@@ -441,6 +421,52 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
             catch (Exception ex)
             {
                 return Utilities._responseData(0, "Xóa dữ liệu thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
+        #region THÊM MỚI CHƯƠNG MÔN HỌC
+        [Route("_InsertChuong")]
+        //[Authorize(Roles = "10013")]
+        [HttpPost]
+        public BaseModel<object> ChuongMonHoc_Insert([FromBody] IChuongMonHoc data)
+        {
+
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                _context.Database.BeginTransaction();
+                if (string.IsNullOrEmpty(data.TenChuong))
+                {
+                    _context.Database.RollbackTransaction();
+                    return Utilities._responseData(0, "Vui lòng chọn số phiếu!!", null);
+                }
+
+                ChuongMonHoc _item = new ChuongMonHoc();
+                
+                _item.MaChuong = "MACHUUONG";
+                _item.TenChuong = string.IsNullOrEmpty(data.TenChuong) ? "" : data.TenChuong.ToString().Trim();
+                _item.SoThuTu = 0;
+                _item.Lop = data.Lop;
+                _item.IdMonHoc = data.IdMonHoc;
+                _item.NguoiTao = loginData.id;
+                _item.NgayTao = DateTime.Now;
+                _item.IsDisabled = false;
+                _context.ChuongMonHoc.Add(_item);
+                _context.SaveChanges();
+
+                _context.Database.CommitTransaction();
+                return Utilities._responseData(1, "Cập nhật dữ liệu thành công", data);
+            }
+            catch (Exception ex)
+            {
+                _context.Database.RollbackTransaction();
+                return Utilities._responseData(0, "Cập nhật thất bại, vui lòng kiểm tra lại!", null);
             }
         }
         #endregion

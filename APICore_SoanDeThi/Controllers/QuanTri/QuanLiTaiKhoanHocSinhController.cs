@@ -17,18 +17,21 @@ using Wkhtmltopdf.NetCore;
 using Mammoth;
 using System.Text.RegularExpressions;
 using System.IO;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using System.Data;
 
 namespace APICore_SoanDeThi.Controllers.QuanTri
 {
-    [Route("api/account")]
+    [Route("api/account-student")]
     [EnableCors("ExamPolicy")]
-    public class QuanLiTaiKhoanController : ControllerBase
+    public class QuanLiTaiKhoanHocSinhController : ControllerBase
     {
         private readonly IHostingEnvironment _hosting;
         private readonly SoanDeThi_DbContext _context;
         private LoginController _account;
 
-        public QuanLiTaiKhoanController(IHostingEnvironment hostingEnvironment)
+        public QuanLiTaiKhoanHocSinhController(IHostingEnvironment hostingEnvironment)
         {
             DbContextOptions<SoanDeThi_DbContext> options = new DbContextOptions<SoanDeThi_DbContext>();
             _hosting = hostingEnvironment;
@@ -37,7 +40,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
 
         #region DANH SÁCH NGƯỜI DÙNG
-        [Route("Account_List")]
+        [Route("account_list")]
         //[Authorize(Roles = "")]
         [HttpPost]
         public BaseModel<object> Account_List([FromBody] ITableState _tableState)
@@ -77,7 +80,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 {
                     _rules = _tableState.filter["rules"];
                 }
-                var _data = _context.ViewNhanVien.Where(x => x.Disable != 1 && x.AllowCode != 1).Join(_context.ViewAccount, emp => emp.IdNv, acc => acc.IdNv, (emp, acc) => new { emp = emp, acc = acc })
+                var _data = _context.ViewNhanVien.Where(x => x.Disable != 1 && x.AllowCode == 4).Join(_context.ViewAccount, emp => emp.IdNv, acc => acc.IdNv, (emp, acc) => new { emp = emp, acc = acc })
+                                                                            //.Join(_context.Lop, acc => acc.emp.IdLop, lop=>lop.Id, (acc, lop) => new { acc=acc, lop=lop})
                                                                             .Select(x => new IAccount { 
                                                                                 Id = x.acc.Id,
                                                                                 IdNv = x.emp.IdNv,
@@ -175,6 +179,9 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _emp.Disable = 0;
                 _emp.SodienthoaiNguoilienhe = data.SodienthoaiNguoilienhe;
                 _emp.Cocauid = data.Cocauid;
+                _emp.AllowCode = 4;
+                _emp.isStudent = true;
+
                 _context.ViewNhanVien.Add(_emp);
                 _context.SaveChanges();
 
@@ -410,6 +417,169 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
         #endregion
 
+        #region Download file mẫu import nhà cung cấp new
+        [Route("ImportFileImport_NhaCC")]
+        [HttpPost, DisableRequestSizeLimit]
+
+        public async Task<BaseModel<object>> ImportFileImport_NhaCC()
+        {
+            BaseModel<object> _baseModel = new BaseModel<object>();
+            ErrorModel _error = new ErrorModel();
+            var FileRequest = Request.Form.Files[0];
+            byte[] ad;
+            DataTable dataTable = new DataTable();
+            List<IAccount> ListNCC = new List<IAccount>();
+            try
+            {
+
+                if (FileRequest.Length > 0)
+                {
+
+
+                    string folderName = Constant.FileImport_HocSinh;
+                    string RootPath = _hosting.ContentRootPath;
+                    string newPath = Path.Combine(RootPath, folderName);
+
+
+                    if (!Directory.Exists(newPath))
+                    {
+                        Directory.CreateDirectory(newPath);
+                    }
+
+
+                    string path = Path.Combine(newPath, FileRequest.FileName);
+                    if (System.IO.File.Exists(path))
+                    {
+
+
+                        System.IO.File.Delete(path);
+
+
+                    }
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await FileRequest.CopyToAsync(stream);
+                    }
+
+
+
+
+
+                    using (SpreadsheetDocument document = SpreadsheetDocument.Open(path, true))
+                    {
+
+
+                        WorkbookPart workbookPart = document.WorkbookPart;
+                        IEnumerable<Sheet> sheets = document.WorkbookPart.Workbook.GetFirstChild<Sheets>().Elements<Sheet>();
+                        string relationshipId = sheets.First().Id.Value;
+                        WorksheetPart worksheetPart = (WorksheetPart)document.WorkbookPart.GetPartById(relationshipId);
+                        Worksheet workSheet = worksheetPart.Worksheet;
+                        SheetData sheetData = workSheet.GetFirstChild<SheetData>();
+                        IEnumerable<Row> rows = sheetData.Descendants<Row>();
+
+
+                        dataTable.Columns.Add("HoLot");
+                        dataTable.Columns.Add("Ten");
+                        dataTable.Columns.Add("Phai");
+                        //dataTable.Columns.Add("IdLoaiNCC");
+                        //dataTable.Columns.Add("TenLoaiNCC");
+                        //dataTable.Columns.Add("IdNhomNCC");
+                        //dataTable.Columns.Add("TenNhomNCC");
+                        //dataTable.Columns.Add("DiaChi");
+                        //dataTable.Columns.Add("SDT");
+                        //dataTable.Columns.Add("Fax");
+                        //dataTable.Columns.Add("MaSoThue");
+                        //dataTable.Columns.Add("STK1");
+                        //dataTable.Columns.Add("NH1");
+                        //dataTable.Columns.Add("STK2");
+                        //dataTable.Columns.Add("NH2");
+                        //dataTable.Columns.Add("Email");
+                        //dataTable.Columns.Add("NguoiLH");
+                        //dataTable.Columns.Add("SDTNguoiLH");
+                        //dataTable.Columns.Add("SoNgayThanhToan");
+                        //dataTable.Columns.Add("XepLoai");
+                        //dataTable.Columns.Add("GhiChu");
+                        foreach (Row row in rows)
+                        {
+                            DataRow dataRow = dataTable.NewRow();
+
+                            int columnIndex = 0;
+                            if (row.RowIndex != 1 && row.RowIndex != 2)
+                            {
+
+                                foreach (Cell cell in row.Descendants<Cell>())
+                                {
+
+                                    int cellColumnIndex = (int)GetColumnIndexFromName(GetColumnName(cell.CellReference));
+                                    cellColumnIndex--;
+                                    if (columnIndex < cellColumnIndex)
+                                    {
+                                        do
+                                        {
+                                            dataRow[columnIndex] = "";
+                                            columnIndex++;
+                                        }
+                                        while (columnIndex < cellColumnIndex);
+                                    }
+                                    dataRow[columnIndex] = GetCellValue(document, cell);
+
+                                    columnIndex++;
+                                }
+                                dataTable.Rows.Add(dataRow);
+                            }
+
+
+
+                        }
+                    }
+
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        IAccount ncc = new IAccount();
+                        ncc.Holot = !string.IsNullOrEmpty(row["HoLot"].ToString()) ? row["HoLot"].ToString() : "";
+                        ncc.Ten = !string.IsNullOrEmpty(row["Ten"].ToString()) ? row["HoLot"].ToString() : "";
+                        ncc.Phai = !string.IsNullOrEmpty(row["Phai"].ToString()) ? row["Phai"].ToString() : "";
+                        //ncc.Id_LoaiNCC = !string.IsNullOrEmpty(row["IdLoaiNCC"].ToString()) ? (Regex.IsMatch(row["IdLoaiNCC"].ToString().ToLower(), Constant.REGEX_FORMAT_ONLYNUMBER) ? long.Parse(row["IdLoaiNCC"].ToString()) : 0) : 0;
+                        //ncc.TenLoaiNCC = !string.IsNullOrEmpty(row["TenLoaiNCC"].ToString()) ? row["TenLoaiNCC"].ToString() : "";
+                        //ncc.Id_NhomNCC = !string.IsNullOrEmpty(row["IdNhomNCC"].ToString()) ? (Regex.IsMatch(row["IdNhomNCC"].ToString().ToLower(), Constant.REGEX_FORMAT_ONLYNUMBER) ? int.Parse(row["IdNhomNCC"].ToString()) : 0) : 0;
+                        //ncc.TenNhomNCC = !string.IsNullOrEmpty(row["TenNhomNCC"].ToString()) ? row["TenNhomNCC"].ToString() : "";
+                        //ncc.DiaChi = !string.IsNullOrEmpty(row["DiaChi"].ToString()) ? row["DiaChi"].ToString() : "";
+                        //ncc.DienThoai = !string.IsNullOrEmpty(row["SDT"].ToString()) ? row["SDT"].ToString() : "";
+                        //ncc.Fax = !string.IsNullOrEmpty(row["Fax"].ToString()) ? row["Fax"].ToString() : "";
+                        //ncc.MST = !string.IsNullOrEmpty(row["MaSoThue"].ToString()) ? row["MaSoThue"].ToString() : "";
+                        //ncc.SoTK1 = !string.IsNullOrEmpty(row["STK1"].ToString()) ? row["STK1"].ToString() : "";
+                        //ncc.NganHang1 = !string.IsNullOrEmpty(row["NH1"].ToString()) ? row["NH1"].ToString() : "";
+                        //ncc.SoTK2 = !string.IsNullOrEmpty(row["STK2"].ToString()) ? row["STK2"].ToString() : "";
+                        //ncc.NganHang2 = !string.IsNullOrEmpty(row["NH2"].ToString()) ? row["NH2"].ToString() : "";
+                        //ncc.Email = !string.IsNullOrEmpty(row["Email"].ToString()) ? row["Email"].ToString() : "";
+                        //ncc.NguoiLienHe = !string.IsNullOrEmpty(row["NguoiLH"].ToString()) ? row["NguoiLH"].ToString() : "";
+                        //ncc.SoDT_NguoiLienHe = !string.IsNullOrEmpty(row["SDTNguoiLH"].ToString()) ? row["SDTNguoiLH"].ToString() : "";
+                        //ncc.SoNgayThanhToan = !string.IsNullOrEmpty(row["SoNgayThanhToan"].ToString()) ? (Regex.IsMatch(row["SoNgayThanhToan"].ToString().ToLower(), Constant.REGEX_FORMAT_ONLYNUMBER) ? int.Parse(row["SoNgayThanhToan"].ToString()) : 0) : 0;
+                        //ncc.XepLoai = !string.IsNullOrEmpty(row["XepLoai"].ToString()) ? row["XepLoai"].ToString() : "";
+                        //ncc.GhiChu = !string.IsNullOrEmpty(row["GhiChu"].ToString()) ? row["GhiChu"].ToString() : "";
+                        ListNCC.Add(ncc);
+                    }
+                }
+                _baseModel.data = ListNCC;
+                _baseModel.status = 1;
+
+                return _baseModel;
+            }
+            catch (Exception ex)
+            {
+                _baseModel.status = 0;
+                _error.message = "Xóa thất bại: " + ex;
+                _error.code = Constant.ERRORCODE;
+                _baseModel.error = _error;
+                _baseModel.data = null;
+                return _baseModel;
+            }
+
+
+
+        }
+        #endregion
+
         private string setNewUserName(string initialUsername, string? primaryUsername, int count)
         {
             string newUsername = initialUsername;
@@ -426,6 +596,47 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
+        }
+
+        public static string GetCellValue(SpreadsheetDocument document, Cell cell)
+        {
+            SharedStringTablePart stringTablePart = document.WorkbookPart.SharedStringTablePart;
+            if (cell.CellValue == null)
+            {
+                return "";
+            }
+            string value = cell.CellValue.InnerXml;
+            if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString)
+            {
+                return stringTablePart.SharedStringTable.ChildElements[Int32.Parse(value)].InnerText;
+            }
+            else
+            {
+                return value;
+            }
+        }
+
+        public static int? GetColumnIndexFromName(string columnName)
+        {
+
+            //return columnIndex;
+            string name = columnName;
+            int number = 0;
+            int pow = 1;
+            for (int i = name.Length - 1; i >= 0; i--)
+            {
+                number += (name[i] - 'A' + 1) * pow;
+                pow *= 26;
+            }
+            return number;
+        }
+
+        public static string GetColumnName(string cellReference)
+        {
+
+            Regex regex = new Regex("[A-Za-z]+");
+            Match match = regex.Match(cellReference);
+            return match.Value;
         }
     }
 }

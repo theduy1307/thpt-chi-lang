@@ -32,5 +32,7 @@ namespace APICore_SoanDeThi.Assets
         public const string PATH_PASC = "PASC";
         public const string PATH_TBTT = "TBTT";                                             //Lấy mã thiết bị thay thế
         #endregion
+
+        public const string FileImport_HocSinh = "DuLieu/Templates/FileImportNCC/";
     }
 }

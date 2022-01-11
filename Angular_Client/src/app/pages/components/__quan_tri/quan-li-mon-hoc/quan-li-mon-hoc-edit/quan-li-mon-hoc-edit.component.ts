@@ -6,24 +6,18 @@ import { BehaviorSubject, of, Subscription } from "rxjs";
 import { catchError, debounceTime, distinctUntilChanged, first, switchMap, tap } from "rxjs/operators";
 import { AuthService, UserModel } from "src/app/modules/auth";
 import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.service";
-import {
-  GroupingState,
-  IGroupingView,
-  ISearchView,
-  ISortView,
-  PaginatorState,
-  SortState,
-} from "src/app/_metronic/shared/crud-table";
+import { GroupingState, IGroupingView, ISearchView, ISortView, PaginatorState, SortState } from "src/app/_metronic/shared/crud-table";
 import { DeleteModalComponent } from "../../../_common/_components/delete-modal/delete-modal.component";
 import { EMPTY_DATA_CHUONGMONHOC, IChuongMonHoc, IMonHoc } from "../quan-li-mon-hoc-model/mon-hoc.model";
 import { MonHocService } from "../quan-li-mon-hoc-service/quan-li-mon-hoc.service";
+import { ThemMoiChuongMonHocComponent } from "./components/them-moi-chuong-mon-hoc/them-moi-chuong-mon-hoc.component";
 //Services
 //Components
 
 @Component({
-  selector: 'app-quan-li-mon-hoc-edit',
-  templateUrl: './quan-li-mon-hoc-edit.component.html',
-  styleUrls: ['./quan-li-mon-hoc-edit.component.scss']
+  selector: "app-quan-li-mon-hoc-edit",
+  templateUrl: "./quan-li-mon-hoc-edit.component.html",
+  styleUrls: ["./quan-li-mon-hoc-edit.component.scss"],
 })
 export class QuanLiMonHocEditComponent implements OnInit {
   /* ------------------------ Inject Event Data -----------------------*/
@@ -31,7 +25,7 @@ export class QuanLiMonHocEditComponent implements OnInit {
 
   /* --------------------------- Loading.... --------------------------*/
   isLoading$;
-  errorMessage = '';
+  errorMessage = "";
   isLoadingSpinner: boolean = false;
   data: IChuongMonHoc[];
   danhSachLop: number[];
@@ -70,7 +64,7 @@ export class QuanLiMonHocEditComponent implements OnInit {
       .pipe(
         switchMap((params) => {
           // get id from URL
-          this.id = Number(params.get('id'));
+          this.id = Number(params.get("id"));
           if (this.id || this.id > 0) {
             return this.services.getItemById(this.id);
           }
@@ -83,17 +77,24 @@ export class QuanLiMonHocEditComponent implements OnInit {
       )
       .subscribe((res: any) => {
         if (!res) {
-          this.router.navigate(['/quan-tri/quan-li-mon-hoc'], { relativeTo: this.route });
+          this.router.navigate(["/quan-tri/quan-li-mon-hoc"], { relativeTo: this.route });
         }
         this.data = res.data;
-        this.danhSachLop = [...new Set(this.data.map(x=>x.Lop))].sort()
+        this.danhSachLop = [...new Set(this.data.map((x) => x.Lop))].sort();
       });
     this.subscriptions.push(sb);
   }
   editNameEvent($event) {
-    this.data = $event    
+    this.data = $event;
   }
   deleteItem($event) {
-    this.data = $event
+    this.data = $event;
+  }
+  create() {
+    const modalRef = this.modalService.open(ThemMoiChuongMonHocComponent, {
+      size: "xl",
+      centered: true,
+    });
+    modalRef.componentInstance.idMonHoc = this.id;
   }
 }

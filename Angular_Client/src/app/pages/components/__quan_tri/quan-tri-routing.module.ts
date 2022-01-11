@@ -8,6 +8,7 @@ import { QuanLiTaiKhoanCreateComponent } from "./quan-li-tai-khoan/quan-li-tai-k
 import { QuanLiTaiKhoanEditComponent } from "./quan-li-tai-khoan/quan-li-tai-khoan-edit/quan-li-tai-khoan-edit.component";
 import { QuanLiTaiKhoanComponent } from "./quan-li-tai-khoan/quan-li-tai-khoan.component";
 import { QuanTriComponent } from "./quan-tri.component";
+import { QuanLiTaiKhoanHocSinhComponent } from "./quan-li-tai-khoan-hoc-sinh/quan-li-tai-khoan-hoc-sinh.component";
 
 const routes: Routes = [
   {
@@ -48,6 +49,11 @@ const routes: Routes = [
       {
         path: "quan-li-lop",
         component: QuanLiLopComponent,
+      },
+      //Quản lí tài khoản
+      {
+        path: "quan-li-tai-khoan-hoc-sinh",
+        component: QuanLiTaiKhoanHocSinhComponent,
       },
       { path: "", redirectTo: "error/404", pathMatch: "full" },
       { path: "**", redirectTo: "error/404", pathMatch: "full" },

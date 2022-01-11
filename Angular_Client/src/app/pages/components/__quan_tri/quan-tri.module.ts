@@ -37,9 +37,13 @@ import { QuanLiNienKhoaAddComponent } from './quan-li-nien-khoa/quan-li-nien-kho
 import { QuanLiNienKhoaEditComponent } from './quan-li-nien-khoa/quan-li-nien-khoa-edit/quan-li-nien-khoa-edit.component';
 import { QuanLiLopAddComponent } from "./quan-li-lop/quan-li-lop-add/quan-li-lop-add.component";
 import { QuanLiLopEditComponent } from "./quan-li-lop/quan-li-lop-edit/quan-li-lop-edit.component";
+import { ThemMoiChuongMonHocComponent } from './quan-li-mon-hoc/quan-li-mon-hoc-edit/components/them-moi-chuong-mon-hoc/them-moi-chuong-mon-hoc.component';
+import { QuanLiTaiKhoanHocSinhComponent } from './quan-li-tai-khoan-hoc-sinh/quan-li-tai-khoan-hoc-sinh.component';
+import { QuanLiTaiKhoanHocSinhCreateComponent } from './quan-li-tai-khoan-hoc-sinh/quan-li-tai-khoan-hoc-sinh-create/quan-li-tai-khoan-hoc-sinh-create.component';
+import { QuanLiTaiKhoanHocSinhImportComponent } from './quan-li-tai-khoan-hoc-sinh/quan-li-tai-khoan-hoc-sinh-import/quan-li-tai-khoan-hoc-sinh-import.component';
 
 @NgModule({
-  declarations: [QuanTriComponent, MonHocComponent, QuanLiTaiKhoanComponent, QuanLiTaiKhoanCreateComponent, QuanLiTaiKhoanUpdateComponent, QuanLiTaiKhoanDetailComponent, QuanLiMonHocCreateComponent, QuanLiTaiKhoanEditComponent, QuanLiNienKhoaAddComponent, QuanLiNienKhoaEditComponent,QuanLiNienKhoaComponent,QuanLiLopComponent,QuanLiNienKhoaAddComponent, QuanLiLopAddComponent, QuanLiLopEditComponent,QuanLiMonHocEditComponent, DanhSachChuongMonHocComponent, ChinhSuaChuongMonHocComponent, DanhSachBaiHocModifyComponent],
+  declarations: [QuanTriComponent, MonHocComponent, QuanLiTaiKhoanComponent, QuanLiTaiKhoanCreateComponent, QuanLiTaiKhoanUpdateComponent, QuanLiTaiKhoanDetailComponent, QuanLiMonHocCreateComponent, QuanLiTaiKhoanEditComponent, QuanLiNienKhoaAddComponent, QuanLiNienKhoaEditComponent,QuanLiNienKhoaComponent,QuanLiLopComponent,QuanLiNienKhoaAddComponent, QuanLiLopAddComponent, QuanLiLopEditComponent,QuanLiMonHocEditComponent, DanhSachChuongMonHocComponent, ChinhSuaChuongMonHocComponent, DanhSachBaiHocModifyComponent, ThemMoiChuongMonHocComponent, QuanLiTaiKhoanHocSinhComponent, QuanLiTaiKhoanHocSinhCreateComponent, QuanLiTaiKhoanHocSinhImportComponent],
   imports: [
     CommonModule,
     HttpClientModule,
