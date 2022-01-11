@@ -23,6 +23,7 @@ import { DeleteManyModalComponent } from "../../_common/_components/delete-many-
 import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.service";
 import { AuthService, UserModel } from "src/app/modules/auth";
 import { BaiKiemTraTrucTuyenService } from "./bai-kiem-tra-truc-tuyen-service/bai-kiem-tra-truc-tuyen.service";
+import { BaiKiemTraEditExamComponent } from "../bai-kiem-tra/bai-kiem-tra-edit-exam/bai-kiem-tra-edit-exam.component";
 
 export interface PeriodicElement {
   name: string;
@@ -173,6 +174,14 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
         }
       },
       () => {}
+    );
+  }
+  editOnlineExam(item: any) {
+    const modalRef = this.modalService.open(BaiKiemTraEditExamComponent, { size: 'xl' });
+    modalRef.componentInstance.item = item;
+    modalRef.result.then(() =>
+        this.services.fetch(),
+        () => { }
     );
   }
   // deleteSelected() {

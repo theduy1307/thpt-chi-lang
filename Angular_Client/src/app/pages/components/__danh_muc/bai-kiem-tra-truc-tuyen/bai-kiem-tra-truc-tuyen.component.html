@@ -1,75 +1,76 @@
 <div class="card card-custom gutter-b">
-    <!-- Header Page -->
-    <div class="card-header">
-      <div class="card-title">
-        <h3 class="card-label">DANH SÁCH BÀI KIỂM TRA TRỰC TUYẾN</h3>
-      </div>
-      <div class="card-toolbar">
-        <button type="button" class="btn btn-primary" routerLink="./them-moi">Thêm mới</button>
-      </div>
+  <!-- Header Page -->
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">DANH SÁCH BÀI KIỂM TRA TRỰC TUYẾN</h3>
     </div>
-    <!-- End Header Page -->
-  
-    <!-- Body -->
-    <div class="card-body">
-      <!-- Search Filter -->
-      <div class="form form-label-right">
-        <div class="form-group row">
-          <div class="col-lg-4" [formGroup]="searchGroup">
-            <input
-              type="text"
-              value=""
-              class="form-control"
-              placeholder="Tìm kiếm mã câu hỏi hoặc tiêu đề"
-              name="searchText"
-              formControlName="searchTerm"
-            />
-            <small class="form-text text-muted"><b>Tìm kiếm</b> dữ liệu</small>
-          </div>
-          <div class="col-lg-4" [formGroup]="searchGroup">
-            <mat-select class="form-control" placeholder="Chọn câu đúng" name="correctOption">
-              <mat-option value="1">Dễ</mat-option>
-              <mat-option value="2">Trung bình</mat-option>
-              <mat-option value="3">Khó</mat-option>
-            </mat-select>
-            <small class="form-text text-muted"><b>Lọc</b> cấp độ</small>
-          </div>
-          <div class="col-lg-4" [formGroup]="searchGroup">
-            <mat-select class="form-control" placeholder="Chọn khối" name="correctOption">
-              <mat-option value="1">Khối 10</mat-option>
-              <mat-option value="2">Khối 11</mat-option>
-              <mat-option value="3">Khối 12</mat-option>
-            </mat-select>
-            <small class="form-text text-muted"><b>Lọc</b> khối</small>
-          </div>
+    <div class="card-toolbar">
+      <button type="button" class="btn btn-primary" routerLink="./them-moi">Thêm mới</button>
+    </div>
+  </div>
+  <!-- End Header Page -->
+
+  <!-- Body -->
+  <div class="card-body">
+    <!-- Search Filter -->
+    <div class="form form-label-right">
+      <div class="form-group row">
+        <div class="col-lg-4" [formGroup]="searchGroup">
+          <input type="text" value="" class="form-control" placeholder="Tìm kiếm mã câu hỏi hoặc tiêu đề"
+            name="searchText" formControlName="searchTerm" />
+          <small class="form-text text-muted"><b>Tìm kiếm</b> dữ liệu</small>
+        </div>
+        <div class="col-lg-4" [formGroup]="searchGroup">
+          <mat-select class="form-control" placeholder="Chọn câu đúng" name="correctOption">
+            <mat-option value="1">Dễ</mat-option>
+            <mat-option value="2">Trung bình</mat-option>
+            <mat-option value="3">Khó</mat-option>
+          </mat-select>
+          <small class="form-text text-muted"><b>Lọc</b> cấp độ</small>
+        </div>
+        <div class="col-lg-4" [formGroup]="searchGroup">
+          <mat-select class="form-control" placeholder="Chọn khối" name="correctOption">
+            <mat-option value="1">Khối 10</mat-option>
+            <mat-option value="2">Khối 11</mat-option>
+            <mat-option value="3">Khối 12</mat-option>
+          </mat-select>
+          <small class="form-text text-muted"><b>Lọc</b> khối</small>
         </div>
       </div>
-      <!-- End Search Filter -->
-      <div class="card-body d-flex flex-row bd-highlight flex-wrap justify-content-between">
-        <ng-container *ngFor="let item of services.items$ | async; let i = index">
-            <div class="card mb-3 mr-3" style="width: 30%">
-              <div class="card-body">
-                <h5 class="card-title">{{ item.TenBaiKiemTra }} ({{item.NamHoc}})</h5>
-                <p class="card-text">{{ item.SoLuongDe }} đề thi</p>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Lớp {{item.Lop}}</li>
-                <li class="list-group-item">Thời gian làm bài: {{item.ThoiGianLamBai}} (phút)</li>
-              </ul>
-              <div class="card-body">
-                <a class="card-link" [routerLink]="'./chinh-sua/' + item.Id">Bổ sung/chỉnh sửa thông tin</a>
-              </div>
-            </div>
-        </ng-container>
-      </div>
-      <app-paginator
-        class="d-flex justify-content-between align-items-center flex-wrap"
-        [paginator]="paginator"
-        [isLoading]="isLoading"
-        (paginate)="paginate($event)"
-      >
-      </app-paginator>
     </div>
-    <!-- End Body -->
+    <!-- End Search Filter -->
+    <div class="card-body d-flex flex-row bd-highlight flex-wrap justify-content-between">
+      <ng-container *ngFor="let item of services.items$ | async; let i = index">
+        <div class="card mb-3 mr-3" style="width: 30%">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.TenBaiKiemTra }} ({{item.NamHoc}})</h5>
+            <p class="card-text">{{ item.SoLuongDe }} đề thi</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Lớp {{item.Lop}}</li>
+            <li class="list-group-item">Thời gian làm bài: {{item.ThoiGianLamBai}} (phút)</li>
+          </ul>
+          <div class="card-body">
+            <!-- <a class="btn btn-primary" (click) = "editOnlineExam(item)">Bổ sung/chỉnh sửa thông tin</a>
+            <a class="btn btn-danger" >Xóa bài kiểm tra</a> -->
+            <a matTooltip="chỉnh sửa thông tin" matTooltipPosition="after"
+              class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3" (click) = "editOnlineExam(item)">
+              <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+                class="svg-icon svg-icon-md svg-icon-primary">
+              </span>
+            </a>
+            <a matTooltip="Xóa" matTooltipPosition="after" class="btn btn-icon btn-light btn-hover-danger btn-sm">
+              <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
+                class="svg-icon svg-icon-md svg-icon-danger">
+              </span>
+            </a>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
+      [isLoading]="isLoading" (paginate)="paginate($event)">
+    </app-paginator>
   </div>
-  
+  <!-- End Body -->
+</div>

@@ -53,3 +53,30 @@ export const EMPTY_DATA:IBaiKiemTra_Group = {
   IsDisabled: undefined,
   DanhSachBaiHoc: []
 }
+
+export interface IBaiKiemTra_TrucTuyen_Group extends BaseModel {
+  Id: number
+  Id_BaiKiemTra_Offline: number
+  TenBaiKiemTra: string;
+  SoLuongDe: number;
+  CauBiet: number;
+  CauHieu: number;
+  CauVanDungThap: number;
+  CauVanDungCao: number;
+  ThoiGianLamBai: number;
+  HocKy: number;
+  Lop: number;
+  NamHoc:string;
+  IdMonHoc:number
+  NguoiTao: number;
+  TenNguoiTao: string;
+  NgayTao: string;
+  NguoiSua: number;
+  NgaySua: string;
+  TrangThai: number;
+  IsDisabled: boolean;
+  IsCustom: boolean
+  NgayThi: string
+  GioThi: string
+  Password: string
+}
