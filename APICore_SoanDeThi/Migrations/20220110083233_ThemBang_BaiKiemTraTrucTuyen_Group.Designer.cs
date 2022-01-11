@@ -3,15 +3,17 @@ using System;
 using APICore_SoanDeThi.Models.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace APICore_SoanDeThi.Migrations
 {
     [DbContext(typeof(SoanDeThi_DbContext))]
-    partial class SoanDeThi_DbContextModelSnapshot : ModelSnapshot
+    [Migration("20220110083233_ThemBang_BaiKiemTraTrucTuyen_Group")]
+    partial class ThemBang_BaiKiemTraTrucTuyen_Group
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,117 +163,6 @@ namespace APICore_SoanDeThi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BaiKiemTra_Group");
-                });
-
-            modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.BaiKiemTra_TrucTuyen", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<long>("IdGroup")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("MaDe")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BaiKiemTra_TrucTuyen");
-                });
-
-            modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.BaiKiemTra_TrucTuyen_ChiTiet", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<long>("IdBaiKiemTra")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("IdCauHoi")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BaiKiemTra_TrucTuyen_ChiTiet");
-                });
-
-            modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.BaiKiemTra_TrucTuyen_Group", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CauBiet")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CauHieu")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CauVanDungCao")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CauVanDungThap")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("GioThi")
-                        .HasColumnType("text");
-
-                    b.Property<int>("HocKy")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("IdMonHoc")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("IsCustom")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsDisabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<byte>("Lop")
-                        .HasColumnType("smallint");
-
-                    b.Property<string>("NamHoc")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("NgaySua")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("NgayTao")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("NgayThi")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<long?>("NguoiSua")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("NguoiTao")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("text");
-
-                    b.Property<int>("SoLuongDe")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("TenBaiKiemTra")
-                        .HasColumnType("text");
-
-                    b.Property<int>("ThoiGianLamBai")
-                        .HasColumnType("integer");
-
-                    b.Property<short>("TrangThai")
-                        .HasColumnType("smallint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BaiKiemTra_TrucTuyen_Group");
                 });
 
             modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.ChuongMonHoc", b =>

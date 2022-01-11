@@ -5,9 +5,10 @@ import { catchError, finalize, map, tap } from "rxjs/operators";
 import { HttpUtilsService } from "src/app/_global/_services/http-utils.service";
 import { ITableState, TableResponseModel, TableService } from "src/app/_metronic/shared/crud-table";
 import { environment } from "src/environments/environment";
-import { IBaiKiemTra_Group } from "../bai-kiem-tra-model/bai-kiem-tra.model";
+import { IBaiKiemTra_Group, IBaiKiemTra_TrucTuyen_Group } from "../bai-kiem-tra-model/bai-kiem-tra.model";
 
 const API_ROOT_URL = environment.ApiRoot + "/BaiKiemTra";
+const API_ROOT_URL_BaiKiemTraOnline = environment.ApiRoot + "/BaiKiemTraOnline";
 
 @Injectable({ providedIn: "root" })
 export class BaiKiemTraService extends TableService<IBaiKiemTra_Group> implements OnDestroy {
@@ -100,6 +101,54 @@ export class BaiKiemTraService extends TableService<IBaiKiemTra_Group> implement
         finalize(() => this.setLoading(false))
       );
   }
+  createOnlineExam(item: any): Observable<any> {
+    this.initCallService();
+    return this.http
+      .post<IBaiKiemTra_TrucTuyen_Group>(environment.ApiRoot + "/BaiKiemTraOnline" + "/_Insert", item, {
+        headers: this._httpHeaders,
+      })
+      .pipe(
+        catchError((err) => {
+          this.setErrorMess(err);
+          return of({ id: undefined, data: undefined, status: 0 });
+        }),
+        finalize(() => this.setLoading(false))
+      );
+  }
+  editOnlineExam(item: any): Observable<any> {
+    this.initCallService();
+    return this.http
+      .post<IBaiKiemTra_TrucTuyen_Group>(environment.ApiRoot + "/BaiKiemTraOnline" + "/_Edit", item, {
+        headers: this._httpHeaders,
+      })
+      .pipe(
+        catchError((err) => {
+          this.setErrorMess(err);
+          return of({ id: undefined, data: undefined, status: 0 });
+        }),
+        finalize(() => this.setLoading(false))
+      );
+  }
+  getItemByIdOnlineExam(id: number): Observable<any> {
+    this.initCallService();
+    return this.http.get(`${API_ROOT_URL_BaiKiemTraOnline}/_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+      catchError((err) => {
+        this.setErrorMess(err);
+        return of({});
+      }),
+      finalize(() => this.setLoading(false))
+    );
+  }
+  // getItemById(id: number): Observable<any> {
+  //   this.initCallService();
+  //   return this.http.get(`${API_ROOT_URL}/BaiKiemTra_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+  //     catchError((err) => {
+  //       this.setErrorMess(err);
+  //       return of({});
+  //     }),
+  //     finalize(() => this.setLoading(false))
+  //   );
+  // }
   update(item: any): Observable<any> {
     this.initCallService();
     return this.http

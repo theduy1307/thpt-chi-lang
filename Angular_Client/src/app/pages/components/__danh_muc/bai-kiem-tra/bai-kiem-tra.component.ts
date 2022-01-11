@@ -24,6 +24,7 @@ import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.servi
 import { AuthService, UserModel } from "src/app/modules/auth";
 import { BaiKiemTraService } from "./bai-kiem-tra-service/bai-kiem-tra.service";
 import { BaiKiemTraEditComponent } from "./bai-kiem-tra-edit/bai-kiem-tra-edit.component";
+import { BaiKiemTraCreateExamComponent } from "./bai-kiem-tra-create-exam/bai-kiem-tra-create-exam.component";
 
 export interface PeriodicElement {
   name: string;
@@ -186,6 +187,15 @@ export class BaiKiemTraComponent implements OnInit, OnDestroy, ISortView, IGroup
       () => {}
     );
   }
+  createOnlineExam(item: any) {
+    const modalRef = this.modalService.open(BaiKiemTraCreateExamComponent, { size: 'xl' });
+    modalRef.componentInstance.item = item;
+    modalRef.result.then(() =>
+        this.services.fetch(),
+        () => { }
+    );
+  }
+
   // deleteSelected() {
   //   const modalRef = this.modalService.open(DeleteManyModalComponent);
   //   modalRef.componentInstance.title = "Xóa dữ liệu";

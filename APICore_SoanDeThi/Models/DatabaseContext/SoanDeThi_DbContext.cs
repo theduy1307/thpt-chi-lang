@@ -36,6 +36,9 @@ namespace APICore_SoanDeThi.Models.DatabaseContext
         public virtual DbSet<PqPermissionGroup> PqPermissionGroup { get; set; }
         public virtual DbSet<PqGroupAccount> PqGroupAccount { get; set; }
         public virtual DbSet<NienKhoa> NienKhoa { get; set; }
+        public virtual DbSet<BaiKiemTra_TrucTuyen_Group> BaiKiemTra_TrucTuyen_Group { get; set; }
+        public virtual DbSet<BaiKiemTra_TrucTuyen_ChiTiet> BaiKiemTra_TrucTuyen_ChiTiet { get; set; }
+        public virtual DbSet<BaiKiemTra_TrucTuyen> BaiKiemTra_TrucTuyen { get; set; }
         public virtual DbSet<Lop> Lop { get; set; }
         public virtual DbSet<PqGroup> PqGroup { get; set; }
         public virtual DbSet<SysRequestLogin> SysRequestLogin { get; set; }

@@ -112,6 +112,12 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                       IsCustom = x.kiemtra.IsCustom,
                                                       Lop = x.kiemtra.Lop,
                                                       TenNguoiTao = x.nhanvien.HoTen,
+                                                      NguoiTao = x.kiemtra.NguoiTao,
+                                                      HocKy = x.kiemtra.HocKy,
+                                                      IdMonHoc = x.kiemtra.IdMonHoc,
+                                                      TrangThai = x.kiemtra.TrangThai,
+                                                      ThoiGianLamBai = x.kiemtra.ThoiGianLamBai,
+                                                      NgayTao = x.kiemtra.NgayTao,
                                                   });
 
 
