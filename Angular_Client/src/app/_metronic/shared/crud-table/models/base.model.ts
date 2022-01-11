@@ -3,3 +3,9 @@ export interface BaseModel {
   data: any;
   status: number;
 }
+
+export class BaseModel {
+  id: any;
+  data: any;
+  status: number;
+}

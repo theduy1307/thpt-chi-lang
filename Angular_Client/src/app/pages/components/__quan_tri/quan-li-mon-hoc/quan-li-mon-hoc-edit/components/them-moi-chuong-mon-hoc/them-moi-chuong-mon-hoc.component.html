@@ -1,0 +1,33 @@
+<!-- Header Modal -->
+<div class="modal-header">
+    <div class="modal-title">
+        THÊM MỚI CHƯƠNG MÔN HỌC
+    </div>
+    <span class="dot" matTooltip="Đóng" (click)="close()"></span>
+</div>
+<!-- End Header -->
+<div class="modal-body">
+    <form class="form-group row" [formGroup]="formGroup" (submit)="save()" >
+        <div class="col-9">
+            <label class="form-label">Tên chương</label>
+            <input type="text" class="form-control form-control-lg" formControlName="name">
+        </div>
+        <div class="col-lg-2">
+            <label class="form-label">Lớp</label>
+            <mat-select class="form-control form-control-lg" placeholder="Chọn lớp" formControlName="lop">
+              <mat-option value="10">Lớp 10</mat-option>
+              <mat-option value="11">Lớp 11</mat-option>
+              <mat-option value="12">Lớp 12</mat-option>
+            </mat-select>
+            <div class="valid-feedback" *ngIf="validateFormGroupEvent('lop', formGroup, 0)">
+              Thông tin chính xác
+            </div>
+            <div class="invalid-feedback" *ngIf="validateFormGroupEvent('lop', formGroup, 1)">
+              Vui lòng chọn lớp
+            </div>
+          </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="save()">Lưu</button>
+</div>

@@ -41,6 +41,7 @@
 
   <ItemGroup>
     <Folder Include="DuLieu\AccountImage\" />
+    <Folder Include="DuLieu\Templates\" />
   </ItemGroup>
 
   <ItemGroup>

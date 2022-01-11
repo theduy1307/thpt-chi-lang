@@ -1,14 +1,14 @@
 <!-- Header Modal -->
 <div class="modal-header">
     <div class="modal-title">
-        CHƯƠNG MÔN HỌC
+        CHỈNH SỬA CHƯƠNG MÔN HỌC
     </div>
     <span class="dot" matTooltip="Đóng" (click)="close()"></span>
 </div>
 <!-- End Header -->
 <div class="modal-body">
     <form class="form-group row" [formGroup]="formGroup" (submit)="save()" >
-        <div class="col-12">
+        <div class="col-9">
             <input type="text" class="form-control form-control-lg" formControlName="name">
         </div>
     </form>

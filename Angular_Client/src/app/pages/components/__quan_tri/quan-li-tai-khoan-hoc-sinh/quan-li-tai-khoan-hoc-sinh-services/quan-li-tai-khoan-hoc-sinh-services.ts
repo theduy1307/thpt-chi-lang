@@ -1,17 +1,18 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable, OnDestroy } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { catchError, finalize, map, tap } from "rxjs/operators";
 import { HttpUtilsService } from "src/app/_global/_services/http-utils.service";
 import { ITableState, TableResponseModel, TableService } from "src/app/_metronic/shared/crud-table";
 import { environment } from "src/environments/environment";
-import { IBaiHoc, IChuongMonHoc, IMonHoc } from "../quan-li-mon-hoc-model/mon-hoc.model";
+import { IAccount } from "../quan-li-tai-khoan-hoc-sinh-model/quan-li-tai-khoan-hoc-sinh-model";
 
-const API_ROOT_URL = environment.ApiRoot + "/MonHoc";
+const API_ROOT_URL = environment.ApiRoot + "/account-student";
 
 @Injectable({ providedIn: "root" })
-export class MonHocService extends TableService<IMonHoc> implements OnDestroy {
+export class AccountStudentService extends TableService<IAccount> implements OnDestroy {
   private _httpHeaders: HttpHeaders;
+  data_import: BehaviorSubject<any[]> = new BehaviorSubject([]);
 
   constructor(@Inject(HttpClient) http, private httpUtils: HttpUtilsService) {
     super(http);
@@ -25,7 +26,7 @@ export class MonHocService extends TableService<IMonHoc> implements OnDestroy {
     this.initCallService();
     const request = this.find(this.tableState)
       .pipe(
-        tap((res: TableResponseModel<IMonHoc>) => {
+        tap((res: TableResponseModel<IAccount>) => {
           this.setItems(res.items);
           this.patchStateWithoutFetch({
             paginator: this.tableState.paginator.recalculatePaginator(res.total),
@@ -40,9 +41,9 @@ export class MonHocService extends TableService<IMonHoc> implements OnDestroy {
         }),
         finalize(() => {
           this.setLoading(false);
-          const itemIds = this.getItems.value.map((el: IMonHoc) => {
-            const item = el as unknown as IMonHoc;
-            return item.Id;
+          const itemIds = this.getItems.value.map((el: IAccount) => {
+            const item = el as unknown as IAccount;
+            return item.IdNv;
           });
           this.patchStateWithoutFetch({
             grouping: this.tableStateClearRows(itemIds),
@@ -53,9 +54,9 @@ export class MonHocService extends TableService<IMonHoc> implements OnDestroy {
     this.subscriptions.push(request);
   }
 
-  find(tableState: ITableState): Observable<TableResponseModel<IMonHoc>> {
+  find(tableState: ITableState): Observable<TableResponseModel<IAccount>> {
     return this.http
-      .post<any>(API_ROOT_URL + "/MonHoc_List", tableState, {
+      .post<any>(API_ROOT_URL + "/account_list", tableState, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -63,7 +64,7 @@ export class MonHocService extends TableService<IMonHoc> implements OnDestroy {
           if (response.status === 0) {
             return { items: [], total: 0 };
           }
-          const result: TableResponseModel<IMonHoc> = {
+          const result: TableResponseModel<IAccount> = {
             items: response.data,
             total: response.page.TotalCount,
           };
@@ -77,7 +78,7 @@ export class MonHocService extends TableService<IMonHoc> implements OnDestroy {
   }
   getItemById(id: number): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/account_detail?id=${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});
@@ -86,21 +87,10 @@ export class MonHocService extends TableService<IMonHoc> implements OnDestroy {
     );
   }
 
-  getBaiHoc(id: number): Observable<any> {
-    this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/detail-subject?id=${id}`, { headers: this._httpHeaders }).pipe(
-      catchError((err) => {
-        this.setErrorMess(err);
-        return of({});
-      }),
-      finalize(() => this.setLoading(false))
-    );
-  }
-
-  createChuong(item: any): Observable<any> {
+  create(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<IChuongMonHoc>(API_ROOT_URL + "/_InsertChuong", item, {
+      .post<IAccount>(API_ROOT_URL + "/create", item, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -111,6 +101,25 @@ export class MonHocService extends TableService<IMonHoc> implements OnDestroy {
         finalize(() => this.setLoading(false))
       );
   }
+  update(item: any): Observable<any> {
+    this.initCallService();
+    return this.http
+      .post<IAccount>(API_ROOT_URL + "/update", item, {
+        headers: this._httpHeaders,
+      })
+      .pipe(
+        catchError((err) => {
+          this.setErrorMess(err);
+          return of({
+            id: undefined,
+            data: undefined,
+            status: undefined,
+          });
+        }),
+        finalize(() => this.setLoading(false))
+      );
+  }
+
   delete(id: any): Observable<any> {
     this.initCallService();
     return this.http.get(`${API_ROOT_URL}/_Delete?id=${id}`, { headers: this._httpHeaders }).pipe(
@@ -121,60 +130,44 @@ export class MonHocService extends TableService<IMonHoc> implements OnDestroy {
       finalize(() => this.setLoading(false))
     );
   }
-  updateChuong(item: any): Observable<any> {
+  resetPassword(id: any): Observable<any> {
     this.initCallService();
-    return this.http
-      .post<IMonHoc>(API_ROOT_URL + "/_Update", item, {
-        headers: this._httpHeaders,
-      })
-      .pipe(
-        catchError((err) => {
-          this.setErrorMess(err);
-          return of({
-            id: undefined,
-            data: undefined,
-            status: undefined,
-          });
-        }),
-        finalize(() => this.setLoading(false))
-      );
+    return this.http.get(`${API_ROOT_URL}/reset_password?id=${id}`, { headers: this._httpHeaders }).pipe(
+      catchError((err) => {
+        this.setErrorMess(err);
+        return of({});
+      }),
+      finalize(() => this.setLoading(false))
+    );
   }
 
-  updateBaiHoc(item: IBaiHoc[]): Observable<any> {
-    this.initCallService();
-    return this.http
-      .post<IBaiHoc>(API_ROOT_URL + "/_UpdateBaiHoc", item, {
-        headers: this._httpHeaders,
-      })
-      .pipe(
-        catchError((err) => {
-          this.setErrorMess(err);
-          return of({
-            id: undefined,
-            data: undefined,
-            status: undefined,
-          });
-        }),
-        finalize(() => this.setLoading(false))
-      );
+  importExcel(fileToUpload): Observable<any> {
+    let fileUpload = <File>fileToUpload[0];
+    const formData: FormData = new FormData();
+    formData.append("File", fileUpload, fileUpload.name);
+    const httpHeaders = this._httpHeaders;
+    return this.http.post<any>(API_ROOT_URL + "/import", formData, { headers: httpHeaders });
   }
 
-  importFileMauNCC(fileToUpload) : Observable<any>{
-		
-		let fileUpload= <File>fileToUpload[0];
-		const formData: FormData = new FormData();
-		formData.append('File', fileUpload, fileUpload.name);
-		const httpHeaders = this.httpUtils.getHttpHeaders();
-		return this.http.post<any>(API_ROOT_URL+'/ImportFileImport_NhaCC',formData ,{ headers: this._httpHeaders });
-	}
-  // deleteItems(ids: number[] = []): Observable<any> {
-  // 	this.initCallService();
-  // 	return this.http.post(API_ROOT_URL + '/_Delete_Many', ids, { headers: this._httpHeaders }).pipe(
-  // 		catchError(err => {
-  // 			this.setErrorMess(err); 
-  // 			return of([]);
-  // 		}),
-  // 		finalize(() => this.setLoading(false))
-  // 	);
-  // }
+  donwLoadFileMauNCC() {
+    var request = new XMLHttpRequest();
+    var link = `${environment.ApiRoot}/DownloadFileImport_NhaCC`;
+    request.open("GET", link);
+
+    request.responseType = "arraybuffer";
+    request.onload = function (e) {
+      var name = "IMPORT_HOCSINH_MAU.xlsx";
+      var file = new Blob([this.response], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+      if (navigator.msSaveBlob) {
+        return navigator.msSaveBlob(file);
+      }
+      var a = document.createElement("a");
+      var url = window.URL.createObjectURL(file);
+      a.setAttribute("href", url);
+      a.setAttribute("download", name);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    };
+    request.send();
+  }
 }

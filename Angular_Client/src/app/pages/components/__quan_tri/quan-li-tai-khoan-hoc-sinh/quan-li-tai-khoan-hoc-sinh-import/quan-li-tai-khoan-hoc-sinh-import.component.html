@@ -1,0 +1,56 @@
+<div class="modal-consupplyNamet">
+    <!-- Header Modal -->
+    <div class="modal-header">
+        <div class="modal-title h1" id="example-modal-sizes-title-lg">
+            <ng-container *ngIf="data">
+                Thêm mới nhiều tài khoản học sinh
+            </ng-container>
+        </div>
+        <div class="card-toolbar">
+            <button type="button" class="btn btn-primary" (click)="fileUpload.click()">Import dữ diệu</button>
+            <div class="btn-group mr-3" *ngIf="!data.Id">
+                <button type="submit" class="btn btn-primary" (click)="fileUpload.click()">
+                  Import dữ liệu
+                </button>
+                <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                  <button class="btn btn-primary btn-elevate" ngbDropdownToggle>
+                    <i class="ki ki-arrow-down icon-sm"></i>
+                  </button>
+                  <div class="dropdown-menu" ngbDropdownMenu>
+                    <button ngbDropdownItem (click)="download()">Tải file mẫu</button>
+                  </div>
+                </div>
+              </div>
+            <input #fileUpload type="file" name="fileUpload" accept=".xlsx" (change)="FileSelected($event)" style="display: none">
+          </div>
+    </div>
+    <!-- End Header -->
+
+    <!-- Body -->
+    <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px">
+        <ng-container *ngIf="isLoading$ | async">
+            <div class="overlay-layer bg-transparent">
+                <div class="spinner spinner-lg spinner-success"></div>
+            </div>
+        </ng-container>
+        <ng-container>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Họ và tên</th>
+                        <th scope="col">Ngày sinh</th>
+                        <th scope="col">Khối</th>
+                        <th scope="col">Lớp</th>
+                        <th scope="col">Số diện thoại liên hệ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-container>
+    </div>
+    <!-- End Body -->
+</div>
