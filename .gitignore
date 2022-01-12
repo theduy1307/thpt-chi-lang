@@ -137,4 +137,5 @@ dist
 _ReSharper.*
 bin
 obj
+
 packages
