@@ -94,6 +94,7 @@ export class BaiKiemTraEditExamComponent implements OnInit {
       NgayThi: undefined,
       GioThi: undefined,
       Password: undefined,
+      isExam: undefined
     };
     return EMPTY_Data;
 
@@ -135,7 +136,7 @@ export class BaiKiemTraEditExamComponent implements OnInit {
       NgayThi: moment(new Date(this.formGroup.controls.NgayThi.value)).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
       GioThi: this.formGroup.controls.GioThi.value,
       Password: this.formGroup.controls.Password.value,
-      
+      isExam: undefined
     }
     return result
   }

@@ -47,5 +47,6 @@ namespace APICore_SoanDeThi.Models.DatabaseContext
         public DateTime NgayThi { get; set; }
         public string GioThi { get; set; }
         public string Password { get; set; }
+        public bool isExam { get; set; }
     }
 }
