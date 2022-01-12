@@ -19,16 +19,16 @@ using System.Text.RegularExpressions;
 
 namespace APICore_SoanDeThi.Controllers.QuanTri
 {
-    [Route("api/BaiKiemTraOnline")]
+    [Route("api/ListBaiKiemTraOnline")]
     [EnableCors("ExamPolicy")]
-    public class BaiKiemTraOnlineController : ControllerBase
+    public class ListBaiKiemTraOnlineController : ControllerBase
     {
         private readonly IHostingEnvironment _hosting;
         private readonly SoanDeThi_DbContext _context;
         private LoginController _account;
         readonly IGeneratePdf _generatePdf;
 
-        public BaiKiemTraOnlineController(IHostingEnvironment hostingEnvironment, IGeneratePdf generatePdf)
+        public ListBaiKiemTraOnlineController(IHostingEnvironment hostingEnvironment, IGeneratePdf generatePdf)
         {
             DbContextOptions<SoanDeThi_DbContext> options = new DbContextOptions<SoanDeThi_DbContext>();
             _hosting = hostingEnvironment;
@@ -38,7 +38,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
 
         #region DANH SÁCH BÀI KIỂM TRA
-        [Route("BaiKiemTraOnline_List")]
+        [Route("ListBaiKiemTraOnline_List")]
         //[Authorize(Roles = "")]
         [HttpPost]
         public BaseModel<object> BaiKiemTra_List([FromBody] ITableState _tableState)
@@ -78,7 +78,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 {
                     _rules = _tableState.filter["rules"];
                 }
-                var _data = _context.BaiKiemTra_TrucTuyen_Group.Where(x => !x.IsDisabled && !x.IsCustom && x.isExam == true)
+                var _data = _context.BaiKiemTra_TrucTuyen_Group.Where(x => !x.IsDisabled && !x.IsCustom)
                                                   .Join(_context.ViewNhanVien, kiemtra => kiemtra.NguoiTao, nhanvien => nhanvien.IdNv, (kiemtra, nhanvien) => new { kiemtra, nhanvien })
                                                   .Select(x => new IBaiKiemTra_TrucTuyen_Group
                                                   {
@@ -216,10 +216,10 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region THÊM MỚI BÀI KIỂM TRA
-        [Route("_Insert")]
+        [Route("ListBaiKiemTraOnline_Add")]
         //[Authorize(Roles = "10012")]
         [HttpPost]
-        public BaseModel<object> BaiKiemTraOnline_Insert([FromBody] IBaiKiemTra_TrucTuyen_Group data)
+        public BaseModel<object> ListBaiKiemTraOnline_Add([FromBody] IBaiKiemTra_TrucTuyen_Group data)
         {
             //string Token = Utilities._GetHeader(Request);
             //UserLogin loginData = _account._GetInfoUser(Token);
@@ -291,7 +291,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region CHỈNH SỬA BÀI KIỂM TRA
-        [Route("_Edit")]
+        [Route("ListBaiKiemTraOnline_Edit")]
         //[Authorize(Roles = "10012")]
         [HttpPost]
         public BaseModel<object> BaiKiemTraOnline_Edit([FromBody] IBaiKiemTra_TrucTuyen_Group data)
@@ -304,6 +304,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
             try
             {
+                
                 if (string.IsNullOrEmpty(data.TenBaiKiemTra))
                     return Utilities._responseData(0, "Vui lòng nhập số hợp đồng mua!!", null);
 
@@ -349,7 +350,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region CHI TIẾT BÀI KIỂM TRA
-        [Route("_Detail")]
+        [Route("ListBaiKiemTraOnline_Detail")]
         //[Authorize(Roles = "10012")]
         [HttpGet]
         public BaseModel<object> BaiKiemTraOnline_Detail(long id)
@@ -362,8 +363,32 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
             try
             {
-                var _item = _context.BaiKiemTra_TrucTuyen_Group.Where(x => x.Id == id).FirstOrDefault();
-                return Utilities._responseData(1, "", _item);
+                var _data = _context.BaiKiemTra_TrucTuyen_Group.Where(x => !x.IsDisabled && x.Id == id)
+                                                  .Join(_context.ViewNhanVien, kiemtra => kiemtra.NguoiTao, nhanvien => nhanvien.IdNv, (kiemtra, nhanvien) => new { kiemtra, nhanvien })
+                                                  .Select(x => new IBaiKiemTra_TrucTuyen_Group
+                                                  {
+                                                      Id = x.kiemtra.Id,
+                                                      TenBaiKiemTra = "KIỂM TRA " + x.kiemtra.TenBaiKiemTra.ToUpper(),
+                                                      SoLuongDe = x.kiemtra.SoLuongDe,
+                                                      CauBiet = x.kiemtra.CauBiet,
+                                                      CauHieu = x.kiemtra.CauHieu,
+                                                      CauVanDungThap = x.kiemtra.CauVanDungThap,
+                                                      CauVanDungCao = x.kiemtra.CauVanDungCao,
+                                                      NamHoc = x.kiemtra.NamHoc.ToUpper(),
+                                                      IsCustom = x.kiemtra.IsCustom,
+                                                      Lop = x.kiemtra.Lop,
+                                                      TenNguoiTao = x.nhanvien.HoTen,
+                                                      NguoiTao = x.kiemtra.NguoiTao,
+                                                      HocKy = x.kiemtra.HocKy,
+                                                      IdMonHoc = x.kiemtra.IdMonHoc,
+                                                      TrangThai = x.kiemtra.TrangThai,
+                                                      ThoiGianLamBai = x.kiemtra.ThoiGianLamBai,
+                                                      NgayTao = x.kiemtra.NgayTao,
+                                                      GioThi = x.kiemtra.GioThi,
+                                                      Password = x.kiemtra.Password,
+                                                      NgayThi = x.kiemtra.NgayThi
+                                                  }).FirstOrDefault();
+                return Utilities._responseData(1, "", _data);
 
             }
             catch (Exception ex)
@@ -374,7 +399,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region XÓA BÀI KIỂM TRA
-        [Route("BaiKiemTraOnline_Delete")]
+        [Route("ListBaiKiemTraOnline_Delete")]
         //[Authorize(Roles = "10014")]
         [HttpGet]
         public BaseModel<object> BaiKiemTraOnline_Delete(long id)
@@ -405,7 +430,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region ACTIVE BÀI KIỂM TRA ONLINE
-        [Route("BaiKiemTraOnline_Active")]
+        [Route("ListBaiKiemTraOnline_Active")]
         //[Authorize(Roles = "10014")]
         [HttpGet]
         public BaseModel<object> BaiKiemTraOnline_Active(long id)

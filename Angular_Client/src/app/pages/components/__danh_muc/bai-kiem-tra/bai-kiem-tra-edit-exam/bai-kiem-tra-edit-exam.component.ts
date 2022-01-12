@@ -113,7 +113,7 @@ export class BaiKiemTraEditExamComponent implements OnInit {
       //empty data
       id: undefined, data: undefined, status: undefined,
       Id: this.item.Id,
-      Id_BaiKiemTra_Offline: undefined,
+      Id_BaiKiemTra_Offline: this.item.Id,
       TenBaiKiemTra: this.item.TenBaiKiemTra,
       SoLuongDe: this.item.SoLuongDe,
       CauBiet: this.item.CauBiet,
@@ -136,7 +136,7 @@ export class BaiKiemTraEditExamComponent implements OnInit {
       NgayThi: moment(new Date(this.formGroup.controls.NgayThi.value)).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
       GioThi: this.formGroup.controls.GioThi.value,
       Password: this.formGroup.controls.Password.value,
-      isExam: undefined
+      isExam: false
     }
     return result
   }
@@ -165,5 +165,7 @@ export class BaiKiemTraEditExamComponent implements OnInit {
   ValidateFormGroupEvent(controlName: string, formGroup: FormGroup, type: number, validation: string = '') {
     return FunctionPublic.ValidateFormGroupEvent(controlName, formGroup, type, validation)
   }
+  formatDateToApi(date:string) {
 
+  }
 }

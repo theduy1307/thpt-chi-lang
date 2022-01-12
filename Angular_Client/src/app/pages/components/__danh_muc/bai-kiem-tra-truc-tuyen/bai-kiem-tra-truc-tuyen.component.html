@@ -59,13 +59,13 @@
                 class="svg-icon svg-icon-md svg-icon-primary">
               </span>
             </a>
-            <a matTooltip="Xóa" matTooltipPosition="after" class="btn btn-icon btn-light btn-hover-danger btn-sm">
+            <a matTooltip="Xóa" matTooltipPosition="after" class="btn btn-icon btn-light btn-hover-danger btn-sm" (click)="delete(item.Id)">
               <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
                 class="svg-icon svg-icon-md svg-icon-danger">
               </span>
             </a>
             <a matTooltip="Active" matTooltipPosition="after"
-              class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3">
+              class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3" (click)="active(item.Id)">
               <span [inlineSVG]="'./assets/media/svg/icons/General/Update.svg'" cacheSVG="true"
                 class="svg-icon svg-icon-md svg-icon-primary">
               </span>
