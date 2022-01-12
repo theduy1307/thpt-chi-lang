@@ -79,4 +79,5 @@ export interface IBaiKiemTra_TrucTuyen_Group extends BaseModel {
   NgayThi: string
   GioThi: string
   Password: string
+  isExam: boolean
 }
