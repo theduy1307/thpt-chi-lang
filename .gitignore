@@ -1,4 +1,3 @@
 node_modules/
-**/obj
-**/bin
-appsettings.json
+APICore_SoanDeThi/obj/
+APICore_SoanDeThi/bin/
