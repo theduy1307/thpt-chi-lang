@@ -38,7 +38,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
 
         #region DANH SÁCH BÀI KIỂM TRA
-        [Route("BaiKiemTra_List")]
+        [Route("BaiKiemTraOnline_List")]
         //[Authorize(Roles = "")]
         [HttpPost]
         public BaseModel<object> BaiKiemTra_List([FromBody] ITableState _tableState)
@@ -78,7 +78,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 {
                     _rules = _tableState.filter["rules"];
                 }
-                var _data = _context.BaiKiemTra_TrucTuyen_Group.Where(x => !x.IsDisabled && !x.IsCustom)
+                var _data = _context.BaiKiemTra_TrucTuyen_Group.Where(x => !x.IsDisabled && !x.IsCustom && x.isExam == true)
                                                   .Join(_context.ViewNhanVien, kiemtra => kiemtra.NguoiTao, nhanvien => nhanvien.IdNv, (kiemtra, nhanvien) => new { kiemtra, nhanvien })
                                                   .Select(x => new IBaiKiemTra_TrucTuyen_Group
                                                   {
@@ -374,10 +374,10 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region XÓA BÀI KIỂM TRA
-        [Route("BaiKiemTra_Delete")]
+        [Route("BaiKiemTraOnline_Delete")]
         //[Authorize(Roles = "10014")]
         [HttpGet]
-        public BaseModel<object> BaiKiemTra_Delete(long id)
+        public BaseModel<object> BaiKiemTraOnline_Delete(long id)
         {
             //string Token = Utilities._GetHeader(Request);
             //UserLogin loginData = _account._GetInfoUser(Token);
@@ -387,7 +387,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
             try
             {
-                var _item = _context.BaiKiemTra_Group.Where(x => x.Id == id && !x.IsDisabled).FirstOrDefault();
+                var _item = _context.BaiKiemTra_TrucTuyen_Group.Where(x => x.Id == id && !x.IsDisabled).FirstOrDefault();
                 if (_item == null)
                     return Utilities._responseData(0, "Không tìm thấy dữ liệu cần xóa, vui lòng tải lại danh sách!!", null);
 
@@ -400,6 +400,37 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             catch (Exception ex)
             {
                 return Utilities._responseData(0, "Xóa thất bại, vui lòng kiểm tra lại! Lỗi: "+ex.Message, null);
+            }
+        }
+        #endregion
+
+        #region ACTIVE BÀI KIỂM TRA ONLINE
+        [Route("BaiKiemTraOnline_Active")]
+        //[Authorize(Roles = "10014")]
+        [HttpGet]
+        public BaseModel<object> BaiKiemTraOnline_Active(long id)
+        {
+            //string Token = Utilities._GetHeader(Request);
+            //UserLogin loginData = _account._GetInfoUser(Token);
+
+            //if (loginData == null)
+            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                var _item = _context.BaiKiemTra_TrucTuyen_Group.Where(x => x.Id == id && !x.IsDisabled).FirstOrDefault();
+                if (_item == null)
+                    return Utilities._responseData(0, "Không tìm thấy dữ liệu cần xóa, vui lòng tải lại danh sách!!", null);
+
+                _item.isExam = true;
+
+                _context.SaveChanges();
+
+                return Utilities._responseData(1, "", null);
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Xóa thất bại, vui lòng kiểm tra lại! Lỗi: " + ex.Message, null);
             }
         }
         #endregion

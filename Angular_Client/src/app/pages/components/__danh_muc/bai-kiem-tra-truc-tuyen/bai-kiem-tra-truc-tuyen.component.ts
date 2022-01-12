@@ -176,6 +176,38 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
       () => {}
     );
   }
+  active(id: number) {
+    const modalRef = this.modalService.open(DeleteModalComponent);
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.title = "Active bài thi online";
+    modalRef.componentInstance.message = "Bạn có chắc muốn active bài thi này?";
+    modalRef.componentInstance.loadingMsg = "";
+    modalRef.componentInstance.submitButtonMsg = "Xác nhận";
+    modalRef.componentInstance.cancelButtonMsg = "Đóng";
+    modalRef.result.then(
+      (result) => {
+        if (result) {
+          const sb = this.services
+            .delete(id)
+            .pipe(
+              tap(() => this.services.fetch()),
+              catchError((err) => {
+                return of(undefined);
+              })
+            )
+            .subscribe((res) => {
+              if (res && res.status == 1) {
+                this.layoutUtilsService.openSnackBar("Active thành công", "Đóng");
+              } else {
+                this.layoutUtilsService.openSnackBar("Active thất bại, vui lòng kiểm tra thông tin", "Đóng");
+              }
+            });
+          this.subscriptions.push(sb);
+        }
+      },
+      () => {}
+    );
+  }
   editOnlineExam(item: any) {
     const modalRef = this.modalService.open(BaiKiemTraEditExamComponent, { size: 'xl' });
     modalRef.componentInstance.item = item;

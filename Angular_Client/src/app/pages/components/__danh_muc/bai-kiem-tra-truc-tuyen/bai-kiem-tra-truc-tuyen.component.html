@@ -54,7 +54,7 @@
             <!-- <a class="btn btn-primary" (click) = "editOnlineExam(item)">Bổ sung/chỉnh sửa thông tin</a>
             <a class="btn btn-danger" >Xóa bài kiểm tra</a> -->
             <a matTooltip="chỉnh sửa thông tin" matTooltipPosition="after"
-              class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3" (click) = "editOnlineExam(item)">
+              class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3" (click)="editOnlineExam(item)">
               <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
                 class="svg-icon svg-icon-md svg-icon-primary">
               </span>
@@ -62,6 +62,12 @@
             <a matTooltip="Xóa" matTooltipPosition="after" class="btn btn-icon btn-light btn-hover-danger btn-sm">
               <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
                 class="svg-icon svg-icon-md svg-icon-danger">
+              </span>
+            </a>
+            <a matTooltip="Active" matTooltipPosition="after"
+              class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3">
+              <span [inlineSVG]="'./assets/media/svg/icons/General/Update.svg'" cacheSVG="true"
+                class="svg-icon svg-icon-md svg-icon-primary">
               </span>
             </a>
           </div>
