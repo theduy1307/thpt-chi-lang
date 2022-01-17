@@ -17,6 +17,7 @@ import { SplashScreenModule } from "./_metronic/partials/layout/splash-screen/sp
 // #fake-start#
 import { FakeAPIService } from "./_fake/fake-api.service";
 import { LayoutModule } from "./pages/layout.module";
+import { CountdownModule } from "ngx-countdown";
 // #fake-end#
 
 function appInitializer(authService: AuthService) {
@@ -30,6 +31,7 @@ function appInitializer(authService: AuthService) {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    CountdownModule,
     BrowserModule,
     BrowserAnimationsModule,
     SplashScreenModule,

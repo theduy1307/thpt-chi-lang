@@ -1,6 +1,6 @@
 import { BaseModel } from "src/app/_metronic/shared/crud-table";
 
-export interface IBaiKiemTra_Group extends BaseModel {
+export interface IBaiKiemTra_TrucTuyen_Group extends BaseModel {
   Id: number;
   TenBaiKiemTra: string;
   SoLuongDe: number;
@@ -53,4 +53,15 @@ export interface IQuestion {
   IsDisabled: boolean;
   IsCustom:boolean;
   IdBaiKiemTra_Group:number;
+}
+export interface IBaiKiemTra_TrucTuyen_HocSinh_ChiTiet  {
+  Id : number
+  IdBaiKiemTraHocSinh : number
+  IdQueston : number
+  choosen : number
+  TieuDe: string
+  CauA: string
+  CauB: string
+  CauC: string
+  CauD: string
 }

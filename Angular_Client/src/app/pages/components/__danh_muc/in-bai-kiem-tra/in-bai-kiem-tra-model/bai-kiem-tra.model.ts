@@ -8,6 +8,7 @@ export interface IBaiKiemTra {
 }
 
 export interface IBaiKiemTra_ChiTiet {
+  data: IBaiKiemTra_ChiTiet;
   Id: number;
   IdBaiKiemTra: number;
   IdCauHoi: number;

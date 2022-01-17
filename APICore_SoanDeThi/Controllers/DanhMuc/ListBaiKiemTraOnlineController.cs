@@ -99,6 +99,10 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                       TrangThai = x.kiemtra.TrangThai,
                                                       ThoiGianLamBai = x.kiemtra.ThoiGianLamBai,
                                                       NgayTao = x.kiemtra.NgayTao,
+                                                      NgayThi = x.kiemtra.NgayThi,
+                                                      Password = x.kiemtra.Password,
+                                                      GioThi = x.kiemtra.GioThi,
+                                                      isExam = x.kiemtra.isExam
                                                   });
 
 
@@ -109,6 +113,12 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                           x.TenBaiKiemTra.ToLower().Contains(_keywordSearch)
 
                    );
+                    IQueryable<IBaiKiemTra_TrucTuyen_Group> data = _data;
+                }
+
+                if(_tableState.filter.vals != "")
+                {
+                    _data = _data.Where(x => x.Lop == Int32.Parse(_tableState.filter.vals));
                     IQueryable<IBaiKiemTra_TrucTuyen_Group> data = _data;
                 }
 
@@ -150,67 +160,6 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             catch
             {
                 return Utilities._responseData(0, "Lỗi dữ liệu!", null);
-            }
-        }
-        #endregion
-
-        #region LẤY CHI TIẾT BÀI KIỂM TRA
-        [Route("BaiKiemTraTrucTuyen_Detail")]
-        //[Authorize(Roles = "10014")]
-        [HttpGet]
-        public BaseModel<object> BaiKiemTraTrucTuyen_Detail(long id)
-        {
-            string Token = Utilities._GetHeader(Request);
-            UserLogin loginData = _account._GetInfoUser(Token);
-
-            if (loginData == null)
-                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
-            try
-            {
-
-                _context.Database.BeginTransaction();
-                var _item = _context.BaiKiemTra.Join(_context.BaiKiemTra_Group, baikiemtra => baikiemtra.IdGroup, group => group.Id, (baikiemtra, group) => new { baikiemtra, group })
-                                            .Where(group => group.group.Id == id)
-                                            .Select(x => new IBaiKiemTra
-                                            {
-                                                Id = x.baikiemtra.Id,
-                                                IdGroup = x.group.Id,
-                                                MaDe = x.baikiemtra.MaDe,
-                                                DanhSachCauHoi = _context.BaiKiemTra_ChiTiet.Where(chitiet => chitiet.IdBaiKiemTra == x.baikiemtra.Id)
-                                                                                            .Join(_context.Question, chitiet => chitiet.IdCauHoi, cauhoi => cauhoi.Id, (chitiet, cauhoi) => new { chitiet, cauhoi })
-                                                                                            .Select(x => new IBaiKiemTra_ChiTiet
-                                                                                            {
-                                                                                                Id = x.chitiet.Id,
-                                                                                                TieuDe = x.cauhoi.Title,
-                                                                                                CauA = x.cauhoi.OptionA,
-                                                                                                CauB = x.cauhoi.OptionB,
-                                                                                                CauC = x.cauhoi.OptionC,
-                                                                                                CauD = x.cauhoi.OptionD,
-                                                                                                CauDung = x.cauhoi.CorrectOption,
-                                                                                            }).ToList()
-                                            }).FirstOrDefault();
-                //var _data = _context.BaiKiemTra_Group.Where(x => x.Id == id).Join(_context.MonHoc, kiemtra => kiemtra.IdMonHoc, monhoc => monhoc.Id, (kiemtra, monhoc) => new { kiemtra, monhoc })
-                //                                    .Select(x => new IBaiKiemTra_Print
-                //                                    {
-                //                                        Id = x.kiemtra.Id,
-                //                                        TenBaiKiemTra = x.kiemtra.TenBaiKiemTra,
-                //                                        ThoiGianLamBai = x.kiemtra.ThoiGianLamBai,
-                //                                        NamHoc = x.kiemtra.NamHoc,
-                //                                        MonHoc = x.monhoc.TenMonHoc,
-                //                                        HocKy = x.kiemtra.HocKy,
-                //                                        Lop = x.kiemtra.Lop,
-                //                                        DanhSachBaiKiemTra = _item
-                //                                    }).FirstOrDefault();
-
-                if (_item == null)
-                    return Utilities._responseData(0, "Không tìm thấy dữ liệu, vui lòng tải lại!!", null);
-
-                _context.Database.CommitTransaction();
-                return Utilities._responseData(1, "", _item);
-            }
-            catch (Exception ex)
-            {
-                return Utilities._responseData(0, "Lấy dữ liệu thất bại, vui lòng kiểm tra lại!", null);
             }
         }
         #endregion
@@ -262,7 +211,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 foreach(var item in listDeOffline)
                 {
                     BaiKiemTra_TrucTuyen temp = new BaiKiemTra_TrucTuyen();
-                    temp.IdGroup = item.IdGroup;
+                    temp.IdGroup = _item.Id;
                     temp.MaDe = item.MaDe;
                     _context.BaiKiemTra_TrucTuyen.Add(temp);
                     _context.SaveChanges();
@@ -271,7 +220,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                     foreach(var lego in listCauHoi)
                     {
                         BaiKiemTra_TrucTuyen_ChiTiet ulatroi = new BaiKiemTra_TrucTuyen_ChiTiet();
-                        ulatroi.IdBaiKiemTra = lego.IdBaiKiemTra;
+                        ulatroi.IdBaiKiemTra = temp.Id;
                         ulatroi.IdCauHoi = lego.IdCauHoi;
                         _context.BaiKiemTra_TrucTuyen_ChiTiet.Add(ulatroi);
                         _context.SaveChanges();

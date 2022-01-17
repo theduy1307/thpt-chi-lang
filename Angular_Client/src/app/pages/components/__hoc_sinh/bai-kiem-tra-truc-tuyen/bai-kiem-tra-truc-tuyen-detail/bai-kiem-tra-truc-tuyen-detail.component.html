@@ -1,0 +1,53 @@
+<div class="card card-custom gutter-b">
+    <!-- Header Modal -->
+    <div class="card-header">
+      <div class="card-title">
+        <h3 class="card-label">{{tenBaiKiemTra}}</h3>
+      </div>
+      <div class="card-toolbar">
+        <button type="button" class="btn btn-light btn-elevate mr-2">
+          Trở lại
+        </button>
+        <button type="button" class="btn btn-primary mr-2">Lưu</button>
+      </div>
+    </div>
+    <!-- End Header -->
+    <!-- Body -->
+    <div class="card-body">
+      <ng-container *ngIf="isLoading$ | async">
+        <div class="overlay-layer bg-transparent">
+          <div class="spinner spinner-lg spinner-success"></div>
+        </div>
+      </ng-container>
+      <countdown [config]="{ leftTime: thoiGianLamBai * 60 }" style="color: red"></countdown>
+      
+      <ng-container *ngIf="data">
+        <ng-container *ngFor="let item of this.data; let i = index">
+          <div class="card text-left mb-5">
+            <div class="card-header"><p class="text-header" [innerHTML]="'<strong>Câu '+(i+1)+': </strong> '+item.TieuDe"></p></div>
+            <div class="card-body">
+              <mat-radio-group (change)="radioChecked(item.Id, item.IdQueston, $event)">
+                <mat-radio-button value=1>
+                  <p class="card-text text-header" [innerHTML]="item.CauA"></p>
+                </mat-radio-button>
+                <hr/>
+                <mat-radio-button value=2>
+                  <p class="card-text text-header" [innerHTML]="item.CauB"></p>
+                </mat-radio-button>
+                <hr/>
+                <mat-radio-button value=3>
+                  <p class="card-text text-header" [innerHTML]="item.CauC"></p>
+                </mat-radio-button>
+                <hr/>
+                <mat-radio-button value=4>
+                  <p class="card-text text-header" [innerHTML]="item.CauD"></p>
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+    <!-- End Body -->
+  </div>
+  

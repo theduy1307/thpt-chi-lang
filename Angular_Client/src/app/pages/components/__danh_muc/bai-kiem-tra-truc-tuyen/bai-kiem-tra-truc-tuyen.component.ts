@@ -107,11 +107,33 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
   searchForm() {
     this.searchGroup = this.fb.group({
       searchTerm: [""],
+      searchLop: [""]
     });
     const searchEvent = this.searchGroup.controls.searchTerm.valueChanges
       .pipe(debounceTime(150), distinctUntilChanged())
       .subscribe((val) => this.search(val));
     this.subscriptions.push(searchEvent);
+    this.subscriptions.push(
+      this.searchGroup.controls.searchLop.valueChanges
+        .pipe(
+          debounceTime(150),
+          distinctUntilChanged())
+        .subscribe(() =>
+          this.filter()
+        )
+    );
+  }
+  setValueLop(event: any) {
+    this.searchGroup.controls["searchLop"].setValue(`${event.value}`);
+}
+  filter() {
+      const filter: any = {};
+      const searchLop = this.searchGroup.controls['searchLop'].value
+      if (searchLop) {
+          filter.keys = 'searchLop';
+          filter.vals = searchLop + '';
+      }
+      this.services.patchState({ filter });
   }
   search(searchTerm: string) {
     this.services.patchState({ searchTerm });
@@ -173,7 +195,7 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
           this.subscriptions.push(sb);
         }
       },
-      () => {}
+      () => { }
     );
   }
   active(id: number) {
@@ -188,7 +210,7 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
       (result) => {
         if (result) {
           const sb = this.services
-            .delete(id)
+            .active(id)
             .pipe(
               tap(() => this.services.fetch()),
               catchError((err) => {
@@ -205,45 +227,17 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
           this.subscriptions.push(sb);
         }
       },
-      () => {}
+      () => { }
     );
   }
   editOnlineExam(item: any) {
     const modalRef = this.modalService.open(BaiKiemTraEditExamComponent, { size: 'xl' });
     modalRef.componentInstance.item = item;
     modalRef.result.then(() =>
-        this.services.fetch(),
-        () => { }
+      this.services.fetch(),
+      () => { }
     );
   }
-  // deleteSelected() {
-  //   const modalRef = this.modalService.open(DeleteManyModalComponent);
-  //   modalRef.componentInstance.title = "Xóa dữ liệu";
-  //   modalRef.componentInstance.message = "Bạn có chắc muốn xóa các dữ liệu này?";
-  //   modalRef.componentInstance.loadingMsg = "";
-  //   modalRef.componentInstance.submitButtonMsg = "Xác nhận";
-  //   modalRef.componentInstance.cancelButtonMsg = "Đóng";
-  //   modalRef.result.then((result) => {
-  //     if(result){
-  //       const sb = this.services.deleteItems(this.grouping.getSelectedRows()).pipe(
-  //         tap(() =>
-  //           this.services.fetch()
-  //         ),
-  //         catchError((err) => {
-  //           return of(undefined);
-  //         })
-  //       ).subscribe(res =>{
-  //         if(res && res.status == 1){
-  //           this.layoutUtilsService.openSnackBar("Xóa dữ liệu thành công","Đóng");
-  //         }else{
-  //           this.layoutUtilsService.openSnackBar("Xóa dữ liệu thất bại, vui lòng kiểm tra thông tin","Đóng");
-  //         }
-  //       });
-  //       this.subscriptions.push(sb);
-  //     }
-  //   },
-  //   () => { });
-  // }
   print(id: number) {
     this.services.print(id);
   }

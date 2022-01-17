@@ -277,6 +277,45 @@ namespace APICore_SoanDeThi.Migrations
                     b.ToTable("BaiKiemTra_TrucTuyen_Group");
                 });
 
+            modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.BaiKiemTra_TrucTuyen_HocSinh", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long>("IdBaiKiemTraOnline")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("IdHocSinh")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BaiKiemTra_TrucTuyen_HocSinh");
+                });
+
+            modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.BaiKiemTra_TrucTuyen_HocSinh_ChiTiet", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long>("IdBaiKiemTraHocSinh")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("IdQueston")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("choosen")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BaiKiemTra_TrucTuyen_HocSinh_ChiTiet");
+                });
+
             modelBuilder.Entity("APICore_SoanDeThi.Models.DatabaseContext.ChuongMonHoc", b =>
                 {
                     b.Property<long>("Id")

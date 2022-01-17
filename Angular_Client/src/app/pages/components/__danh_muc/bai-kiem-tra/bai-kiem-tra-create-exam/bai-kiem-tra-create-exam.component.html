@@ -1,80 +1,63 @@
 <div class="modal-consupplyNamet">
-    <!-- Header Modal -->
-    <div class="modal-header">
-      <div class="modal-title h4" id="example-modal-sizes-title-lg">
-        <ng-container>Tạo bài kiểm tra trực tuyến</ng-container>
-      </div>
-      <div class="model-action">
-        <button type="button" class="btn btn-light btn-elevate mr-2" (click) = "modal.close()">Trở về</button>
-        <div class="btn-group mr-3">
-          <button type="submit" class="btn btn-primary" (click)="create()">Lưu</button>
-        </div>
+  <!-- Header Modal -->
+  <div class="modal-header">
+    <div class="modal-title h4" id="example-modal-sizes-title-lg">
+      <ng-container>Tạo bài kiểm tra trực tuyến</ng-container>
+    </div>
+    <div class="model-action">
+      <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.close()">Trở về</button>
+      <div class="btn-group mr-3">
+        <button type="submit" class="btn btn-primary" (click)="create()">Lưu</button>
       </div>
     </div>
-    <!-- End Header -->
-  
-    <!-- Body -->
-    <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px">
-      <ng-container *ngIf="isLoading$ | async">
-        <div class="overlay-layer bg-transparent">
-          <div class="spinner spinner-lg spinner-success"></div>
-        </div>
-      </ng-container>
-      <ng-container>
-        <form action="#" class="form form-label-right" [formGroup]="formGroup">
-          <div class="form-group row">
-            <div class="col-lg-3">
-                <label class="form-label" id="asterisk">Ngày thi</label>
-                <div class="input-group ">
-                  <input type="text" class="form-control form-control-lg" autocomplete="off" placeholder="dd/mm/yyyy"
-                    ngbDatepicker #k="ngbDatepicker" formControlName="NgayThi"
-                    [class.is-invalid]="ValidateFormGroupEvent('NgayThi', formGroup, 1)"
-                    [class.is-valid]="ValidateFormGroupEvent('NgayThi', formGroup, 0)"
-                    formControlName="NgayThi" />
-                  <div class="input-group-append" (click)="k.toggle()">
-                    <span class="input-group-text">
-                      <i class="text-dark-50 flaticon-calendar"></i>
-                    </span>
-                  </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-              <label class="form-label form-control-solid">Giờ thi</label>
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                placeholder="Giờ thi"
-                formControlName="GioThi"
-                [class.is-invalid]="ValidateFormGroupEvent('GioThi', formGroup, 1)"
-                [class.is-valid]="ValidateFormGroupEvent('GioThi', formGroup, 0)"
-              />
-            </div>
-            <div class="col-lg-3">
-                <label class="form-label form-control-solid">Mật khẩu</label>
-                <input
-                  type="text"
-                  class="form-control form-control-lg"
-                  placeholder="Mật khẩu"
-                  formControlName="Password"
-                  [class.is-invalid]="ValidateFormGroupEvent('Password', formGroup, 1)"
-                  [class.is-valid]="ValidateFormGroupEvent('Password', formGroup, 0)"
-                />
-            </div>
-            <div class="col-lg-3">
-                <label class="form-label form-control-solid">Người tạo</label>
-                <input
-                  type="text"
-                  class="form-control form-control-lg"
-                  placeholder="Người tạo"
-                  formControlName="NguoiTao"
-                  [class.is-invalid]="ValidateFormGroupEvent('NguoiTao', formGroup, 1)"
-                  [class.is-valid]="ValidateFormGroupEvent('NguoiTao', formGroup, 0)"
-                />
+  </div>
+  <!-- End Header -->
+
+  <!-- Body -->
+  <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px">
+    <ng-container *ngIf="isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+    <ng-container>
+      <form action="#" class="form form-label-right" [formGroup]="formGroup">
+        <div class="form-group row">
+          <div class="col-lg-3">
+            <label class="form-label" id="asterisk">Ngày thi</label>
+            <div class="input-group ">
+              <input type="text" class="form-control form-control-lg" autocomplete="off" placeholder="dd/mm/yyyy"
+                ngbDatepicker #k="ngbDatepicker" formControlName="NgayThi"
+                [class.is-invalid]="ValidateFormGroupEvent('NgayThi', formGroup, 1)"
+                [class.is-valid]="ValidateFormGroupEvent('NgayThi', formGroup, 0)" formControlName="NgayThi" />
+              <div class="input-group-append" (click)="k.toggle()">
+                <span class="input-group-text">
+                  <i class="text-dark-50 flaticon-calendar"></i>
+                </span>
+              </div>
             </div>
           </div>
-        </form>
-      </ng-container>
-    </div>
-    <!-- End Body -->
+          <div class="col-lg-3">
+            <label class="form-label form-control-solid">Giờ thi</label>
+            <input type="time" class="form-control form-control-lg" placeholder="Giờ thi" formControlName="GioThi"
+              [class.is-invalid]="ValidateFormGroupEvent('GioThi', formGroup, 1)"
+              [class.is-valid]="ValidateFormGroupEvent('GioThi', formGroup, 0)" />
+          </div>
+          <div class="col-lg-3">
+            <label class="form-label form-control-solid">Mật khẩu</label>
+            <input type="text" class="form-control form-control-lg" placeholder="Mật khẩu" formControlName="Password" 
+              [class.is-invalid]="ValidateFormGroupEvent('Password', formGroup, 1)"
+              [class.is-valid]="ValidateFormGroupEvent('Password', formGroup, 0)"/>
+          </div>
+          <div class="col-lg-3">
+            <label class="form-label form-control-solid">Người tạo</label>
+            <input type="text" class="form-control form-control-lg" placeholder="Người tạo" formControlName="NguoiTao"
+              [class.is-invalid]="ValidateFormGroupEvent('NguoiTao', formGroup, 1)"
+              [class.is-valid]="ValidateFormGroupEvent('NguoiTao', formGroup, 0)" />
+          </div>
+        </div>
+      </form>
+    </ng-container>
   </div>
-  
+  <!-- End Body -->
+</div>

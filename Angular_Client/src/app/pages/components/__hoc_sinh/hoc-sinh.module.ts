@@ -12,7 +12,7 @@ import {
   NgbDatepickerModule,
   NgbDropdownModule,
   NgbModalModule,
-} from "@ng-bootstrap/ng-bootstrap";
+} from "@ng-bootstrap/ng-bootstrap"; 
 import { InlineSVGModule } from "ng-inline-svg";
 import { CustomAdapter, CustomDateParserFormatter } from "src/app/_metronic/core";
 import { CRUDTableModule } from "src/app/_metronic/shared/crud-table";
@@ -21,14 +21,17 @@ import { DieuKhoanMauAddComponent } from "../__danh_muc/dieu-khoan-mau/dieu-khoa
 import { BaiKiemTraTrucTuyenComponent } from "./bai-kiem-tra-truc-tuyen/bai-kiem-tra-truc-tuyen.component";
 import { QuanTriRoutingModule } from "./hoc-sinh-routing.module";
 import { HocSinhComponent } from "./hoc-sinh.component";
+import { BaiKiemTraTrucTuyenDetailComponent } from './bai-kiem-tra-truc-tuyen/bai-kiem-tra-truc-tuyen-detail/bai-kiem-tra-truc-tuyen-detail.component';
+import { PasswordComponent } from "./bai-kiem-tra-truc-tuyen/components/password/password.component";
+import { CountdownModule } from "ngx-countdown";
 
 @NgModule({
-  declarations: [HocSinhComponent, BaiKiemTraTrucTuyenComponent],
+  declarations: [HocSinhComponent, BaiKiemTraTrucTuyenComponent, BaiKiemTraTrucTuyenDetailComponent,PasswordComponent],
   imports: [
+    CountdownModule,
     CommonModule,
     HttpClientModule,
     QuanTriRoutingModule,
-    CKEditorModule,
     FormsModule,
     ReactiveFormsModule,
     InlineSVGModule,

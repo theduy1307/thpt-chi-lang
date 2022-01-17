@@ -5,7 +5,7 @@
       <h3 class="card-label">DANH SÁCH BÀI KIỂM TRA TRỰC TUYẾN</h3>
     </div>
     <div class="card-toolbar">
-      <button type="button" class="btn btn-primary" routerLink="./them-moi">Thêm mới</button>
+      <button type="button" class="btn btn-primary" routerLink="/danh-muc/danh-sach-bai-kiem-tra">Thêm mới</button>
     </div>
   </div>
   <!-- End Header Page -->
@@ -21,18 +21,10 @@
           <small class="form-text text-muted"><b>Tìm kiếm</b> dữ liệu</small>
         </div>
         <div class="col-lg-4" [formGroup]="searchGroup">
-          <mat-select class="form-control" placeholder="Chọn câu đúng" name="correctOption">
-            <mat-option value="1">Dễ</mat-option>
-            <mat-option value="2">Trung bình</mat-option>
-            <mat-option value="3">Khó</mat-option>
-          </mat-select>
-          <small class="form-text text-muted"><b>Lọc</b> cấp độ</small>
-        </div>
-        <div class="col-lg-4" [formGroup]="searchGroup">
-          <mat-select class="form-control" placeholder="Chọn khối" name="correctOption">
-            <mat-option value="1">Khối 10</mat-option>
-            <mat-option value="2">Khối 11</mat-option>
-            <mat-option value="3">Khối 12</mat-option>
+          <mat-select class="form-control" placeholder="Chọn khối" formControlName="searchLop" (selectionChange)="setValueLop($event)">
+            <mat-option value=10>Khối 10</mat-option>
+            <mat-option value=11>Khối 11</mat-option>
+            <mat-option value=12>Khối 12</mat-option>
           </mat-select>
           <small class="form-text text-muted"><b>Lọc</b> khối</small>
         </div>
@@ -59,7 +51,7 @@
                 class="svg-icon svg-icon-md svg-icon-primary">
               </span>
             </a>
-            <a matTooltip="Xóa" matTooltipPosition="after" class="btn btn-icon btn-light btn-hover-danger btn-sm" (click)="delete(item.Id)">
+            <a matTooltip="Xóa" matTooltipPosition="after" class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3" (click)="delete(item.Id)">
               <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
                 class="svg-icon svg-icon-md svg-icon-danger">
               </span>
@@ -70,6 +62,7 @@
                 class="svg-icon svg-icon-md svg-icon-primary">
               </span>
             </a>
+            <a class="btn btn-warning" *ngIf="item.isExam === true" disabled>Đang active</a>
           </div>
         </div>
       </ng-container>
