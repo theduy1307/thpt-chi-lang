@@ -5,12 +5,12 @@ import { catchError, finalize, map, tap } from "rxjs/operators";
 import { HttpUtilsService } from "src/app/_global/_services/http-utils.service";
 import { ITableState, TableResponseModel, TableService } from "src/app/_metronic/shared/crud-table";
 import { environment } from "src/environments/environment";
-import { IBaiKiemTra_Group } from "../bai-kiem-tra-truc-tuyen-model/bai-kiem-tra-truc-tuyen.model";
+import { IBaiKiemTra_TrucTuyen_Group, IBaiKiemTra_TrucTuyen_HocSinh_ChiTiet } from "../bai-kiem-tra-truc-tuyen-model/bai-kiem-tra-truc-tuyen.model";
 
 const API_ROOT_URL = environment.ApiRoot + "/BaiKiemTraOnline";
 
 @Injectable({ providedIn: "root" })
-export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_Group> implements OnDestroy {
+export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_TrucTuyen_Group> implements OnDestroy {
   private _httpHeaders: HttpHeaders;
 
   constructor(@Inject(HttpClient) http, private httpUtils: HttpUtilsService) {
@@ -25,7 +25,7 @@ export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_Group> 
     this.initCallService();
     const request = this.find(this.tableState)
       .pipe(
-        tap((res: TableResponseModel<IBaiKiemTra_Group>) => {
+        tap((res: TableResponseModel<IBaiKiemTra_TrucTuyen_Group>) => {
           this.setItems(res.items);
           this.patchStateWithoutFetch({
             paginator: this.tableState.paginator.recalculatePaginator(res.total),
@@ -40,8 +40,8 @@ export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_Group> 
         }),
         finalize(() => {
           this.setLoading(false);
-          const itemIds = this.getItems.value.map((el: IBaiKiemTra_Group) => {
-            const item = el as unknown as IBaiKiemTra_Group;
+          const itemIds = this.getItems.value.map((el: IBaiKiemTra_TrucTuyen_Group) => {
+            const item = el as unknown as IBaiKiemTra_TrucTuyen_Group;
             return item.Id;
           });
           this.patchStateWithoutFetch({
@@ -53,9 +53,9 @@ export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_Group> 
     this.subscriptions.push(request);
   }
 
-  find(tableState: ITableState): Observable<TableResponseModel<IBaiKiemTra_Group>> {
+  find(tableState: ITableState): Observable<TableResponseModel<IBaiKiemTra_TrucTuyen_Group>> {
     return this.http
-      .post<any>(API_ROOT_URL + "/BaiKiemTra_List", tableState, {
+      .post<any>(API_ROOT_URL + "/BaiKiemTraOnline_List", tableState, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -63,7 +63,7 @@ export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_Group> 
           if (response.status === 0) {
             return { items: [], total: 0 };
           }
-          const result: TableResponseModel<IBaiKiemTra_Group> = {
+          const result: TableResponseModel<IBaiKiemTra_TrucTuyen_Group> = {
             items: response.data,
             total: response.page.TotalCount,
           };
@@ -77,7 +77,17 @@ export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_Group> 
   }
   getItemById(id: number): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/BaiKiemTraTrucTuyen_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/BaiKiemTraOnline_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+      catchError((err) => {
+        this.setErrorMess(err);
+        return of({});
+      }),
+      finalize(() => this.setLoading(false))
+    );
+  }
+  checkPassword(id: number, pass:string): Observable<any> {
+    this.initCallService();
+    return this.http.get(`${API_ROOT_URL}/BaiKiemTraOnline_checkPassword?id=${id}&pass=${pass}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});
@@ -86,42 +96,23 @@ export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_Group> 
     );
   }
 
-  create(item: any): Observable<any> {
+  // create(item: any): Observable<any> {
+  //   this.initCallService();
+  //   return this.http
+  //     .post<IBaiKiemTra_Group>(API_ROOT_URL + "/_Insert", item, {
+  //       headers: this._httpHeaders,
+  //     })
+  //     .pipe(
+  //       catchError((err) => {
+  //         this.setErrorMess(err);
+  //         return of({ id: undefined, data: undefined, status: 0 });
+  //       }),
+  //       finalize(() => this.setLoading(false))
+  //     );
+  // }
+  edit(id: number,IdQueston:number,eventValue:any): Observable<any> {
     this.initCallService();
-    return this.http
-      .post<IBaiKiemTra_Group>(API_ROOT_URL + "/_Insert", item, {
-        headers: this._httpHeaders,
-      })
-      .pipe(
-        catchError((err) => {
-          this.setErrorMess(err);
-          return of({ id: undefined, data: undefined, status: 0 });
-        }),
-        finalize(() => this.setLoading(false))
-      );
-  }
-  update(item: any): Observable<any> {
-    this.initCallService();
-    return this.http
-      .post<IBaiKiemTra_Group>(API_ROOT_URL + "/_Update", item, {
-        headers: this._httpHeaders,
-      })
-      .pipe(
-        catchError((err) => {
-          this.setErrorMess(err);
-          return of({
-            id: undefined,
-            data: undefined,
-            status: undefined,
-          });
-        }),
-        finalize(() => this.setLoading(false))
-      );
-  }
-
-  delete(id: any): Observable<any> {
-    this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/BaiKiemTra_Delete?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/BaiKiemTraOnline_Update?id=${id}&IdQueston=${IdQueston}&eventValue=${eventValue}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});
@@ -129,6 +120,17 @@ export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_Group> 
       finalize(() => this.setLoading(false))
     );
   }
+
+  // delete(id: any): Observable<any> {
+  //   this.initCallService();
+  //   return this.http.get(`${API_ROOT_URL}/BaiKiemTra_Delete?id=${id}`, { headers: this._httpHeaders }).pipe(
+  //     catchError((err) => {
+  //       this.setErrorMess(err);
+  //       return of({});
+  //     }),
+  //     finalize(() => this.setLoading(false))
+  //   );
+  // }
   print(id: number) {
     window.open(`${API_ROOT_URL}/_Print?id=${id}`);
   }

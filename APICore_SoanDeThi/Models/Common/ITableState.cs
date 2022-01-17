@@ -19,6 +19,7 @@ namespace APICore_SoanDeThi.Models.Common
         public PaginatorState paginator { get; set; }
         public SortState sorting { get; set; }
         public string searchTerm { get; set; } = "";
+        public string searchLop { get; set; }
         public GroupingState grouping { get; set; }
         //public int? entityId { get; set; }
     }

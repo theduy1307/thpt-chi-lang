@@ -99,7 +99,7 @@ namespace APICore_SoanDeThi.Controllers.Users
                         timeZone = "International Date Line West",
                         username = user.Username,
                         website = "https://keenthemes.com",
-                        allowCode = nhanvien.AllowCode
+                        allowCode = nhanvien.AllowCode,
                     };
 
                     userLogin.accessToken = GenerateJSONWebToken(userLogin);

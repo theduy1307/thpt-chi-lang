@@ -113,7 +113,7 @@ export class BaiKiemTraEditExamComponent implements OnInit {
       //empty data
       id: undefined, data: undefined, status: undefined,
       Id: this.item.Id,
-      Id_BaiKiemTra_Offline: undefined,
+      Id_BaiKiemTra_Offline: this.item.Id,
       TenBaiKiemTra: this.item.TenBaiKiemTra,
       SoLuongDe: this.item.SoLuongDe,
       CauBiet: this.item.CauBiet,
@@ -136,7 +136,7 @@ export class BaiKiemTraEditExamComponent implements OnInit {
       NgayThi: moment(new Date(this.formGroup.controls.NgayThi.value)).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
       GioThi: this.formGroup.controls.GioThi.value,
       Password: this.formGroup.controls.Password.value,
-      isExam: undefined
+      isExam: false
     }
     return result
   }
@@ -162,8 +162,32 @@ export class BaiKiemTraEditExamComponent implements OnInit {
     this.subscriptions.push(sbCreate);
   }
 
+  // Tạo random password
+  generatePassword(passwordLength) {
+    var numberChars = "0123456789";
+    var upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var lowerChars = "abcdefghijklmnopqrstuvwxyz";
+    var allChars = numberChars + upperChars + lowerChars;
+    var randPasswordArray = Array(passwordLength);
+    randPasswordArray[0] = numberChars;
+    randPasswordArray[1] = upperChars;
+    randPasswordArray[2] = lowerChars;
+    randPasswordArray = randPasswordArray.fill(allChars, 3);
+    return this.shuffleArray(randPasswordArray.map(function(x) { return x[Math.floor(Math.random() * x.length)] })).join('');
+  }
+  
+   shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+  }
+
   ValidateFormGroupEvent(controlName: string, formGroup: FormGroup, type: number, validation: string = '') {
     return FunctionPublic.ValidateFormGroupEvent(controlName, formGroup, type, validation)
   }
-
+  
 }

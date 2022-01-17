@@ -3,15 +3,17 @@ using System;
 using APICore_SoanDeThi.Models.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace APICore_SoanDeThi.Migrations
 {
     [DbContext(typeof(SoanDeThi_DbContext))]
-    partial class SoanDeThi_DbContextModelSnapshot : ModelSnapshot
+    [Migration("20220114051103_add_2bang_baikemtra_hocsinh")]
+    partial class add_2bang_baikemtra_hocsinh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

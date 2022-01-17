@@ -38,6 +38,7 @@ const EMPTY_DATA: IBaiKiemTra_Group = {
   NgaySua: "",
   TrangThai: undefined,
   IsDisabled: undefined,
+  IsCustom:undefined,
   DanhSachBaiHoc: [],
 };
 
@@ -59,7 +60,7 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
-  user:UserModel;
+  user:any;
   firstUserState: UserModel;
   LIST_ROLES_USER: number[] = [];
 
@@ -150,7 +151,7 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
   loadForm() {
     this.firstFormGroup = this.fb.group({
       tenBaiKiemTra: ["", Validators.required],
-      namHoc: [FunctionPublic.getFullYear(), Validators.required],
+      namHoc: ["", Validators.required],
       soLuongDe: [1, [Validators.required, Validators.min(1)]],
       thoiGianLamBai: [1, [Validators.required, Validators.min(1)]],
       hocKy: [""],
@@ -307,13 +308,14 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
       HocKy: parseInt(this.getfirstFormGroup("hocKy")),
       Lop: parseInt(this.getfirstFormGroup("lop")),
       NamHoc: this.getfirstFormGroup("namHoc"),
-      IdMonHoc: this.user.id,
-      NguoiTao: undefined,
+      IdMonHoc: this.user.groupId,
+      NguoiTao: this.user.id,
       NgayTao: moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
-      NguoiSua: undefined,
+      NguoiSua: 0,
       NgaySua: moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
       TrangThai: 1,
       IsDisabled: false,
+      IsCustom: false,
       DanhSachBaiHoc: this.prepareDanhSachBaiHoc(),
     };
     return result;

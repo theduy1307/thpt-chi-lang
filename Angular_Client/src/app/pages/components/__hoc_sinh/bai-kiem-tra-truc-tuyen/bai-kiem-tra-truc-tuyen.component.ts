@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { BehaviorSubject, Observable, of, Subscription } from "rxjs";
 import { catchError, debounceTime, distinctUntilChanged, finalize, first, tap } from "rxjs/operators";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {
   GroupingState,
   ICreateAction,
@@ -24,6 +24,7 @@ import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.servi
 import { AuthService, UserModel } from "src/app/modules/auth";
 import { BaiKiemTraTrucTuyenService } from "./bai-kiem-tra-truc-tuyen-service/bai-kiem-tra-truc-tuyen.service";
 import { PasswordComponent } from "./components/password/password.component";
+import { BaiKiemTraTrucTuyenDetailComponent } from "./bai-kiem-tra-truc-tuyen-detail/bai-kiem-tra-truc-tuyen-detail.component";
 
 export interface PeriodicElement {
   name: string;
@@ -49,7 +50,7 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
   filterGroup: FormGroup;
   searchGroup: FormGroup;
   private subscriptions: Subscription[] = [];
-
+  public modal: NgbActiveModal
   displayedColumns: string[] = ["position", "name", "weight", "symbol"];
   /* ------------------------------------------------------------------*/
 
@@ -132,86 +133,16 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
     this.services.patchState({ paginator });
   }
 
-  // Chuẩn hóa dữ liệu
-  formatData(value: string): string {
-    value = value
-      .replace(/<[^>]*>/g, "")
-      .replace(/\s{2,}/g, "")
-      .replace("&nbsp;", "")
-      .trim();
-    if (value.length > 70) {
-      value = value.slice(0, 70) + "...";
-    }
-    return value;
-  }
-  delete(id: number) {
-    const modalRef = this.modalService.open(DeleteModalComponent);
+
+  
+  checkPassword(id : number) {
+    const modalRef = this.modalService.open(PasswordComponent, { size: 'xl' });
     modalRef.componentInstance.id = id;
-    modalRef.componentInstance.title = "Xóa dữ liệu";
-    modalRef.componentInstance.message = "Bạn có chắc muốn xóa dữ liệu này?";
-    modalRef.componentInstance.loadingMsg = "";
-    modalRef.componentInstance.submitButtonMsg = "Xác nhận";
-    modalRef.componentInstance.cancelButtonMsg = "Đóng";
-    modalRef.result.then(
-      (result) => {
-        if (result) {
-          const sb = this.services
-            .delete(id)
-            .pipe(
-              tap(() => this.services.fetch()),
-              catchError((err) => {
-                return of(undefined);
-              })
-            )
-            .subscribe((res) => {
-              if (res && res.status == 1) {
-                this.layoutUtilsService.openSnackBar("Xóa dữ liệu thành công", "Đóng");
-              } else {
-                this.layoutUtilsService.openSnackBar("Xóa dữ liệu thất bại, vui lòng kiểm tra thông tin", "Đóng");
-              }
-            });
-          this.subscriptions.push(sb);
-        }
-      },
-      () => {}
+    modalRef.result.then(() =>
+      this.services.fetch(),
+      () => { }
     );
   }
-  openPassword(id:number) {
-    const modalRef = this.modalService.open(PasswordComponent, {
-      size: "xs",
-      centered:true
-      // backdrop: "static",
-      // keyboard: false,
-    });
-  }
-  // deleteSelected() {
-  //   const modalRef = this.modalService.open(DeleteManyModalComponent);
-  //   modalRef.componentInstance.title = "Xóa dữ liệu";
-  //   modalRef.componentInstance.message = "Bạn có chắc muốn xóa các dữ liệu này?";
-  //   modalRef.componentInstance.loadingMsg = "";
-  //   modalRef.componentInstance.submitButtonMsg = "Xác nhận";
-  //   modalRef.componentInstance.cancelButtonMsg = "Đóng";
-  //   modalRef.result.then((result) => {
-  //     if(result){
-  //       const sb = this.services.deleteItems(this.grouping.getSelectedRows()).pipe(
-  //         tap(() =>
-  //           this.services.fetch()
-  //         ),
-  //         catchError((err) => {
-  //           return of(undefined);
-  //         })
-  //       ).subscribe(res =>{
-  //         if(res && res.status == 1){
-  //           this.layoutUtilsService.openSnackBar("Xóa dữ liệu thành công","Đóng");
-  //         }else{
-  //           this.layoutUtilsService.openSnackBar("Xóa dữ liệu thất bại, vui lòng kiểm tra thông tin","Đóng");
-  //         }
-  //       });
-  //       this.subscriptions.push(sb);
-  //     }
-  //   },
-  //   () => { });
-  // }
   print(id: number) {
     this.services.print(id);
   }

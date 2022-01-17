@@ -45,9 +45,9 @@
         </div>
       </div>
       <!-- End Search Filter -->
-      <div class="card-body d-flex flex-row bd-highlight flex-wrap justify-content-between">
+      <div class="card-body bd-highlight" style="">
         <ng-container *ngFor="let item of services.items$ | async; let i = index">
-            <div class="card mb-3 mr-3" style="width: 30%">
+            <div class="card mb-3 mr-3" style="width: 30%; float:left;">
               <div class="card-body">
                 <h5 class="card-title">{{ item.TenBaiKiemTra }} ({{item.NamHoc}})</h5>
                 <p class="card-text">Số lượng đề: {{ item.SoLuongDe }} đề</p>
@@ -57,7 +57,7 @@
                 <li class="list-group-item">Thời gian làm bài: {{item.ThoiGianLamBai}} (phút)</li>
               </ul>
               <div class="card-body text-center">
-                <button class="btn btn-primary" (click)="openPassword(item.Id)">Bắt đầu làm bài</button>
+                <button class="btn btn-primary" (click) = "checkPassword(item.Id)">Bắt đầu làm bài</button>
               </div>
             </div>
         </ng-container>

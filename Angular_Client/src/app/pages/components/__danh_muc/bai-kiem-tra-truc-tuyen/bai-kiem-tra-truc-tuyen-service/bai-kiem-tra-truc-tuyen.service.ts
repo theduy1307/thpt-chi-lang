@@ -7,7 +7,7 @@ import { ITableState, TableResponseModel, TableService } from "src/app/_metronic
 import { environment } from "src/environments/environment";
 import { IBaiKiemTra_Group } from "../bai-kiem-tra-truc-tuyen-model/bai-kiem-tra-truc-tuyen.model";
 
-const API_ROOT_URL = environment.ApiRoot + "/BaiKiemTraOnline";
+const API_ROOT_URL = environment.ApiRoot + "/ListBaiKiemTraOnline";
 
 @Injectable({ providedIn: "root" })
 export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_Group> implements OnDestroy {
@@ -55,7 +55,7 @@ export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_Group> 
 
   find(tableState: ITableState): Observable<TableResponseModel<IBaiKiemTra_Group>> {
     return this.http
-      .post<any>(API_ROOT_URL + "/BaiKiemTraOnline_List", tableState, {
+      .post<any>(API_ROOT_URL + "/ListBaiKiemTraOnline_List", tableState, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -75,7 +75,7 @@ export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_Group> 
         })
       );
   }
-  getItemById(id: number): Observable<any> {
+  getItemById(id: number): Observable<any> { // sắp sửa lại
     this.initCallService();
     return this.http.get(`${API_ROOT_URL}/BaiKiemTraTrucTuyen_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
@@ -89,7 +89,7 @@ export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_Group> 
   create(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<IBaiKiemTra_Group>(API_ROOT_URL + "/_Insert", item, {
+      .post<IBaiKiemTra_Group>(API_ROOT_URL + "/ListBaiKiemTraOnline_Add", item, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -121,7 +121,17 @@ export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_Group> 
 
   delete(id: any): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/BaiKiemTra_Delete?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/ListBaiKiemTraOnline_Delete?id=${id}`, { headers: this._httpHeaders }).pipe(
+      catchError((err) => {
+        this.setErrorMess(err);
+        return of({});
+      }),
+      finalize(() => this.setLoading(false))
+    );
+  }
+  active(id: any): Observable<any> {
+    this.initCallService();
+    return this.http.get(`${API_ROOT_URL}/ListBaiKiemTraOnline_Active?id=${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});

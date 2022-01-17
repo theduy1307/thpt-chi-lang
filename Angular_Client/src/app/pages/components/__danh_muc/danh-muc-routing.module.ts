@@ -24,41 +24,6 @@ const routes: Routes = [
     path: "",
     component: DanhMucComponent,
     children: [
-      //Điều khoản mẫu
-      {
-        path: "dieu-khoan-mau",
-        component: DieuKhoanMauComponent,
-      },
-      //Hạn mục chiết khấu
-      {
-        path: "han-muc-chiet-khau",
-        component: HanMucChietKhauComponent,
-      },
-      // loại hợp đồng
-      {
-        path: "loai-hop-dong",
-        component: LoaiHopDongComponent,
-      },
-      // hợp đồng mẫu
-      {
-        path: "hop-dong-mau",
-        component: HopDongMauComponent,
-      },
-      // tạo mới hợp đồng mẫu
-      {
-        path: "hop-dong-mau/create",
-        component: HopDongMauAddComponent,
-      },
-      // chỉnh sửa hợp đồng mẫu
-      {
-        path: "hop-dong-mau/edit/:id",
-        component: HopDongMauEditComponent,
-      },
-      // chi tiết hợp đồng mẫu
-      {
-        path: "hop-dong-mau/detail/:id",
-        component: HopDongMauDetailComponent,
-      },
       // danh sách câu hỏi
       {
         path: "cau-hoi",

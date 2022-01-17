@@ -20,6 +20,7 @@ export interface IBaiKiemTra_Group extends BaseModel {
   NgaySua: string;
   TrangThai: number;
   IsDisabled: boolean;
+  IsCustom:boolean;
   DanhSachBaiHoc: IBaiHoc[];
 }
 export interface IBaiHoc {
@@ -51,6 +52,7 @@ export const EMPTY_DATA:IBaiKiemTra_Group = {
   NgaySua: "",
   TrangThai: undefined,
   IsDisabled: undefined,
+  IsCustom: undefined,
   DanhSachBaiHoc: []
 }
 

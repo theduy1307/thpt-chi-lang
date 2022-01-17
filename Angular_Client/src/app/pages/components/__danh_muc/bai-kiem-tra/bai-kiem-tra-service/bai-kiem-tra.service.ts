@@ -8,7 +8,7 @@ import { environment } from "src/environments/environment";
 import { IBaiKiemTra_Group, IBaiKiemTra_TrucTuyen_Group } from "../bai-kiem-tra-model/bai-kiem-tra.model";
 
 const API_ROOT_URL = environment.ApiRoot + "/BaiKiemTra";
-const API_ROOT_URL_BaiKiemTraOnline = environment.ApiRoot + "/BaiKiemTraOnline";
+const API_ROOT_URL_BaiKiemTraOnline = environment.ApiRoot + "/ListBaiKiemTraOnline";
 
 @Injectable({ providedIn: "root" })
 export class BaiKiemTraService extends TableService<IBaiKiemTra_Group> implements OnDestroy {
@@ -104,7 +104,7 @@ export class BaiKiemTraService extends TableService<IBaiKiemTra_Group> implement
   createOnlineExam(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<IBaiKiemTra_TrucTuyen_Group>(environment.ApiRoot + "/BaiKiemTraOnline" + "/_Insert", item, {
+      .post<IBaiKiemTra_TrucTuyen_Group>(environment.ApiRoot + "/ListBaiKiemTraOnline" + "/ListBaiKiemTraOnline_Add", item, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -118,7 +118,7 @@ export class BaiKiemTraService extends TableService<IBaiKiemTra_Group> implement
   editOnlineExam(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<IBaiKiemTra_TrucTuyen_Group>(environment.ApiRoot + "/BaiKiemTraOnline" + "/_Edit", item, {
+      .post<IBaiKiemTra_TrucTuyen_Group>(environment.ApiRoot + "/ListBaiKiemTraOnline" + "/ListBaiKiemTraOnline_Edit", item, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -131,7 +131,7 @@ export class BaiKiemTraService extends TableService<IBaiKiemTra_Group> implement
   }
   getItemByIdOnlineExam(id: number): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL_BaiKiemTraOnline}/_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL_BaiKiemTraOnline}/ListBaiKiemTraOnline_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});
