@@ -10,7 +10,8 @@ import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.servi
 import { DeleteModalComponent } from "../../../_common/_components/delete-modal/delete-modal.component";
 import { FunctionPublic } from "../../../_common/_function/public-function";
 import { DungChungService } from "../../../_common/_services/dung-chung.service";
-import { FileImport, IAccount } from "../quan-li-tai-khoan-hoc-sinh-model/quan-li-tai-khoan-hoc-sinh-model";
+import { FileImport } from "../../../__danh_muc/hop-dong-mau/hop-dong-mau-model/hop-dong-mau.model";
+import { IAccount } from "../quan-li-tai-khoan-hoc-sinh-model/quan-li-tai-khoan-hoc-sinh-model";
 import { AccountStudentService } from "../quan-li-tai-khoan-hoc-sinh-services/quan-li-tai-khoan-hoc-sinh-services";
 
 @Component({
@@ -27,11 +28,6 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
   data: IAccount;
   informationFormGroup: FormGroup;
 
-  flagFileDownload: any;
-  fileToUpload: File | null = null;
-  fileToUpLoadName: string | "";
-  flagFileImport: FileImport = new FileImport();
-
   user: UserModel;
   firstUserState: UserModel;
   LIST_ROLES_USER: number[] = [];
@@ -42,7 +38,7 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
   listBoMonFilterCtrl: string = "";
 
   private subscriptions: Subscription[] = [];
-  
+
   constructor(
     private services: AccountStudentService,
     private commonService: DungChungService,
@@ -80,44 +76,47 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
     this.data = this.initialData();
   }
 
-  initialData():IAccount {
-    const INIT_DATA:IAccount = {
-      id:undefined, status:undefined, data: undefined,
+  initialData(): IAccount {
+    const INIT_DATA: IAccount = {
+      id: undefined,
+      status: undefined,
+      data: undefined,
       Id: undefined,
-    IdNv: undefined,
-    Manv: "",
-    Holot: "",
-    Ten: "",
-    HoTen: "",
-    Phai: "",
-    Ngaysinh: "",
-    Email: "",
-    IdChucdanh: undefined,
-    TenChucDanh: "",
-    LoaiTaiKhoan: undefined,
-    Disable: undefined,
-    SodienthoaiNguoilienhe: "",
-    Cocauid: undefined,
-    TenCoCau: "",
-    Username: "",
-    Password: "",
-    FileImport: undefined,
-    Picture: "",
-    Role: []
-    }   
-    return INIT_DATA; 
+      IdNv: undefined,
+      Manv: "",
+      Holot: "",
+      Ten: "",
+      HoTen: "",
+      Phai: "",
+      Ngaysinh: "",
+      Email: "",
+      IdChucdanh: undefined,
+      TenChucDanh: "",
+      LoaiTaiKhoan: undefined,
+      Disable: undefined,
+      SodienthoaiNguoilienhe: "",
+      Cocauid: undefined,
+      TenCoCau: "",
+      Username: "",
+      Password: "",
+      FileImport: undefined,
+      Picture: "",
+      Lop: "",
+      Role: [],
+    };
+    return INIT_DATA;
   }
 
   loadForm() {
     this.informationFormGroup = this.fb.group({
-      hoLot: ["",  Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])],
-      ten: ["",  Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)])],
+      hoLot: ["", Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])],
+      ten: ["", Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)])],
       gioiTinh: ["1", Validators.required],
       ngaySinh: ["", Validators.required],
       email: ["", Validators.compose([Validators.required, Validators.email])],
-      sodienthoai: ["",  Validators.compose([Validators.required, Validators.maxLength(10)])],
+      sodienthoai: ["", Validators.compose([Validators.required, Validators.maxLength(10)])],
     });
-  }  
+  }
 
   create() {
     const modalRef = this.modalService.open(DeleteModalComponent);
@@ -161,7 +160,7 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
       id: undefined,
       data: undefined,
       status: undefined,
-      Id:undefined,
+      Id: undefined,
       IdNv: undefined,
       Manv: "",
       Holot: formData.hoLot,
@@ -175,37 +174,37 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
       TenChucDanh: "",
       Disable: 0,
       Cocauid: 0,
-      TenCoCau:"",
+      TenCoCau: "",
       SodienthoaiNguoilienhe: formData.sodienthoai,
       Username: this.setUsername(),
       Password: "thptchilang@123",
       Picture: "123",
-      FileImport: this.flagFileImport,
-      Role:[]
+      Lop: "",
+      FileImport: new FileImport(),
+      Role: [],
     };
-    return data
+    return data;
   }
 
-  setUsername():string
-  {
+  setUsername(): string {
     const formData = this.informationFormGroup.value;
-    let firstName = this.splitFirstName(formData.hoLot)
+    let firstName = this.splitFirstName(formData.hoLot);
     let lastName = FunctionPublic.removeVietnameseTones(formData.ten);
     const username = `${firstName}.${lastName}`;
-    return username.toLowerCase()
+    return username.toLowerCase();
   }
 
-  splitFirstName(str:string):string
-  {
-    let firstName = FunctionPublic.removeVietnameseTones(str)
-    let newString:string = "";
-    firstName.split(" ").map(x=>{newString += x.charAt(0)})
+  splitFirstName(str: string): string {
+    let firstName = FunctionPublic.removeVietnameseTones(str);
+    let newString: string = "";
+    firstName.split(" ").map((x) => {
+      newString += x.charAt(0);
+    });
     return newString;
   }
 
-  formatDateApi(date)
-  {
-    return moment(new Date(date)).format("YYYY-MM-DD[T]HH:mm:ss.SSS")
+  formatDateApi(date) {
+    return moment(new Date(date)).format("YYYY-MM-DD[T]HH:mm:ss.SSS");
   }
   validateFormGroupEvent(controlName: string, formGroup: FormGroup, type: number, validation: string = "") {
     return FunctionPublic.ValidateFormGroupEvent(controlName, formGroup, type, validation);

@@ -77,7 +77,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 {
                     _rules = _tableState.filter["rules"];
                 }
-                var _data = _context.ViewNhanVien.Where(x => x.Disable != 1 && x.AllowCode != 1).Join(_context.ViewAccount, emp => emp.IdNv, acc => acc.IdNv, (emp, acc) => new { emp = emp, acc = acc })
+                var _data = _context.ViewNhanVien.Where(x => x.Disable != 1 && x.AllowCode != 4).Join(_context.ViewAccount, emp => emp.IdNv, acc => acc.IdNv, (emp, acc) => new { emp = emp, acc = acc })
                                                                             .Select(x => new IAccount { 
                                                                                 Id = x.acc.Id,
                                                                                 IdNv = x.emp.IdNv,
@@ -187,6 +187,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _item.Lastlogin = DateTime.Now;
                 _item.Lastpasschg = DateTime.Now;
                 _item.Email = data.Email;
+                _item.Password = EncryptPassword("thptchilang@123");
                 _item.Token = "2021091118030131";
                 _item.Loaitaikhoan = 1;
                 _item.Isadmin = 1;

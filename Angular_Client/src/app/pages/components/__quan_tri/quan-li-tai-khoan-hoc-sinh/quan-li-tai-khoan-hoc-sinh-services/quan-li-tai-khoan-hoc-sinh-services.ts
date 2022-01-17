@@ -101,6 +101,22 @@ export class AccountStudentService extends TableService<IAccount> implements OnD
         finalize(() => this.setLoading(false))
       );
   }
+
+  createImport(item: any): Observable<any> {
+    this.initCallService();
+    return this.http
+      .post<IAccount[]>(API_ROOT_URL + "/create-import", item, {
+        headers: this._httpHeaders,
+      })
+      .pipe(
+        catchError((err) => {
+          this.setErrorMess(err);
+          return of({ id: undefined, data: undefined, status: 0 });
+        }),
+        finalize(() => this.setLoading(false))
+      );
+  }
+
   update(item: any): Observable<any> {
     this.initCallService();
     return this.http
@@ -149,25 +165,7 @@ export class AccountStudentService extends TableService<IAccount> implements OnD
     return this.http.post<any>(API_ROOT_URL + "/import", formData, { headers: httpHeaders });
   }
 
-  donwLoadFileMauNCC() {
-    var request = new XMLHttpRequest();
-    var link = `${environment.ApiRoot}/DownloadFileImport_NhaCC`;
-    request.open("GET", link);
-
-    request.responseType = "arraybuffer";
-    request.onload = function (e) {
-      var name = "IMPORT_HOCSINH_MAU.xlsx";
-      var file = new Blob([this.response], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-      if (navigator.msSaveBlob) {
-        return navigator.msSaveBlob(file);
-      }
-      var a = document.createElement("a");
-      var url = window.URL.createObjectURL(file);
-      a.setAttribute("href", url);
-      a.setAttribute("download", name);
-      a.click();
-      window.URL.revokeObjectURL(url);
-    };
-    request.send();
-  }
+  downloadTemplate(): string {
+		return API_ROOT_URL + `/DownLoadFileImportMau`;
+	}
 }

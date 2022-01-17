@@ -20,6 +20,7 @@ using System.IO;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.Data;
+using System.Globalization;
 
 namespace APICore_SoanDeThi.Controllers.QuanTri
 {
@@ -81,20 +82,21 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                     _rules = _tableState.filter["rules"];
                 }
                 var _data = _context.ViewNhanVien.Where(x => x.Disable != 1 && x.AllowCode == 4).Join(_context.ViewAccount, emp => emp.IdNv, acc => acc.IdNv, (emp, acc) => new { emp = emp, acc = acc })
-                                                                            //.Join(_context.Lop, acc => acc.emp.IdLop, lop=>lop.Id, (acc, lop) => new { acc=acc, lop=lop})
+                                                                            .Join(_context.Lop, acc => acc.emp.IdLop, lop=>lop.Id, (acc, lop) => new { acc=acc, lop=lop})
                                                                             .Select(x => new IAccount { 
-                                                                                Id = x.acc.Id,
-                                                                                IdNv = x.emp.IdNv,
-                                                                                Holot = x.emp.Holot,
-                                                                                Ten = x.emp.Ten,
-                                                                                Phai = x.emp.Phai,
-                                                                                Ngaysinh = x.emp.Ngaysinh,
-                                                                                Email = x.emp.Email,
-                                                                                IdChucdanh = x.emp.IdChucdanh,
-                                                                                LoaiTaiKhoan = x.acc.Loaitaikhoan,
-                                                                                Cocauid = x.emp.Cocauid,
-                                                                                Username = x.acc.Username,
-                                                                                Picture = x.acc.Picture
+                                                                                Id = x.acc.acc.Id,
+                                                                                IdNv = x.acc.emp.IdNv,
+                                                                                Holot = x.acc.emp.Holot,
+                                                                                Ten = x.acc.emp.Ten,
+                                                                                Phai = x.acc.emp.Phai,
+                                                                                Ngaysinh = x.acc.emp.Ngaysinh,
+                                                                                Email = x.acc.emp.Email,
+                                                                                IdChucdanh = x.acc.emp.IdChucdanh,
+                                                                                LoaiTaiKhoan = x.acc.acc.Loaitaikhoan,
+                                                                                Cocauid = x.acc.emp.Cocauid,
+                                                                                Username = x.acc.acc.Username,
+                                                                                Picture = x.acc.acc.Picture,
+                                                                                Lop = x.lop.TenLop,
                                                                             });
 
                 if (!string.IsNullOrEmpty(_tableState.searchTerm))
@@ -182,12 +184,21 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _emp.AllowCode = 4;
                 _emp.isStudent = true;
 
+                long lop = _context.Lop.Where(x => x.TenLop.Equals(data.Lop)).Select(x => x.Id).FirstOrDefault();
+                if (lop == null)
+                {
+                    _context.Database.RollbackTransaction();
+                    return Utilities._responseData(0, "Lớp " + data.Lop + " không tồn tại trong hệ thống, vui lòng xem lại", null);
+                }
+                _emp.IdLop = lop;
+
                 _context.ViewNhanVien.Add(_emp);
                 _context.SaveChanges();
 
                 ViewAccount _item = new ViewAccount();
 
                 _item.Username = setNewUserName(data.Username, data.Username, 0);//string.IsNullOrEmpty(data.Username) ? "" : data.Username.ToString().Trim();
+                _item.Password = EncryptPassword("thptchilang@123");
                 _item.IdNv = _emp.IdNv;
                 _item.Lock = 0;
                 _item.Disable = 0;
@@ -196,7 +207,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _item.Email = data.Email;
                 _item.Token = "2021091118030131";
                 _item.Loaitaikhoan = 1;
-                _item.Isadmin = 1;
+                _item.Isadmin = 1;                
 
                 if(data.FileImport != null && !string.IsNullOrEmpty(data.FileImport.filename))
                 {
@@ -218,6 +229,85 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                     _item.Picture = _pathToSave + data.FileImport.filename + "." + data.FileImport.extension;
                 }
                 _context.ViewAccount.Add(_item);
+                _context.SaveChanges();
+
+                _context.Database.CommitTransaction();
+                return Utilities._responseData(1, "Thêm mới tài khoản thành công", data);
+
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Thêm mới thất bại, vui lòng kiểm tra lại! Lỗi: " + ex.Message, null);
+            }
+        }
+        #endregion
+
+        #region THÊM MỚI TÀI KHOẢN
+        [Route("create-import")]
+        //[Authorize(Roles = "10012")]
+        [HttpPost]
+        public BaseModel<object> Account_CreateImport([FromBody] List<IAccount> data)
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                if (data.Count == 0)
+                    return Utilities._responseData(0, "Vui lòng nhập tên đắng nhập", null);
+
+                _context.Database.BeginTransaction();
+
+                foreach(var item in data)
+                {
+                    ViewNhanVien _emp = new ViewNhanVien();
+                    _emp.Manv = "CK-HCM0310330";
+                    _emp.Holot = item.Holot;
+                    _emp.Ten = item.Ten;
+                    _emp.Phai = item.Phai;
+                    _emp.Ngaysinh = item.Ngaysinh;
+                    _emp.Email = string.IsNullOrEmpty(item.Email) ? "Không có" : item.Email;
+                    _emp.IdChucdanh = item.IdChucdanh;
+                    _emp.Disable = 0;
+                    _emp.SodienthoaiNguoilienhe = string.IsNullOrEmpty(item.SodienthoaiNguoilienhe) ? "Không có" : item.SodienthoaiNguoilienhe;
+                    _emp.Cocauid = item.Cocauid;
+                    _emp.AllowCode = 4;
+                    _emp.isStudent = true;
+                    var idLop = _context.Lop.Where(x => x.TenLop.Equals(item.Lop)).Select(x => x.Id).FirstOrDefault();
+
+                    if(idLop == null)
+                    {
+                        _context.Database.RollbackTransaction();
+                        return Utilities._responseData(0, "Lớp " + item.Lop + " không tồn tại trong hệ thống", null);
+                    }
+                    else
+                    {
+                        _emp.IdLop = idLop;
+                    }
+
+                    _context.ViewNhanVien.Add(_emp);
+                    _context.SaveChanges();
+
+                    ViewAccount _item = new ViewAccount();
+
+                    _item.Username = setNewUserName(item.Username, item.Username, 0);//string.IsNullOrEmpty(data.Username) ? "" : data.Username.ToString().Trim();
+                    _item.Password = EncryptPassword("thptchilang@123");
+                    _item.IdNv = _emp.IdNv;
+                    _item.Lock = 0;
+                    _item.Disable = 0;
+                    _item.Lastlogin = DateTime.Now;
+                    _item.Lastpasschg = DateTime.Now;
+                    _item.Email = string.IsNullOrEmpty(item.Email) ? "Không có" : item.Email;
+                    _item.Token = "2021091118030131";
+                    _item.Loaitaikhoan = 1;
+                    _item.Isadmin = 1;
+
+                    _context.ViewAccount.Add(_item);
+                }                
+
                 _context.SaveChanges();
 
                 _context.Database.CommitTransaction();
@@ -418,7 +508,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region Download file mẫu import nhà cung cấp new
-        [Route("ImportFileImport_NhaCC")]
+        [Route("import")]
         [HttpPost, DisableRequestSizeLimit]
 
         public async Task<BaseModel<object>> ImportFileImport_NhaCC()
@@ -480,25 +570,11 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
                         dataTable.Columns.Add("HoLot");
                         dataTable.Columns.Add("Ten");
-                        dataTable.Columns.Add("Phai");
-                        //dataTable.Columns.Add("IdLoaiNCC");
-                        //dataTable.Columns.Add("TenLoaiNCC");
-                        //dataTable.Columns.Add("IdNhomNCC");
-                        //dataTable.Columns.Add("TenNhomNCC");
-                        //dataTable.Columns.Add("DiaChi");
-                        //dataTable.Columns.Add("SDT");
-                        //dataTable.Columns.Add("Fax");
-                        //dataTable.Columns.Add("MaSoThue");
-                        //dataTable.Columns.Add("STK1");
-                        //dataTable.Columns.Add("NH1");
-                        //dataTable.Columns.Add("STK2");
-                        //dataTable.Columns.Add("NH2");
-                        //dataTable.Columns.Add("Email");
-                        //dataTable.Columns.Add("NguoiLH");
-                        //dataTable.Columns.Add("SDTNguoiLH");
-                        //dataTable.Columns.Add("SoNgayThanhToan");
-                        //dataTable.Columns.Add("XepLoai");
-                        //dataTable.Columns.Add("GhiChu");
+                        dataTable.Columns.Add("GioiTinh");
+                        dataTable.Columns.Add("NgaySinh");
+                        dataTable.Columns.Add("Lop");
+                        dataTable.Columns.Add("Khoi");
+                        dataTable.Columns.Add("SoDienThoai");
                         foreach (Row row in rows)
                         {
                             DataRow dataRow = dataTable.NewRow();
@@ -535,10 +611,24 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
                     foreach (DataRow row in dataTable.Rows)
                     {
+                        if(string.IsNullOrEmpty(row["HoLot"].ToString()) && string.IsNullOrEmpty(row["Ten"].ToString())
+                            && string.IsNullOrEmpty(row["GioiTinh"].ToString()) && string.IsNullOrEmpty(row["NgaySinh"].ToString())
+                            && string.IsNullOrEmpty(row["Lop"].ToString()) && string.IsNullOrEmpty(row["Khoi"].ToString())
+                            && string.IsNullOrEmpty(row["SoDienThoai"].ToString()))
+                        {
+                            break;
+                        }
                         IAccount ncc = new IAccount();
                         ncc.Holot = !string.IsNullOrEmpty(row["HoLot"].ToString()) ? row["HoLot"].ToString() : "";
-                        ncc.Ten = !string.IsNullOrEmpty(row["Ten"].ToString()) ? row["HoLot"].ToString() : "";
-                        ncc.Phai = !string.IsNullOrEmpty(row["Phai"].ToString()) ? row["Phai"].ToString() : "";
+                        ncc.Ten = !string.IsNullOrEmpty(row["Ten"].ToString()) ? row["Ten"].ToString() : "";
+                        ncc.Phai = !string.IsNullOrEmpty(row["GioiTinh"].ToString()) ? row["GioiTinh"].ToString() : "";
+
+                        //double date = Convert.ToDouble(row["NgaySinh"].ToString());
+                        //DateTime dt = DateTime.FromOADate(date); 
+                        ncc.Ngaysinh = !string.IsNullOrEmpty(row["NgaySinh"].ToString()) ? DateTime.FromOADate(Convert.ToDouble(row["NgaySinh"].ToString())) : DateTime.Now;
+                        
+                        ncc.Lop = !string.IsNullOrEmpty(row["Lop"].ToString()) ? row["Lop"].ToString() : "";
+                        ncc.SodienthoaiNguoilienhe = !string.IsNullOrEmpty(row["SoDienThoai"].ToString()) ? row["SoDienThoai"].ToString() : "";
                         //ncc.Id_LoaiNCC = !string.IsNullOrEmpty(row["IdLoaiNCC"].ToString()) ? (Regex.IsMatch(row["IdLoaiNCC"].ToString().ToLower(), Constant.REGEX_FORMAT_ONLYNUMBER) ? long.Parse(row["IdLoaiNCC"].ToString()) : 0) : 0;
                         //ncc.TenLoaiNCC = !string.IsNullOrEmpty(row["TenLoaiNCC"].ToString()) ? row["TenLoaiNCC"].ToString() : "";
                         //ncc.Id_NhomNCC = !string.IsNullOrEmpty(row["IdNhomNCC"].ToString()) ? (Regex.IsMatch(row["IdNhomNCC"].ToString().ToLower(), Constant.REGEX_FORMAT_ONLYNUMBER) ? int.Parse(row["IdNhomNCC"].ToString()) : 0) : 0;
@@ -580,6 +670,28 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
         #endregion
 
+        #region Download file mẫu
+        /// <summary>
+        /// Tải file import mẫu
+        /// </summary>
+        /// <returns></returns>
+        [Route("DownLoadFileImportMau")]
+        [HttpGet]
+        public FileResult DownLoadFileImportMauDynamic()
+        {
+            try
+            {
+                string fileName = "IMPORT_LOAINHACUNGCAP_MAU.xlsx";
+                string path = Path.Combine(_hosting.ContentRootPath, "DuLieu/Templates/IMPORT_HOCSINH_MAU.xlsx");
+                var fileExists = System.IO.File.Exists(path);
+                return PhysicalFile(path, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
         private string setNewUserName(string initialUsername, string? primaryUsername, int count)
         {
             string newUsername = initialUsername;

@@ -139,3 +139,5 @@ bin
 obj
 
 packages
+APICore_SoanDeThi/bin/Debug/net5.0/APICore_SoanDeThi.dll
+APICore_SoanDeThi/bin/Debug/net5.0/APICore_SoanDeThi.Views.dll

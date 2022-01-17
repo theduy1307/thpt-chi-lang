@@ -6,9 +6,8 @@
                 Thêm mới nhiều tài khoản học sinh
             </ng-container>
         </div>
-        <div class="card-toolbar">
-            <button type="button" class="btn btn-primary" (click)="fileUpload.click()">Import dữ diệu</button>
-            <div class="btn-group mr-3" *ngIf="!data.Id">
+        <div class="modal-action">
+            <div class="btn-group" *ngIf="!data.Id">
                 <button type="submit" class="btn btn-primary" (click)="fileUpload.click()">
                   Import dữ liệu
                 </button>
@@ -22,31 +21,38 @@
                 </div>
               </div>
             <input #fileUpload type="file" name="fileUpload" accept=".xlsx" (change)="FileSelected($event)" style="display: none">
+            <button class="btn btn-primary ml-3" (click)="create()">Thêm mới</button>
           </div>
     </div>
     <!-- End Header -->
 
     <!-- Body -->
-    <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px">
+    <div class="overlay overlay-block cursor-default modal-body">
         <ng-container *ngIf="isLoading$ | async">
             <div class="overlay-layer bg-transparent">
                 <div class="spinner spinner-lg spinner-success"></div>
             </div>
         </ng-container>
         <ng-container>
-            <table class="table table-sm">
+            <table class="table table-md">
                 <thead>
                     <tr>
                         <th scope="col">STT</th>
                         <th scope="col">Họ và tên</th>
+                        <th scope="col">Giới tính</th>
                         <th scope="col">Ngày sinh</th>
-                        <th scope="col">Khối</th>
                         <th scope="col">Lớp</th>
-                        <th scope="col">Số diện thoại liên hệ</th>
+                        <th scope="col">Số điện thoại</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr *ngFor="let item of listAccountImport; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{item.HoTen}}</td>
+                        <td>{{item.Phai}}</td>
+                        <td>{{item.Ngaysinh | date:'dd/MM/yyyy'}}</td>
+                        <td>{{item.Lop}}</td>
+                        <td>{{item.SodienthoaiNguoilienhe}}</td>
                     </tr>
                 </tbody>
             </table>

@@ -34,6 +34,6 @@ namespace APICore_SoanDeThi.Models.InteractionModels
         public string Password { get; set; }
         public FileImport FileImport { get; set; }
         public string? Picture { get; set; }
-
+        public string? Lop { get; set; }
     }
 }

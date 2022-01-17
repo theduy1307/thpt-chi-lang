@@ -19,9 +19,10 @@ export interface IAccount extends BaseModel {
     TenCoCau:string
     Username: string;
     Password: string;
-    FileImport: FileImport;
+    FileImport: any;
     Picture: string;
-    Role: number[]
+    Lop:string;
+    Role: number[];
 }
 
 export class AccountImport {
@@ -32,6 +33,7 @@ export class AccountImport {
     messageNgaysinh: string
     messageLoaiTaiKhoan: string
     messageSodienthoaiNguoilienhe: string;
+    messageLop: string;
     isError:boolean;
 
     clear() {
@@ -42,36 +44,11 @@ export class AccountImport {
         this.messageNgaysinh="";
         this.messageLoaiTaiKhoan="";
         this.messageSodienthoaiNguoilienhe= "";
+        this.messageLop= "";
         this.isError=false;
     }
 }
 
-export class FileImport {
-    idLoaiHH: number;
-    base64: string;
-    fileByte: any;
-    filename: string;
-    dienGiai: string;
-    extension: string;
-
-    clear() {
-        this.idLoaiHH = 0;
-        this.base64 = '';
-        this.fileByte = null;
-        this.filename = '';
-        this.dienGiai = '';
-        this.extension = '';
-    }
-
-    copy(item: FileImport) {
-        this.idLoaiHH = item.idLoaiHH;
-        this.base64 = item.base64;
-        this.fileByte = item.fileByte;
-        this.filename = item.filename;
-        this.dienGiai = item.dienGiai;
-        this.extension = item.extension;
-    }
-}
 
 export const EMPTY_DATA: IAccount = {
     id: undefined,
@@ -96,8 +73,9 @@ export const EMPTY_DATA: IAccount = {
     Username: "",
     Password: "",
     Picture: "",
-    FileImport: new FileImport(),
-    Role: []
+    FileImport: undefined,
+    Lop:"",
+    Role: [],
   };
 
 export class Account {
@@ -122,10 +100,11 @@ export class Account {
     TenCoCau:string
     Username: string;
     Password: string;
-    FileImport: FileImport;
+    FileImport: any;
     Picture: string;
     Role: number[];
     isError: boolean;
+    Lop: string;
 
     copy(item:Account) {
         this.id = item.id
@@ -152,6 +131,7 @@ export class Account {
         this.FileImport = item.FileImport
         this.Picture = item.Picture
         this.Role = item.Role
+        this.Lop = item.Lop
         this.isError = item.isError
     }
 }
