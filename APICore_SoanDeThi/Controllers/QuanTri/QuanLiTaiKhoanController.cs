@@ -225,7 +225,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
         #endregion
 
-        #region CẬP NHẬT BÀI KIỂM TRA
+        #region CẬP NHẬT TÀI KHOẢN
         [Route("update")]
         //[Authorize(Roles = "10013")]
         [HttpPost]
@@ -260,7 +260,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _emp.Ten = data.Ten;
                 _emp.Phai = data.Phai;
                 _emp.Ngaysinh = data.Ngaysinh;
-                _emp.Email = data.Email;
+                _emp.Email = data.Email;                
                 _emp.IdChucdanh = data.IdChucdanh;
                 _emp.SodienthoaiNguoilienhe = data.SodienthoaiNguoilienhe;
                 _emp.Cocauid = data.Cocauid;
@@ -407,6 +407,37 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             catch (Exception ex)
             {
                 return Utilities._responseData(0, "Cập nhật mật khẩu mới thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
+        #region KHÓA TÀI KHOẢN
+        [Route("lock")]
+        //[Authorize(Roles = "10014")]
+        [HttpGet]
+        public BaseModel<object> Account_Lock(long id)
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                var _item = _context.ViewAccount.Where(x => x.Id == id && x.Disable == 0).FirstOrDefault();
+                if (_item == null)
+                    return Utilities._responseData(0, "Không tìm thấy tài khoản cần cấp lại mật khẩu, vui lòng tải lại danh sách!!", null);
+
+                _item.Disable = 1;
+
+                _context.SaveChanges();
+
+                return Utilities._responseData(1, "Khóa tài khoản thành công", null);
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Khóa tài khoản thất bại, vui lòng kiểm tra lại!", null);
             }
         }
         #endregion

@@ -32,10 +32,11 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
   firstUserState: UserModel;
   LIST_ROLES_USER: number[] = [];
 
-  //Thông tin chương môn học
-  listBoMon: any[] = [];
-  filteredListBoMon: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
-  listBoMonFilterCtrl: string = "";
+  //Thông tin bài học
+  listLopHoc: any[] = [];
+  listFullLopHoc: any[] = [];
+  filteredListLopHoc: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+  listLopHocFilterCtrl: string = "";
 
   private subscriptions: Subscription[] = [];
 
@@ -63,14 +64,51 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading$ = this.services.isLoading$;
     this.loadData();
-    // this.loadListChuongMonHoc();
-    //this.loadListBoMon();
+    this.loadListLopHoc();
     this.loadForm();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((sb) => sb.unsubscribe());
   }
+
+  //#region DROPDOWN Tên chương
+  loadListLopHoc() {
+    this.commonService.getListLopHoc().subscribe((res) => {
+      if (res && res.status === 1) {
+        this.listLopHoc = res.data;
+        this.listFullLopHoc = res.data;
+        this.filteredListLopHoc.next(this.listLopHoc.slice());
+        this.changeDetectorRefs.detectChanges();
+      }
+    });
+  }
+  filterListLopHoc() {
+    if (!this.listLopHoc) {
+      return;
+    }
+    let search = this.listLopHocFilterCtrl;
+    if (!search) {
+      this.filteredListLopHoc.next(this.listLopHoc.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    this.filteredListLopHoc.next(this.listLopHoc.filter((ts) => ts.TenLoai.toLowerCase().indexOf(search) > -1));
+    this.changeDetectorRefs.detectChanges();
+  }
+  getNameLopHoc() {
+    var item = this.listLopHoc.find((res) => res.Id == +this.informationFormGroup.controls.lopHoc.value);
+    if (item) {
+      return item.TenLop;
+    }
+    return "";
+  }
+  setValueLopHoc(event: any) {
+    let item = this.listLopHoc.find((x) => x.Id === parseInt(event.value));
+    this.informationFormGroup.controls["lopHoc"].setValue(item.Id.toString())
+  }
+  //#endregion
 
   loadData() {
     this.data = this.initialData();
@@ -113,7 +151,7 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
       ten: ["", Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)])],
       gioiTinh: ["1", Validators.required],
       ngaySinh: ["", Validators.required],
-      email: ["", Validators.compose([Validators.required, Validators.email])],
+      lopHoc: ["", Validators.compose([Validators.required])],
       sodienthoai: ["", Validators.compose([Validators.required, Validators.maxLength(10)])],
     });
   }
@@ -140,12 +178,7 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
               })
             )
             .subscribe((res: any) => {
-              if (res && res.status == 1) {
-                this.data = res.data;
                 this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
-              } else {
-                this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
-              }
             });
           this.subscriptions.push(sbCreate);
         }
@@ -163,12 +196,12 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
       Id: undefined,
       IdNv: undefined,
       Manv: "",
-      Holot: formData.hoLot,
-      Ten: formData.ten,
+      Holot: this.upperCaseFirstCharacter(formData.hoLot),
+      Ten: this.upperCaseFirstCharacter(formData.ten),
       HoTen: "",
       Phai: formData.gioiTinh,
       Ngaysinh: this.formatDateApi(formData.ngaySinh),
-      Email: formData.email,
+      Email: "Không có",
       IdChucdanh: 0,
       LoaiTaiKhoan: 0,
       TenChucDanh: "",
@@ -179,7 +212,7 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
       Username: this.setUsername(),
       Password: "thptchilang@123",
       Picture: "123",
-      Lop: "",
+      Lop: formData.lopHoc,
       FileImport: new FileImport(),
       Role: [],
     };
@@ -201,6 +234,17 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
       newString += x.charAt(0);
     });
     return newString;
+  }
+
+  upperCaseFirstCharacter(str:string) {
+    if(str.length == 0 ) return ""
+    let arrName = str.split(" ");
+    let newString = "";
+    arrName.map(elm => {
+      elm =  elm.charAt(0).toUpperCase() + elm.slice(1);
+      newString += elm+ " ";
+    })
+    return newString.trim();
   }
 
   formatDateApi(date) {

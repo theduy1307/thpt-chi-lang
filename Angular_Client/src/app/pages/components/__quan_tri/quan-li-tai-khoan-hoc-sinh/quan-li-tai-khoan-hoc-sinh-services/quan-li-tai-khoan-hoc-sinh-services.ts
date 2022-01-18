@@ -7,7 +7,7 @@ import { ITableState, TableResponseModel, TableService } from "src/app/_metronic
 import { environment } from "src/environments/environment";
 import { IAccount } from "../quan-li-tai-khoan-hoc-sinh-model/quan-li-tai-khoan-hoc-sinh-model";
 
-const API_ROOT_URL = environment.ApiRoot + "/account-student";
+const API_ROOT_URL = environment.ApiRoot + "/Account_Student";
 
 @Injectable({ providedIn: "root" })
 export class AccountStudentService extends TableService<IAccount> implements OnDestroy {
@@ -56,7 +56,7 @@ export class AccountStudentService extends TableService<IAccount> implements OnD
 
   find(tableState: ITableState): Observable<TableResponseModel<IAccount>> {
     return this.http
-      .post<any>(API_ROOT_URL + "/account_list", tableState, {
+      .post<any>(API_ROOT_URL + "/Account_List", tableState, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -78,7 +78,7 @@ export class AccountStudentService extends TableService<IAccount> implements OnD
   }
   getItemById(id: number): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/account_detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/Account_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});
@@ -90,7 +90,7 @@ export class AccountStudentService extends TableService<IAccount> implements OnD
   create(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<IAccount>(API_ROOT_URL + "/create", item, {
+      .post<IAccount>(API_ROOT_URL + "/Account_Create", item, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -105,7 +105,7 @@ export class AccountStudentService extends TableService<IAccount> implements OnD
   createImport(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<IAccount[]>(API_ROOT_URL + "/create-import", item, {
+      .post<IAccount[]>(API_ROOT_URL + "/Account_CreateImport", item, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -120,7 +120,7 @@ export class AccountStudentService extends TableService<IAccount> implements OnD
   update(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<IAccount>(API_ROOT_URL + "/update", item, {
+      .post<IAccount>(API_ROOT_URL + "/Account_Update", item, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -148,7 +148,7 @@ export class AccountStudentService extends TableService<IAccount> implements OnD
   }
   resetPassword(id: any): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/reset_password?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/Account_ResetPassword?id=${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});
@@ -162,10 +162,10 @@ export class AccountStudentService extends TableService<IAccount> implements OnD
     const formData: FormData = new FormData();
     formData.append("File", fileUpload, fileUpload.name);
     const httpHeaders = this._httpHeaders;
-    return this.http.post<any>(API_ROOT_URL + "/import", formData, { headers: httpHeaders });
+    return this.http.post<any>(API_ROOT_URL + "/Account_Import", formData, { headers: httpHeaders });
   }
 
   downloadTemplate(): string {
-		return API_ROOT_URL + `/DownLoadFileImportMau`;
+		return API_ROOT_URL + `/Account_DownLoadTemplate`;
 	}
 }

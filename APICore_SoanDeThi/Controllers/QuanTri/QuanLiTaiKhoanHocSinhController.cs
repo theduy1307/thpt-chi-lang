@@ -24,7 +24,7 @@ using System.Globalization;
 
 namespace APICore_SoanDeThi.Controllers.QuanTri
 {
-    [Route("api/account-student")]
+    [Route("api/Account_Student")]
     [EnableCors("ExamPolicy")]
     public class QuanLiTaiKhoanHocSinhController : ControllerBase
     {
@@ -40,8 +40,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             _account = new LoginController();
         }
 
-        #region DANH SÁCH NGƯỜI DÙNG
-        [Route("account_list")]
+        #region DANH SÁCH HỌC SINH
+        [Route("Account_List")]
         //[Authorize(Roles = "")]
         [HttpPost]
         public BaseModel<object> Account_List([FromBody] ITableState _tableState)
@@ -152,7 +152,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region THÊM MỚI TÀI KHOẢN
-        [Route("create")]
+        [Route("Account_Create")]
         //[Authorize(Roles = "10012")]
         [HttpPost]
         public BaseModel<object> Account_Create([FromBody] IAccount data)
@@ -179,18 +179,11 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _emp.Email = data.Email;
                 _emp.IdChucdanh = data.IdChucdanh;
                 _emp.Disable = 0;
+                _emp.IdLop = Convert.ToInt32(data.Lop);
                 _emp.SodienthoaiNguoilienhe = data.SodienthoaiNguoilienhe;
                 _emp.Cocauid = data.Cocauid;
                 _emp.AllowCode = 4;
                 _emp.isStudent = true;
-
-                long lop = _context.Lop.Where(x => x.TenLop.Equals(data.Lop)).Select(x => x.Id).FirstOrDefault();
-                if (lop == null)
-                {
-                    _context.Database.RollbackTransaction();
-                    return Utilities._responseData(0, "Lớp " + data.Lop + " không tồn tại trong hệ thống, vui lòng xem lại", null);
-                }
-                _emp.IdLop = lop;
 
                 _context.ViewNhanVien.Add(_emp);
                 _context.SaveChanges();
@@ -243,7 +236,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region THÊM MỚI TÀI KHOẢN
-        [Route("create-import")]
+        [Route("Account_CreateImport")]
         //[Authorize(Roles = "10012")]
         [HttpPost]
         public BaseModel<object> Account_CreateImport([FromBody] List<IAccount> data)
@@ -322,7 +315,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region CẬP NHẬT BÀI KIỂM TRA
-        [Route("update")]
+        [Route("Account_Update")]
         //[Authorize(Roles = "10013")]
         [HttpPost]
         public BaseModel<object> BaiKiemTra_Update([FromBody] IAccount data)
@@ -407,7 +400,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region LẤY CHI TIẾT CÂU HỎI
-        [Route("account_detail")]
+        [Route("Account_Detail")]
         //[Authorize(Roles = "10014")]
         [HttpGet]
         public BaseModel<object> Account_Detail(long id)
@@ -420,26 +413,6 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
             try
             {
-                //var _item = _context.Question.Where(x => x.Id == id && !x.IsDisabled)
-                //                            .Join(_context.BaiHoc, question => question.IdBaiHoc, subject => subject.Id, (question, subject) => new { question, subject })
-                //                            .Join(_context.ChuongMonHoc, question => question.subject.IdChuong, chapter => chapter.Id, (question, chapter) => new { question, chapter })
-                //                            .Join(_context.ViewNhanVien, question => question.question.question.CreateBy, emp => emp.IdNv, (question, emp) => new { question, emp })
-                //                            .Select(x => new IQuestion
-                //                            {
-                //                                Id = x.question.question.question.Id,
-                //                                Title = x.question.question.question.Title,
-                //                                OptionA = x.question.question.question.OptionA,
-                //                                OptionB = x.question.question.question.OptionB,
-                //                                OptionC = x.question.question.question.OptionC,
-                //                                OptionD = x.question.question.question.OptionD,
-                //                                Class = x.question.chapter.Lop,
-                //                                CorrectOption = x.question.question.question.CorrectOption,
-                //                                TenNguoiTao = x.emp.HoTen,
-                //                                IdBaiHoc = x.question.question.question.IdBaiHoc,
-                //                                TenBaiHoc = x.question.question.subject.TenBaiHoc,
-                //                                TenChuong = x.question.chapter.TenChuong,
-                //                                Level = x.question.question.question.Level,
-                //                            }).FirstOrDefault();
                 var _item = _context.ViewAccount.Where(x => x.Id == id && x.Disable == 0)
                                                 .Join(_context.ViewNhanVien, acc => acc.IdNv, emp => emp.IdNv, (acc, emp) => new { acc, emp })
                                                 .Join(_context.MonHoc, acc => acc.emp.Cocauid, org => org.Id, (acc, org) => new { acc, org })
@@ -477,7 +450,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region CẤP LẠI MẬT KHẨU
-        [Route("reset_password")]
+        [Route("Account_ResetPassword")]
         //[Authorize(Roles = "10014")]
         [HttpGet]
         public BaseModel<object> Account_ResetPassword(long id)
@@ -507,8 +480,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
         #endregion
 
-        #region Download file mẫu import nhà cung cấp new
-        [Route("import")]
+        #region IMPORT EXCEL
+        [Route("Account_Import")]
         [HttpPost, DisableRequestSizeLimit]
 
         public async Task<BaseModel<object>> ImportFileImport_NhaCC()
@@ -627,7 +600,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                         //DateTime dt = DateTime.FromOADate(date); 
                         ncc.Ngaysinh = !string.IsNullOrEmpty(row["NgaySinh"].ToString()) ? DateTime.FromOADate(Convert.ToDouble(row["NgaySinh"].ToString())) : DateTime.Now;
                         
-                        ncc.Lop = !string.IsNullOrEmpty(row["Lop"].ToString()) ? row["Lop"].ToString() : "";
+                        ncc.Lop = !string.IsNullOrEmpty(row["Lop"].ToString()) ? row["Lop"].ToString() : "";  
                         ncc.SodienthoaiNguoilienhe = !string.IsNullOrEmpty(row["SoDienThoai"].ToString()) ? row["SoDienThoai"].ToString() : "";
                         //ncc.Id_LoaiNCC = !string.IsNullOrEmpty(row["IdLoaiNCC"].ToString()) ? (Regex.IsMatch(row["IdLoaiNCC"].ToString().ToLower(), Constant.REGEX_FORMAT_ONLYNUMBER) ? long.Parse(row["IdLoaiNCC"].ToString()) : 0) : 0;
                         //ncc.TenLoaiNCC = !string.IsNullOrEmpty(row["TenLoaiNCC"].ToString()) ? row["TenLoaiNCC"].ToString() : "";
@@ -670,18 +643,18 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
         #endregion
 
-        #region Download file mẫu
+        #region DOWNLOAD FILE MẪU
         /// <summary>
         /// Tải file import mẫu
         /// </summary>
-        /// <returns></returns>
-        [Route("DownLoadFileImportMau")]
+        /// <returns> File Excel </returns>
+        [Route("Account_DownLoadTemplate")]
         [HttpGet]
         public FileResult DownLoadFileImportMauDynamic()
         {
             try
             {
-                string fileName = "IMPORT_LOAINHACUNGCAP_MAU.xlsx";
+                string fileName = "IMPORT_HOCSINH_MAU.xlsx";
                 string path = Path.Combine(_hosting.ContentRootPath, "DuLieu/Templates/IMPORT_HOCSINH_MAU.xlsx");
                 var fileExists = System.IO.File.Exists(path);
                 return PhysicalFile(path, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
@@ -692,6 +665,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             }
         }
         #endregion
+
         private string setNewUserName(string initialUsername, string? primaryUsername, int count)
         {
             string newUsername = initialUsername;
