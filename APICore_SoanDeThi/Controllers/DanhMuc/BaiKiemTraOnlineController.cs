@@ -98,7 +98,8 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                                                       TrangThai = x.kiemtra.TrangThai,
                                                       ThoiGianLamBai = x.kiemtra.ThoiGianLamBai,
                                                       NgayTao = x.kiemtra.NgayTao,
-                                                  });
+                                                      TrangThai_BaiKiemTraOnline = 1
+                                                  }) ;
 
 
                 if (!string.IsNullOrEmpty(_tableState.searchTerm))
@@ -166,7 +167,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
             try
             {
-                var detail_BaiKiemTrai = _context.BaiKiemTra_TrucTuyen_Group.Where(x => x.Id == id).FirstOrDefault();
+                var detail_BaiKiemTra = _context.BaiKiemTra_TrucTuyen_Group.Where(x => x.Id == id).FirstOrDefault();
                 var _pickDe = _context.BaiKiemTra_TrucTuyen.Where(x => x.IdGroup == id)
                                                             .Select(x => new IBaiKiemTra_TrucTuyen
                                                             {
@@ -177,44 +178,89 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 Random r = new Random();
                 int a = r.Next(0, _pickDe.Count());
                 var _MaDe = _pickDe[a].MaDe;
-                // clone ra 2 bảng BaiKiemTra_TrucTuyen_HocSinh và BaiKiemTra_TrucTuyen_HocSinh_ChiTiet
-                BaiKiemTra_TrucTuyen_HocSinh hocsinh = new BaiKiemTra_TrucTuyen_HocSinh();
-                hocsinh.IdHocSinh = loginData.id;
-                hocsinh.IdBaiKiemTraOnline = _pickDe[a].Id;
-                _context.BaiKiemTra_TrucTuyen_HocSinh.Add(hocsinh);
-                _context.SaveChanges();
+                var AA = _context.BaiKiemTra_TrucTuyen_HocSinh.Where(x => x.IdHocSinh == loginData.id).ToList();
+                var checkExist = AA.Join(_pickDe,
+                    a => a.IdBaiKiemTraOnline,
+                    b => b.Id,
+                    (a, b) => new { a, b })
+                    .Select(k => new IBaiKiemTra_TrucTuyen
+                    {
+                        Id = k.b.Id,
+                        MaDe = k.b.MaDe,
+                        IdGroup = k.b.IdGroup,
+                    }).ToList();
 
-                var listQuestion = _context.BaiKiemTra_TrucTuyen_ChiTiet.Where(x => x.IdBaiKiemTra == _pickDe[a].Id).Select(x => x.IdCauHoi).ToList();
-                foreach (var vucan in listQuestion)
+
+                if (checkExist.Count() == 0)
                 {
-                    BaiKiemTra_TrucTuyen_HocSinh_ChiTiet hocsinh_chitiet = new BaiKiemTra_TrucTuyen_HocSinh_ChiTiet();
-                    hocsinh_chitiet.IdBaiKiemTraHocSinh = hocsinh.Id;
-                    hocsinh_chitiet.IdQueston = vucan;
-                    _context.BaiKiemTra_TrucTuyen_HocSinh_ChiTiet.Add(hocsinh_chitiet);
+                    // clone ra 2 bảng BaiKiemTra_TrucTuyen_HocSinh và BaiKiemTra_TrucTuyen_HocSinh_ChiTiet
+                    BaiKiemTra_TrucTuyen_HocSinh hocsinh = new BaiKiemTra_TrucTuyen_HocSinh();
+                    hocsinh.IdHocSinh = loginData.id;
+                    hocsinh.IdBaiKiemTraOnline = _pickDe[a].Id;
+                    hocsinh.TrangThai = 2;
+                    hocsinh.ThoiGianLamBaiConLai = detail_BaiKiemTra.ThoiGianLamBai;
+                    _context.BaiKiemTra_TrucTuyen_HocSinh.Add(hocsinh);
                     _context.SaveChanges();
+
+                    var listQuestion = _context.BaiKiemTra_TrucTuyen_ChiTiet.Where(x => x.IdBaiKiemTra == _pickDe[a].Id).Select(x => x.IdCauHoi).ToList();
+                    foreach (var vucan in listQuestion)
+                    {
+                        BaiKiemTra_TrucTuyen_HocSinh_ChiTiet hocsinh_chitiet = new BaiKiemTra_TrucTuyen_HocSinh_ChiTiet();
+                        hocsinh_chitiet.IdBaiKiemTraHocSinh = hocsinh.Id;
+                        hocsinh_chitiet.IdQueston = vucan;
+                        _context.BaiKiemTra_TrucTuyen_HocSinh_ChiTiet.Add(hocsinh_chitiet);
+                        _context.SaveChanges();
+                    }
+
+                    var _check = _context.BaiKiemTra_TrucTuyen_HocSinh_ChiTiet.Where(x => x.IdBaiKiemTraHocSinh == hocsinh.Id)
+                                                                               .Join(_context.Question,
+                                                                               a => a.IdQueston,
+                                                                               b => b.Id,
+                                                                               (a, b) => new { a, b })
+                                                                               .Select(k => new IBaiKiemTra_TrucTuyen_HocSinh_ChiTiet
+                                                                               {
+                                                                                   Id = k.a.Id,
+                                                                                   IdQueston = k.b.Id,
+                                                                                   TieuDe = k.b.Title,
+                                                                                   CauA = k.b.OptionA,
+                                                                                   CauB = k.b.OptionB,
+                                                                                   CauC = k.b.OptionC,
+                                                                                   CauD = k.b.OptionD,
+                                                                               }).ToList();
+
+                    var time = _context.BaiKiemTra_TrucTuyen_HocSinh.Where(x => x.Id == hocsinh.Id).FirstOrDefault();
+                    if (_check == null)
+                        return Utilities._responseData(0, "Không tìm thấy dữ liệu, vui lòng tải lại!!", null);
+
+                    return Utilities._responseData(1, "", new { _check, _MaDe, tenBaiKiemTra = detail_BaiKiemTra.TenBaiKiemTra, thoiGianLamBai = time.ThoiGianLamBaiConLai });
                 }
+                else
+                {
+                    var asd = checkExist.Select(x => x.Id).FirstOrDefault();
+                    var balo = _context.BaiKiemTra_TrucTuyen_HocSinh.Where(x => x.IdBaiKiemTraOnline == asd && x.IdHocSinh == loginData.id).FirstOrDefault();
+                    var _check = _context.BaiKiemTra_TrucTuyen_HocSinh_ChiTiet.Where(x => x.IdBaiKiemTraHocSinh == balo.Id)
+                                                                               .Join(_context.Question,
+                                                                               a => a.IdQueston,
+                                                                               b => b.Id,
+                                                                               (a, b) => new { a, b })
+                                                                               .Select(k => new IBaiKiemTra_TrucTuyen_HocSinh_ChiTiet
+                                                                               {
+                                                                                   Id = k.a.Id,
+                                                                                   IdQueston = k.b.Id,
+                                                                                   TieuDe = k.b.Title,
+                                                                                   CauA = k.b.OptionA,
+                                                                                   CauB = k.b.OptionB,
+                                                                                   CauC = k.b.OptionC,
+                                                                                   CauD = k.b.OptionD,
+                                                                                   choosen = k.a.choosen,
+                                                                               }).ToList();
 
-                var _check = _context.BaiKiemTra_TrucTuyen_HocSinh_ChiTiet.Where(x => x.IdBaiKiemTraHocSinh == hocsinh.Id)
-                                                                           .Join(_context.Question,
-                                                                           a => a.IdQueston,
-                                                                           b => b.Id,
-                                                                           (a, b) => new { a, b })
-                                                                           .Select(k => new IBaiKiemTra_TrucTuyen_HocSinh_ChiTiet
-                                                                           {
-                                                                               Id = k.a.Id,
-                                                                               IdQueston = k.b.Id,
-                                                                               TieuDe = k.b.Title,
-                                                                               CauA = k.b.OptionA,
-                                                                               CauB = k.b.OptionB,
-                                                                               CauC = k.b.OptionC,
-                                                                               CauD = k.b.OptionD,
-                                                                           }).ToList();
-
-
-                if (_check == null)
-                    return Utilities._responseData(0, "Không tìm thấy dữ liệu, vui lòng tải lại!!", null);
-
-                return Utilities._responseData(1, "", new {_check, _MaDe, tenBaiKiemTra = detail_BaiKiemTrai.TenBaiKiemTra, thoiGianLamBai = detail_BaiKiemTrai.ThoiGianLamBai });
+                    
+                    return Utilities._responseData(1, "", new { _check, _MaDe, tenBaiKiemTra = detail_BaiKiemTra.TenBaiKiemTra, thoiGianLamBai = balo.ThoiGianLamBaiConLai });
+                }
+                
+                
+                
             }
             catch (Exception ex)
             {
@@ -243,7 +289,6 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 if (_item != null)
                 {
                     return Utilities._responseData(1, "", _item);
-                    
                 }
                 else
                 {
@@ -261,7 +306,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         [Route("BaiKiemTraOnline_Update")]
         //[Authorize(Roles = "10013")]
         [HttpGet]
-        public BaseModel<object> BaiKiemTraOnline_Update(long id, long IdQueston, string eventValue)
+        public BaseModel<object> BaiKiemTraOnline_Update(long id, long IdQueston, string eventValue,float time)
         {
 
             string Token = Utilities._GetHeader(Request);
@@ -280,6 +325,9 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                     return Utilities._responseData(0, "Không tìm thấy dữ liệu cần cập nhật, vui lòng tải lại danh sách!!", null);
 
                 _item.choosen = Int32.Parse(eventValue);
+
+                var temp = _context.BaiKiemTra_TrucTuyen_HocSinh.Where(k => k.Id == _item.IdBaiKiemTraHocSinh).FirstOrDefault();
+                temp.ThoiGianLamBaiConLai = (time/1000)/60;
                 _context.SaveChanges();
 
                 return Utilities._responseData(1, "", null);

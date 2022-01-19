@@ -10,6 +10,7 @@ namespace APICore_SoanDeThi.Models.DatabaseContext
         public long Id { get; set; }
         public long IdHocSinh { get; set; }
         public long IdBaiKiemTraOnline { get; set; }
-
+        public long TrangThai { get; set; } = 1;
+        public float ThoiGianLamBaiConLai { get; set; }
     }
 }

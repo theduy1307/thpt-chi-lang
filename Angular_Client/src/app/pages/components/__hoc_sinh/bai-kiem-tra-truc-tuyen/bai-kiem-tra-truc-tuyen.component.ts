@@ -99,6 +99,7 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
     this.sorting = this.services.sorting;
     this.services.fetch();
   }
+  
   ngOnDestroy() {
     this.subscriptions.forEach((sb) => sb.unsubscribe());
   }

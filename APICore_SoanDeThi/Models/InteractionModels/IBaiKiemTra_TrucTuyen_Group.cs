@@ -32,6 +32,6 @@ namespace APICore_SoanDeThi.Models.InteractionModels
         public string GioThi { get; set; }
         public string Password { get; set; }
         public bool isExam { get; set; }
-
+        public int TrangThai_BaiKiemTraOnline { get; set; }
     }
 }
