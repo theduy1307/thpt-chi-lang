@@ -204,11 +204,11 @@ namespace APICore_SoanDeThi.Controllers.Common
         [HttpGet]
         public BaseModel<object> GetList_ChuNhiem()
         {
-            //string Token = Utilities._GetHeader(Request);
-            //UserLogin loginData = _account._GetInfoUser(Token);
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
 
-            //if (loginData == null)
-            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
 
             BaseModel<object> _baseModel = new BaseModel<object>();
             PageModel _pageModel = new PageModel();
@@ -222,6 +222,46 @@ namespace APICore_SoanDeThi.Controllers.Common
                               Id_NV = x.IdNv,
                               TenNV = x.HoTen
                           });
+
+                _baseModel.status = 1;
+                _baseModel.error = null;
+                _baseModel.page = _pageModel;
+                _baseModel.data = _data;
+                return _baseModel;
+
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Lỗi dữ liệu!", null);
+            }
+        }
+        #endregion
+
+        #region DANH SÁCH LỚP HỌC
+        [Route("GetList_LopHoc")]
+        //[Authorize(Roles = "01011")]
+        [HttpGet]
+        public BaseModel<object> GetList_LopHoc()
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            BaseModel<object> _baseModel = new BaseModel<object>();
+            PageModel _pageModel = new PageModel();
+            ErrorModel _error = new ErrorModel();
+
+            try
+            {
+                long currentYear = _context.NienKhoa.Where(x => !x.Disabled).Select(x=>x.Id).ToList().LastOrDefault();
+                var _data = _context.Lop.Where(x => !x.Disabled && x.IdNienKhoa == currentYear)
+                          .Select(x => new Lop
+                          {
+                              Id = x.Id,
+                              TenLop = x.TenLop
+                          }).ToList();
 
                 _baseModel.status = 1;
                 _baseModel.error = null;

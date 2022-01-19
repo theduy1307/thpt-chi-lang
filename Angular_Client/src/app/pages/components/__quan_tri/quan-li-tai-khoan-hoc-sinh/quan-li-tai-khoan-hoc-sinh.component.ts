@@ -158,8 +158,8 @@ export class QuanLiTaiKhoanHocSinhComponent implements OnInit, OnDestroy, ISortV
   delete(id: number) {
     const modalRef = this.modalService.open(DeleteModalComponent);
     modalRef.componentInstance.id = id;
-    modalRef.componentInstance.title = "Xóa dữ liệu";
-    modalRef.componentInstance.message = "Bạn có chắc muốn xóa dữ liệu này?";
+    modalRef.componentInstance.title = "Khóa tài khoản";
+    modalRef.componentInstance.message = "Bạn có chắc muốn khóa tài khoản này?";
     modalRef.componentInstance.loadingMsg = "";
     modalRef.componentInstance.submitButtonMsg = "Xác nhận";
     modalRef.componentInstance.cancelButtonMsg = "Đóng";
@@ -175,11 +175,7 @@ export class QuanLiTaiKhoanHocSinhComponent implements OnInit, OnDestroy, ISortV
               })
             )
             .subscribe((res) => {
-              if (res && res.status == 1) {
-                this.layoutUtilsService.openSnackBar("Xóa dữ liệu thành công", "Đóng");
-              } else {
-                this.layoutUtilsService.openSnackBar("Xóa dữ liệu thất bại, vui lòng kiểm tra thông tin", "Đóng");
-              }
+              this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
             });
           this.subscriptions.push(sb);
         }
@@ -241,6 +237,9 @@ export class QuanLiTaiKhoanHocSinhComponent implements OnInit, OnDestroy, ISortV
       return true;
     }
     return false;
+  }
+  getBlock(item:string) {
+    return item.split("A")[0]
   }
   /* -----------------------------------------------------------------------*/
 }

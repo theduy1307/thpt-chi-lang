@@ -190,11 +190,7 @@ export class QuestionComponent implements OnInit, OnDestroy, ISortView, IGroupin
               })
             )
             .subscribe((res) => {
-              if (res && res.status == 1) {
                 this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
-              } else {
-                this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
-              }
             });
           this.subscriptions.push(sb);
         }

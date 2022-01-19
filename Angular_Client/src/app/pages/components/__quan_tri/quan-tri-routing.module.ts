@@ -9,11 +9,14 @@ import { QuanLiTaiKhoanEditComponent } from "./quan-li-tai-khoan/quan-li-tai-kho
 import { QuanLiTaiKhoanComponent } from "./quan-li-tai-khoan/quan-li-tai-khoan.component";
 import { QuanTriComponent } from "./quan-tri.component";
 import { QuanLiTaiKhoanHocSinhComponent } from "./quan-li-tai-khoan-hoc-sinh/quan-li-tai-khoan-hoc-sinh.component";
+import { AuthGuard } from "src/app/modules/auth/_services/auth.guard";
+import { QuanTriAuthGuard } from "./quan-tri-auth.guard";
 
 const routes: Routes = [
   {
     path: "",
     component: QuanTriComponent,
+    canActivate:[QuanTriAuthGuard],
     children: [
       //Danh sách môn hoc4
       {

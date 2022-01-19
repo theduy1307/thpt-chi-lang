@@ -26,7 +26,7 @@
           <div class="card text-left mb-5">
             <div class="card-header"><p class="text-header" [innerHTML]="'<strong>Câu '+(i+1)+': </strong> '+item.TieuDe"></p></div>
             <div class="card-body" >
-              <mat-radio-group (change)="radioChecked(item.Id, item.IdQueston, $event, cd)" [value] = "this.data.choosen">
+              <mat-radio-group (change)="radioChecked(item.Id, item.IdQueston, $event, cd)">
                 <mat-radio-button value=1 [checked] = "this.data.choosen === '1'">
                   <p class="card-text text-header" [innerHTML]="item.CauA"></p>
                 </mat-radio-button>

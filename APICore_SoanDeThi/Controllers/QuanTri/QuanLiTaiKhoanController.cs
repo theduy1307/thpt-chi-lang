@@ -77,7 +77,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 {
                     _rules = _tableState.filter["rules"];
                 }
-                var _data = _context.ViewNhanVien.Where(x => x.Disable != 1 && x.AllowCode != 1).Join(_context.ViewAccount, emp => emp.IdNv, acc => acc.IdNv, (emp, acc) => new { emp = emp, acc = acc })
+                var _data = _context.ViewNhanVien.Where(x => x.Disable != 1 && x.AllowCode != 4).Join(_context.ViewAccount, emp => emp.IdNv, acc => acc.IdNv, (emp, acc) => new { emp = emp, acc = acc })
                                                                             .Select(x => new IAccount { 
                                                                                 Id = x.acc.Id,
                                                                                 IdNv = x.emp.IdNv,
@@ -187,6 +187,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _item.Lastlogin = DateTime.Now;
                 _item.Lastpasschg = DateTime.Now;
                 _item.Email = data.Email;
+                _item.Password = EncryptPassword("thptchilang@123");
                 _item.Token = "2021091118030131";
                 _item.Loaitaikhoan = 1;
                 _item.Isadmin = 1;
@@ -224,7 +225,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
         #endregion
 
-        #region CẬP NHẬT BÀI KIỂM TRA
+        #region CẬP NHẬT TÀI KHOẢN
         [Route("update")]
         //[Authorize(Roles = "10013")]
         [HttpPost]
@@ -259,7 +260,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _emp.Ten = data.Ten;
                 _emp.Phai = data.Phai;
                 _emp.Ngaysinh = data.Ngaysinh;
-                _emp.Email = data.Email;
+                _emp.Email = data.Email;                
                 _emp.IdChucdanh = data.IdChucdanh;
                 _emp.SodienthoaiNguoilienhe = data.SodienthoaiNguoilienhe;
                 _emp.Cocauid = data.Cocauid;
@@ -406,6 +407,37 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             catch (Exception ex)
             {
                 return Utilities._responseData(0, "Cập nhật mật khẩu mới thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
+        #region KHÓA TÀI KHOẢN
+        [Route("lock")]
+        //[Authorize(Roles = "10014")]
+        [HttpGet]
+        public BaseModel<object> Account_Lock(long id)
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                var _item = _context.ViewAccount.Where(x => x.Id == id && x.Disable == 0).FirstOrDefault();
+                if (_item == null)
+                    return Utilities._responseData(0, "Không tìm thấy tài khoản cần cấp lại mật khẩu, vui lòng tải lại danh sách!!", null);
+
+                _item.Disable = 1;
+
+                _context.SaveChanges();
+
+                return Utilities._responseData(1, "Khóa tài khoản thành công", null);
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Khóa tài khoản thất bại, vui lòng kiểm tra lại!", null);
             }
         }
         #endregion

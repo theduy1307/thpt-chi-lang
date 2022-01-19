@@ -80,16 +80,31 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-6">
-                        <label class="form-label">Email</label>
-                        <input type="text" class="form-control form-control-lg" placeholder="vidu@gmail.com"
-                            formControlName="email"
-                            [class.is-invalid]="validateFormGroupEvent('email', informationFormGroup, 1)"
-                            [class.is-valid]="validateFormGroupEvent('email', informationFormGroup, 0)" />
-                        <div class="valid-feedback" *ngIf="validateFormGroupEvent('email', informationFormGroup, 0)">
-                            Thông tin chính xác
-                        </div>
-                        <div class="invalid-feedback" *ngIf="validateFormGroupEvent('email', informationFormGroup, 1)">
-                            Vui lòng nhập đúng định dạng email
+                        <label class="form-label">Lớp</label>
+                        <mat-select disableOptionCentering placeholder="Chọn tên bài học" #focusThietBi
+                            formControlName="lopHoc" (selectionChange)="setValueLopHoc($event)"
+                            class="form-control form-control-lg"
+                            [class.is-invalid]="validateFormGroupEvent('lopHoc', informationFormGroup, 1)"
+                            [class.is-valid]="validateFormGroupEvent('lopHoc', informationFormGroup, 0)">
+                            <mat-select-trigger>
+                                {{ getNameLopHoc() }}
+                            </mat-select-trigger>
+                            <mat-option>
+                                <ngx-mat-select-search
+                                    [placeholderLabel]="listLopHoc.length > 0 ? 'Tìm kiếm...' : 'Không tìm thấy dữ liệu'"
+                                    [noEntriesFoundLabel]="'Không tìm thấy kết quả phù hợp'"
+                                    [(ngModel)]="listLopHocFilterCtrl" [ngModelOptions]="{ standalone: true }"
+                                    (ngModelChange)="filterListLopHoc()">
+                                </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let item of filteredListLopHoc | async" value="{{ item.Id }}">
+                                {{ item.TenLop }}
+                            </mat-option>
+                        </mat-select>
+                        <div class="valid-feedback" *ngIf="validateFormGroupEvent('lopHoc', informationFormGroup, 0)">Thông tin
+                            chính xác</div>
+                        <div class="invalid-feedback" *ngIf="validateFormGroupEvent('lopHoc', informationFormGroup, 1)">
+                            Vui lòng chọn lớp học
                         </div>
                     </div>
                     <div class="col-lg-6">

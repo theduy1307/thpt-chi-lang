@@ -20,10 +20,11 @@ using System.IO;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.Data;
+using System.Globalization;
 
 namespace APICore_SoanDeThi.Controllers.QuanTri
 {
-    [Route("api/account-student")]
+    [Route("api/Account_Student")]
     [EnableCors("ExamPolicy")]
     public class QuanLiTaiKhoanHocSinhController : ControllerBase
     {
@@ -39,8 +40,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             _account = new LoginController();
         }
 
-        #region DANH SÁCH NGƯỜI DÙNG
-        [Route("account_list")]
+        #region DANH SÁCH HỌC SINH
+        [Route("Account_List")]
         //[Authorize(Roles = "")]
         [HttpPost]
         public BaseModel<object> Account_List([FromBody] ITableState _tableState)
@@ -81,20 +82,21 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                     _rules = _tableState.filter["rules"];
                 }
                 var _data = _context.ViewNhanVien.Where(x => x.Disable != 1 && x.AllowCode == 4).Join(_context.ViewAccount, emp => emp.IdNv, acc => acc.IdNv, (emp, acc) => new { emp = emp, acc = acc })
-                                                                            //.Join(_context.Lop, acc => acc.emp.IdLop, lop=>lop.Id, (acc, lop) => new { acc=acc, lop=lop})
+                                                                            .Join(_context.Lop, acc => acc.emp.IdLop, lop=>lop.Id, (acc, lop) => new { acc=acc, lop=lop})
                                                                             .Select(x => new IAccount { 
-                                                                                Id = x.acc.Id,
-                                                                                IdNv = x.emp.IdNv,
-                                                                                Holot = x.emp.Holot,
-                                                                                Ten = x.emp.Ten,
-                                                                                Phai = x.emp.Phai,
-                                                                                Ngaysinh = x.emp.Ngaysinh,
-                                                                                Email = x.emp.Email,
-                                                                                IdChucdanh = x.emp.IdChucdanh,
-                                                                                LoaiTaiKhoan = x.acc.Loaitaikhoan,
-                                                                                Cocauid = x.emp.Cocauid,
-                                                                                Username = x.acc.Username,
-                                                                                Picture = x.acc.Picture
+                                                                                Id = x.acc.acc.Id,
+                                                                                IdNv = x.acc.emp.IdNv,
+                                                                                Holot = x.acc.emp.Holot,
+                                                                                Ten = x.acc.emp.Ten,
+                                                                                Phai = x.acc.emp.Phai,
+                                                                                Ngaysinh = x.acc.emp.Ngaysinh,
+                                                                                Email = x.acc.emp.Email,
+                                                                                IdChucdanh = x.acc.emp.IdChucdanh,
+                                                                                LoaiTaiKhoan = x.acc.acc.Loaitaikhoan,
+                                                                                Cocauid = x.acc.emp.Cocauid,
+                                                                                Username = x.acc.acc.Username,
+                                                                                Picture = x.acc.acc.Picture,
+                                                                                Lop = x.lop.TenLop,
                                                                             });
 
                 if (!string.IsNullOrEmpty(_tableState.searchTerm))
@@ -150,7 +152,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region THÊM MỚI TÀI KHOẢN
-        [Route("create")]
+        [Route("Account_Create")]
         //[Authorize(Roles = "10012")]
         [HttpPost]
         public BaseModel<object> Account_Create([FromBody] IAccount data)
@@ -177,6 +179,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _emp.Email = data.Email;
                 _emp.IdChucdanh = data.IdChucdanh;
                 _emp.Disable = 0;
+                _emp.IdLop = Convert.ToInt32(data.Lop);
                 _emp.SodienthoaiNguoilienhe = data.SodienthoaiNguoilienhe;
                 _emp.Cocauid = data.Cocauid;
                 _emp.AllowCode = 4;
@@ -188,6 +191,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 ViewAccount _item = new ViewAccount();
 
                 _item.Username = setNewUserName(data.Username, data.Username, 0);//string.IsNullOrEmpty(data.Username) ? "" : data.Username.ToString().Trim();
+                _item.Password = EncryptPassword("thptchilang@123");
                 _item.IdNv = _emp.IdNv;
                 _item.Lock = 0;
                 _item.Disable = 0;
@@ -196,7 +200,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _item.Email = data.Email;
                 _item.Token = "2021091118030131";
                 _item.Loaitaikhoan = 1;
-                _item.Isadmin = 1;
+                _item.Isadmin = 1;                
 
                 if(data.FileImport != null && !string.IsNullOrEmpty(data.FileImport.filename))
                 {
@@ -231,8 +235,87 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
         #endregion
 
+        #region THÊM MỚI TÀI KHOẢN
+        [Route("Account_CreateImport")]
+        //[Authorize(Roles = "10012")]
+        [HttpPost]
+        public BaseModel<object> Account_CreateImport([FromBody] List<IAccount> data)
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                if (data.Count == 0)
+                    return Utilities._responseData(0, "Vui lòng nhập tên đắng nhập", null);
+
+                _context.Database.BeginTransaction();
+
+                foreach(var item in data)
+                {
+                    ViewNhanVien _emp = new ViewNhanVien();
+                    _emp.Manv = "CK-HCM0310330";
+                    _emp.Holot = item.Holot;
+                    _emp.Ten = item.Ten;
+                    _emp.Phai = item.Phai;
+                    _emp.Ngaysinh = item.Ngaysinh;
+                    _emp.Email = string.IsNullOrEmpty(item.Email) ? "Không có" : item.Email;
+                    _emp.IdChucdanh = item.IdChucdanh;
+                    _emp.Disable = 0;
+                    _emp.SodienthoaiNguoilienhe = string.IsNullOrEmpty(item.SodienthoaiNguoilienhe) ? "Không có" : item.SodienthoaiNguoilienhe;
+                    _emp.Cocauid = item.Cocauid;
+                    _emp.AllowCode = 4;
+                    _emp.isStudent = true;
+                    var idLop = _context.Lop.Where(x => x.TenLop.Equals(item.Lop)).Select(x => x.Id).FirstOrDefault();
+
+                    if(idLop == null)
+                    {
+                        _context.Database.RollbackTransaction();
+                        return Utilities._responseData(0, "Lớp " + item.Lop + " không tồn tại trong hệ thống", null);
+                    }
+                    else
+                    {
+                        _emp.IdLop = idLop;
+                    }
+
+                    _context.ViewNhanVien.Add(_emp);
+                    _context.SaveChanges();
+
+                    ViewAccount _item = new ViewAccount();
+
+                    _item.Username = setNewUserName(item.Username, item.Username, 0);//string.IsNullOrEmpty(data.Username) ? "" : data.Username.ToString().Trim();
+                    _item.Password = EncryptPassword("thptchilang@123");
+                    _item.IdNv = _emp.IdNv;
+                    _item.Lock = 0;
+                    _item.Disable = 0;
+                    _item.Lastlogin = DateTime.Now;
+                    _item.Lastpasschg = DateTime.Now;
+                    _item.Email = string.IsNullOrEmpty(item.Email) ? "Không có" : item.Email;
+                    _item.Token = "2021091118030131";
+                    _item.Loaitaikhoan = 1;
+                    _item.Isadmin = 1;
+
+                    _context.ViewAccount.Add(_item);
+                }                
+
+                _context.SaveChanges();
+
+                _context.Database.CommitTransaction();
+                return Utilities._responseData(1, "Thêm mới tài khoản thành công", data);
+
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Thêm mới thất bại, vui lòng kiểm tra lại! Lỗi: " + ex.Message, null);
+            }
+        }
+        #endregion
+
         #region CẬP NHẬT BÀI KIỂM TRA
-        [Route("update")]
+        [Route("Account_Update")]
         //[Authorize(Roles = "10013")]
         [HttpPost]
         public BaseModel<object> BaiKiemTra_Update([FromBody] IAccount data)
@@ -317,7 +400,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region LẤY CHI TIẾT CÂU HỎI
-        [Route("account_detail")]
+        [Route("Account_Detail")]
         //[Authorize(Roles = "10014")]
         [HttpGet]
         public BaseModel<object> Account_Detail(long id)
@@ -330,26 +413,6 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
             try
             {
-                //var _item = _context.Question.Where(x => x.Id == id && !x.IsDisabled)
-                //                            .Join(_context.BaiHoc, question => question.IdBaiHoc, subject => subject.Id, (question, subject) => new { question, subject })
-                //                            .Join(_context.ChuongMonHoc, question => question.subject.IdChuong, chapter => chapter.Id, (question, chapter) => new { question, chapter })
-                //                            .Join(_context.ViewNhanVien, question => question.question.question.CreateBy, emp => emp.IdNv, (question, emp) => new { question, emp })
-                //                            .Select(x => new IQuestion
-                //                            {
-                //                                Id = x.question.question.question.Id,
-                //                                Title = x.question.question.question.Title,
-                //                                OptionA = x.question.question.question.OptionA,
-                //                                OptionB = x.question.question.question.OptionB,
-                //                                OptionC = x.question.question.question.OptionC,
-                //                                OptionD = x.question.question.question.OptionD,
-                //                                Class = x.question.chapter.Lop,
-                //                                CorrectOption = x.question.question.question.CorrectOption,
-                //                                TenNguoiTao = x.emp.HoTen,
-                //                                IdBaiHoc = x.question.question.question.IdBaiHoc,
-                //                                TenBaiHoc = x.question.question.subject.TenBaiHoc,
-                //                                TenChuong = x.question.chapter.TenChuong,
-                //                                Level = x.question.question.question.Level,
-                //                            }).FirstOrDefault();
                 var _item = _context.ViewAccount.Where(x => x.Id == id && x.Disable == 0)
                                                 .Join(_context.ViewNhanVien, acc => acc.IdNv, emp => emp.IdNv, (acc, emp) => new { acc, emp })
                                                 .Join(_context.MonHoc, acc => acc.emp.Cocauid, org => org.Id, (acc, org) => new { acc, org })
@@ -387,7 +450,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         #endregion
 
         #region CẤP LẠI MẬT KHẨU
-        [Route("reset_password")]
+        [Route("Account_ResetPassword")]
         //[Authorize(Roles = "10014")]
         [HttpGet]
         public BaseModel<object> Account_ResetPassword(long id)
@@ -417,8 +480,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
         #endregion
 
-        #region Download file mẫu import nhà cung cấp new
-        [Route("ImportFileImport_NhaCC")]
+        #region IMPORT EXCEL
+        [Route("Account_Import")]
         [HttpPost, DisableRequestSizeLimit]
 
         public async Task<BaseModel<object>> ImportFileImport_NhaCC()
@@ -480,25 +543,11 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
                         dataTable.Columns.Add("HoLot");
                         dataTable.Columns.Add("Ten");
-                        dataTable.Columns.Add("Phai");
-                        //dataTable.Columns.Add("IdLoaiNCC");
-                        //dataTable.Columns.Add("TenLoaiNCC");
-                        //dataTable.Columns.Add("IdNhomNCC");
-                        //dataTable.Columns.Add("TenNhomNCC");
-                        //dataTable.Columns.Add("DiaChi");
-                        //dataTable.Columns.Add("SDT");
-                        //dataTable.Columns.Add("Fax");
-                        //dataTable.Columns.Add("MaSoThue");
-                        //dataTable.Columns.Add("STK1");
-                        //dataTable.Columns.Add("NH1");
-                        //dataTable.Columns.Add("STK2");
-                        //dataTable.Columns.Add("NH2");
-                        //dataTable.Columns.Add("Email");
-                        //dataTable.Columns.Add("NguoiLH");
-                        //dataTable.Columns.Add("SDTNguoiLH");
-                        //dataTable.Columns.Add("SoNgayThanhToan");
-                        //dataTable.Columns.Add("XepLoai");
-                        //dataTable.Columns.Add("GhiChu");
+                        dataTable.Columns.Add("GioiTinh");
+                        dataTable.Columns.Add("NgaySinh");
+                        dataTable.Columns.Add("Lop");
+                        dataTable.Columns.Add("Khoi");
+                        dataTable.Columns.Add("SoDienThoai");
                         foreach (Row row in rows)
                         {
                             DataRow dataRow = dataTable.NewRow();
@@ -535,10 +584,24 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
                     foreach (DataRow row in dataTable.Rows)
                     {
+                        if(string.IsNullOrEmpty(row["HoLot"].ToString()) && string.IsNullOrEmpty(row["Ten"].ToString())
+                            && string.IsNullOrEmpty(row["GioiTinh"].ToString()) && string.IsNullOrEmpty(row["NgaySinh"].ToString())
+                            && string.IsNullOrEmpty(row["Lop"].ToString()) && string.IsNullOrEmpty(row["Khoi"].ToString())
+                            && string.IsNullOrEmpty(row["SoDienThoai"].ToString()))
+                        {
+                            break;
+                        }
                         IAccount ncc = new IAccount();
                         ncc.Holot = !string.IsNullOrEmpty(row["HoLot"].ToString()) ? row["HoLot"].ToString() : "";
-                        ncc.Ten = !string.IsNullOrEmpty(row["Ten"].ToString()) ? row["HoLot"].ToString() : "";
-                        ncc.Phai = !string.IsNullOrEmpty(row["Phai"].ToString()) ? row["Phai"].ToString() : "";
+                        ncc.Ten = !string.IsNullOrEmpty(row["Ten"].ToString()) ? row["Ten"].ToString() : "";
+                        ncc.Phai = !string.IsNullOrEmpty(row["GioiTinh"].ToString()) ? row["GioiTinh"].ToString() : "";
+
+                        //double date = Convert.ToDouble(row["NgaySinh"].ToString());
+                        //DateTime dt = DateTime.FromOADate(date); 
+                        ncc.Ngaysinh = !string.IsNullOrEmpty(row["NgaySinh"].ToString()) ? DateTime.FromOADate(Convert.ToDouble(row["NgaySinh"].ToString())) : DateTime.Now;
+                        
+                        ncc.Lop = !string.IsNullOrEmpty(row["Lop"].ToString()) ? row["Lop"].ToString() : "";  
+                        ncc.SodienthoaiNguoilienhe = !string.IsNullOrEmpty(row["SoDienThoai"].ToString()) ? row["SoDienThoai"].ToString() : "";
                         //ncc.Id_LoaiNCC = !string.IsNullOrEmpty(row["IdLoaiNCC"].ToString()) ? (Regex.IsMatch(row["IdLoaiNCC"].ToString().ToLower(), Constant.REGEX_FORMAT_ONLYNUMBER) ? long.Parse(row["IdLoaiNCC"].ToString()) : 0) : 0;
                         //ncc.TenLoaiNCC = !string.IsNullOrEmpty(row["TenLoaiNCC"].ToString()) ? row["TenLoaiNCC"].ToString() : "";
                         //ncc.Id_NhomNCC = !string.IsNullOrEmpty(row["IdNhomNCC"].ToString()) ? (Regex.IsMatch(row["IdNhomNCC"].ToString().ToLower(), Constant.REGEX_FORMAT_ONLYNUMBER) ? int.Parse(row["IdNhomNCC"].ToString()) : 0) : 0;
@@ -577,6 +640,29 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
 
 
+        }
+        #endregion
+
+        #region DOWNLOAD FILE MẪU
+        /// <summary>
+        /// Tải file import mẫu
+        /// </summary>
+        /// <returns> File Excel </returns>
+        [Route("Account_DownLoadTemplate")]
+        [HttpGet]
+        public FileResult DownLoadFileImportMauDynamic()
+        {
+            try
+            {
+                string fileName = "IMPORT_HOCSINH_MAU.xlsx";
+                string path = Path.Combine(_hosting.ContentRootPath, "DuLieu/Templates/IMPORT_HOCSINH_MAU.xlsx");
+                var fileExists = System.IO.File.Exists(path);
+                return PhysicalFile(path, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
         #endregion
 
