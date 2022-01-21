@@ -36,5 +36,6 @@ namespace APICore_SoanDeThi.Models.InteractionModels
         public string? Picture { get; set; }
         public string? Lop { get; set; }
         public long IdLop { get; set; }
+        public int AllowCode { get; set; }
     }
 }

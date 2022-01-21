@@ -148,6 +148,52 @@ export class QuanLiTaiKhoanComponent implements OnInit, OnDestroy, ISortView, IG
   //     () => {}
   //   );
   // }
+  getLabel(allowCode) {
+    let htmlContent = ""
+    let permissionItem = Array.from(allowCode.toString()).map(Number);
+    for(const item of permissionItem)
+    {
+      htmlContent += this.htmlSpan(item)
+    }
+    return htmlContent
+  }
+  htmlSpan(code)
+  {
+    let html:string = ``
+    switch(code)
+    {
+      case 1:
+        html = `
+        <span
+        class="label label-lg label-inline label-warning mr-1"
+        >
+          <ng-container>Giáo viên bộ môn</ng-container>
+        </span>
+        `
+        break;
+        case 2:
+          html = `
+          <span
+          class="label label-lg label-inline label-success mr-1"
+          >
+            <ng-container>Quản trị hệ thống</ng-container>
+          </span>
+          `
+          break;
+          case 3:
+            html = `
+            <span
+            class="label label-lg label-inline label-primary mr-1"
+            >
+              <ng-container>Giáo viên chủ nhiệm</ng-container>
+            </span>
+            `
+            break;
+          default:
+            break;
+    }
+    return html
+  }
   detail(id: number) {
     const modalRef = this.modalService.open(QuanLiTaiKhoanDetailComponent, {
       size: "lg",      
@@ -234,35 +280,9 @@ export class QuanLiTaiKhoanComponent implements OnInit, OnDestroy, ISortView, IG
       () => {}
     );
   }
-  // deleteSelected() {
-  //   const modalRef = this.modalService.open(DeleteManyModalComponent);
-  //   modalRef.componentInstance.title = "Xóa dữ liệu";
-  //   modalRef.componentInstance.message = "Bạn có chắc muốn xóa các dữ liệu này?";
-  //   modalRef.componentInstance.loadingMsg = "";
-  //   modalRef.componentInstance.submitButtonMsg = "Xác nhận";
-  //   modalRef.componentInstance.cancelButtonMsg = "Đóng";
-  //   modalRef.result.then((result) => {
-  //     if(result){
-  //       const sb = this.services.deleteItems(this.grouping.getSelectedRows()).pipe(
-  //         tap(() =>
-  //           this.services.fetch()
-  //         ),
-  //         catchError((err) => {
-  //           return of(undefined);
-  //         })
-  //       ).subscribe(res =>{
-  //         if(res && res.status == 1){
-  //           this.layoutUtilsService.openSnackBar("Xóa dữ liệu thành công","Đóng");
-  //         }else{
-  //           this.layoutUtilsService.openSnackBar("Xóa dữ liệu thất bại, vui lòng kiểm tra thông tin","Đóng");
-  //         }
-  //       });
-  //       this.subscriptions.push(sb);
-  //     }
-  //   },
-  //   () => { });
-  // }
-
+  edit(id:number) {
+    this.router.navigate([`/quan-tri/quan-li-tai-khoan/chinh-sua/${id}`],{ queryParams: {} , skipLocationChange: true})
+  }  
   isEmptyDataSource() {
     var _listData = [];
     this.services.items$.subscribe((value) => (_listData = value));

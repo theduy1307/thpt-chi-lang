@@ -18,11 +18,13 @@ import { InBaiKiemTraComponent } from "./in-bai-kiem-tra/in-bai-kiem-tra.compone
 import { BaiKiemTraCauHinhEditComponent } from "./bai-kiem-tra-cau-hinh/bai-kiem-tra-cau-hinh-edit/bai-kiem-tra-cau-hinh-edit.component";
 import { BaiKiemTraTrucTuyenComponent } from "./bai-kiem-tra-truc-tuyen/bai-kiem-tra-truc-tuyen.component";
 import { BaiKiemTraTrucTuyenEditComponent } from "./bai-kiem-tra-truc-tuyen/bai-kiem-tra-truc-tuyen-edit/bai-kiem-tra-truc-tuyen-edit.component";
+import { GiaoVienAuthGuard } from "./giao-vien-auth.guard";
 
 const routes: Routes = [
   {
     path: "",
     component: DanhMucComponent,
+    canActivate:[GiaoVienAuthGuard],
     children: [
       // danh sách câu hỏi
       {

@@ -7,7 +7,7 @@ import { AuthService, UserModel } from 'src/app/modules/auth';
 @Injectable({
   providedIn: 'root'
 })
-export class QuanTriAuthGuard implements CanActivate {
+export class HocSinhAuthGuard implements CanActivate {
   user: any;
   firstUserState: any;
   LIST_ROLES_USER: number[] = [];
@@ -28,7 +28,7 @@ export class QuanTriAuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if((this.user.allowCode+'').indexOf('2')>-1) {
+      if((this.user.allowCode+'').indexOf('4')>-1) {
         return true
       }
     this.userService.logout();

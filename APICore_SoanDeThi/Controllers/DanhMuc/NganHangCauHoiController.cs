@@ -99,9 +99,9 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 {
                     _rules = _tableState.filter["rules"];
                 }
-                var _data = _context.Question.Where(x => !x.IsDisabled && !x.IsCustom)
-                                                  .Join(_context.BaiHoc, question => question.IdBaiHoc, subject => subject.Id, (question, subject)=> new {question, subject})
+                var _data = _context.Question.Join(_context.BaiHoc, question => question.IdBaiHoc, subject => subject.Id, (question, subject)=> new {question, subject})
                                                   .Join(_context.ChuongMonHoc, question => question.subject.IdChuong, chapter => chapter.Id, (question, chapter)=> new {question, chapter})
+                                                  .Where(x => !x.question.question.IsDisabled && !x.question.question.IsCustom && x.chapter.IdMonHoc == loginData.allowCode)
                                                   .Select(x => new IQuestion
                                                   {
                                                       Id = x.question.question.Id,

@@ -24,6 +24,7 @@ import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.servi
 import { AuthService, UserModel } from "src/app/modules/auth";
 import { BaiKiemTraService } from "../bai-kiem-tra/bai-kiem-tra-service/bai-kiem-tra.service";
 import { BaiKiemTraCauHinhService } from "./bai-kiem-tra-cau-hinh-service/bai-kiem-tra-cau-hinh.service";
+import { Router } from "@angular/router";
 
 export interface PeriodicElement {
   name: string;
@@ -69,6 +70,7 @@ export class BaiKiemTraCauHinhComponent implements OnInit, OnDestroy, ISortView,
   constructor(
     private fb: FormBuilder,
     public userService: AuthService,
+    private router: Router,
     private modalService: NgbModal,
     private layoutUtilsService: LayoutUtilsService,
     public services: BaiKiemTraCauHinhService
@@ -175,6 +177,9 @@ export class BaiKiemTraCauHinhComponent implements OnInit, OnDestroy, ISortView,
       },
       () => {}
     );
+  }
+  edit(id:number) {
+    this.router.navigate([`/danh-muc/danh-sach-bai-kiem-tra-cau-hinh/chinh-sua-cau-hinh/${id}`],{ queryParams: {} , skipLocationChange: true})
   }
   // deleteSelected() {
   //   const modalRef = this.modalService.open(DeleteManyModalComponent);

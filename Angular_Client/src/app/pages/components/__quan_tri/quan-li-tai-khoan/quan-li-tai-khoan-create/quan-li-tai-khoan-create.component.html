@@ -144,8 +144,8 @@
                 <label class="form-label">Quyền</label>
                 <section class="form-control form-control-lg d-flex justify-content-around" style="border: 0">
                   <!-- <mat-checkbox class="example-margin">Là giáo viên chủ nhiệm</mat-checkbox> -->
-                  <mat-slide-toggle>GV chủ nhiệm</mat-slide-toggle>
-                  <mat-slide-toggle>Quản trị</mat-slide-toggle>
+                  <mat-slide-toggle formControlName="giaoVienCN">GV chủ nhiệm</mat-slide-toggle>
+                  <mat-slide-toggle formControlName="quanTri">Quản trị</mat-slide-toggle>
                 </section>
                 <div class="valid-feedback" *ngIf="ValidateFormGroupEvent('email', informationFormGroup, 0)">Thông tin chính xác</div>
                 <div class="invalid-feedback" *ngIf="ValidateFormGroupEvent('email', informationFormGroup, 1)">

@@ -40,6 +40,9 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
   firstUserState: UserModel;
   LIST_ROLES_USER: number[] = [];
 
+  giaoVienCN:boolean = true;
+  quanTri:boolean;
+
   //Thông tin chương môn học
   listBoMon: any[] = [];
   filteredListBoMon: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
@@ -100,7 +103,8 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
       gioiTinh: ["1", Validators.required],
       ngaySinh: ["", Validators.required],
       email: ["", Validators.compose([Validators.required, Validators.email])],
-      quyen: ["", Validators.required],
+      giaoVienCN: [false],
+      quanTri: [false],
       sodienthoai: ["",  Validators.compose([Validators.required, Validators.maxLength(10)])],
       boMon: ["", Validators.required],
       uploadFileName: ["", Validators.required],
@@ -291,8 +295,8 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
       Id:undefined,
       IdNv: undefined,
       Manv: "",
-      Holot: formData.hoLot,
-      Ten: formData.ten,
+      Holot: FunctionPublic.upperCaseFirstCharacter(formData.hoLot),
+      Ten: FunctionPublic.upperCaseFirstCharacter(formData.ten),
       HoTen: "",
       Phai: formData.gioiTinh,
       Ngaysinh: this.formatDate(formData.ngaySinh),
@@ -308,9 +312,41 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
       Password: "thptchilang@123",
       Picture: "aaa",
       FileImport: this.flagFileImport,
-      Role:[]
+      Role:[],
+      AllowCode: this.setQuyen()
     };
     return data
+  }
+  setQuyen():number
+  {
+    const giaoVienCN = this.informationFormGroup.controls["giaoVienCN"].value
+    const quanTri = this.informationFormGroup.controls["quanTri"].value
+    /*
+      1: Giáo viên bộ môn
+      2: Quản trị
+      3: Chủ nhiệm
+      4: Học sinh
+    */
+    if(giaoVienCN && !quanTri) //Quyền Giáo viên chủ nhiệm
+    {
+      return 13
+    }
+    else if (giaoVienCN && quanTri) //Quyền quản trị & giáo viên chủ nhiệm
+    {
+      return 123
+    }
+    else if (!giaoVienCN && !quanTri) //Quyền giáo viên bộ môn
+    {
+      return 1
+    }
+    else if (quanTri && !giaoVienCN)
+    {
+      return 12
+    }
+    else {
+      return 1
+    }
+
   }
   /* ----------------------------- Inject Event Data ---------------------------
     @Type:

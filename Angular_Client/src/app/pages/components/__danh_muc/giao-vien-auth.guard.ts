@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { AuthService, UserModel } from 'src/app/modules/auth';
+import { AuthService } from 'src/app/modules/auth';
 
 @Injectable({
   providedIn: 'root'
 })
-export class QuanTriAuthGuard implements CanActivate {
+export class GiaoVienAuthGuard implements CanActivate {
   user: any;
   firstUserState: any;
   LIST_ROLES_USER: number[] = [];
@@ -28,12 +28,11 @@ export class QuanTriAuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if((this.user.allowCode+'').indexOf('2')>-1) {
+      if((this.user.allowCode+'').indexOf('1')>-1) {
         return true
       }
     this.userService.logout();
     document.location.reload();
     return false;
   }
-  
 }

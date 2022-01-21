@@ -90,7 +90,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                                                 LoaiTaiKhoan = x.acc.Loaitaikhoan,
                                                                                 Cocauid = x.emp.Cocauid,
                                                                                 Username = x.acc.Username,
-                                                                                Picture = x.acc.Picture
+                                                                                Picture = x.acc.Picture,
+                                                                                AllowCode = x.emp.AllowCode
                                                                             });
 
                 if (!string.IsNullOrEmpty(_tableState.searchTerm))
@@ -175,6 +176,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _emp.Disable = 0;
                 _emp.SodienthoaiNguoilienhe = data.SodienthoaiNguoilienhe;
                 _emp.Cocauid = data.Cocauid;
+                _emp.AllowCode = data.AllowCode;
+                _emp.IdMonHoc = data.Cocauid;
                 _context.ViewNhanVien.Add(_emp);
                 _context.SaveChanges();
 
@@ -229,7 +232,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         [Route("update")]
         //[Authorize(Roles = "10013")]
         [HttpPost]
-        public BaseModel<object> BaiKiemTra_Update([FromBody] IAccount data)
+        public BaseModel<object> Account_Update([FromBody] IAccount data)
         {
 
             string Token = Utilities._GetHeader(Request);
@@ -264,6 +267,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _emp.IdChucdanh = data.IdChucdanh;
                 _emp.SodienthoaiNguoilienhe = data.SodienthoaiNguoilienhe;
                 _emp.Cocauid = data.Cocauid;
+                _emp.AllowCode = data.AllowCode;
                 _context.SaveChanges();
 
                 _item.Username = _item.Username.Equals(data.Username) ? _item.Username : setNewUserName(data.Username, data.Username, 0);//string.IsNullOrEmpty(data.Username) ? "" : data.Username.ToString().Trim();
@@ -346,7 +350,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 //                            }).FirstOrDefault();
                 var _item = _context.ViewAccount.Where(x => x.Id == id && x.Disable == 0)
                                                 .Join(_context.ViewNhanVien, acc => acc.IdNv, emp => emp.IdNv, (acc, emp) => new { acc, emp })
-                                                .Join(_context.MonHoc, acc => acc.emp.Cocauid, org => org.Id, (acc, org) => new { acc, org })
+                                                .Join(_context.MonHoc, acc => acc.emp.IdMonHoc, org => org.Id, (acc, org) => new { acc, org })
                                                 .Select(x => new IAccount {
                                                     Id = x.acc.acc.Id,
                                                     IdNv = x.acc.acc.IdNv ?? 0,
@@ -363,7 +367,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                     Username = x.acc.acc.Username,
                                                     Password = x.acc.acc.Password,
                                                     Picture = x.acc.acc.Picture,
-                                                    TenCoCau = _context.MonHoc.Where(o => o.Id == x.acc.emp.Cocauid).Select(o => o.TenMonHoc).FirstOrDefault()
+                                                    TenCoCau = _context.MonHoc.Where(o => o.Id == x.acc.emp.Cocauid).Select(o => o.TenMonHoc).FirstOrDefault(),
+                                                    AllowCode = x.acc.emp.AllowCode,
                                                 })
                                                 .FirstOrDefault();
 

@@ -21,7 +21,8 @@ export interface IAccount extends BaseModel {
     Password: string;
     FileImport: FileImport;
     Picture: string;
-    Role: number[]
+    Role: number[];
+    AllowCode:number;
 }
 
 export class FileImport {
@@ -75,5 +76,6 @@ export const EMPTY_DATA: IAccount = {
     Password: "",
     Picture: "",
     FileImport: new FileImport(),
-    Role: []
+    Role: [],
+    AllowCode:undefined
   };

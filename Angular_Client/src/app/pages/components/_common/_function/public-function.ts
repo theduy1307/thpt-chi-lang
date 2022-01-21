@@ -201,4 +201,15 @@ export class FunctionPublic{
 		str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g," ");
 		return str;
 	}
+
+	public static upperCaseFirstCharacter(str:string) {
+		if(str.length == 0 ) return ""
+		let arrName = str.split(" ");
+		let newString = "";
+		arrName.map(elm => {
+		  elm =  elm.charAt(0).toUpperCase() + elm.slice(1);
+		  newString += elm+ " ";
+		})
+		return newString.trim();
+	  }
 }

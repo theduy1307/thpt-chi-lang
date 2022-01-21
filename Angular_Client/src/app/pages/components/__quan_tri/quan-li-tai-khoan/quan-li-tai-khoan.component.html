@@ -113,16 +113,17 @@
               <td>{{ item.Ten }}</td>
               <td>{{ item.Username }}</td>
               <td>
-                <span
+                <!-- <span
                   class="label label-lg label-inline"
                   [class.label-success]="item.LoaiTaiKhoan === 1"
                   [class.label-primary]="item.LoaiTaiKhoan === 2"
                   [class.label-primary]="item.LoaiTaiKhoan === 3"
                 >
                   <ng-container *ngIf="item.LoaiTaiKhoan === 1">Quản trị</ng-container>
-                  <ng-container *ngIf="item.LoaiTaiKhoan === 2">Giáo viên</ng-container>
-                  <ng-container *ngIf="item.LoaiTaiKhoan === 3">Học sinh</ng-container>
-                </span>
+                  <ng-container *ngIf="item.LoaiTaiKhoan === 2">Giáo viên bộ môn</ng-container>
+                  <ng-container *ngIf="item.LoaiTaiKhoan === 3">Giáo viên chủ nhiệm</ng-container>
+                </span> -->
+                <span [innerHTML]="this.getLabel(item.AllowCode)"></span>
               </td>
               <td>
                 <a
@@ -142,7 +143,7 @@
                   matTooltip="Chỉnh sửa"
                   matTooltipPosition="after"
                   class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3"
-                  [routerLink]="'./chinh-sua/'+item.Id"
+                  (click)="edit(item.Id)"
                 >
                   <span
                     [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'"
