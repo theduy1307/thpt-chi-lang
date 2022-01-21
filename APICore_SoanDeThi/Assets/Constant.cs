@@ -34,5 +34,6 @@ namespace APICore_SoanDeThi.Assets
         #endregion
 
         public const string FileImport_HocSinh = "DuLieu/Templates/";
+        public const string FileExport = "DuLieu/Templates/";
     }
 }

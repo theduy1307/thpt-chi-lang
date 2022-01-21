@@ -142,14 +142,34 @@ export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_Group> 
   print(id: number) {
     window.open(`${API_ROOT_URL}/_Print?id=${id}`);
   }
-  // deleteItems(ids: number[] = []): Observable<any> {
-  // 	this.initCallService();
-  // 	return this.http.post(API_ROOT_URL + '/_Delete_Many', ids, { headers: this._httpHeaders }).pipe(
-  // 		catchError(err => {
-  // 			this.setErrorMess(err);
-  // 			return of([]);
-  // 		}),
-  // 		finalize(() => this.setLoading(false))
-  // 	);
-  // }
+  exportFileExcel(id:number){
+		// const [id, filter, fromDate, toDate] = [item.IdKhachHang, item.LocTheoHanMuc, item.TuNgay, item.DenNgay]
+		// return this.http.get<Blob>(API_ROOT_URL + `/Export?id=${id}&filter=${filter}&fromDate=${fromDate}&toDate=${toDate}`, {responseType: 'blob' as 'json'});
+		var request = new XMLHttpRequest();
+		var link = API_ROOT_URL + `/Export?id=${id}`;
+		request.open('GET', link);
+		
+		request.responseType = 'arraybuffer';
+		var _this=this;
+		request.onload = function (e) {
+			
+			var name = "Export_Exam";
+			var file = new Blob([this.response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+			if (navigator.msSaveBlob) {
+				return navigator.msSaveBlob(file);
+			}
+			
+			var a = document.createElement("a");
+
+			var url = window.URL.createObjectURL(file);
+			a.setAttribute("href", url);
+			a.setAttribute("download", name);
+
+			a.click();
+
+			window.URL.revokeObjectURL(url);
+			
+		};
+		request.send();
+	}
 }

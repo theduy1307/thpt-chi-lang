@@ -27,19 +27,19 @@
             <div class="card-header"><p class="text-header" [innerHTML]="'<strong>Câu '+(i+1)+': </strong> '+item.TieuDe"></p></div>
             <div class="card-body" >
               <mat-radio-group (change)="radioChecked(item.Id, item.IdQueston, $event, cd)">
-                <mat-radio-button value=1 [checked] = "this.data.choosen === '1'">
+                <mat-radio-button value=1 [checked]="item.choosen == 1">
                   <p class="card-text text-header" [innerHTML]="item.CauA"></p>
                 </mat-radio-button>
                 <hr/>
-                <mat-radio-button value=2 [checked] = "this.data.choosen == 2">
+                <mat-radio-button value=2 [checked]="item.choosen == 2">
                   <p class="card-text text-header" [innerHTML]="item.CauB"></p>
                 </mat-radio-button>
                 <hr/>
-                <mat-radio-button value=3 [checked] = "this.data.choosen == 3">
+                <mat-radio-button value=3 [checked]="item.choosen == 3">
                   <p class="card-text text-header" [innerHTML]="item.CauC"></p>
                 </mat-radio-button>
                 <hr/>
-                <mat-radio-button value=4 [checked] = "this.data.choosen == 4"> 
+                <mat-radio-button value=4 [checked]="item.choosen == 4"> 
                   <p class="card-text text-header" [innerHTML]="item.CauD"></p>
                 </mat-radio-button>
               </mat-radio-group>

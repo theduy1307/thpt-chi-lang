@@ -93,7 +93,7 @@ export class BaiKiemTraCreateExamComponent implements OnInit {
     this.formGroup = this.fb.group({
       NgayThi: [FunctionPublic.getCurrentDate(), Validators.compose([Validators.required])],
       GioThi: [, Validators.compose([Validators.required])],
-      Password: [this.generatePassword(6)],
+      Password: [this.generatePassword(6), Validators.compose([Validators.required])],
       NguoiTao: [this.item.TenNguoiTao]
     });
     this.formGroup.controls.NguoiTao.disable();

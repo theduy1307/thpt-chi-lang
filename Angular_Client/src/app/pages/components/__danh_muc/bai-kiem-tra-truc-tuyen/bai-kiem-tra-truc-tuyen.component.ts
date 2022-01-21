@@ -241,6 +241,9 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
   print(id: number) {
     this.services.print(id);
   }
+  export(id:number){
+    this.services.exportFileExcel(id);
+  }
   isEmptyDataSource() {
     var _listData = [];
     this.services.items$.subscribe((value) => (_listData = value));

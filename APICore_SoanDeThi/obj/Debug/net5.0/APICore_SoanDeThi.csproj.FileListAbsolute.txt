@@ -1,0 +1,773 @@
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\appsettings.Development.json
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\appsettings.json
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.exe
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.deps.json
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.runtimeconfig.json
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.runtimeconfig.dev.json
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\ref\APICore_SoanDeThi.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.pdb
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.Views.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.Views.pdb
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Humanizer.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.InMemory.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.OpenApi.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Newtonsoft.Json.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Npgsql.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.GeneratedMSBuildEditorConfig.editorconfig
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.AssemblyInfoInputs.cache
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.AssemblyInfo.cs
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.csproj.CoreCompileInputs.cache
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.MvcApplicationPartsAssemblyInfo.cs
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.MvcApplicationPartsAssemblyInfo.cache
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.RazorAssemblyInfo.cache
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.RazorAssemblyInfo.cs
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\staticwebassets\APICore_SoanDeThi.StaticWebAssets.Manifest.cache
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\staticwebassets\APICore_SoanDeThi.StaticWebAssets.xml
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\scopedcss\bundle\APICore_SoanDeThi.styles.css
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.TagHelpers.input.cache
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.TagHelpers.output.cache
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.RazorCoreGenerate.cache
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\Error.cshtml.g.cs
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\Index.cshtml.g.cs
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\Privacy.cshtml.g.cs
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\Shared\_Layout.cshtml.g.cs
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\_ViewImports.cshtml.g.cs
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\_ViewStart.cshtml.g.cs
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.RazorTargetAssemblyInfo.cache
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.RazorTargetAssemblyInfo.cs
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.Views.pdb
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.csproj.CopyComplete
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\ref\APICore_SoanDeThi.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.pdb
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.genruntimeconfig.cache
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\wkhtmltopdf\Windows\wkhtmltopdf.exe
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Antiforgery.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.Cookies.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.Core.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.OAuth.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authorization.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authorization.Policy.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Authorization.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Forms.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Server.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Web.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Connections.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.CookiePolicy.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cors.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.Extensions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Diagnostics.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Diagnostics.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Diagnostics.HealthChecks.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.HostFiltering.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Hosting.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Hosting.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Html.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Connections.Common.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Connections.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Extensions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Features.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.HttpOverrides.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.HttpsPolicy.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Identity.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Localization.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Localization.Routing.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Metadata.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.ApiExplorer.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Core.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Cors.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.DataAnnotations.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Formatters.Json.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Formatters.Xml.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Localization.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Razor.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.RazorPages.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.TagHelpers.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Razor.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Razor.Runtime.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.ResponseCaching.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.ResponseCompression.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Rewrite.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Routing.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Routing.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.HttpSys.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.IIS.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.IISIntegration.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.Kestrel.Core.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.Kestrel.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Session.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.Common.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.Core.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.StaticFiles.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.WebSockets.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.WebUtilities.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.CSharp.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Caching.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Caching.Memory.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Binder.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.CommandLine.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.EnvironmentVariables.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.FileExtensions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Ini.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Json.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.KeyPerFile.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.UserSecrets.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Xml.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Diagnostics.HealthChecks.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Composite.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Embedded.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Physical.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.FileSystemGlobbing.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Hosting.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Hosting.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Http.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Identity.Core.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Identity.Stores.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Localization.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Localization.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Abstractions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Configuration.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Console.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Debug.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.EventLog.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.EventSource.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.TraceSource.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.ObjectPool.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.DataAnnotations.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Primitives.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.WebEncoders.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.JSInterop.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Net.Http.Headers.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.VisualBasic.Core.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.VisualBasic.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Win32.Primitives.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Win32.Registry.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\mscorlib.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\netstandard.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.AppContext.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Buffers.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Collections.Concurrent.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Collections.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Collections.Immutable.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Collections.NonGeneric.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Collections.Specialized.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ComponentModel.Annotations.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ComponentModel.DataAnnotations.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ComponentModel.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ComponentModel.EventBasedAsync.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ComponentModel.Primitives.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ComponentModel.TypeConverter.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Configuration.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Console.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Core.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Data.Common.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Data.DataSetExtensions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Data.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.Contracts.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.Debug.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.EventLog.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.FileVersionInfo.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.Process.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.StackTrace.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.TextWriterTraceListener.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.Tools.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.TraceSource.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.Tracing.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Drawing.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Drawing.Primitives.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Dynamic.Runtime.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Formats.Asn1.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Globalization.Calendars.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Globalization.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Globalization.Extensions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.Compression.Brotli.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.Compression.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.Compression.FileSystem.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.Compression.ZipFile.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.FileSystem.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.FileSystem.DriveInfo.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.FileSystem.Primitives.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.FileSystem.Watcher.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.IsolatedStorage.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.MemoryMappedFiles.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.Pipelines.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.Pipes.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.UnmanagedMemoryStream.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Linq.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Linq.Expressions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Linq.Parallel.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Linq.Queryable.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Memory.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Http.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Http.Json.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.HttpListener.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Mail.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.NameResolution.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.NetworkInformation.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Ping.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Primitives.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Requests.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Security.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.ServicePoint.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Sockets.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.WebClient.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.WebHeaderCollection.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.WebProxy.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.WebSockets.Client.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.WebSockets.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Numerics.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Numerics.Vectors.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ObjectModel.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.DispatchProxy.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.Emit.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.Emit.ILGeneration.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.Emit.Lightweight.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.Extensions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.Metadata.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.Primitives.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.TypeExtensions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Resources.Reader.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Resources.ResourceManager.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Resources.Writer.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.CompilerServices.Unsafe.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.CompilerServices.VisualC.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Extensions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Handles.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.InteropServices.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Intrinsics.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Loader.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Numerics.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Serialization.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Serialization.Formatters.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Serialization.Json.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Serialization.Primitives.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Serialization.Xml.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.AccessControl.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Claims.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Cryptography.Algorithms.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Cryptography.Cng.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Cryptography.Csp.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Cryptography.Encoding.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Cryptography.Primitives.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Cryptography.X509Certificates.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Cryptography.Xml.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Permissions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Principal.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Principal.Windows.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.SecureString.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ServiceModel.Web.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ServiceProcess.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Text.Encoding.CodePages.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Text.Encoding.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Text.Encoding.Extensions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Text.Encodings.Web.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Text.Json.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Text.RegularExpressions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Channels.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Overlapped.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Tasks.Dataflow.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Tasks.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Tasks.Extensions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Tasks.Parallel.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Thread.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.ThreadPool.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Timer.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Transactions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Transactions.Local.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ValueTuple.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Web.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Web.HttpUtility.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Windows.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Windows.Extensions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.Linq.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.ReaderWriter.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.Serialization.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.XDocument.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.XmlDocument.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.XmlSerializer.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.XPath.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.XPath.XDocument.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\refs\WindowsBase.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.CodeAnalysis.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.CodeAnalysis.Razor.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Wkhtmltopdf.NetCore.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\Print\index.cshtml.g.cs
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Views\Print\index.cshtml.g.cs
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\DocumentFormat.OpenXml.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\System.IO.Packaging.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Mammoth.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Xceed.Document.NET.dll
+D:\THPT CHI LANG\APICore_SoanDeThi\bin\Debug\net5.0\Xceed.Words.NET.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\appsettings.Development.json
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\appsettings.json
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\wkhtmltopdf\Windows\wkhtmltopdf.exe
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.exe
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.deps.json
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.runtimeconfig.json
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.runtimeconfig.dev.json
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\ref\APICore_SoanDeThi.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.pdb
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Antiforgery.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.Cookies.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.Core.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.OAuth.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authorization.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authorization.Policy.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Authorization.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Forms.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Server.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Web.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Connections.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.CookiePolicy.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cors.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.Extensions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Diagnostics.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Diagnostics.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Diagnostics.HealthChecks.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.HostFiltering.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Hosting.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Hosting.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Html.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Connections.Common.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Connections.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Extensions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Features.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.HttpOverrides.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.HttpsPolicy.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Identity.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Localization.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Localization.Routing.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Metadata.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.ApiExplorer.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Core.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Cors.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.DataAnnotations.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Formatters.Json.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Formatters.Xml.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Localization.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Razor.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.RazorPages.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.TagHelpers.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Razor.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Razor.Runtime.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.ResponseCaching.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.ResponseCompression.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Rewrite.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Routing.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Routing.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.HttpSys.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.IIS.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.IISIntegration.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.Kestrel.Core.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.Kestrel.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Session.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.Common.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.Core.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.StaticFiles.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.WebSockets.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.AspNetCore.WebUtilities.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.CSharp.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Caching.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Caching.Memory.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Binder.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.CommandLine.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.EnvironmentVariables.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.FileExtensions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Ini.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Json.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.KeyPerFile.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.UserSecrets.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Xml.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Diagnostics.HealthChecks.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Composite.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Embedded.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Physical.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.FileSystemGlobbing.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Hosting.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Hosting.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Http.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Identity.Core.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Identity.Stores.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Localization.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Localization.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Configuration.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Console.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Debug.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.EventLog.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.EventSource.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.TraceSource.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.ObjectPool.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.DataAnnotations.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.Primitives.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Extensions.WebEncoders.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.JSInterop.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Net.Http.Headers.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.VisualBasic.Core.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.VisualBasic.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Win32.Primitives.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\Microsoft.Win32.Registry.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\mscorlib.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\netstandard.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.AppContext.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Buffers.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Collections.Concurrent.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Collections.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Collections.Immutable.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Collections.NonGeneric.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Collections.Specialized.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ComponentModel.Annotations.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ComponentModel.DataAnnotations.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ComponentModel.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ComponentModel.EventBasedAsync.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ComponentModel.Primitives.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ComponentModel.TypeConverter.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Configuration.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Console.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Core.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Data.Common.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Data.DataSetExtensions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Data.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.Contracts.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.Debug.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.EventLog.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.FileVersionInfo.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.Process.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.StackTrace.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.TextWriterTraceListener.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.Tools.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.TraceSource.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Diagnostics.Tracing.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Drawing.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Drawing.Primitives.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Dynamic.Runtime.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Formats.Asn1.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Globalization.Calendars.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Globalization.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Globalization.Extensions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.Compression.Brotli.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.Compression.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.Compression.FileSystem.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.Compression.ZipFile.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.FileSystem.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.FileSystem.DriveInfo.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.FileSystem.Primitives.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.FileSystem.Watcher.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.IsolatedStorage.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.MemoryMappedFiles.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.Pipelines.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.Pipes.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.IO.UnmanagedMemoryStream.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Linq.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Linq.Expressions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Linq.Parallel.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Linq.Queryable.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Memory.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Http.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Http.Json.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.HttpListener.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Mail.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.NameResolution.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.NetworkInformation.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Ping.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Primitives.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Requests.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Security.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.ServicePoint.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.Sockets.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.WebClient.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.WebHeaderCollection.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.WebProxy.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.WebSockets.Client.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Net.WebSockets.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Numerics.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Numerics.Vectors.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ObjectModel.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.DispatchProxy.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.Emit.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.Emit.ILGeneration.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.Emit.Lightweight.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.Extensions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.Metadata.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.Primitives.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Reflection.TypeExtensions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Resources.Reader.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Resources.ResourceManager.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Resources.Writer.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.CompilerServices.Unsafe.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.CompilerServices.VisualC.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Extensions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Handles.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.InteropServices.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Intrinsics.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Loader.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Numerics.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Serialization.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Serialization.Formatters.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Serialization.Json.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Serialization.Primitives.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Runtime.Serialization.Xml.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.AccessControl.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Claims.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Cryptography.Algorithms.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Cryptography.Cng.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Cryptography.Csp.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Cryptography.Encoding.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Cryptography.Primitives.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Cryptography.X509Certificates.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Cryptography.Xml.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Permissions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Principal.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.Principal.Windows.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Security.SecureString.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ServiceModel.Web.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ServiceProcess.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Text.Encoding.CodePages.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Text.Encoding.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Text.Encoding.Extensions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Text.Encodings.Web.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Text.Json.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Text.RegularExpressions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Channels.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Overlapped.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Tasks.Dataflow.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Tasks.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Tasks.Extensions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Tasks.Parallel.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Thread.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.ThreadPool.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Threading.Timer.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Transactions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Transactions.Local.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.ValueTuple.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Web.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Web.HttpUtility.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Windows.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Windows.Extensions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.Linq.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.ReaderWriter.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.Serialization.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.XDocument.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.XmlDocument.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.XmlSerializer.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.XPath.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\System.Xml.XPath.XDocument.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\refs\WindowsBase.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.Views.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\APICore_SoanDeThi.Views.pdb
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\DocumentFormat.OpenXml.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Xceed.Document.NET.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Xceed.Words.NET.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Humanizer.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Mammoth.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.CodeAnalysis.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.CodeAnalysis.Razor.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.InMemory.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Microsoft.OpenApi.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Newtonsoft.Json.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Npgsql.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\System.IO.Packaging.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\Wkhtmltopdf.NetCore.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.csprojAssemblyReference.cache
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.GeneratedMSBuildEditorConfig.editorconfig
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.AssemblyInfoInputs.cache
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.AssemblyInfo.cs
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.csproj.CoreCompileInputs.cache
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.MvcApplicationPartsAssemblyInfo.cs
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.MvcApplicationPartsAssemblyInfo.cache
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.RazorAssemblyInfo.cache
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.RazorAssemblyInfo.cs
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\staticwebassets\APICore_SoanDeThi.StaticWebAssets.Manifest.cache
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\staticwebassets\APICore_SoanDeThi.StaticWebAssets.xml
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\scopedcss\bundle\APICore_SoanDeThi.styles.css
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.TagHelpers.input.cache
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.TagHelpers.output.cache
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.RazorCoreGenerate.cache
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\Error.cshtml.g.cs
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\Index.cshtml.g.cs
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\Print\index.cshtml.g.cs
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\Privacy.cshtml.g.cs
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\Shared\_Layout.cshtml.g.cs
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\_ViewImports.cshtml.g.cs
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Pages\_ViewStart.cshtml.g.cs
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\Razor\Views\Print\index.cshtml.g.cs
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.RazorTargetAssemblyInfo.cache
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.RazorTargetAssemblyInfo.cs
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.Views.pdb
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.csproj.CopyComplete
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\ref\APICore_SoanDeThi.dll
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.pdb
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.genruntimeconfig.cache
+D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.csproj.AssemblyReference.cache
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\EPPlus.dll
