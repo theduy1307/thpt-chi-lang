@@ -235,7 +235,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
         #endregion
 
-        #region THÊM MỚI TÀI KHOẢN
+        #region THÊM MỚI TÀI KHOẢN TỪ TEMPLATE
         [Route("Account_CreateImport")]
         //[Authorize(Roles = "10012")]
         [HttpPost]
@@ -366,26 +366,6 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _item.Loaitaikhoan = 1;
                 _item.Isadmin = 1;
                 _item.Picture = string.IsNullOrEmpty(data.Picture) ? "" : data.Picture.ToString().Trim();
-
-                if (data.FileImport != null && !string.IsNullOrEmpty(data.FileImport.filename))
-                {
-                    string _path = "wwwroot/assets/account-images/";
-                    string _pathToSave = "assets/account-images/";
-                    string _targetPath = Path.Combine(_hosting.ContentRootPath, _path);
-                    if (!Directory.Exists(_targetPath))
-                        Directory.CreateDirectory(_targetPath);
-                    string _fileName = _targetPath + data.FileImport.filename + "." + data.FileImport.extension;
-
-                    byte[] _fileByte = null;
-
-                    if (data.FileImport.fileByte != null)
-                        _fileByte = data.FileImport.fileByte;
-                    else
-                        _fileByte = Convert.FromBase64String(data.FileImport.base64);
-                    System.IO.File.WriteAllBytes(_fileName, _fileByte);
-
-                    _item.Picture = _pathToSave + data.FileImport.filename + "." + data.FileImport.extension;
-                }
                 _context.SaveChanges();
 
                 _context.Database.CommitTransaction();
@@ -415,7 +395,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             {
                 var _item = _context.ViewAccount.Where(x => x.Id == id && x.Disable == 0)
                                                 .Join(_context.ViewNhanVien, acc => acc.IdNv, emp => emp.IdNv, (acc, emp) => new { acc, emp })
-                                                .Join(_context.MonHoc, acc => acc.emp.Cocauid, org => org.Id, (acc, org) => new { acc, org })
+                                                .Join(_context.Lop, acc => acc.emp.IdLop, lop => lop.Id, (acc, lop) => new { acc, lop })
                                                 .Select(x => new IAccount {
                                                     Id = x.acc.acc.Id,
                                                     IdNv = x.acc.acc.IdNv ?? 0,
@@ -432,7 +412,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                     Username = x.acc.acc.Username,
                                                     Password = x.acc.acc.Password,
                                                     Picture = x.acc.acc.Picture,
-                                                    TenCoCau = _context.MonHoc.Where(o => o.Id == x.acc.emp.Cocauid).Select(o => o.TenMonHoc).FirstOrDefault()
+                                                    IdLop = x.lop.Id
                                                 })
                                                 .FirstOrDefault();
 

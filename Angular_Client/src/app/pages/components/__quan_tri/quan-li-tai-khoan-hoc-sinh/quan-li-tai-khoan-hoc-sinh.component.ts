@@ -26,6 +26,7 @@ import { Router } from "@angular/router";
 import { AccountStudentService } from "./quan-li-tai-khoan-hoc-sinh-services/quan-li-tai-khoan-hoc-sinh-services";
 import { QuanLiTaiKhoanHocSinhImportComponent } from "./quan-li-tai-khoan-hoc-sinh-import/quan-li-tai-khoan-hoc-sinh-import.component";
 import { QuanLiTaiKhoanHocSinhCreateComponent } from "./quan-li-tai-khoan-hoc-sinh-create/quan-li-tai-khoan-hoc-sinh-create.component";
+import { QuanLiTaiKhoanHocSinhUpdateComponent } from "./quan-li-tai-khoan-hoc-sinh-update/quan-li-tai-khoan-hoc-sinh-update.component";
 
 export interface PeriodicElement {
   name: string;
@@ -212,6 +213,16 @@ export class QuanLiTaiKhoanHocSinhComponent implements OnInit, OnDestroy, ISortV
           this.subscriptions.push(sb);
         }
       },
+      () => {}
+    );
+  }
+  edit(id: number) {
+    const modalRef = this.modalService.open(QuanLiTaiKhoanHocSinhUpdateComponent, {
+      size: "lg",
+    });
+    modalRef.componentInstance.id = id;
+    modalRef.result.then(
+      () => this.services.fetch(),
       () => {}
     );
   }

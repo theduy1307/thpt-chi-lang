@@ -186,6 +186,7 @@ export class QuanLiTaiKhoanHocSinhImportComponent implements OnInit {
         Lop: item.Lop,
         FileImport: new FileImport(),
         Role: [],
+        IdLop:undefined
       };
       listData.push(data)
     });

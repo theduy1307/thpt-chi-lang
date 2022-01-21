@@ -23,6 +23,7 @@ export interface IAccount extends BaseModel {
     Picture: string;
     Lop:string;
     Role: number[];
+    IdLop:number;
 }
 
 export class AccountImport {
@@ -76,6 +77,7 @@ export const EMPTY_DATA: IAccount = {
     FileImport: undefined,
     Lop:"",
     Role: [],
+    IdLop:0,
   };
 
 export class Account {

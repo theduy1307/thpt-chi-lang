@@ -255,8 +255,8 @@ namespace APICore_SoanDeThi.Controllers.Common
 
             try
             {
-                long currentYear = _context.NienKhoa.Where(x => !x.Disabled).Select(x=>x.Id).ToList().LastOrDefault();
-                var _data = _context.Lop.Where(x => !x.Disabled && x.IdNienKhoa == currentYear)
+                //long currentYear = _context.NienKhoa.Where(x => !x.Disabled).Select(x=>x.Id).ToList().LastOrDefault();
+                var _data = _context.Lop.Where(x => !x.Disabled /*&& x.IdNienKhoa == currentYear*/)
                           .Select(x => new Lop
                           {
                               Id = x.Id,

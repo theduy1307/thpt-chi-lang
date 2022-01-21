@@ -35,5 +35,6 @@ namespace APICore_SoanDeThi.Models.InteractionModels
         public FileImport FileImport { get; set; }
         public string? Picture { get; set; }
         public string? Lop { get; set; }
+        public long IdLop { get; set; }
     }
 }

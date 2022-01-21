@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -15,11 +15,12 @@ import { IAccount } from "../quan-li-tai-khoan-hoc-sinh-model/quan-li-tai-khoan-
 import { AccountStudentService } from "../quan-li-tai-khoan-hoc-sinh-services/quan-li-tai-khoan-hoc-sinh-services";
 
 @Component({
-  selector: "app-quan-li-tai-khoan-hoc-sinh-create",
-  templateUrl: "./quan-li-tai-khoan-hoc-sinh-create.component.html",
-  styleUrls: ["./quan-li-tai-khoan-hoc-sinh-create.component.scss"],
+  selector: "app-quan-li-tai-khoan-hoc-sinh-update",
+  templateUrl: "./quan-li-tai-khoan-hoc-sinh-update.component.html",
+  styleUrls: ["./quan-li-tai-khoan-hoc-sinh-update.component.scss"],
 })
-export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
+export class QuanLiTaiKhoanHocSinhUpdateComponent implements OnInit {
+  @Input() id: number;
   /* ------------------------------------------------------------------*/
   isLinear = false;
   imageUrl = "assets/media/users/blank.png";
@@ -63,9 +64,8 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading$ = this.services.isLoading$;
-    this.loadData();
     this.loadListLopHoc();
-    this.loadForm();
+    this.loadData();
   }
 
   ngOnDestroy(): void {
@@ -106,12 +106,27 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
   }
   setValueLopHoc(event: any) {
     let item = this.listLopHoc.find((x) => x.Id === parseInt(event.value));
-    this.informationFormGroup.controls["lopHoc"].setValue(item.Id.toString())
+    this.informationFormGroup.controls["lopHoc"].setValue(item.Id.toString());
   }
   //#endregion
 
   loadData() {
     this.data = this.initialData();
+    this.loadForm();
+    const sb = this.services
+      .getItemById(this.id)
+      .pipe(
+        first(),
+        catchError((errorMessage) => {
+          this.modal.dismiss(errorMessage);
+          return of(this.initialData());
+        })
+      )
+      .subscribe((result: IAccount) => {
+        this.data = result.data;
+        this.loadForm();
+      });
+    this.subscriptions.push(sb);
   }
 
   initialData(): IAccount {
@@ -141,27 +156,27 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
       Picture: "",
       Lop: "",
       Role: [],
-      IdLop: 0,
+      IdLop:0,
     };
     return INIT_DATA;
   }
 
   loadForm() {
     this.informationFormGroup = this.fb.group({
-      hoLot: ["", Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])],
-      ten: ["", Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)])],
-      gioiTinh: ["1", Validators.required],
-      ngaySinh: ["", Validators.required],
-      lopHoc: ["", Validators.compose([Validators.required])],
-      sodienthoai: ["", Validators.compose([Validators.required, Validators.maxLength(10)])],
+      hoLot: [this.data.Holot, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])],
+      ten: [this.data.Ten, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)])],
+      gioiTinh: [this.data.Phai, Validators.required],
+      ngaySinh: [this.formatDateAngular(this.data.Ngaysinh), Validators.required],
+      lopHoc: [this.data.IdLop.toString(), Validators.compose([Validators.required])],
+      soDienThoai: [this.data.SodienthoaiNguoilienhe, Validators.compose([Validators.required, Validators.maxLength(10)])],
     });
   }
 
-  create() {
+  edit() {
     const modalRef = this.modalService.open(DeleteModalComponent);
     modalRef.componentInstance.id = undefined;
     modalRef.componentInstance.title = "Lưu thông tin";
-    modalRef.componentInstance.message = "Xác nhận lưu thông tin tài khoản?";
+    modalRef.componentInstance.message = "Xác nhận cập nhật thông tin tài khoản?";
     modalRef.componentInstance.loadingMsg = "";
     modalRef.componentInstance.submitButtonMsg = "Xác nhận";
     modalRef.componentInstance.cancelButtonMsg = "Đóng";
@@ -170,7 +185,7 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
         if (result) {
           let dataItems = this.prepareData();
           const sbCreate = this.services
-            .create(dataItems)
+            .update(dataItems)
             .pipe(
               tap(() => this.modal.close()),
               catchError((errorMessage) => {
@@ -179,7 +194,7 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
               })
             )
             .subscribe((res: any) => {
-                this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
+              this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
             });
           this.subscriptions.push(sbCreate);
         }
@@ -194,8 +209,8 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
       id: undefined,
       data: undefined,
       status: undefined,
-      Id: undefined,
-      IdNv: undefined,
+      Id: this.data.Id,
+      IdNv: this.data.IdNv,
       Manv: "",
       Holot: this.upperCaseFirstCharacter(formData.hoLot),
       Ten: this.upperCaseFirstCharacter(formData.ten),
@@ -209,14 +224,14 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
       Disable: 0,
       Cocauid: 0,
       TenCoCau: "",
-      SodienthoaiNguoilienhe: formData.sodienthoai,
-      Username: this.setUsername(),
+      SodienthoaiNguoilienhe: formData.soDienThoai,
+      Username:  this.data.Username.replace(/[0-9]/g, '') === this.setUsername() ? this.data.Username : this.setUsername(),
       Password: "thptchilang@123",
       Picture: "123",
       Lop: formData.lopHoc,
       FileImport: new FileImport(),
       Role: [],
-      IdLop: formData.lopHoc,
+      IdLop: +formData.lopHoc,
     };
     return data;
   }
@@ -238,19 +253,22 @@ export class QuanLiTaiKhoanHocSinhCreateComponent implements OnInit {
     return newString;
   }
 
-  upperCaseFirstCharacter(str:string) {
-    if(str.length == 0 ) return ""
+  upperCaseFirstCharacter(str: string) {
+    if (str.length == 0) return "";
     let arrName = str.split(" ");
     let newString = "";
-    arrName.map(elm => {
-      elm =  elm.charAt(0).toUpperCase() + elm.slice(1);
-      newString += elm+ " ";
-    })
+    arrName.map((elm) => {
+      elm = elm.charAt(0).toUpperCase() + elm.slice(1);
+      newString += elm + " ";
+    });
     return newString.trim();
   }
 
   formatDateApi(date) {
     return moment(new Date(date)).format("YYYY-MM-DD[T]HH:mm:ss.SSS");
+  }
+  formatDateAngular(date) {
+    return moment(new Date(date)).format("MM/DD/YYYY");
   }
   validateFormGroupEvent(controlName: string, formGroup: FormGroup, type: number, validation: string = "") {
     return FunctionPublic.ValidateFormGroupEvent(controlName, formGroup, type, validation);
