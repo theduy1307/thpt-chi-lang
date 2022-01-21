@@ -770,3 +770,4 @@ D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\ref\APICore_SoanDeTh
 D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.pdb
 D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.genruntimeconfig.cache
 D:\THPT CHI LANG\APICore_SoanDeThi\obj\Debug\net5.0\APICore_SoanDeThi.csproj.AssemblyReference.cache
+D:\ChiLang\thpt-chi-lang\APICore_SoanDeThi\bin\Debug\net5.0\EPPlus.dll

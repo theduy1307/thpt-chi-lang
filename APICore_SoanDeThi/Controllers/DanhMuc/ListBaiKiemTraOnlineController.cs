@@ -16,6 +16,11 @@ using APICore_SoanDeThi.Models.DatabaseContext;
 using Wkhtmltopdf.NetCore;
 using Mammoth;
 using System.Text.RegularExpressions;
+using System.Globalization;
+using System.IO;
+using System.Drawing;
+using OfficeOpenXml;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace APICore_SoanDeThi.Controllers.QuanTri
 {
@@ -405,6 +410,86 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             catch (Exception ex)
             {
                 return Utilities._responseData(0, "Xóa thất bại, vui lòng kiểm tra lại! Lỗi: " + ex.Message, null);
+            }
+        }
+        #endregion
+
+        #region EXPORT EXCEL
+        [Route("Export")]
+        //[Authorize(Roles = "10014")]
+        [HttpGet]
+        public IActionResult ListBaiKiemTraOnline_Export(long id)
+        {
+            //string Token = Utilities._GetHeader(Request);
+            //UserLogin loginData = _account._GetInfoUser(Token);
+
+            //if (loginData == null)
+            //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                string _path = Constant.FileExport;
+                string _targetPath = Path.Combine(_hosting.ContentRootPath, _path);
+                string _fileName = _targetPath + "/Export_Exam.xlsx";
+                byte[] fileContents;
+                using (ExcelPackage package = new ExcelPackage())
+                {
+                    using (FileStream stream = new FileStream(_fileName, FileMode.Open))
+                    {
+                        package.Load(stream);
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                        worksheet.Name = ("Sheet 1").ToUpper();
+
+                        var _SLCau = _context.BaiKiemTra_TrucTuyen_Group.Where(x => x.Id == id)
+                            .Select(x => new
+                            {
+                                CauHieu = x.CauHieu,
+                                CauBiet = x.CauBiet,
+                                CauVanDungThap = x.CauVanDungThap,
+                                CauVanDungCao = x.CauVanDungCao,
+                            }).FirstOrDefault();
+
+                        var _getSLCau = _SLCau.CauBiet + _SLCau.CauHieu + _SLCau.CauVanDungThap + _SLCau.CauVanDungCao;
+                        for (int i = 1; i <= _getSLCau; i ++)
+                        {
+                            worksheet.Cells[8, 5 + i].Value = "Câu " + i;
+                        }
+
+
+                        var _groupOnline = _context.BaiKiemTra_TrucTuyen.Where(x => x.IdGroup == id).ToList(); /// lấy ra các đề đã đc tạo ngẫu nhiên
+                        int a = 9;
+                        int b = 1;
+                        int stt = 1;
+                        foreach (var item in _groupOnline)
+                        {
+                            var _TrucTuyenHocSinh = _context.BaiKiemTra_TrucTuyen_HocSinh.Where(x => x.IdBaiKiemTraOnline == item.Id).ToList(); /// ra 1 list học sinh cùng 1 đề
+                            
+                            for(int i = 0; i < _TrucTuyenHocSinh.Count(); i++)
+                            {
+                                worksheet.Cells[a, b].Value = stt + i ; //stt
+                                var tenHS = _context.ViewNhanVien.Where(x => x.IdNv == _TrucTuyenHocSinh[i].IdHocSinh).Select(x => x.HoTen).FirstOrDefault();
+                                worksheet.Cells[a, b + 1].Value = tenHS;
+                                var getLopHS = _context.ViewNhanVien.Where(x => x.IdNv == _TrucTuyenHocSinh[i].IdHocSinh).Select(x => x.IdLop).FirstOrDefault();
+                                var LopHS = _context.Lop.Where(x => x.Id == getLopHS).Select(x => x.TenLop).FirstOrDefault();
+                                worksheet.Cells[a, b + 2].Value = LopHS;
+                                worksheet.Cells[a, b + 3].Value = item.MaDe;
+                                a++;
+                            }
+                            stt = stt + _TrucTuyenHocSinh.Count();
+                            
+                        }
+                    }
+                    fileContents = package.GetAsByteArray();
+                }
+                return File(
+                    fileContents: fileContents,
+                    contentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    fileDownloadName: "Export_Exam"
+                );
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
             }
         }
         #endregion

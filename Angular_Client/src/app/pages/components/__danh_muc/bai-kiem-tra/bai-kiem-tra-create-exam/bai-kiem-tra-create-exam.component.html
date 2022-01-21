@@ -7,7 +7,7 @@
     <div class="model-action">
       <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.close()">Trở về</button>
       <div class="btn-group mr-3">
-        <button type="submit" class="btn btn-primary" (click)="create()">Lưu</button>
+        <button type="submit" class="btn btn-primary" (click)="create()" [disabled] = "formGroup.invalid">Lưu</button>
       </div>
     </div>
   </div>
@@ -43,11 +43,28 @@
               [class.is-invalid]="ValidateFormGroupEvent('GioThi', formGroup, 1)"
               [class.is-valid]="ValidateFormGroupEvent('GioThi', formGroup, 0)" />
           </div>
-          <div class="col-lg-3">
+          <!-- <div class="col-lg-3">
             <label class="form-label form-control-solid">Mật khẩu</label>
-            <input type="text" class="form-control form-control-lg" placeholder="Mật khẩu" formControlName="Password" 
+            <input type="text" class="form-control form-control-lg" placeholder="Mật khẩu" formControlName="Password"
               [class.is-invalid]="ValidateFormGroupEvent('Password', formGroup, 1)"
-              [class.is-valid]="ValidateFormGroupEvent('Password', formGroup, 0)"/>
+              [class.is-valid]="ValidateFormGroupEvent('Password', formGroup, 0)" />
+          </div> -->
+          <div class="col-lg-3 ">
+            <label class="form-label form-control-solid">Mật khẩu</label>
+            <div class="input-group row">
+              <input type="text" class="form-control form-control-lg" placeholder="Mật khẩu" formControlName="Password"
+                [class.is-invalid]="ValidateFormGroupEvent('Password', formGroup, 1)"
+                [class.is-valid]="ValidateFormGroupEvent('Password', formGroup, 0)" />
+              <div class="input-group-append">
+                <a matTooltip="Tạo bài kiểm tra trực tuyến" matTooltipPosition="after"
+                  class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3">
+                  <span [inlineSVG]="'./assets/media/svg/icons/General/Update.svg'" cacheSVG="true"
+                    class="svg-icon svg-icon-md svg-icon-primary">
+                  </span>
+                </a>
+                <!-- <button class="btn btn-outline-secondary" type="button">Đổi mật khẩu</button> -->
+              </div>
+            </div>
           </div>
           <div class="col-lg-3">
             <label class="form-label form-control-solid">Người tạo</label>
@@ -58,6 +75,16 @@
         </div>
       </form>
     </ng-container>
+    <!-- <ng-container>
+      <div class="input-group row col-lg-3 ">
+        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+        <div class="input-group-append">
+          <span class="input-group-text">$</span>
+          <span class="input-group-text">0.00</span>
+        </div>
+      </div>
+    </ng-container> -->
+
   </div>
   <!-- End Body -->
 </div>
