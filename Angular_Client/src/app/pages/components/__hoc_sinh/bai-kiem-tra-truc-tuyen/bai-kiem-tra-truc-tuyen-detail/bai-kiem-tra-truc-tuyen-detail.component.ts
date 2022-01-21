@@ -11,6 +11,7 @@ import { DeleteModalComponent } from '../../../_common/_components/delete-modal/
 import { FunctionPublic } from '../../../_common/_function/public-function';
 import { DungChungService } from '../../../_common/_services/dung-chung.service';
 import { IBaiKiemTra_ChiTiet } from '../../../__danh_muc/in-bai-kiem-tra/in-bai-kiem-tra-model/bai-kiem-tra.model';
+import { SuccessComponent } from '../../success/success.component';
 import { IBaiKiemTra_TrucTuyen_Group, IBaiKiemTra_TrucTuyen_HocSinh_ChiTiet, IQuestion } from '../bai-kiem-tra-truc-tuyen-model/bai-kiem-tra-truc-tuyen.model';
 import { BaiKiemTraTrucTuyenService } from '../bai-kiem-tra-truc-tuyen-service/bai-kiem-tra-truc-tuyen.service';
 
@@ -29,10 +30,9 @@ export class BaiKiemTraTrucTuyenDetailComponent implements OnInit {
   errorMessage = '';
   isLoadingSpinner: boolean = false;
   data: any;
-  thoiGianLamBai: number;
+  thoiGianLamBai: any;
   tenBaiKiemTra: string;
-  formThongTin: FormGroup;
-  danhSachCauHoi: IQuestion[];
+  formGroup: FormGroup;
   private subscriptions: Subscription[] = [];
   /* ------------------------------------------------------------------*/
 
@@ -59,7 +59,6 @@ export class BaiKiemTraTrucTuyenDetailComponent implements OnInit {
 
   loadData(): void {
     // this.data = this.initialData();
-    // this.loadForm();
     const sb = this.route.paramMap
       .pipe(
         switchMap((params) => {
@@ -82,12 +81,16 @@ export class BaiKiemTraTrucTuyenDetailComponent implements OnInit {
         this.data = res.data._check
         this.thoiGianLamBai = res.data.thoiGianLamBai;
         this.tenBaiKiemTra = res.data.tenBaiKiemTra;
-        // this.loadForm();
+        this.loadForm();
         // this.setInitialQuestionList();
       });
     this.subscriptions.push(sb);
   }
-
+  loadForm() {
+    // this.formGroup = this.fb.group({
+    //   Choosen: [this.data.choosen]
+    // });
+  }
   // initialData(): IBaiKiemTra_TrucTuyen_Group {
   //   const data: IBaiKiemTra_TrucTuyen_Group = {
   //     id: undefined,
@@ -426,44 +429,44 @@ export class BaiKiemTraTrucTuyenDetailComponent implements OnInit {
   //   }
   //   return true;
   // }
-  // create(): void {
-  //   const modalRef = this.modalService.open(DeleteModalComponent);
-  //   modalRef.componentInstance.title = 'Tạo mới bài kiểm tra';
-  //   modalRef.componentInstance.message = 'Sau khi xác nhận, thầy/cô không được phép chỉnh sửa nữa';
-  //   modalRef.componentInstance.loadingMsg = '';
-  //   modalRef.componentInstance.submitButtonMsg = 'Xác nhận';
-  //   modalRef.componentInstance.cancelButtonMsg = 'Đóng';
-  //   modalRef.result.then(
-  //     (result) => {
-  //       if (result) {
-  //         const valid = this.detectValidationPreviousSubmit()
-  //         const data = this.prepareData(false);
-  //         const sbCreate = this.services
-  //           .create(data)
-  //           .pipe(
-  //             tap(() => {}),
-  //             catchError((errorMessage) => {
-  //               console.error('UPDATE ERROR', errorMessage);
-  //               return of(this.data);
-  //             })
-  //           )
-  //           .subscribe((res: IBaiKiemTra_Group) => {
-  //             if (res && res.status == 1) {
-  //               this.data = res.data;
-  //               //this.router.navigate(["/danh-muc/danh-sach-bai-kiem-tra/thanh-cong"]);
-  //               this.layoutUtilsService.openSnackBar('Lưu thành công', 'Đóng');
-  //             } else {
-  //               this.layoutUtilsService.openSnackBar('Lưu thất bại, vui lòng kiểm tra thông tin', 'Đóng');
-  //             }
-  //           });
-  //         this.subscriptions.push(sbCreate);
-  //       }
-  //     },
-  //     () => {}
-  //   );
-  // }
+  save(): void {
+    const modalRef = this.modalService.open(DeleteModalComponent);
+    modalRef.componentInstance.title = 'Hoàn tất bài kiểm tra';
+    modalRef.componentInstance.message = 'Bạn có muốn hoàn tất bài kiểm tra không ???';
+    modalRef.componentInstance.loadingMsg = '';
+    modalRef.componentInstance.submitButtonMsg = 'Xác nhận';
+    modalRef.componentInstance.cancelButtonMsg = 'Đóng';
+    modalRef.result.then(
+      (result) => {
+        if (result) {
+          // const data = this.prepareData(false);
+          // const sbCreate = this.services
+          //   .create(data)
+          //   .pipe(
+          //     tap(() => {}),
+          //     catchError((errorMessage) => {
+          //       console.error('UPDATE ERROR', errorMessage);
+          //       return of(this.data);
+          //     })
+          //   )
+          //   .subscribe((res: any) => {
+          //     if (res && res.status == 1) {
+          //       this.data = res.data;
+          //       this.layoutUtilsService.openSnackBar('Lưu thành công', 'Đóng');
+          //     } else {
+          //       this.layoutUtilsService.openSnackBar('Lưu thất bại, vui lòng kiểm tra thông tin', 'Đóng');
+          //     }
+          //   });
+          // this.subscriptions.push(sbCreate);
+          const modalRef = this.modalService.open(SuccessComponent, { size: 'xl' , backdrop:"static", keyboard:false });
 
-  radioChecked(id: number, IdQueston: number, event) {
+        }
+      },
+      () => {}
+    );
+  }
+
+  radioChecked(id: number, IdQueston: number, event,time) {
     // console.log(id)
     // console.log(IdQueston)
     // console.log(event.value)
@@ -487,7 +490,7 @@ export class BaiKiemTraTrucTuyenDetailComponent implements OnInit {
     // }
     // );
     // this.subscriptions.push(sbCreate);
-    const sbCreate = this.services.edit(id,IdQueston,event.value).pipe(
+    const sbCreate = this.services.edit(id,IdQueston,event.value, time.i.value).pipe(
       tap(() => {
         // this.modal.close();
       }),
@@ -497,13 +500,19 @@ export class BaiKiemTraTrucTuyenDetailComponent implements OnInit {
       }),
     ).subscribe((res) => {
       if (res && res.status == 1) {
-        this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
+        // this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
       } else {
         this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
       }
     }
     );
     this.subscriptions.push(sbCreate);
+  }
+  onTimerFinished(event: any) {
+    if (event["action"] == "done"){
+      // this.router.navigate([`hoc-sinh/danh-sach-bai-kiem-tra-truc-tuyen`])
+      const modalRef = this.modalService.open(SuccessComponent, { size: 'xl' , backdrop:"static", keyboard:false });
+    }
   }
   // prepareData(id:number): IBaiKiemTra_TrucTuyen_HocSinh_ChiTiet {
   //   let result: IBaiKiemTra_TrucTuyen_HocSinh_ChiTiet = {

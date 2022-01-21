@@ -290,6 +290,12 @@ namespace APICore_SoanDeThi.Migrations
                     b.Property<long>("IdHocSinh")
                         .HasColumnType("bigint");
 
+                    b.Property<float>("ThoiGianLamBaiConLai")
+                        .HasColumnType("real");
+
+                    b.Property<long>("TrangThai")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.ToTable("BaiKiemTra_TrucTuyen_HocSinh");

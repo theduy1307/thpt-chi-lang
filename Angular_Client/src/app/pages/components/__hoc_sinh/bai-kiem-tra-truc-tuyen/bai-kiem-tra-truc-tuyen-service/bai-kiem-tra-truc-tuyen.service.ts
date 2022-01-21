@@ -110,9 +110,9 @@ export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_TrucTuy
   //       finalize(() => this.setLoading(false))
   //     );
   // }
-  edit(id: number,IdQueston:number,eventValue:any): Observable<any> {
+  edit(id: number,IdQueston:number,eventValue:any,time:any): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/BaiKiemTraOnline_Update?id=${id}&IdQueston=${IdQueston}&eventValue=${eventValue}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/BaiKiemTraOnline_Update?id=${id}&IdQueston=${IdQueston}&eventValue=${eventValue}&time=${time}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});

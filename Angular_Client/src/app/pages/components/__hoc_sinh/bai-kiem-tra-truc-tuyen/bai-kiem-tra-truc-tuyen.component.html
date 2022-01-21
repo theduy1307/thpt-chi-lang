@@ -56,9 +56,22 @@
                 <li class="list-group-item">Lớp {{item.Lop}}</li>
                 <li class="list-group-item">Thời gian làm bài: {{item.ThoiGianLamBai}} (phút)</li>
               </ul>
-              <div class="card-body text-center">
+              <div class="card-body text-left">
                 <button class="btn btn-primary" (click) = "checkPassword(item.Id)">Bắt đầu làm bài</button>
+                <button class="btn btn-warning">
+                  <span
+                      class="label label-lg label-inline"
+                      [class.label-warning]="item.TrangThai_BaiKiemTraOnline === 1"
+                      [class.label-info]="item.TrangThai_BaiKiemTraOnline === 2"
+                      [class.label-primary]="item.TrangThai_BaiKiemTraOnline === 3"
+                  >
+                    <ng-container *ngIf="item.TrangThai_BaiKiemTraOnline === 1">Chưa thi</ng-container>
+                    <ng-container *ngIf="item.TrangThai_BaiKiemTraOnline === 2">Đang thi</ng-container>
+                    <ng-container *ngIf="item.TrangThai_BaiKiemTraOnline === 3">Hoàn tất</ng-container>
+                  </span>
+                </button>
               </div>
+              
             </div>
         </ng-container>
       </div>
