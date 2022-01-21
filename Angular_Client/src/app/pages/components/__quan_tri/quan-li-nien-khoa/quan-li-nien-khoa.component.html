@@ -28,77 +28,13 @@
           </div>
         </div>
       </div>
-      <!-- End Search Filter -->
-  
-      <!-- Action with multiple selected -->
-      <!-- <ng-container *ngIf="grouping.getSelectedRowsCount()">
-        <div class="form">
-          <div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
-            <div class="col-xl-12">
-              <div class="form-group form-group-inline">
-                <div class="form-label form-label-no-wrap">
-                  <label class="font-bold font-danger"
-                    ><span
-                      >Số lượng đang chọn: <b>{{ grouping.getSelectedRowsCount() }}</b></span
-                    ></label
-                  >
-                </div>
-                <div>
-                  <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1">
-                    <i class="fa fa-trash"></i> Xóa tất cả</button
-                  >&nbsp;
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-container> -->
-      <!-- End Action -->
-  
-      <!-- Data table -->
-      <div class="table-responsive angular-bootstrap-table">
-        <table class="table table-head-custom table-vertical-center overflow-hidden">
-          <thead>
-            <th>STT</th>
-            <th>
-              Tên niên khoá
-              <app-sort-icon
-                column="TenNienKhoa"
-                [activeColumn]="sorting.column"
-                [activeDirection]="sorting.direction"
-                (sort)="sort($event)"
-              ></app-sort-icon>
-            </th>          
-            <th>
-              Người tạo
-              <app-sort-icon
-                column="NguoiTao"
-                [activeColumn]="sorting.column"
-                [activeDirection]="sorting.direction"
-                (sort)="sort($event)"
-              ></app-sort-icon>
-            </th>
-            <th>
-              Ngày tạo
-              <app-sort-icon
-                column="NgayTao"
-                [activeColumn]="sorting.column"
-                [activeDirection]="sorting.direction"
-                (sort)="sort($event)"
-              ></app-sort-icon>
-            </th>
-            <th>Thao tác</th>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of services.items$ | async; let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ item.TenNienKhoa }}</td>
-              <td>{{ item.TenNguoiTao }}</td>
-              <td>{{ item.NgayTao | date: "dd/MM/YYYY" }}</td>
-              <ul class="list-inline m-0">
-                <li class="list-inline-item">
-                  <td>
-                    <a
+      <!-- End Search Filter -->  
+      <ng-container *ngFor="let item of services.items$ | async; let i = index">
+        <mat-card class="mr-3" style="width: 20%; float: left;">
+          <mat-card-title align="center">{{item.TenNienKhoa}}</mat-card-title>
+          <mat-divider inset></mat-divider>
+          <mat-card-actions align="center">
+            <a
                       matTooltip="Chỉnh sửa"
                       matTooltipPosition="after"
                       class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3"
@@ -124,20 +60,12 @@
                       >
                       </span>
                     </a>
-                  </td>
-                </li>
-              </ul>
-            </tr>
-          </tbody>
-        </table>
-        <div class="text-center" style="margin: 20px 0; text-transform: uppercase" *ngIf="isEmptyDataSource()">
-          Không có dữ liệu
-        </div>
-      </div>
-      <!-- End Data Table -->
-  
+          </mat-card-actions>
+        </mat-card>
+      </ng-container>
       <app-paginator
         class="d-flex justify-content-between align-items-center flex-wrap"
+        style="clear:both"
         [paginator]="paginator"
         [isLoading]="isLoading"
         (paginate)="paginate($event)"

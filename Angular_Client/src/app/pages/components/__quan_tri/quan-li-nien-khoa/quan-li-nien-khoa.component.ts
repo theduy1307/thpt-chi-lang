@@ -117,7 +117,7 @@ ISearchView {
   }
 
   create() {
-      const modalRef = this.modalService.open(QuanLiNienKhoaAddComponent, { size: 'xl' });
+      const modalRef = this.modalService.open(QuanLiNienKhoaAddComponent, { size: 'md' });
       modalRef.componentInstance.id = undefined;
       modalRef.result.then(() =>
           this.services.fetch(),
@@ -125,7 +125,7 @@ ISearchView {
       );
   }
   edit(id: number) {
-      const modalRef = this.modalService.open(QuanLiNienKhoaEditComponent, { size: 'xl' });
+      const modalRef = this.modalService.open(QuanLiNienKhoaEditComponent, { size: 'md' });
       modalRef.componentInstance.id = id;
       modalRef.result.then(() =>
           this.services.fetch(),

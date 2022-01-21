@@ -1,0 +1,128 @@
+<div class="card card-custom gutter-b">
+    <!-- Header Modal -->
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label">Thêm mới tài khoản học sinh</h3>
+        </div>
+        <div class="card-toolbar">
+            <button type="button" class="btn btn-primary" (click)="edit()">Cập nhật</button>
+        </div>
+    </div>
+    <!-- End Header -->
+
+    <!-- Body -->
+    <div class="card-body">
+        <!-- <ng-container *ngIf="isLoading$ | async">
+            <div class="overlay-layer bg-transparent">
+                <div class="spinner spinner-lg spinner-success"></div>
+            </div>
+        </ng-container> -->
+        <ng-container>
+            <form action="#" class="form form-label-right" [formGroup]="informationFormGroup">
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label class="form-label">Họ và tên lót</label>
+                        <input type="text" class="form-control form-control-lg" placeholder="Nguyễn Hạ Hưng"
+                            formControlName="hoLot"
+                            [class.is-invalid]="validateFormGroupEvent('hoLot', informationFormGroup, 1)"
+                            [class.is-valid]="validateFormGroupEvent('hoLot', informationFormGroup, 0)" />
+                        <div class="valid-feedback" *ngIf="validateFormGroupEvent('hoLot', informationFormGroup, 0)">
+                            Thông tin chính xác
+                        </div>
+                        <div class="invalid-feedback" *ngIf="validateFormGroupEvent('hoLot', informationFormGroup, 1)">
+                            Vui lòng nhập đúng
+                            thông tin</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Tên</label>
+                        <input type="text" class="form-control form-control-lg" placeholder="Sơn" formControlName="ten"
+                            [class.is-invalid]="validateFormGroupEvent('ten', informationFormGroup, 1)"
+                            [class.is-valid]="validateFormGroupEvent('ten', informationFormGroup, 0)" />
+                        <div class="valid-feedback" *ngIf="validateFormGroupEvent('ten', informationFormGroup, 0)">
+                            Thông tin chính xác</div>
+                        <div class="invalid-feedback" *ngIf="validateFormGroupEvent('ten', informationFormGroup, 1)">Vui
+                            lòng nhập tên</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label class="form-label">Giới tính</label><br />
+                        <ng-container>
+                            <mat-radio-group formControlName="gioiTinh" class="form-control form-control-lg"
+                                style="border: 0">
+                                <mat-radio-button value="1">Nam</mat-radio-button>
+                                <mat-radio-button value="2">Nữ</mat-radio-button>
+                            </mat-radio-group>
+                        </ng-container>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Ngày sinh</label>
+                        <div class="input-group">
+                            <input type="text" name="dob" class="form-control form-control-lg" autocomplete="off"
+                                (click)="d.toggle()" placeholder="dd/mm/yyyy" ngbDatepicker #d="ngbDatepicker"
+                                [class.is-invalid]="validateFormGroupEvent('ngaySinh', informationFormGroup, 1)"
+                                [class.is-valid]="validateFormGroupEvent('ngaySinh', informationFormGroup, 0)"
+                                formControlName="ngaySinh" readonly="true" />
+                            <div class="input-group-append" (click)="d.toggle()">
+                                <span class="input-group-text">
+                                    <i class="text-dark-50 flaticon-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="valid-feedback" *ngIf="validateFormGroupEvent('ngaySinh', informationFormGroup, 0)">
+                            Thông tin chính xác
+                        </div>
+                        <div class="invalid-feedback"
+                            *ngIf="validateFormGroupEvent('ngaySinh', informationFormGroup, 1)">Vui lòng nhập ngày
+                            sinh</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label class="form-label">Lớp</label>
+                        <mat-select disableOptionCentering placeholder="Chọn lớp học" #focusThietBi
+                            formControlName="lopHoc" (selectionChange)="setValueLopHoc($event)"
+                            class="form-control form-control-lg"
+                            [class.is-invalid]="validateFormGroupEvent('lopHoc', informationFormGroup, 1)"
+                            [class.is-valid]="validateFormGroupEvent('lopHoc', informationFormGroup, 0)">
+                            <mat-select-trigger>
+                                {{ getNameLopHoc() }}
+                            </mat-select-trigger>
+                            <mat-option>
+                                <ngx-mat-select-search
+                                    [placeholderLabel]="listLopHoc.length > 0 ? 'Tìm kiếm...' : 'Không tìm thấy dữ liệu'"
+                                    [noEntriesFoundLabel]="'Không tìm thấy kết quả phù hợp'"
+                                    [(ngModel)]="listLopHocFilterCtrl" [ngModelOptions]="{ standalone: true }"
+                                    (ngModelChange)="filterListLopHoc()">
+                                </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let item of filteredListLopHoc | async" value="{{ item.Id }}">
+                                {{ item.TenLop }}
+                            </mat-option>
+                        </mat-select>
+                        <div class="valid-feedback" *ngIf="validateFormGroupEvent('lopHoc', informationFormGroup, 0)">Thông tin
+                            chính xác</div>
+                        <div class="invalid-feedback" *ngIf="validateFormGroupEvent('lopHoc', informationFormGroup, 1)">
+                            Vui lòng chọn lớp học
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Số điện thoại</label>
+                        <input type="text " class="form-control form-control-lg" placeholder="0123456789"
+                            formControlName="soDienThoai"
+                            [class.is-invalid]="validateFormGroupEvent('soDienThoai', informationFormGroup, 1)"
+                            [class.is-valid]="validateFormGroupEvent('soDienThoai', informationFormGroup, 0)" />
+                        <div class="valid-feedback"
+                            *ngIf="validateFormGroupEvent('soDienThoai', informationFormGroup, 0)">Thông tin chính
+                            xác</div>
+                        <div class="invalid-feedback"
+                            *ngIf="validateFormGroupEvent('soDienThoai', informationFormGroup, 1)">
+                            Vui lòng nhập đúng định dạng số điện thoại
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+    </div>
+    <!-- End Body -->
+</div>

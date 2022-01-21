@@ -32,7 +32,8 @@ export class QuanTriAuthGuard implements CanActivate {
       if(this.user.allowCode == 1234) {
         return true
       }
-    this.router.navigate(["/dashboard/"]);
+    this.userService.logout();
+    document.location.reload();
     return false;
   }
   
