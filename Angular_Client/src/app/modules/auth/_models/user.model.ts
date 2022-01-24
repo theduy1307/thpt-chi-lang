@@ -13,6 +13,7 @@ export class UserModel extends AuthModel {
   occupation: string;
   companyName: string;
   phone: string;
+  coCauId:number;
   address?: AddressModel;
   socialNetworks?: SocialNetworksModel;
   // personal information
@@ -61,5 +62,6 @@ export class UserModel extends AuthModel {
     this.phone = user.phone || '';
     this.address = user.address;
     this.socialNetworks = user.socialNetworks;
+    this.coCauId = user.coCauId || 0;
   }
 }

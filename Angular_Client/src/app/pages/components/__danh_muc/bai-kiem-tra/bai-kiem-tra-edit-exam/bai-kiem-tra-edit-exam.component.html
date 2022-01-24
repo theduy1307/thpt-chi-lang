@@ -40,14 +40,9 @@
             </div>
             <div class="col-lg-3">
               <label class="form-label form-control-solid">Giờ thi</label>
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                placeholder="Giờ thi"
-                formControlName="GioThi"
+              <input type="time" class="form-control form-control-lg" placeholder="Giờ thi" formControlName="GioThi"
                 [class.is-invalid]="ValidateFormGroupEvent('GioThi', formGroup, 1)"
-                [class.is-valid]="ValidateFormGroupEvent('GioThi', formGroup, 0)"
-              />
+                [class.is-valid]="ValidateFormGroupEvent('GioThi', formGroup, 0)" />
             </div>
             <div class="col-lg-3">
                 <label class="form-label form-control-solid">Mật khẩu</label>

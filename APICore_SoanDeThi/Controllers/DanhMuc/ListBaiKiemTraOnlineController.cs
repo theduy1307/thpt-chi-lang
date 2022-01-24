@@ -448,8 +448,9 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                 CauVanDungThap = x.CauVanDungThap,
                                 CauVanDungCao = x.CauVanDungCao,
                             }).FirstOrDefault();
-
-                        var _getSLCau = _SLCau.CauBiet + _SLCau.CauHieu + _SLCau.CauVanDungThap + _SLCau.CauVanDungCao;
+                        
+                        double _getSLCau = _SLCau.CauBiet + _SLCau.CauHieu + _SLCau.CauVanDungThap + _SLCau.CauVanDungCao;
+                        double _diem1Cau = (double)10 / _getSLCau;
                         for (int i = 1; i <= _getSLCau; i ++)
                         {
                             worksheet.Cells[8, 5 + i].Value = "Câu " + i;
@@ -473,11 +474,31 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                 var LopHS = _context.Lop.Where(x => x.Id == getLopHS).Select(x => x.TenLop).FirstOrDefault();
                                 worksheet.Cells[a, b + 2].Value = LopHS;
                                 worksheet.Cells[a, b + 3].Value = item.MaDe;
+                                var _TrucTuyenHSChiTiet = _context.BaiKiemTra_TrucTuyen_HocSinh_ChiTiet.Where(x => x.IdBaiKiemTraHocSinh == _TrucTuyenHocSinh[i].Id).ToList(); // lấy tất cả các câu trong 1 đề
+                                double countCorrectQuestion = 0;
+                                for (var j = 0; j < _TrucTuyenHSChiTiet.Count(); j++)
+                                {
+                                    worksheet.Cells[a, b + 5 + j].Value = transAns(Convert.ToInt32(_TrucTuyenHSChiTiet[j].choosen));
+                                    var _compareCorrectQuestion = _context.Question.Where(x => x.Id == _TrucTuyenHSChiTiet[j].IdQueston).Select(x => x.CorrectOption).FirstOrDefault();
+                                    
+                                    if(_compareCorrectQuestion == _TrucTuyenHSChiTiet[j].choosen)
+                                    {
+                                        countCorrectQuestion++;
+                                        worksheet.Cells[a, b + 5 + j].Style.Font.Color.SetColor(System.Drawing.Color.Red);
+                                    }
+                                }
+                                double total = countCorrectQuestion * _diem1Cau;
+                                worksheet.Cells[a, b + 4].Value = total;
                                 a++;
                             }
                             stt = stt + _TrucTuyenHocSinh.Count();
                             
                         }
+                        var _detailBaiKtra = _context.BaiKiemTra_TrucTuyen_Group.Where(x => x.Id == id).FirstOrDefault();
+                        worksheet.Cells[3, 2].Value = string.Format("{0:dd/MM/yyyy}", _detailBaiKtra.NgayThi) ; // ngày thi
+                        worksheet.Cells[4, 2].Value = _detailBaiKtra.GioThi; // giờ thi
+                        worksheet.Cells[5, 2].Value = _detailBaiKtra.TenBaiKiemTra; // tên bài kt
+                        worksheet.Cells[6, 2].Value = _detailBaiKtra.SoLuongDe; // tổng mã đề
                     }
                     fileContents = package.GetAsByteArray();
                 }
@@ -638,6 +659,28 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         //            break;
         //    }
         //}
+
+        private string transAns(int ans)
+        {
+            switch (ans)
+            {
+                case 1:
+                    return "A";
+                    break;
+                case 2:
+                    return "B";
+                    break;
+                case 3:
+                    return "C";
+                    break;
+                case 4:
+                    return "D";
+                    break;
+                default:
+                    return "";
+                    break;
+            }
+        }
 
     }
 

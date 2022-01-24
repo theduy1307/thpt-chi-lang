@@ -44,7 +44,6 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         {
             string Token = Utilities._GetHeader(Request);
             UserLogin loginData = _account._GetInfoUser(Token);
-
             if (loginData == null)
                 return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
 
@@ -98,7 +97,11 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                                                       TrangThai = x.kiemtra.TrangThai,
                                                       ThoiGianLamBai = x.kiemtra.ThoiGianLamBai,
                                                       NgayTao = x.kiemtra.NgayTao,
-                                                      TrangThai_BaiKiemTraOnline = 1
+                                                      TrangThai_BaiKiemTraOnline = 1,
+                                                      NgayThi = x.kiemtra.NgayThi,
+                                                      GioThi = x.kiemtra.GioThi,
+                                                      Password = x.kiemtra.Password,
+                                                      isExam = x.kiemtra.isExam,
                                                   }) ;
 
 

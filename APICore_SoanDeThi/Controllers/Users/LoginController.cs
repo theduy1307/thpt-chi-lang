@@ -100,6 +100,7 @@ namespace APICore_SoanDeThi.Controllers.Users
                         username = user.Username,
                         website = "https://keenthemes.com",
                         allowCode = nhanvien.AllowCode,
+                        coCauId = nhanvien.IdMonHoc??0,
                     };
 
                     userLogin.accessToken = GenerateJSONWebToken(userLogin);

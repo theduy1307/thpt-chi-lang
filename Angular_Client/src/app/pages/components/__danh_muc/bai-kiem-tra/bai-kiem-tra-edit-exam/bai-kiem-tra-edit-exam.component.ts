@@ -101,7 +101,7 @@ export class BaiKiemTraEditExamComponent implements OnInit {
   }
   loadForm() {
     this.formGroup = this.fb.group({
-      NgayThi: [moment(new Date(this.item.NgayThi)).format("MM/DD/YYYY[T]HH:mm:ss.SSS"), Validators.compose([Validators.required])],
+      NgayThi: [moment(new Date(this.item.NgayThi)).format("MM/DD/YYYY"), Validators.compose([Validators.required])],
       GioThi: [this.item.GioThi, Validators.compose([Validators.required])],
       Password: [this.item.Password],
       NguoiTao: [this.item.TenNguoiTao]
@@ -153,9 +153,9 @@ export class BaiKiemTraEditExamComponent implements OnInit {
     ).subscribe((res: IBaiKiemTra_TrucTuyen_Group) => {
       if (res && res.status == 1) {
         this.data = res.data
-        this.layoutUtilsService.openSnackBar("Thêm mới thành công", "Đóng");
+        this.layoutUtilsService.openSnackBar("Chỉnh sửa thành công", "Đóng");
       } else {
-        this.layoutUtilsService.openSnackBar("Thêm mới thất bại, vui lòng kiểm tra thông tin", "Đóng");
+        this.layoutUtilsService.openSnackBar("Chỉnh sửa thất bại, vui lòng kiểm tra thông tin", "Đóng");
       }
     }
     );

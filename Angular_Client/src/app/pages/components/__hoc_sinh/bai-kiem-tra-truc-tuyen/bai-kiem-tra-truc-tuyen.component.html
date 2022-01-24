@@ -42,7 +42,7 @@
             <li class="list-group-item">Thời gian làm bài: {{item.ThoiGianLamBai}} (phút)</li>
           </ul>
           <div class="card-body text-center">
-            <button class="btn btn-primary" (click)="checkPassword(item.Id)">Bắt đầu làm bài</button>
+            <button class="btn btn-primary" (click)="checkPassword(item.Id,item.NgayThi,item.GioThi)">Bắt đầu làm bài</button>
           </div>
         </div>
       </ng-container>

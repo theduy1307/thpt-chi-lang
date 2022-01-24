@@ -25,6 +25,8 @@ import { AuthService, UserModel } from "src/app/modules/auth";
 import { BaiKiemTraTrucTuyenService } from "./bai-kiem-tra-truc-tuyen-service/bai-kiem-tra-truc-tuyen.service";
 import { PasswordComponent } from "./components/password/password.component";
 import { BaiKiemTraTrucTuyenDetailComponent } from "./bai-kiem-tra-truc-tuyen-detail/bai-kiem-tra-truc-tuyen-detail.component";
+import { FunctionPublic } from "../../_common/_function/public-function";
+import * as moment from "moment";
 
 export interface PeriodicElement {
   name: string;
@@ -72,7 +74,7 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
     public userService: AuthService,
     private modalService: NgbModal,
     private layoutUtilsService: LayoutUtilsService,
-    public services: BaiKiemTraTrucTuyenService
+    public services: BaiKiemTraTrucTuyenService,
   ) {
     this.userService.currentUserSubject
       .asObservable()
@@ -99,7 +101,7 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
     this.sorting = this.services.sorting;
     this.services.fetch();
   }
-  
+
   ngOnDestroy() {
     this.subscriptions.forEach((sb) => sb.unsubscribe());
   }
@@ -135,14 +137,30 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
   }
 
 
-  
-  checkPassword(id : number) {
-    const modalRef = this.modalService.open(PasswordComponent, { size: 'xl' });
-    modalRef.componentInstance.id = id;
-    modalRef.result.then(() =>
-      this.services.fetch(),
-      () => { }
-    );
+
+  checkPassword(id: number, NgayThi: string, GioThi: string) {
+    var currentDateTime = FunctionPublic.getCurrentDateTime();
+    var dateCurrent = currentDateTime.substring(0, 8);
+    var timeCurrent = currentDateTime.substring(8, 12);
+    var ngayThi = moment(NgayThi).format("YYYYMMDD");
+    var gioThi = GioThi.replace(":", "");
+    if (dateCurrent == ngayThi &&  Number(timeCurrent) - Number(gioThi) <=  15 && Number(timeCurrent) - Number(gioThi) >= 0 ) {
+      const modalRef = this.modalService.open(PasswordComponent, { size: 'xl' });
+      modalRef.componentInstance.id = id;
+      modalRef.result.then(() =>
+        this.services.fetch(),
+        () => { }
+      );
+    }
+    else if (dateCurrent == ngayThi && Number(timeCurrent) - Number(gioThi) >= 15)
+    {
+      this.layoutUtilsService.openSnackBar("Đã quá giờ thi", "Đóng");
+    }
+    else
+    {
+      this.layoutUtilsService.openSnackBar("Chưa tới ngày thi và giờ thi", "Đóng");
+    }
+
   }
   print(id: number) {
     this.services.print(id);
