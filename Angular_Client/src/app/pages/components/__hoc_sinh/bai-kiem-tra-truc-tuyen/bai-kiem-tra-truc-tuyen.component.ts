@@ -139,12 +139,16 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
 
 
   checkPassword(id: number, NgayThi: string, GioThi: string) {
+    Date
     var currentDateTime = FunctionPublic.getCurrentDateTime();
-    var dateCurrent = currentDateTime.substring(0, 8);
-    var timeCurrent = currentDateTime.substring(8, 12);
+    var dateCurrent = currentDateTime.substring(0, 8); //hh:mm
     var ngayThi = moment(NgayThi).format("YYYYMMDD");
+
+    var timeCurrent = currentDateTime.substring(8, 12); //hh:mm
     var gioThi = GioThi.replace(":", "");
-    if (dateCurrent == ngayThi &&  Number(timeCurrent) - Number(gioThi) <=  15 && Number(timeCurrent) - Number(gioThi) >= 0 ) {
+    var totalSecondtimeCurrent = ( Number(timeCurrent.substring(0,2)) * 3600 +  Number(timeCurrent.substring(2,4))*60 ); // tổng giây timeCurrent
+    var totalSecondgioThi = ( Number(gioThi.substring(0,2)) * 3600 +  Number(gioThi.substring(2,4))*60 ); // tổng giây timeCurrent
+    if (dateCurrent == ngayThi &&  totalSecondtimeCurrent - totalSecondgioThi <=  900 && totalSecondtimeCurrent - totalSecondgioThi >= 0 ) {
       const modalRef = this.modalService.open(PasswordComponent, { size: 'xl' });
       modalRef.componentInstance.id = id;
       modalRef.result.then(() =>
@@ -152,7 +156,7 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
         () => { }
       );
     }
-    else if (dateCurrent == ngayThi && Number(timeCurrent) - Number(gioThi) >= 15)
+    else if (dateCurrent == ngayThi && totalSecondtimeCurrent - totalSecondgioThi >= 900)
     {
       this.layoutUtilsService.openSnackBar("Đã quá giờ thi", "Đóng");
     }

@@ -97,13 +97,12 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                                                       TrangThai = x.kiemtra.TrangThai,
                                                       ThoiGianLamBai = x.kiemtra.ThoiGianLamBai,
                                                       NgayTao = x.kiemtra.NgayTao,
-                                                      TrangThai_BaiKiemTraOnline = 1,
+                                                      TrangThai_BaiKiemTraOnline = 0,
                                                       NgayThi = x.kiemtra.NgayThi,
                                                       GioThi = x.kiemtra.GioThi,
                                                       Password = x.kiemtra.Password,
                                                       isExam = x.kiemtra.isExam,
                                                   }) ;
-
 
                 if (!string.IsNullOrEmpty(_tableState.searchTerm))
                 {
@@ -129,6 +128,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 _baseModel.page = _pageModel;
 
                 List<IBaiKiemTra_TrucTuyen_Group> listData = new List<IBaiKiemTra_TrucTuyen_Group>();
+
                 if (_orderBy_ASC)
                 {
                     listData = _data
@@ -136,6 +136,9 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                         .Skip((_tableState.paginator.page - 1) * _tableState.paginator.PageSize)
                         .Take(_tableState.paginator.PageSize)
                         .ToList();
+
+                    
+
                 }
                 else
                 {
@@ -144,19 +147,25 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                         .Skip((_tableState.paginator.page - 1) * _tableState.paginator.PageSize)
                         .Take(_tableState.paginator.PageSize)
                         .ToList();
+                    
                 }
 
                 _baseModel.data = listData;
                 return _baseModel;
 
             }
-            catch
+            catch(Exception ex)
             {
-                return Utilities._responseData(0, "Lỗi dữ liệu!", null);
+                return Utilities._responseData(0, ex.Message, null);
             }
         }
         #endregion
-
+        //private int getTrangThai(long idGroup, long idHocSinh)
+        //{
+        //    var _id = _context.BaiKiemTra_TrucTuyen.Where(x => x.IdGroup == idGroup).Select(x=>x.Id).ToList();
+        //    var _trangthai = (int)_context.BaiKiemTra_TrucTuyen_HocSinh.Where(x => _id.Contains(x.IdBaiKiemTraOnline) && x.IdHocSinh == idHocSinh).Select(tt=>tt.TrangThai).FirstOrDefault();
+        //    return _trangthai;
+        //}
         #region LẤY CHI TIẾT BÀI KIỂM TRA 
         [Route("BaiKiemTraOnline_Detail")]
         //[Authorize(Roles = "10014")]
@@ -178,6 +187,13 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                                                                 MaDe = x.MaDe,
                                                                 IdGroup = x.IdGroup
                                                             }).ToList();
+                //var _id = _context.BaiKiemTra_TrucTuyen.Where(x => x.IdGroup == id)
+                //                                            .Select(x => x.Id).ToList();
+                //var _isDone = _context.BaiKiemTra_TrucTuyen_HocSinh.Where(x => _id.Contains(x.IdBaiKiemTraOnline) && x.IdHocSinh == loginData.id && x.TrangThai == 3 ).FirstOrDefault();
+                //if(_isDone != null)
+                //{
+                //    return Utilities._responseData(0, "Bạn đã hoàn thành bài thi này", null);
+                //}
                 Random r = new Random();
                 int a = r.Next(0, _pickDe.Count());
                 var _MaDe = _pickDe[a].MaDe;
@@ -235,7 +251,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                     if (_check == null)
                         return Utilities._responseData(0, "Không tìm thấy dữ liệu, vui lòng tải lại!!", null);
 
-                    return Utilities._responseData(1, "", new { _check, _MaDe, tenBaiKiemTra = detail_BaiKiemTra.TenBaiKiemTra, thoiGianLamBai = time.ThoiGianLamBaiConLai });
+                    return Utilities._responseData(1, "", new { _check, _MaDe, tenBaiKiemTra = detail_BaiKiemTra.TenBaiKiemTra, thoiGianLamBai = time.ThoiGianLamBaiConLai, IdBaiKiemTraTrucTuyen_HocSinh = time.Id });
                 }
                 else
                 {
@@ -259,7 +275,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                                                                                }).ToList();
 
                     
-                    return Utilities._responseData(1, "", new { _check, _MaDe, tenBaiKiemTra = detail_BaiKiemTra.TenBaiKiemTra, thoiGianLamBai = balo.ThoiGianLamBaiConLai });
+                    return Utilities._responseData(1, "", new { _check, _MaDe, tenBaiKiemTra = detail_BaiKiemTra.TenBaiKiemTra, thoiGianLamBai = balo.ThoiGianLamBaiConLai, IdBaiKiemTraTrucTuyen_HocSinh = balo.Id });
                 }
                 
                 
@@ -287,6 +303,13 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
             {
                 if (id == null)
                     return Utilities._responseData(0, "Không tìm thấy dữ liệu, vui lòng tải lại!!", null);
+                var _id = _context.BaiKiemTra_TrucTuyen.Where(x => x.IdGroup == id)
+                                                            .Select(x => x.Id).ToList();
+                var _isDone = _context.BaiKiemTra_TrucTuyen_HocSinh.Where(x => _id.Contains(x.IdBaiKiemTraOnline) && x.IdHocSinh == loginData.id && x.TrangThai == 3).FirstOrDefault();
+                if (_isDone != null)
+                {
+                    return Utilities._responseData(0, "Bạn đã hoàn thành bài thi này", null);
+                }
 
                 var _item = _context.BaiKiemTra_TrucTuyen_Group.Where(x => x.Id == id && x.Password == pass).FirstOrDefault();
                 if (_item != null)
@@ -338,6 +361,35 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
             catch (Exception ex)
             {
                 return Utilities._responseData(0, "Cập nhật thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
+        #region LƯU BÀI THI HOÀN TẤT
+        [Route("BaiKiemTraOnline_Save")]
+        //[Authorize(Roles = "10014")]
+        [HttpGet]
+        public BaseModel<object> BaiKiemTraOnline_Save(long id)
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+            try
+            {
+                var item = _context.BaiKiemTra_TrucTuyen_HocSinh.Where(x => x.Id == id).FirstOrDefault();
+                if(item == null)
+                {
+                    return Utilities._responseData(0, "Lấy dữ liệu thất bại, vui lòng kiểm tra lại!", null);
+                }
+                item.TrangThai = 3;
+                _context.SaveChanges();
+                return Utilities._responseData(1, "", null);
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Lấy dữ liệu thất bại, vui lòng kiểm tra lại!", null);
             }
         }
         #endregion

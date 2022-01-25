@@ -31,6 +31,7 @@ export class BaiKiemTraTrucTuyenDetailComponent implements OnInit {
   isLoadingSpinner: boolean = false;
   data: any;
   thoiGianLamBai: any;
+  IdBaiKiemTraTrucTuyen_HocSinh: any;
   tenBaiKiemTra: string;
   formGroup: FormGroup;
   private subscriptions: Subscription[] = [];
@@ -81,6 +82,7 @@ export class BaiKiemTraTrucTuyenDetailComponent implements OnInit {
         this.data = res.data._check
         this.thoiGianLamBai = res.data.thoiGianLamBai;
         this.tenBaiKiemTra = res.data.tenBaiKiemTra;
+        this.IdBaiKiemTraTrucTuyen_HocSinh = res.data.IdBaiKiemTraTrucTuyen_HocSinh;
         this.loadForm();
         // this.setInitialQuestionList();
       });
@@ -439,25 +441,24 @@ export class BaiKiemTraTrucTuyenDetailComponent implements OnInit {
     modalRef.result.then(
       (result) => {
         if (result) {
-          // const data = this.prepareData(false);
-          // const sbCreate = this.services
-          //   .create(data)
-          //   .pipe(
-          //     tap(() => {}),
-          //     catchError((errorMessage) => {
-          //       console.error('UPDATE ERROR', errorMessage);
-          //       return of(this.data);
-          //     })
-          //   )
-          //   .subscribe((res: any) => {
-          //     if (res && res.status == 1) {
-          //       this.data = res.data;
-          //       this.layoutUtilsService.openSnackBar('Lưu thành công', 'Đóng');
-          //     } else {
-          //       this.layoutUtilsService.openSnackBar('Lưu thất bại, vui lòng kiểm tra thông tin', 'Đóng');
-          //     }
-          //   });
-          // this.subscriptions.push(sbCreate);
+          const sbCreate = this.services
+            .save(this.IdBaiKiemTraTrucTuyen_HocSinh)
+            .pipe(
+              tap(() => {}),
+              catchError((errorMessage) => {
+                console.error('UPDATE ERROR', errorMessage);
+                return of(this.data);
+              })
+            )
+            .subscribe((res: any) => {
+              if (res && res.status == 1) {
+                this.data = res.data;
+                this.layoutUtilsService.openSnackBar('Lưu thành công', 'Đóng');
+              } else {
+                this.layoutUtilsService.openSnackBar('Lưu thất bại, vui lòng kiểm tra thông tin', 'Đóng');
+              }
+            });
+          this.subscriptions.push(sbCreate);
           const modalRef = this.modalService.open(SuccessComponent, { size: 'xl' , backdrop:"static", keyboard:false });
 
         }

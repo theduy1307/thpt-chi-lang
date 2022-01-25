@@ -95,7 +95,16 @@ export class BaiKiemTraTrucTuyenService extends TableService<IBaiKiemTra_TrucTuy
       finalize(() => this.setLoading(false))
     );
   }
-
+  save(id: number): Observable<any> {
+    this.initCallService();
+    return this.http.get(`${API_ROOT_URL}/BaiKiemTraOnline_Save?id=${id}`, { headers: this._httpHeaders }).pipe(
+      catchError((err) => {
+        this.setErrorMess(err);
+        return of({});
+      }),
+      finalize(() => this.setLoading(false))
+    );
+  }
   // create(item: any): Observable<any> {
   //   this.initCallService();
   //   return this.http
