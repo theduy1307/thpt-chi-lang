@@ -205,7 +205,8 @@ namespace APICore_SoanDeThi.Controllers.Users
                 refreshToken = userInfo.refreshToken,
                 timeZone = userInfo.timeZone,
                 website = userInfo.website,
-                allowCode = userInfo.allowCode
+                allowCode = userInfo.allowCode,
+                coCauId = userInfo.coCauId,
             };
 
             claims.Add(new Claim(JwtRegisteredClaimNames.Sub, account.username));
