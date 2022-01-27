@@ -101,7 +101,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 }
                 var _data = _context.Question.Join(_context.BaiHoc, question => question.IdBaiHoc, subject => subject.Id, (question, subject)=> new {question, subject})
                                                   .Join(_context.ChuongMonHoc, question => question.subject.IdChuong, chapter => chapter.Id, (question, chapter)=> new {question, chapter})
-                                                  .Where(x => !x.question.question.IsDisabled && !x.question.question.IsCustom && x.chapter.IdMonHoc == loginData.allowCode)
+                                                  .Where(x => !x.question.question.IsDisabled && !x.question.question.IsCustom && x.chapter.IdMonHoc == loginData.coCauId)
                                                   .Select(x => new IQuestion
                                                   {
                                                       Id = x.question.question.Id,

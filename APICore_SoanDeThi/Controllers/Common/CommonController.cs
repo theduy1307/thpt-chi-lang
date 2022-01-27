@@ -276,5 +276,51 @@ namespace APICore_SoanDeThi.Controllers.Common
             }
         }
         #endregion
+
+        #region DANH SÁCH THÔNG BÁO
+        [Route("GetList_ThongBao")]
+        //[Authorize(Roles = "01011")]
+        [HttpGet]
+        public BaseModel<object> GetList_ThongBao()
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            BaseModel<object> _baseModel = new BaseModel<object>();
+            PageModel _pageModel = new PageModel();
+            ErrorModel _error = new ErrorModel();
+
+            try
+            {
+                //long currentYear = _context.NienKhoa.Where(x => !x.Disabled).Select(x=>x.Id).ToList().LastOrDefault();
+                var _data = _context.SysNotifyDetail.Where(x => x.IdHocSinh == loginData.id /*&& x.IdNienKhoa == currentYear*/)
+                                    .Join(_context.SysNotifyMaster, detail => detail.IdMaster, master => master.Id, (detail, master)=>new { detail=detail, master = master})
+                                    .Join(_context.ViewNhanVien, notify => notify.master.CreateBy, emp=>emp.IdNv, (notify, emp) => new {notify = notify, emp=emp})
+                                      .Select(x => new INotify
+                                      {
+                                          IdDetail = x.notify.detail.Id,
+                                          Title = x.notify.master.Title,
+                                          Content = x.notify.master.Content,
+                                          CreateByName = x.emp.HoTen,
+                                          CreateDate = x.notify.master.CreateDate,
+                                          IsRead = x.notify.detail.IsRead
+                                      }).ToList();
+
+                _baseModel.status = 1;
+                _baseModel.error = null;
+                _baseModel.page = _pageModel;
+                _baseModel.data = _data;
+                return _baseModel;
+
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Lỗi dữ liệu!", null);
+            }
+        }
+        #endregion
     }
 }

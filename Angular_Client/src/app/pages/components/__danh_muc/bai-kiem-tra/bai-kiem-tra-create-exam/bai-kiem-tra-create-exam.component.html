@@ -14,7 +14,7 @@
   <!-- End Header -->
 
   <!-- Body -->
-  <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px">
+  <div class="overlay overlay-block cursor-default modal-body">
     <ng-container *ngIf="isLoading$ | async">
       <div class="overlay-layer bg-transparent">
         <div class="spinner spinner-lg spinner-success"></div>
@@ -56,8 +56,8 @@
                 [class.is-invalid]="ValidateFormGroupEvent('Password', formGroup, 1)"
                 [class.is-valid]="ValidateFormGroupEvent('Password', formGroup, 0)" />
               <div class="input-group-append">
-                <a matTooltip="Tạo bài kiểm tra trực tuyến" matTooltipPosition="after"
-                  class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3">
+                <a matTooltip="Đổi mật khẩu" matTooltipPosition="after"
+                  class="btn btn-icon btn-light btn-hover-primary btn-lg" (click)="changePassword()">
                   <span [inlineSVG]="'./assets/media/svg/icons/General/Update.svg'" cacheSVG="true"
                     class="svg-icon svg-icon-md svg-icon-primary">
                   </span>

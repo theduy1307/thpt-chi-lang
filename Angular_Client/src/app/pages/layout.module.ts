@@ -23,6 +23,7 @@ import { AsideDynamicComponent } from './_layout/components/aside-dynamic/aside-
 import { HeaderMenuDynamicComponent } from './_layout/components/header/header-menu-dynamic/header-menu-dynamic.component';
 import { HttpUtilsService } from '../_global/_services/http-utils.service';
 import { TokenStorage } from '../_global/_services/token-storage.service';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { TokenStorage } from '../_global/_services/token-storage.service';
     NgbProgressbarModule,
     CoreModule,
     SubheaderModule,
+    MatBadgeModule
   ],
   providers:[
     HttpUtilsService,

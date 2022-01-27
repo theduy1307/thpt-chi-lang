@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../../../../_metronic/core';
 import { AuthService } from '../../../../modules/auth/_services/auth.service';
@@ -11,6 +11,7 @@ import KTLayoutQuickPanel from '../../../../../assets/js/layout/extended/quick-p
 import KTLayoutQuickUser from '../../../../../assets/js/layout/extended/quick-user';
 import KTLayoutHeaderTopbar from '../../../../../assets/js/layout/base/header-topbar';
 import { KTUtil } from '../../../../../assets/js/components/util';
+import { DungChungService } from 'src/app/pages/components/_common/_services/dung-chung.service';
 
 @Component({
   selector: 'app-topbar',
@@ -33,7 +34,11 @@ export class TopbarComponent implements OnInit, AfterViewInit {
   extrasUserDisplay: boolean;
   extrasUserLayout: 'offcanvas' | 'dropdown' = 'dropdown';
 
-  constructor(private layout: LayoutService, private auth: AuthService) {
+  //Thông tin chương môn học
+  listThongBao: any[] = [];
+  unRead:number;
+
+  constructor(private layout: LayoutService, private auth: AuthService, private commonService: DungChungService, private changeDetectorRefs: ChangeDetectorRef) {
     
     this.user$ = this.auth.currentUserSubject.asObservable();
   }
@@ -64,6 +69,18 @@ export class TopbarComponent implements OnInit, AfterViewInit {
     this.extrasQuickPanelDisplay = this.layout.getProp(
       'extras.quickPanel.display'
     );
+    this.loadListThongBao();
+  }
+
+  loadListThongBao() {
+    this.commonService.getListThongBao().subscribe((res) => {
+      if (res && res.status == 1) {
+        this.listThongBao = res.data;
+        this.unRead = res.data.filter(x=>!x.IsRead).length
+        console.log(this.unRead)
+        this.changeDetectorRefs.detectChanges();
+      }
+    });
   }
 
   ngAfterViewInit(): void {

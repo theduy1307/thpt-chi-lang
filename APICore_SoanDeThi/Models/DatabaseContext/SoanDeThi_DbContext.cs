@@ -44,6 +44,8 @@ namespace APICore_SoanDeThi.Models.DatabaseContext
         public virtual DbSet<Lop> Lop { get; set; }
         public virtual DbSet<PqGroup> PqGroup { get; set; }
         public virtual DbSet<SysRequestLogin> SysRequestLogin { get; set; }
+        public virtual DbSet<SysNotifyMaster> SysNotifyMaster { get; set; }
+        public virtual DbSet<SysNotifyDetail> SysNotifyDetail { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

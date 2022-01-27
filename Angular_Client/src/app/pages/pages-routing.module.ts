@@ -55,6 +55,11 @@ const routes: Routes = [
         path: "hoc-sinh",
         loadChildren: () => import("../pages/components/__hoc_sinh/hoc-sinh.module").then((m) => m.HocSinhModule),
       },
+      //Module dành cho học sinh
+      {
+        path: "chu-nhiem",
+        loadChildren: () => import("../pages/components/__chu_nhiem/chu-nhiem.module").then((m) => m.ChuNhiemModule),
+      },
       {
         path: "",
         redirectTo: "/dashboard",

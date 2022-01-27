@@ -75,15 +75,6 @@
     <div class="table-responsive angular-bootstrap-table">
       <table class="table table-head-custom table-vertical-center overflow-hidden">
         <thead>
-          <th class="selection-cell-header" data-row-selection="true">
-            <label class="checkbox checkbox-single">
-              <input
-                type="checkbox"
-                (click)="grouping.selectAllRows()"
-                [checked]="grouping.checkAreAllRowsSelected()"
-              /><span></span>
-            </label>
-          </th>
           <th>STT</th>
           <th>
             Tên bài kiểm tra
@@ -125,16 +116,6 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of services.items$ | async; let i = index">
-            <td class="selection-cell">
-              <label class="checkbox checkbox-single"
-                ><input
-                  type="checkbox"
-                  (click)="grouping.selectRow(item.Id)"
-                  [checked]="grouping.isRowSelected(item.Id)"
-                />
-                <span></span>
-              </label>
-            </td>
             <td>{{ i + 1 }}</td>
             <td>{{ item.TenBaiKiemTra}} ({{item.NamHoc}})</td>
             <td>{{ item.SoLuongDe }} đề</td>

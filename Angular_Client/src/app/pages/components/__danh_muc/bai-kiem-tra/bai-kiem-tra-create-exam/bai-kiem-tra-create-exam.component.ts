@@ -164,6 +164,10 @@ export class BaiKiemTraCreateExamComponent implements OnInit {
     randPasswordArray = randPasswordArray.fill(allChars, 3);
     return this.shuffleArray(randPasswordArray.map(function(x) { return x[Math.floor(Math.random() * x.length)] })).join('');
   }
+
+  changePassword() {
+    this.formGroup.controls["Password"].setValue(this.generatePassword(6))
+  }
   
    shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {

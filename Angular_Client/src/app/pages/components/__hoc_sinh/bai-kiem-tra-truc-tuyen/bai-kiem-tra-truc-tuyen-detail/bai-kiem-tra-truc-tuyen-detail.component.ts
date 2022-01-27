@@ -18,8 +18,8 @@ import { BaiKiemTraTrucTuyenService } from '../bai-kiem-tra-truc-tuyen-service/b
 @Component({
   selector: 'app-bai-kiem-tra-truc-tuyen-detail',
   templateUrl: './bai-kiem-tra-truc-tuyen-detail.component.html',
-  styles: [
-  ]
+  styleUrls: ['./bai-kiem-tra-truc-tuyen-detail.component.css'],
+
 })
 export class BaiKiemTraTrucTuyenDetailComponent implements OnInit {
   /* ------------------------ Inject Event Data -----------------------*/

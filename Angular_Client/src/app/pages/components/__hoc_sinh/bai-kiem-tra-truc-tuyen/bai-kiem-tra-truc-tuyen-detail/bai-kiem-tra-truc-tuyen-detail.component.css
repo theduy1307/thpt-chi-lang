@@ -1,0 +1,31 @@
+.title {
+    font-size: large;
+}
+.option {
+    font-size: medium;
+    border: 1px solid transparent;
+}
+.countdown {
+    width: 150px;
+    height: 50px;
+    background-color: rgba(174, 174, 174, 0.7);
+    border-radius: 10px;
+    display: table; 
+    overflow: hidden;
+    text-align: center;
+    position: fixed;
+    z-index: 99999;
+}
+.countdown_item {
+    color: rgb(64, 64, 64); 
+    font-weight: bold;
+    font-size: large;
+    display: table-cell;
+    vertical-align: middle;
+}
+.color_normal {
+    color: rgb(125, 125, 125); 
+}
+.color_red {
+    color: #DD5144; 
+}

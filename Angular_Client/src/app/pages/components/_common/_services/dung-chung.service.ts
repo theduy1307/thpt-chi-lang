@@ -125,6 +125,11 @@ export class DungChungService {
     const url = API_ROOT_URL + "/GetList_LopHoc";
     return this.http.get<any>(url, { headers: httpHeaders });
   }
+  getListThongBao(): Observable<any> {
+    const httpHeaders = this.httpUtils.getHttpHeaders();
+    const url = API_ROOT_URL + "/GetList_ThongBao";
+    return this.http.get<any>(url, { headers: httpHeaders });
+  }
   downloadTemplate(Id: number): Observable<Blob> {
     const httpHeaders = this.httpUtils.getHttpHeaders();
     const httpParams = new HttpParams().set("Id", Id.toString());
