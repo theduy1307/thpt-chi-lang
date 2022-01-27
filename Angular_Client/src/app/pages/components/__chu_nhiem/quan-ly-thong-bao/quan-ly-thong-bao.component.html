@@ -1,1 +1,205 @@
-<p>quan-ly-thong-bao works!</p>
+<div class="card card-custom gutter-b">
+    <!-- Header Page -->
+    <div class="card-header">
+      <div class="card-title">
+        <h3 class="card-label">DANH SÁCH THÔNG BÁO</h3>
+      </div>
+      <div class="card-toolbar">
+        <button type="button" class="btn btn-primary">Thêm mới</button>
+      </div>
+    </div>
+    <!-- End Header Page -->
+  
+    <!-- Body -->
+    <div class="card-body">
+      <!-- Search Filter -->
+      <div class="form form-label-right">
+        <div class="form-group row">
+          <div class="col-lg-4" [formGroup]="searchGroup">
+            <input
+              type="text"
+              value=""
+              class="form-control"
+              placeholder="Tìm kiếm mã câu hỏi hoặc tiêu đề"
+              name="searchText"
+              formControlName="searchTerm"
+            />
+            <small class="form-text text-muted"><b>Tìm kiếm</b> dữ liệu</small>
+          </div>
+          <div class="col-lg-4" [formGroup]="searchGroup">
+            <mat-select class="form-control" placeholder="Chọn câu đúng" name="correctOption">
+              <mat-option value="1">Dễ</mat-option>
+              <mat-option value="2">Trung bình</mat-option>
+              <mat-option value="3">Khó</mat-option>
+            </mat-select>
+            <small class="form-text text-muted"><b>Lọc</b> cấp độ</small>
+          </div>
+          <div class="col-lg-4" [formGroup]="searchGroup">
+            <mat-select class="form-control" placeholder="Chọn khối" name="correctOption">
+              <mat-option value="1">Khối 10</mat-option>
+              <mat-option value="2">Khối 11</mat-option>
+              <mat-option value="3">Khối 12</mat-option>
+            </mat-select>
+            <small class="form-text text-muted"><b>Lọc</b> khối</small>
+          </div>
+        </div>
+      </div>
+      <!-- End Search Filter -->
+  
+      <!-- Action with multiple selected -->
+      <ng-container *ngIf="grouping.getSelectedRowsCount()">
+        <div class="form">
+          <div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
+            <div class="col-xl-12">
+              <div class="form-group form-group-inline">
+                <div class="form-label form-label-no-wrap">
+                  <label class="font-bold font-danger"
+                    ><span
+                      >Số lượng đang chọn: <b>{{ grouping.getSelectedRowsCount() }}</b></span
+                    ></label
+                  >
+                </div>
+                <div>
+                  <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1">
+                    <i class="fa fa-trash"></i> Xóa tất cả</button
+                  >&nbsp;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <!-- End Action -->
+  
+      <!-- Data table -->
+      <div class="table-responsive angular-bootstrap-table">
+        <table class="table table-head-custom table-vertical-center overflow-hidden">
+          <thead>
+            <th class="selection-cell-header" data-row-selection="true">
+              <label class="checkbox checkbox-single">
+                <input
+                  type="checkbox"
+                  (click)="grouping.selectAllRows()"
+                  [checked]="grouping.checkAreAllRowsSelected()"
+                /><span></span>
+              </label>
+            </th>
+            <th>STT</th>
+            <th>
+              Tiêu đề
+              <app-sort-icon
+                column="Title"
+                [activeColumn]="sorting.column"
+                [activeDirection]="sorting.direction"
+                (sort)="sort($event)"
+              ></app-sort-icon>
+            </th>
+            <th>
+              Khối
+              <app-sort-icon
+                column="Class"
+                [activeColumn]="sorting.column"
+                [activeDirection]="sorting.direction"
+                (sort)="sort($event)"
+              ></app-sort-icon>
+            </th>
+            <th>
+              Mức độ
+              <app-sort-icon
+                column="Level"
+                [activeColumn]="sorting.column"
+                [activeDirection]="sorting.direction"
+                (sort)="sort($event)"
+              ></app-sort-icon>
+            </th>
+            <th>Thao tác</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of services.items$ | async; let i = index">
+              <td class="selection-cell">
+                <label class="checkbox checkbox-single"
+                  ><input
+                    type="checkbox"
+                    (click)="grouping.selectRow(item.Id)"
+                    [checked]="grouping.isRowSelected(item.Id)"
+                  />
+                  <span></span>
+                </label>
+              </td>
+              <td>{{ i + 1 }}</td>
+              <td>{{ this.formatData(item.Title) }}</td>
+              <td>Khối {{ item.Class }}</td>
+              <td>
+                <span
+                  class="label label-lg label-inline"
+                  [class.label-success]="item.Level === 1"
+                  [class.label-primary]="item.Level === 2"
+                  [class.label-warning]="item.Level === 3"
+                  [class.label-info]="item.Level === 4"
+                >
+                  <ng-container *ngIf="item.Level === 1">Biết</ng-container>
+                  <ng-container *ngIf="item.Level === 2">Hiểu</ng-container>
+                  <ng-container *ngIf="item.Level === 3">Vận dụng thấp</ng-container>
+                  <ng-container *ngIf="item.Level === 4">Vận dụng cao</ng-container>
+                </span>
+              </td>
+              <td>
+                <a
+                  matTooltip="Xem chi tiết"
+                  matTooltipPosition="after"
+                  class="btn btn-icon btn-light btn-hover-primary btn-sm"
+                >
+                  <!-- (click)="detail(item.IdQuestion)" -->
+                  <span
+                    [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'"
+                    cacheSVG="true"
+                    class="svg-icon svg-icon-md svg-icon-primary"
+                  >
+                  </span>
+                </a>
+                <a
+                  matTooltip="Chỉnh sửa"
+                  matTooltipPosition="after"
+                  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+                >
+                  <span
+                    [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'"
+                    cacheSVG="true"
+                    class="svg-icon svg-icon-md svg-icon-primary"
+                  >
+                  </span>
+                </a>
+                <a
+                  matTooltip="Xóa"
+                  matTooltipPosition="after"
+                  class="btn btn-icon btn-light btn-hover-danger btn-sm"
+                  (click)="delete(item.Id)"
+                >
+                  <span
+                    [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'"
+                    cacheSVG="true"
+                    class="svg-icon svg-icon-md svg-icon-danger"
+                  >
+                  </span>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center" style="margin: 20px 0; text-transform: uppercase" *ngIf="isEmptyDataSource()">
+          Không có dữ liệu
+        </div>
+      </div>
+      <!-- End Data Table -->
+  
+      <app-paginator
+        class="d-flex justify-content-between align-items-center flex-wrap"
+        [paginator]="paginator"
+        [isLoading]="isLoading"
+        (paginate)="paginate($event)"
+      >
+      </app-paginator>
+    </div>
+    <!-- End Body -->
+  </div>
+  

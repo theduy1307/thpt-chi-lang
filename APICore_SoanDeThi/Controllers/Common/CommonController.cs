@@ -299,6 +299,7 @@ namespace APICore_SoanDeThi.Controllers.Common
                 var _data = _context.SysNotifyDetail.Where(x => x.IdHocSinh == loginData.id /*&& x.IdNienKhoa == currentYear*/)
                                     .Join(_context.SysNotifyMaster, detail => detail.IdMaster, master => master.Id, (detail, master)=>new { detail=detail, master = master})
                                     .Join(_context.ViewNhanVien, notify => notify.master.CreateBy, emp=>emp.IdNv, (notify, emp) => new {notify = notify, emp=emp})
+                                    .OrderByDescending(x=>x.notify.detail.Id)
                                       .Select(x => new INotify
                                       {
                                           IdDetail = x.notify.detail.Id,
@@ -306,8 +307,9 @@ namespace APICore_SoanDeThi.Controllers.Common
                                           Content = x.notify.master.Content,
                                           CreateByName = x.emp.HoTen,
                                           CreateDate = x.notify.master.CreateDate,
-                                          IsRead = x.notify.detail.IsRead
-                                      }).ToList();
+                                          IsRead = x.notify.detail.IsRead,
+                                          NotifyIcon = x.notify.master.NotifyIcon
+                                      }).ToList().Take(5);
 
                 _baseModel.status = 1;
                 _baseModel.error = null;

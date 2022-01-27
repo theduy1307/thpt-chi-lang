@@ -12,6 +12,7 @@ import KTLayoutQuickUser from '../../../../../assets/js/layout/extended/quick-us
 import KTLayoutHeaderTopbar from '../../../../../assets/js/layout/base/header-topbar';
 import { KTUtil } from '../../../../../assets/js/components/util';
 import { DungChungService } from 'src/app/pages/components/_common/_services/dung-chung.service';
+import * as moment from "moment";
 
 @Component({
   selector: 'app-topbar',
@@ -73,11 +74,14 @@ export class TopbarComponent implements OnInit, AfterViewInit {
   }
 
   loadListThongBao() {
+    var locale = window.navigator['userLanguage'] || window.navigator.language;
     this.commonService.getListThongBao().subscribe((res) => {
       if (res && res.status == 1) {
         this.listThongBao = res.data;
+        this.listThongBao.forEach(ele => {
+          ele.CreateDate = moment(ele.CreateDate).locale(locale).fromNow()
+        })
         this.unRead = res.data.filter(x=>!x.IsRead).length
-        console.log(this.unRead)
         this.changeDetectorRefs.detectChanges();
       }
     });

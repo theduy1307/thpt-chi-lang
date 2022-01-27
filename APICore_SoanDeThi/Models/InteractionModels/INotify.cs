@@ -13,5 +13,6 @@ namespace APICore_SoanDeThi.Models.InteractionModels
         public string CreateByName { get; set; }
         public DateTime CreateDate { get; set; }
         public bool IsRead { get; set; }
+        public string NotifyIcon { get; set; }
     }
 }

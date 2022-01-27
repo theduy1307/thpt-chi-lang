@@ -62,7 +62,7 @@
       <!--begin::Toggle-->
       <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px" ngbDropdownToggle>
         <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1 pulse pulse-primary">
-          <i [matBadge]="unRead" matBadgeColor="warn" class="flaticon2-bell-4 text-warning"></i>
+          <i [matBadge]="unRead != 0 ? unRead : ''" matBadgeColor="warn" class="flaticon2-bell-4 text-warning"></i>
           <!-- <span class="pulse-ring"></span> -->
         </div>
       </div>
@@ -71,7 +71,7 @@
       <!--begin::Dropdown-->
       <div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-lg">
         <form>
-          <app-notifications-dropdown-inner></app-notifications-dropdown-inner>
+          <app-notifications-dropdown-inner [listThongBao]="listThongBao"></app-notifications-dropdown-inner>
         </form>
       </div>
       <!--end::Dropdown-->
