@@ -5,7 +5,7 @@
         <h3 class="card-label">DANH SÁCH THÔNG BÁO</h3>
       </div>
       <div class="card-toolbar">
-        <button type="button" class="btn btn-primary">Thêm mới</button>
+        <button type="button" class="btn btn-primary" (click)="create()">Thêm mới</button>
       </div>
     </div>
     <!-- End Header Page -->
@@ -20,27 +20,11 @@
               type="text"
               value=""
               class="form-control"
-              placeholder="Tìm kiếm mã câu hỏi hoặc tiêu đề"
+              placeholder="Tìm kiếm tiêu đề hoặc nội dung"
               name="searchText"
               formControlName="searchTerm"
             />
             <small class="form-text text-muted"><b>Tìm kiếm</b> dữ liệu</small>
-          </div>
-          <div class="col-lg-4" [formGroup]="searchGroup">
-            <mat-select class="form-control" placeholder="Chọn câu đúng" name="correctOption">
-              <mat-option value="1">Dễ</mat-option>
-              <mat-option value="2">Trung bình</mat-option>
-              <mat-option value="3">Khó</mat-option>
-            </mat-select>
-            <small class="form-text text-muted"><b>Lọc</b> cấp độ</small>
-          </div>
-          <div class="col-lg-4" [formGroup]="searchGroup">
-            <mat-select class="form-control" placeholder="Chọn khối" name="correctOption">
-              <mat-option value="1">Khối 10</mat-option>
-              <mat-option value="2">Khối 11</mat-option>
-              <mat-option value="3">Khối 12</mat-option>
-            </mat-select>
-            <small class="form-text text-muted"><b>Lọc</b> khối</small>
           </div>
         </div>
       </div>
@@ -80,7 +64,7 @@
                 <input
                   type="checkbox"
                   (click)="grouping.selectAllRows()"
-                  [checked]="grouping.checkAreAllRowsSelected()"
+                  [checked]="grouping.checkAreAllRowsSelected()"  
                 /><span></span>
               </label>
             </th>
@@ -95,18 +79,9 @@
               ></app-sort-icon>
             </th>
             <th>
-              Khối
+              Nội dung
               <app-sort-icon
-                column="Class"
-                [activeColumn]="sorting.column"
-                [activeDirection]="sorting.direction"
-                (sort)="sort($event)"
-              ></app-sort-icon>
-            </th>
-            <th>
-              Mức độ
-              <app-sort-icon
-                column="Level"
+                column="Content"
                 [activeColumn]="sorting.column"
                 [activeDirection]="sorting.direction"
                 (sort)="sort($event)"
@@ -127,22 +102,8 @@
                 </label>
               </td>
               <td>{{ i + 1 }}</td>
-              <td>{{ this.formatData(item.Title) }}</td>
-              <td>Khối {{ item.Class }}</td>
-              <td>
-                <span
-                  class="label label-lg label-inline"
-                  [class.label-success]="item.Level === 1"
-                  [class.label-primary]="item.Level === 2"
-                  [class.label-warning]="item.Level === 3"
-                  [class.label-info]="item.Level === 4"
-                >
-                  <ng-container *ngIf="item.Level === 1">Biết</ng-container>
-                  <ng-container *ngIf="item.Level === 2">Hiểu</ng-container>
-                  <ng-container *ngIf="item.Level === 3">Vận dụng thấp</ng-container>
-                  <ng-container *ngIf="item.Level === 4">Vận dụng cao</ng-container>
-                </span>
-              </td>
+              <td>{{ item.Title }}</td>
+              <td>{{ this.formatData(item.Content) }}</td>
               <td>
                 <a
                   matTooltip="Xem chi tiết"

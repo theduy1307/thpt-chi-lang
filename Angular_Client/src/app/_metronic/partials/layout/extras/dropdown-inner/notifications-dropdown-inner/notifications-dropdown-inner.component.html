@@ -73,14 +73,14 @@
     >
     <ng-container *ngFor="let item of listThongBao">
       <!--begin::Item-->
-      <a href="#" class="navi-item">
+      <a class="navi-item" (click)="routeToDetail(item.IdMaster)" style="cursor: pointer;">
         <div class="navi-link">
           <div class="navi-icon mr-2">
             <i [class]="item.NotifyIcon"></i>
           </div>
           <div class="navi-text">
             <div class="font-weight-bold">
-              {{item.Title}}
+              <strong>{{item.CreateByName}}</strong> đã gửi thông báo cho bạn
             </div>
             <div class="text-muted">
               {{item.CreateDate}}
@@ -95,7 +95,7 @@
 
     <!--begin::Action-->
     <div class="d-flex flex-center pb-7">
-      <a href="#" class="btn btn-light-primary font-weight-bold text-center"
+      <a class="btn btn-light-primary font-weight-bold text-center" (click)="routeToList()"
         >Xem tất cả</a
       >
     </div>

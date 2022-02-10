@@ -5,12 +5,12 @@ import { catchError, finalize, map, tap } from "rxjs/operators";
 import { HttpUtilsService } from "src/app/_global/_services/http-utils.service";
 import { ITableState, TableResponseModel, TableService } from "src/app/_metronic/shared/crud-table";
 import { environment } from "src/environments/environment";
-import { ISysNotifyMaster } from "../quan-ly-thong-bao-model/quan-ly-thong-bao-model";
+import { IAccountInformation } from "../thong-tin-ca-nhan-model/thong-tin-ca-nhan.model";
 
-const API_ROOT_URL = environment.ApiRoot + "/Notification";
+const API_ROOT_URL = environment.ApiRoot + "/AccountInformation";
 
 @Injectable({ providedIn: "root" })
-export class QuanLyThongBaoService extends TableService<ISysNotifyMaster> implements OnDestroy {
+export class ThongTinCaNhanService extends TableService<IAccountInformation> implements OnDestroy {
   private _httpHeaders: HttpHeaders;
 
   constructor(@Inject(HttpClient) http, private httpUtils: HttpUtilsService) {
@@ -25,7 +25,7 @@ export class QuanLyThongBaoService extends TableService<ISysNotifyMaster> implem
     this.initCallService();
     const request = this.find(this.tableState)
       .pipe(
-        tap((res: TableResponseModel<ISysNotifyMaster>) => {
+        tap((res: TableResponseModel<IAccountInformation>) => {
           this.setItems(res.items);
           this.patchStateWithoutFetch({
             paginator: this.tableState.paginator.recalculatePaginator(res.total),
@@ -40,8 +40,8 @@ export class QuanLyThongBaoService extends TableService<ISysNotifyMaster> implem
         }),
         finalize(() => {
           this.setLoading(false);
-          const itemIds = this.getItems.value.map((el: ISysNotifyMaster) => {
-            const item = el as unknown as ISysNotifyMaster;
+          const itemIds = this.getItems.value.map((el: IAccountInformation) => {
+            const item = el as unknown as IAccountInformation;
             return item.Id;
           });
           this.patchStateWithoutFetch({
@@ -53,9 +53,9 @@ export class QuanLyThongBaoService extends TableService<ISysNotifyMaster> implem
     this.subscriptions.push(request);
   }
 
-  find(tableState: ITableState): Observable<TableResponseModel<ISysNotifyMaster>> {
+  find(tableState: ITableState): Observable<TableResponseModel<IAccountInformation>> {
     return this.http
-      .post<any>(API_ROOT_URL + "/Notification_List", tableState, {
+      .post<any>(API_ROOT_URL + "/NotificationForStudent_List", tableState, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -63,7 +63,7 @@ export class QuanLyThongBaoService extends TableService<ISysNotifyMaster> implem
           if (response.status === 0) {
             return { items: [], total: 0 };
           }
-          const result: TableResponseModel<ISysNotifyMaster> = {
+          const result: TableResponseModel<IAccountInformation> = {
             items: response.data,
             total: response.page.TotalCount,
           };
@@ -77,7 +77,18 @@ export class QuanLyThongBaoService extends TableService<ISysNotifyMaster> implem
   }
   getItemById(id: number): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/AccountInformation_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+      catchError((err) => {
+        this.setErrorMess(err);
+        return of({});
+      }),
+      finalize(() => this.setLoading(false))
+    );
+  }
+
+  readAll(): Observable<any> {
+    this.initCallService();
+    return this.http.get(`${API_ROOT_URL}/NotificationForStudent_ReadAll`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});
@@ -89,7 +100,7 @@ export class QuanLyThongBaoService extends TableService<ISysNotifyMaster> implem
   create(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<ISysNotifyMaster>(API_ROOT_URL + "/Notification_Create", item, {
+      .post<IAccountInformation>(API_ROOT_URL + "/_Insert", item, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -103,7 +114,7 @@ export class QuanLyThongBaoService extends TableService<ISysNotifyMaster> implem
   update(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<ISysNotifyMaster>(API_ROOT_URL + "/_Update", item, {
+      .post<IAccountInformation>(API_ROOT_URL + "/_Update", item, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -122,6 +133,16 @@ export class QuanLyThongBaoService extends TableService<ISysNotifyMaster> implem
   delete(id: any): Observable<any> {
     this.initCallService();
     return this.http.get(`${API_ROOT_URL}/_Delete?id=${id}`, { headers: this._httpHeaders }).pipe(
+      catchError((err) => {
+        this.setErrorMess(err);
+        return of({});
+      }),
+      finalize(() => this.setLoading(false))
+    );
+  }
+  changePassword(oldPassword: any, newPassword:any): Observable<any> {
+    this.initCallService();
+    return this.http.get(`${API_ROOT_URL}/NotificationForStudent_ChangePassword?oldPassword=${oldPassword}&newPassword=${newPassword}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});

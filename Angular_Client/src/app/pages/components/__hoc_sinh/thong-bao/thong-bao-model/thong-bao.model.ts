@@ -1,13 +1,15 @@
 import { BaseModel } from "src/app/_metronic/shared/crud-table";
 
-export interface ISysNotifyMaster extends BaseModel {
+export interface INotifyForStudent extends BaseModel{
     Id: number;
     Title: string;
     Content: string;
     CreateDate: string;
+    CreateFrom: string;
     ModifiedDate: string | null;
     CreateBy: number;
-    Type:number; //1: Giáo viên bộ môn, 2: Quản trị, 3: Giáo viên CN
+    CreateByName: string;
+    Type: number;
     NotifyIcon: string;
-    Disabled: boolean;
+    IsRead: boolean;
 }

@@ -426,8 +426,6 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
         #endregion
 
-
-
         #region LẤY CHI TIẾT BÀI KIỂM TRA
         [Route("BaiKiemTraCauHinh_Detail")]
         //[Authorize(Roles = "10014")]

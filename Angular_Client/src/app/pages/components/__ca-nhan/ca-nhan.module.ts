@@ -18,21 +18,19 @@ import {
 import { MatStepperModule } from "@angular/material/stepper";
 import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
 import {NgxPrintModule} from 'ngx-print';
-import { ChuNhiemComponent } from "./chu-nhiem.component";
-import { ChuNhiemRoutingModule } from "./chu-nhiem-routing.module";
-import { QuanLyThongBaoComponent } from './quan-ly-thong-bao/quan-ly-thong-bao.component';
-import { QuanLyThongBaoCreateComponent } from './quan-ly-thong-bao/quan-ly-thong-bao-create/quan-ly-thong-bao-create.component';
+import { CaNhanComponent } from "./ca-nhan.component";
+import { CaNhanRoutingModule } from "./ca-nhan-routing.module";
+import { ThongTinCaNhanComponent } from './thong-tin-ca-nhan/thong-tin-ca-nhan.component';
 
 @NgModule({
   declarations: [
-    ChuNhiemComponent,
-    QuanLyThongBaoComponent,
-    QuanLyThongBaoCreateComponent,
+    CaNhanComponent,
+    ThongTinCaNhanComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule,
-    ChuNhiemRoutingModule,
+    CaNhanRoutingModule,
     CKEditorModule,
     FormsModule,
     ReactiveFormsModule,
@@ -51,6 +49,6 @@ import { QuanLyThongBaoCreateComponent } from './quan-ly-thong-bao/quan-ly-thong
     { provide: NgbDateAdapter, useClass: CustomAdapter },
     { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter },
   ],
-  entryComponents: [ChuNhiemComponent],
+  entryComponents: [CaNhanComponent],
 })
-export class ChuNhiemModule {}
+export class CaNhanModule {}

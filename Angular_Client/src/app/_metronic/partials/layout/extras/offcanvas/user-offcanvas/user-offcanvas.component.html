@@ -27,10 +27,10 @@
         </div>
         <!--end::Symbol-->
         <div class="d-flex flex-column">
-          <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
+          <a class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary" (click)="information(_user.id)" style="cursor: pointer;">
             {{ _user.firstname }} {{ _user.lastname }}
           </a>
-          <div class="text-muted mt-1">Quản trị hệ thống</div>
+          <div class="text-muted mt-1">{{chucDanh(_user.allowCode)}}</div>
         </div>
       </div>
       <div class="d-flex align-items-center mt-5" style="justify-content: flex-end;">

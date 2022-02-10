@@ -10,6 +10,6 @@ namespace APICore_SoanDeThi.Models.DatabaseContext
         public long Id { get; set; }
         public long IdMaster { get; set; }
         public long IdHocSinh { get; set; }
-        public bool IsRead { get; set; } = false;
+        public bool IsRead { get; set; }
     }
 }

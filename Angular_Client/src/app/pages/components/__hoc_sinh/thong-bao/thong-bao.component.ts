@@ -22,14 +22,14 @@ import { DeleteModalComponent } from "../../_common/_components/delete-modal/del
 import { DeleteManyModalComponent } from "../../_common/_components/delete-many-model/delete-many-modal.component";
 import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.service";
 import { AuthService, UserModel } from "src/app/modules/auth";
-import { QuanLyThongBaoService } from "./quan-ly-thong-bao-service/quan-ly-thong-bao.service";
-import { QuanLyThongBaoCreateComponent } from "./quan-ly-thong-bao-create/quan-ly-thong-bao-create.component";
+import { ThongBaoService } from "./thong-bao-service/thong-bao.service";
+
 @Component({
-  selector: 'app-quan-ly-thong-bao',
-  templateUrl: './quan-ly-thong-bao.component.html',
-  styleUrls: ['./quan-ly-thong-bao.component.scss']
+  selector: "app-thong-bao",
+  templateUrl: "./thong-bao.component.html",
+  styleUrls: ["./thong-bao.component.scss"],
 })
-export class QuanLyThongBaoComponent implements OnInit, OnDestroy, ISortView, IGroupingView, ISearchView {
+export class ThongBaoComponent implements OnInit, OnDestroy, ISortView, IGroupingView, ISearchView {
   /* --------------------------- Loading.... ---------------------------*/
   paginator: PaginatorState;
   sorting: SortState;
@@ -60,7 +60,7 @@ export class QuanLyThongBaoComponent implements OnInit, OnDestroy, ISortView, IG
     public userService: AuthService,
     private modalService: NgbModal,
     private layoutUtilsService: LayoutUtilsService,
-    public services: QuanLyThongBaoService
+    public services: ThongBaoService
   ) {
     this.userService.currentUserSubject
       .asObservable()
@@ -97,9 +97,7 @@ export class QuanLyThongBaoComponent implements OnInit, OnDestroy, ISortView, IG
     this.searchGroup = this.fb.group({
       searchTerm: [""],
     });
-    const searchEvent = this.searchGroup.controls.searchTerm.valueChanges
-      .pipe(debounceTime(150), distinctUntilChanged())
-      .subscribe((val) => this.search(val));
+    const searchEvent = this.searchGroup.controls.searchTerm.valueChanges.pipe(debounceTime(150), distinctUntilChanged()).subscribe((val) => this.search(val));
     this.subscriptions.push(searchEvent);
   }
   search(searchTerm: string) {
@@ -120,16 +118,21 @@ export class QuanLyThongBaoComponent implements OnInit, OnDestroy, ISortView, IG
   paginate(paginator: PaginatorState) {
     this.services.patchState({ paginator });
   }
-
-  create() {
-    const modalRef = this.modalService.open(QuanLyThongBaoCreateComponent, {
-      size: "xl",
-    });
-    modalRef.result.then(
-      () => this.services.fetch(),
-      () => {}
-    );
+  readAll() {
+    const sb = this.services
+      .readAll()
+      .pipe(
+        tap(() => this.services.fetch()),
+        catchError((err) => {
+          return of(undefined);
+        })
+      )
+      .subscribe((res) => {});
+    this.subscriptions.push(sb);
   }
+  // create() {
+  //   this.edit(undefined);
+  // }
   // edit(id: number) {
   //   const modalRef = this.modalService.open(QuestionModifyComponent, {
   //     size: "lg",
@@ -157,8 +160,8 @@ export class QuanLyThongBaoComponent implements OnInit, OnDestroy, ISortView, IG
       .replace(/\s{2,}/g, "")
       .replace("&nbsp;", "")
       .trim();
-    if (value.length > 150) {
-      value = value.slice(0, 150) + "...";
+    if (value.length > 70) {
+      value = value.slice(0, 70) + "...";
     }
     return value;
   }
@@ -182,7 +185,7 @@ export class QuanLyThongBaoComponent implements OnInit, OnDestroy, ISortView, IG
               })
             )
             .subscribe((res) => {
-                this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
+              this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
             });
           this.subscriptions.push(sb);
         }

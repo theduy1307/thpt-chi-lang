@@ -7,6 +7,7 @@ namespace APICore_SoanDeThi.Models.InteractionModels
 {
     public class INotify
     {
+        public long IdMaster { get; set; }
         public long IdDetail { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }

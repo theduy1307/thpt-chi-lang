@@ -302,6 +302,7 @@ namespace APICore_SoanDeThi.Controllers.Common
                                     .OrderByDescending(x=>x.notify.detail.Id)
                                       .Select(x => new INotify
                                       {
+                                          IdMaster = x.notify.master.Id,
                                           IdDetail = x.notify.detail.Id,
                                           Title = x.notify.master.Title,
                                           Content = x.notify.master.Content,
