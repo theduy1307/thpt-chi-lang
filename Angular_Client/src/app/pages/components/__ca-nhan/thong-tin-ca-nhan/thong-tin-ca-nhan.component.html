@@ -65,13 +65,7 @@
                 </table>
             </div>
             <div class="form-group row">
-                <div class="col-lg-12 text-center">
-                    <button class="btn btn-primary">
-                        <span [inlineSVG]="'./assets/media/svg/icons/General/Update.svg'" cacheSVG="true"
-                            class="svg-icon svg-icon-md"></span>
-                        Đổi mật khẩu
-                    </button>
-                </div>
+                <h4>Đổi mật khẩu</h4>
             </div>
             <form class="form-group row" (keyup.enter)="changePassword()" [formGroup]="formThongTin">
                 <div class="col-lg-4">
@@ -90,6 +84,15 @@
                         formControlName="retypeNewPassword" />
                 </div>
             </form>
+            <div class="form-group row">
+                <div class="col-lg-12 text-center">
+                    <button class="btn btn-primary" (click)="changePassword()">
+                        <span [inlineSVG]="'./assets/media/svg/icons/General/Update.svg'" cacheSVG="true"
+                            class="svg-icon svg-icon-md"></span>
+                        Đổi mật khẩu
+                    </button>
+                </div>
+            </div>
         </ng-container>
     </div>
     <!-- End Body -->

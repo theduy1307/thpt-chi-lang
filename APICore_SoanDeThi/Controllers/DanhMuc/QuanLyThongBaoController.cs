@@ -172,7 +172,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 _context.SysNotifyMaster.Add(_item);
                 _context.SaveChanges();
 
-                long _class = _context.Lop.Where(x => x.IdChuNhiem == loginData.id).Select(x=>x.Id).FirstOrDefault();
+                long _class = _context.Lop.Where(x => x.IdChuNhiem == loginData.id).OrderByDescending(x=>x.Id).Select(x=>x.Id).FirstOrDefault();
                 var _student = _context.ViewNhanVien.Where(x => x.IdLop == _class && (x.isStudent ?? false)).Select(x => x.IdNv).ToList();
 
                 foreach(var item in _student)
