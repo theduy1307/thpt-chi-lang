@@ -21,8 +21,7 @@
           <small class="form-text text-muted"><b>Tìm kiếm</b> dữ liệu</small>
         </div>
         <div class="col-lg-4" [formGroup]="searchGroup">
-          <mat-select class="form-control" placeholder="Chọn khối" formControlName="searchLop"
-            (selectionChange)="setValueLop($event)">
+          <mat-select class="form-control" placeholder="Chọn khối" formControlName="searchLop" (selectionChange)="setValueLop($event)">
             <mat-option value=10>Khối 10</mat-option>
             <mat-option value=11>Khối 11</mat-option>
             <mat-option value=12>Khối 12</mat-option>

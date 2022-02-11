@@ -94,14 +94,14 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                     _orderBy_ASC = ("desc".Equals(_tableState.sorting.direction) ? false : true);
                     _orderByExpression = _sortableFields[_tableState.sorting.column];
                 }
-                string _rules = "";
-                if (!string.IsNullOrEmpty(_tableState.filter["rules"]))
+                string _level = "";
+                if (!string.IsNullOrEmpty(_tableState.filter["level"]))
                 {
-                    _rules = _tableState.filter["rules"];
+                    _level = _tableState.filter["level"];
                 }
                 var _data = _context.Question.Join(_context.BaiHoc, question => question.IdBaiHoc, subject => subject.Id, (question, subject)=> new {question, subject})
                                                   .Join(_context.ChuongMonHoc, question => question.subject.IdChuong, chapter => chapter.Id, (question, chapter)=> new {question, chapter})
-                                                  .Where(x => !x.question.question.IsDisabled && !x.question.question.IsCustom && x.chapter.IdMonHoc == loginData.coCauId)
+                                                  .Where(x => !x.question.question.IsDisabled && !x.question.question.IsCustom && x.chapter.IdMonHoc == loginData.coCauId && (!string.IsNullOrEmpty(_level) ? x.question.question.Level.ToString().Equals(_level): true))
                                                   .Select(x => new IQuestion
                                                   {
                                                       Id = x.question.question.Id,
@@ -133,6 +133,12 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
 
                    );
                     IQueryable<IQuestion> data = _data;
+                }
+                string _class = "";
+                if (!string.IsNullOrEmpty(_tableState.filter["class"]))
+                {
+                    _class = _tableState.filter["class"];
+                    _data = _data.Where(x => x.Class.ToString() == _class);
                 }
 
                 int _countRows = _data.Count();

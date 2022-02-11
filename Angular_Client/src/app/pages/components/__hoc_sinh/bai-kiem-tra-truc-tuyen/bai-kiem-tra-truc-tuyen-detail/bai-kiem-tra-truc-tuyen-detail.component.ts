@@ -30,9 +30,10 @@ export class BaiKiemTraTrucTuyenDetailComponent implements OnInit {
   errorMessage = '';
   isLoadingSpinner: boolean = false;
   data: any;
-  thoiGianLamBai: any;
+  thoiGianLamBai: number;
   IdBaiKiemTraTrucTuyen_HocSinh: any;
   tenBaiKiemTra: string;
+  maDe: string;
   formGroup: FormGroup;
   private subscriptions: Subscription[] = [];
   /* ------------------------------------------------------------------*/
@@ -82,6 +83,7 @@ export class BaiKiemTraTrucTuyenDetailComponent implements OnInit {
         this.data = res.data._check
         this.thoiGianLamBai = res.data.thoiGianLamBai;
         this.tenBaiKiemTra = res.data.tenBaiKiemTra;
+        this.maDe = res.data._MaDe
         this.IdBaiKiemTraTrucTuyen_HocSinh = res.data.IdBaiKiemTraTrucTuyen_HocSinh;
         this.loadForm();
         // this.setInitialQuestionList();

@@ -81,7 +81,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
                 Dictionary<string, Func<IBaiKiemTra_Group, object>> _sortableFields = new Dictionary<string, Func<IBaiKiemTra_Group, object>>
                 {
-                    { "Title", x => x.TenBaiKiemTra },              
+                    { "Title", x => x.TenBaiKiemTra },
+                    { "NgayTao", x => x.NgayTao },   
                     //{ "GiaTriMacDinh", x => x.GiaTriMacDinh },
                     //{ "NguoiTao", x => x.NguoiTao },
                     //{ "NgayTao", x => x.NgayTao },
@@ -125,10 +126,17 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 {
                     _keywordSearch = _tableState.searchTerm.ToLower().Trim();
                     _data = _data.Where(x =>
-                          x.TenBaiKiemTra.ToLower().Contains(_keywordSearch)
+                          x.TenBaiKiemTra.ToLower().Contains(_keywordSearch) ||
+                          x.NgayTao.ToString().Contains(_keywordSearch)
 
                    );
                     IQueryable<IBaiKiemTra_Group> data = _data;
+                }
+                string _class = "";
+                if (!string.IsNullOrEmpty(_tableState.filter["class"]))
+                {
+                    _class = _tableState.filter["class"];
+                    _data = _data.Where(x => x.Lop.ToString() == _class);
                 }
 
                 int _countRows = _data.Count();

@@ -111,11 +111,22 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
   searchForm() {
     this.searchGroup = this.fb.group({
       searchTerm: [""],
+      class:[""]
     });
     const searchEvent = this.searchGroup.controls.searchTerm.valueChanges
       .pipe(debounceTime(150), distinctUntilChanged())
       .subscribe((val) => this.search(val));
     this.subscriptions.push(searchEvent);
+    this.subscriptions.push(this.searchGroup.controls.class.valueChanges.pipe(debounceTime(150), distinctUntilChanged()).subscribe(() => this.filterClass()));
+  }
+  filterClass() {
+    const filter: any = {};
+    const rules = this.searchGroup.controls["class"].value;
+    if (rules) {
+      filter.keys = "class";
+      filter.vals = rules + "";
+    }
+    this.services.patchState({ filter });
   }
   search(searchTerm: string) {
     this.services.patchState({ searchTerm });

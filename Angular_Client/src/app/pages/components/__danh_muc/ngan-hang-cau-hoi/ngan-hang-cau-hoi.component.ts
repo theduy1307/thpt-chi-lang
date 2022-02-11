@@ -107,19 +107,48 @@ export class QuestionComponent implements OnInit, OnDestroy, ISortView, IGroupin
   /* -----------------------------------------------------------------------*/
 
   /*------------------------- CÁC THAO TÁC TRÊN FORM ----------------------*/
+  // filtration
+  filter() {
+    const filter: any = {};
+    const rules = this.searchGroup.controls["level"].value;
+    if (rules) {
+      filter.keys = "level";
+      filter.vals = rules + "";
+    }
+    this.services.patchState({ filter });
+  }
+  filterClass() {
+    const filter: any = {};
+    const rules = this.searchGroup.controls["class"].value;
+    if (rules) {
+      filter.keys = "class";
+      filter.vals = rules + "";
+    }
+    this.services.patchState({ filter });
+  }
   searchForm() {
     this.searchGroup = this.fb.group({
       searchTerm: [""],
+      level: [""],
+      class: [""]
     });
-    const searchEvent = this.searchGroup.controls.searchTerm.valueChanges
-      .pipe(debounceTime(150), distinctUntilChanged())
-      .subscribe((val) => this.search(val));
+    const searchEvent = this.searchGroup.controls.searchTerm.valueChanges.pipe(debounceTime(150), distinctUntilChanged()).subscribe((val) => this.search(val));
     this.subscriptions.push(searchEvent);
+    this.subscriptions.push(this.searchGroup.controls.level.valueChanges.pipe(debounceTime(150), distinctUntilChanged()).subscribe(() => this.filter()));
+    this.subscriptions.push(this.searchGroup.controls.class.valueChanges.pipe(debounceTime(150), distinctUntilChanged()).subscribe(() => this.filterClass()));
+    
+    
+    // const searchEvent = this.searchGroup.controls.searchTerm.valueChanges
+    //   .pipe(debounceTime(150), distinctUntilChanged())
+    //   .subscribe((val) => this.search(val));
+    // this.subscriptions.push(searchEvent);
   }
   search(searchTerm: string) {
     this.services.patchState({ searchTerm });
   }
-
+  setValueLevel(event: any) {
+    this.searchGroup.controls["level"].setValue(`${event.value}`);
+  }
   sort(column: string) {
     const sorting = this.sorting;
     const isActiveColumn = sorting.column === column;
