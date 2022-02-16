@@ -14,10 +14,8 @@ namespace APICore_SoanDeThi.Models.InteractionModels
         public DateTime CreateDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public long CreateBy { get; set; }
-        public string CreateByName { get; set; }
         public int Type { get; set; } //1: Giáo viên bộ môn, 2: Quản trị, 3: Giáo viên CN
         public string NotifyIcon { get; set; }
         public bool Disabled { get; set; } = false;
-
     }
 }

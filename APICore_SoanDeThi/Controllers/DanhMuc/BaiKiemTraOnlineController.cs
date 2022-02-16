@@ -81,7 +81,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                                                   .Select(x => new IBaiKiemTra_TrucTuyen_Group
                                                   {
                                                       Id = x.kiemtra.Id,
-                                                      TenBaiKiemTra = "KIỂM TRA " + x.kiemtra.TenBaiKiemTra.ToUpper(),
+                                                      TenBaiKiemTra = x.kiemtra.TenBaiKiemTra.ToUpper(),
                                                       SoLuongDe = x.kiemtra.SoLuongDe,
                                                       CauBiet = x.kiemtra.CauBiet,
                                                       CauHieu = x.kiemtra.CauHieu,
@@ -112,6 +112,12 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
 
                    );
                     IQueryable<IBaiKiemTra_TrucTuyen_Group> data = _data;
+                }
+                string _class = "";
+                if (!string.IsNullOrEmpty(_tableState.filter["class"]))
+                {
+                    _class = _tableState.filter["class"];
+                    _data = _data.Where(x => x.Lop.ToString() == _class);
                 }
 
                 int _countRows = _data.Count();
@@ -262,6 +268,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                                                                                a => a.IdQueston,
                                                                                b => b.Id,
                                                                                (a, b) => new { a, b })
+                                                                               .OrderBy(x => x.a.Id)
                                                                                .Select(k => new IBaiKiemTra_TrucTuyen_HocSinh_ChiTiet
                                                                                {
                                                                                    Id = k.a.Id,
@@ -275,7 +282,8 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                                                                                }).ToList();
 
                     
-                    return Utilities._responseData(1, "", new { _check, _MaDe, tenBaiKiemTra = detail_BaiKiemTra.TenBaiKiemTra, thoiGianLamBai = balo.ThoiGianLamBaiConLai, IdBaiKiemTraTrucTuyen_HocSinh = balo.Id });
+                    
+                    return Utilities._responseData(1, "", new { _check, _MaDe = checkExist.Select(x => x.MaDe).FirstOrDefault(), tenBaiKiemTra = detail_BaiKiemTra.TenBaiKiemTra, thoiGianLamBai = balo.ThoiGianLamBaiConLai, IdBaiKiemTraTrucTuyen_HocSinh = balo.Id });
                 }
                 
                 

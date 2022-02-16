@@ -379,6 +379,40 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         }
         #endregion
 
+        #region XÓA TÀI KHOẢN HỌC SINH
+        [Route("Account_Delete")]
+        //[Authorize(Roles = "10013")]
+        [HttpGet]
+        public BaseModel<object> Account_Delete(long id)
+        {
+
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                _context.Database.BeginTransaction();
+
+                var data = _context.ViewAccount.Where(x => x.IdNv == id).FirstOrDefault();
+                data.Disable = Convert.ToInt16(true);
+
+                var item = _context.ViewNhanVien.Where(x => x.IdNv == id).FirstOrDefault();
+                item.Disable = Convert.ToInt16(true);
+                _context.SaveChanges();
+                _context.Database.CommitTransaction();
+                return Utilities._responseData(1, "Xóa tài khoản thành công", null);
+            }
+            catch (Exception ex)
+            {
+                _context.Database.RollbackTransaction();
+                return Utilities._responseData(0, "Xóa thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
         #region LẤY CHI TIẾT CÂU HỎI
         [Route("Account_Detail")]
         //[Authorize(Roles = "10014")]

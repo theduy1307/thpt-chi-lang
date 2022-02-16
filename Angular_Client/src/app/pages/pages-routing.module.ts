@@ -60,11 +60,6 @@ const routes: Routes = [
         path: "chu-nhiem",
         loadChildren: () => import("../pages/components/__chu_nhiem/chu-nhiem.module").then((m) => m.ChuNhiemModule),
       },
-      //Module dành cho học sinh
-      {
-        path: "ca-nhan",
-        loadChildren: () => import("../pages/components/__ca-nhan/ca-nhan.module").then((m) => m.CaNhanModule),
-      },
       {
         path: "",
         redirectTo: "/dashboard",

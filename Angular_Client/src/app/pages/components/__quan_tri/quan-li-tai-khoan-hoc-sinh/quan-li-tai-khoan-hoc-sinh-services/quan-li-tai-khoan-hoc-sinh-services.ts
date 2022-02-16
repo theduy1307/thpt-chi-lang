@@ -138,14 +138,14 @@ export class AccountStudentService extends TableService<IAccount> implements OnD
 
   delete(id: any): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/_Delete?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/Account_Delete?id=${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});
       }),
       finalize(() => this.setLoading(false))
     );
-  }
+  } 
   resetPassword(id: any): Observable<any> {
     this.initCallService();
     return this.http.get(`${API_ROOT_URL}/Account_ResetPassword?id=${id}`, { headers: this._httpHeaders }).pipe(

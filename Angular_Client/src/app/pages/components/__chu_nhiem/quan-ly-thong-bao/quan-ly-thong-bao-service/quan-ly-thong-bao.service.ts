@@ -89,7 +89,7 @@ export class QuanLyThongBaoService extends TableService<ISysNotifyMaster> implem
   create(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<ISysNotifyMaster>(API_ROOT_URL + "/Notification_Create", item, {
+      .post<ISysNotifyMaster>(API_ROOT_URL + "/_Insert", item, {
         headers: this._httpHeaders,
       })
       .pipe(

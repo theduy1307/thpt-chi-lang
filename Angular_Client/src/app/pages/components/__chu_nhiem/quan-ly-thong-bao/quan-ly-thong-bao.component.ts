@@ -23,7 +23,6 @@ import { DeleteManyModalComponent } from "../../_common/_components/delete-many-
 import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.service";
 import { AuthService, UserModel } from "src/app/modules/auth";
 import { QuanLyThongBaoService } from "./quan-ly-thong-bao-service/quan-ly-thong-bao.service";
-import { QuanLyThongBaoCreateComponent } from "./quan-ly-thong-bao-create/quan-ly-thong-bao-create.component";
 @Component({
   selector: 'app-quan-ly-thong-bao',
   templateUrl: './quan-ly-thong-bao.component.html',
@@ -121,15 +120,9 @@ export class QuanLyThongBaoComponent implements OnInit, OnDestroy, ISortView, IG
     this.services.patchState({ paginator });
   }
 
-  create() {
-    const modalRef = this.modalService.open(QuanLyThongBaoCreateComponent, {
-      size: "xl",
-    });
-    modalRef.result.then(
-      () => this.services.fetch(),
-      () => {}
-    );
-  }
+  // create() {
+  //   this.edit(undefined);
+  // }
   // edit(id: number) {
   //   const modalRef = this.modalService.open(QuestionModifyComponent, {
   //     size: "lg",
@@ -157,8 +150,8 @@ export class QuanLyThongBaoComponent implements OnInit, OnDestroy, ISortView, IG
       .replace(/\s{2,}/g, "")
       .replace("&nbsp;", "")
       .trim();
-    if (value.length > 150) {
-      value = value.slice(0, 150) + "...";
+    if (value.length > 70) {
+      value = value.slice(0, 70) + "...";
     }
     return value;
   }

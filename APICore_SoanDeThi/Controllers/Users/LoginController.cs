@@ -53,7 +53,8 @@ namespace APICore_SoanDeThi.Controllers.Users
 
                 var pw_default = _config["Password:Default"];
 
-                pwh = EncryptPassword(password.ToString()).Equals(user.Password.ToString()) || (pw_default.Length > 0 && password.ToString().Equals(pw_default));
+                //pwh = EncryptPassword(password.ToString()).Equals(user.Password.ToString()) || (pw_default.Length > 0  && password.ToString().Equals(pw_default));
+                pwh = EncryptPassword(password.ToString()).Equals(user.Password.ToString());
 
                 var nhanvien = _context.ViewNhanVien.Where(x => (x.IdNv == user.IdNv && x.Disable == 0)).FirstOrDefault();
 

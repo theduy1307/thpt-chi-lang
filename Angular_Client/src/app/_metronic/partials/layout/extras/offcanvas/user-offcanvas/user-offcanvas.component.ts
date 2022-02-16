@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { UserModel } from '../../../../../../modules/auth/_models/user.model';
 import { AuthService } from '../../../../../../modules/auth/_services/auth.service';
 import { environment } from 'src/environments/environment';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { QuanLiLopAddComponent } from 'src/app/pages/components/__quan_tri/quan-li-lop/quan-li-lop-add/quan-li-lop-add.component';
 import { Router } from '@angular/router';
 
 @Component({

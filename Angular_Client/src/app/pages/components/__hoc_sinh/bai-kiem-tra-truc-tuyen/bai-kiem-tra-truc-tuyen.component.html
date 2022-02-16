@@ -15,10 +15,18 @@
     <!-- Search Filter -->
     <div class="form form-label-right">
       <div class="form-group row">
-        <div class="col-lg-12" [formGroup]="searchGroup">
+        <div class="col-lg-4" [formGroup]="searchGroup">
           <input type="text" value="" class="form-control" placeholder="Tìm kiếm mã bài kiểm tra hoặc tiêu đề"
             name="searchText" formControlName="searchTerm" />
           <small class="form-text text-muted"><b>Tìm kiếm</b> dữ liệu</small>
+        </div>
+        <div class="col-lg-4" [formGroup]="searchGroup">
+          <mat-select class="form-control" placeholder="Chọn khối" name="correctOption" formControlName="class">
+            <mat-option value="10">Khối 10</mat-option>
+            <mat-option value="11">Khối 11</mat-option>
+            <mat-option value="12">Khối 12</mat-option>
+          </mat-select>
+          <small class="form-text text-muted"><b>Lọc</b> khối</small>
         </div>
       </div>
     </div>

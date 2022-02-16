@@ -5,31 +5,25 @@ using APICore_SoanDeThi.Models.Common;
 using APICore_SoanDeThi.Models.InteractionModels;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using APICore_SoanDeThi.Models.DatabaseContext;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Xceed.Words.NET;
-using System.IO;
+
 
 namespace APICore_SoanDeThi.Controllers.DanhMuc
 {
-    [Route("api/Notification")]
+    [Route("api/DanhSachHocSinh")]
     [EnableCors("ExamPolicy")]
-    public class QuanLyThongBaoController : ControllerBase
+    public class DanhSachHocSinhController : ControllerBase
     {
         private readonly IHostingEnvironment _hosting;
         private readonly SoanDeThi_DbContext _context;
         private LoginController _account;
 
-        public QuanLyThongBaoController(IHostingEnvironment hostingEnvironment)
+        public DanhSachHocSinhController(IHostingEnvironment hostingEnvironment)
         {
             DbContextOptions<SoanDeThi_DbContext> options = new DbContextOptions<SoanDeThi_DbContext>();
             _hosting = hostingEnvironment;
@@ -37,11 +31,11 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
             _account = new LoginController();
         }
 
-        #region NGÂN HÀNG CÂU HỎI - DANH SÁCH
-        [Route("Notification_List")]
+        #region DANH SÁCH HỌC SINH
+        [Route("DanhSachHocSinh_List")]
         //[Authorize(Roles = "")]
         [HttpPost]
-        public BaseModel<object> Notification_List([FromBody] ITableState _tableState)
+        public BaseModel<object> DanhSachHocSinh_List([FromBody] ITableState _tableState)
         {
             string Token = Utilities._GetHeader(Request);
             UserLogin loginData = _account._GetInfoUser(Token);
@@ -58,12 +52,12 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 string _keywordSearch = "";
                 bool _orderBy_ASC = false;
 
-                Func<ISysNotifyMaster, object> _orderByExpression = x => x.Id;
+                Func<IDanhSachHocSinh, object> _orderByExpression = x => x.IdNv;
 
-                Dictionary<string, Func<ISysNotifyMaster, object>> _sortableFields = new Dictionary<string, Func<ISysNotifyMaster, object>>
+                Dictionary<string, Func<IDanhSachHocSinh, object>> _sortableFields = new Dictionary<string, Func<IDanhSachHocSinh, object>>
                 {
-                    { "Title", x => x.Title },
-                    { "Class", x => x.Content }
+                    { "Manv", x => x.Manv },
+                    { "HoTen", x => x.HoTen }
                 };
 
                 if (!string.IsNullOrEmpty(_tableState.sorting.direction) && _sortableFields.ContainsKey(_tableState.sorting.column))
@@ -76,27 +70,29 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 {
                     _rules = _tableState.filter["rules"];
                 }
-                var _data = _context.SysNotifyMaster.Where(x => !x.Disabled && x.CreateBy == loginData.id && x.Type == 1)
-                                                    .Select(x => new ISysNotifyMaster
-                                                    {
-                                                        Id = x.Id,
-                                                        Title = x.Title,
-                                                        Content = x.Content,
-                                                        ModifiedDate = x.ModifiedDate,
-                                                        CreateDate = x.CreateDate,
-                                                    });
+                var _getIdLop = _context.Lop.Where(x => x.IdChuNhiem == loginData.id).FirstOrDefault();
+                var _data = _context.ViewNhanVien.Where(x => x.IdLop == _getIdLop.Id)
+                                                  .Select(x => new IDanhSachHocSinh
+                                                  {
+                                                      IdNv = x.IdNv,
+                                                      Manv = x.Manv,
+                                                      HoTen = x.HoTen,
+                                                      Phai = x.Phai == "1" ? "Nam" : "Nữ",
+                                                      NgaySinh = x.Ngaysinh.Value,
+                                                      SdtNguoiLienHe = x.SodienthoaiNguoilienhe,
+                                                      TenLop = _getIdLop.TenLop,
+                                                      TenNienKhoa = _context.NienKhoa.Where(x => x.Id == _getIdLop.IdNienKhoa).Select(t => t.TenNienKhoa).FirstOrDefault(),
+
+                                                  });
 
 
                 if (!string.IsNullOrEmpty(_tableState.searchTerm))
                 {
                     _keywordSearch = _tableState.searchTerm.ToLower().Trim();
                     _data = _data.Where(x =>
-                          x.Title.ToLower().Contains(_keywordSearch)
-                          || x.Title.ToLower().Contains(_keywordSearch)
-                          || x.Content.ToLower().Contains(_keywordSearch)
-
+                          x.HoTen.ToLower().Contains(_keywordSearch)
                    );
-                    IQueryable<ISysNotifyMaster> data = _data;
+                    IQueryable<IDanhSachHocSinh> data = _data;
                 }
 
                 int _countRows = _data.Count();
@@ -112,7 +108,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 _baseModel.error = null;
                 _baseModel.page = _pageModel;
 
-                List<ISysNotifyMaster> listData = new List<ISysNotifyMaster>();
+                List<IDanhSachHocSinh> listData = new List<IDanhSachHocSinh>();
                 if (_orderBy_ASC)
                 {
                     listData = _data
@@ -140,5 +136,42 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
             }
         }
         #endregion
+
+        #region CẤP LẠI MẬT KHẨU
+        [Route("DanhSachHocSinh_ResetPassword")]
+        //[Authorize(Roles = "10014")]
+        [HttpGet]
+        public BaseModel<object> DanhSachHocSinh_ResetPassword(long id)
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                var _item = _context.ViewAccount.Where(x => x.Id == id && x.Disable == 0).FirstOrDefault();
+                if (_item == null)
+                    return Utilities._responseData(0, "Không tìm thấy tài khoản cần cấp lại mật khẩu, vui lòng tải lại danh sách!!", null);
+
+                _item.Password = EncryptPassword("thptchilang@123");
+
+                _context.SaveChanges();
+
+                return Utilities._responseData(1, "Cập nhật mật khẩu mới thành công", null);
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Cập nhật mật khẩu mới thất bại, vui lòng kiểm tra lại!", null);
+            }
+        }
+        #endregion
+
+        private static string EncryptPassword(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
     }
 }

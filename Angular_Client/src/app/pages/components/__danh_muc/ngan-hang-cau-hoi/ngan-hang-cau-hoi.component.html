@@ -27,18 +27,19 @@
           <small class="form-text text-muted"><b>Tìm kiếm</b> dữ liệu</small>
         </div>
         <div class="col-lg-4" [formGroup]="searchGroup">
-          <mat-select class="form-control" placeholder="Chọn câu đúng" name="correctOption">
-            <mat-option value="1">Dễ</mat-option>
-            <mat-option value="2">Trung bình</mat-option>
-            <mat-option value="3">Khó</mat-option>
+          <mat-select class="form-control" placeholder="Chọn câu đúng" name="correctOption" formControlName="level">
+            <mat-option value="1">Biết</mat-option>
+            <mat-option value="2">Hiểu</mat-option>
+            <mat-option value="3">Vận dụng thấp</mat-option>
+            <mat-option value="4">Vận dụng cao</mat-option>
           </mat-select>
           <small class="form-text text-muted"><b>Lọc</b> cấp độ</small>
         </div>
         <div class="col-lg-4" [formGroup]="searchGroup">
-          <mat-select class="form-control" placeholder="Chọn khối" name="correctOption">
-            <mat-option value="1">Khối 10</mat-option>
-            <mat-option value="2">Khối 11</mat-option>
-            <mat-option value="3">Khối 12</mat-option>
+          <mat-select class="form-control" placeholder="Chọn khối" name="correctOption" formControlName="class">
+            <mat-option value="10">Khối 10</mat-option>
+            <mat-option value="11">Khối 11</mat-option>
+            <mat-option value="12">Khối 12</mat-option>
           </mat-select>
           <small class="form-text text-muted"><b>Lọc</b> khối</small>
         </div>
