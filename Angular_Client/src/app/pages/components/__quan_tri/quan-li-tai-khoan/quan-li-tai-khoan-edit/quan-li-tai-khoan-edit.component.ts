@@ -118,10 +118,14 @@ export class QuanLiTaiKhoanEditComponent implements OnInit {
       sodienthoai: [this.data.SodienthoaiNguoilienhe, Validators.compose([Validators.required, Validators.maxLength(10)])],
       boMon: [this.data.Cocauid+'', Validators.required],
       uploadFileName: [this.data.Picture, Validators.required],
+      quanTri: [(this.data.AllowCode+'').indexOf('2')>-1 ? true : false, Validators.required],
+      giaoVienCN: [(this.data.AllowCode+'').indexOf('3')>-1 ? true : false, Validators.required]
     });
     this.imageUrl = this.env+this.data.Picture
   }
+  getQuyenQuanTri(allowCode:number) {
 
+  }
   //#region DROPDOWN Bộ môn
   loadListBoMon() {
     this.commonService.getListBoMon().subscribe((res) => {
@@ -303,14 +307,20 @@ export class QuanLiTaiKhoanEditComponent implements OnInit {
       */
       Username: this.data.Username.replace(/[0-9]/g, '') === this.setUsername() ? this.data.Username : this.setUsername(),
       Password: "",
-      Picture: "",
+      Picture: this.data.Picture,
       FileImport: this.flagFileImport,
       Role:[],
-      AllowCode:undefined
+      AllowCode: this.getAllowCode()
     };
     return data;
   }
-
+  getAllowCode():number {
+    const [admin, manager] = [this.informationFormGroup.controls['quanTri'].value, this.informationFormGroup.controls['giaoVienCN'].value]
+    let allowCode:string = "1"
+    if(admin) allowCode += '2'
+    if(manager) allowCode += '3'
+    return +allowCode
+  }
   setUsername(): string {
     const formData = this.informationFormGroup.value;
     let firstName = this.splitFirstName(formData.hoLot);

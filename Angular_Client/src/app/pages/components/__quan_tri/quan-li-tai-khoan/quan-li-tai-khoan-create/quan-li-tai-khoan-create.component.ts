@@ -321,32 +321,16 @@ export class QuanLiTaiKhoanCreateComponent implements OnInit {
   {
     const giaoVienCN = this.informationFormGroup.controls["giaoVienCN"].value
     const quanTri = this.informationFormGroup.controls["quanTri"].value
+    let allowCode:string = "1"
+    if(giaoVienCN) allowCode += "3"
+    if(quanTri) allowCode += "2"
+    return +allowCode
     /*
       1: Giáo viên bộ môn
       2: Quản trị
       3: Chủ nhiệm
       4: Học sinh
     */
-    if(giaoVienCN && !quanTri) //Quyền Giáo viên chủ nhiệm
-    {
-      return 13
-    }
-    else if (giaoVienCN && quanTri) //Quyền quản trị & giáo viên chủ nhiệm
-    {
-      return 123
-    }
-    else if (!giaoVienCN && !quanTri) //Quyền giáo viên bộ môn
-    {
-      return 1
-    }
-    else if (quanTri && !giaoVienCN)
-    {
-      return 12
-    }
-    else {
-      return 1
-    }
-
   }
   /* ----------------------------- Inject Event Data ---------------------------
     @Type:
