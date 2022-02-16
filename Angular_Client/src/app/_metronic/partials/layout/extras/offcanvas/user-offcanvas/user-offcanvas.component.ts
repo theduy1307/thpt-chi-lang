@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class UserOffcanvasComponent implements OnInit {
   extrasUserOffcanvasDirection = 'offcanvas-right';
   user$: Observable<UserModel>;
-  constructor(private layout: LayoutService, private auth: AuthService, private router: Router,) { }
+  constructor(private layout: LayoutService, private auth: AuthService, private router:Router) {}
   env = environment.plainApi
   ngOnInit(): void {
     this.extrasUserOffcanvasDirection = `offcanvas-${this.layout.getProp(
@@ -29,8 +29,22 @@ export class UserOffcanvasComponent implements OnInit {
     this.auth.logout();
     document.location.reload();
   }
-
-  changePassword() {
-    this.router.navigate([`chu-nhiem/danh-sach-hoc-sinh`])
+  information(id:number) {
+    this.router.navigate([`/ca-nhan/thong-tin-ca-nhan/${id}`])
+  }
+  chucDanh(allowCode:number) {
+    if ((allowCode+'').indexOf('2')>-1) {
+      return "Quản trị hệ thống"
+    }
+    else if((allowCode+'').indexOf('3')>-1) {
+      return "Giáo viên chủ nhiệm"
+    }    
+    else if ((allowCode+'').indexOf('1')>-1) {
+      return "Giáo viên bộ môn"
+    }
+    else if ((allowCode+'').indexOf('4')>-1) {
+      return "Học sinh"
+    }
+    else return "Không xác định"
   }
 }

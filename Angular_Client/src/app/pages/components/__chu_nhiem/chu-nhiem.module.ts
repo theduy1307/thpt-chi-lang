@@ -21,13 +21,15 @@ import {NgxPrintModule} from 'ngx-print';
 import { ChuNhiemComponent } from "./chu-nhiem.component";
 import { ChuNhiemRoutingModule } from "./chu-nhiem-routing.module";
 import { QuanLyThongBaoComponent } from './quan-ly-thong-bao/quan-ly-thong-bao.component';
+import { QuanLyThongBaoCreateComponent } from "./quan-ly-thong-bao/quan-ly-thong-bao-create/quan-ly-thong-bao-create.component";
 import { DanhSachHocSinhComponent } from "./danh-sach-hoc-sinh/danh-sach-hoc-sinh.component";
 
 @NgModule({
   declarations: [
     ChuNhiemComponent,
     QuanLyThongBaoComponent,
-    DanhSachHocSinhComponent
+    DanhSachHocSinhComponent,
+    QuanLyThongBaoCreateComponent,
   ],
   imports: [
     CommonModule,
