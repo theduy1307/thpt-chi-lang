@@ -1,35 +1,33 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import * as moment from "moment";
-import { of, Subscription } from "rxjs";
-import { catchError, switchMap, tap } from "rxjs/operators";
-import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.service";
-import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { ThongTinCaNhanService } from "./thong-tin-ca-nhan-service/thong-tin-ca-nhan.service";
-import { EMPTY_DATA_IACCOUNTINFORMATION, IAccountInformation } from "./thong-tin-ca-nhan-model/thong-tin-ca-nhan.model";
-import { DungChungService } from "../../_common/_services/dung-chung.service";
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
+import { of, Subscription } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
+import { LayoutUtilsService } from 'src/app/_global/_services/layout-utils.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ThongTinCaNhanService } from './thong-tin-ca-nhan-service/thong-tin-ca-nhan.service';
+import { EMPTY_DATA_IACCOUNTINFORMATION, IAccountInformation } from './thong-tin-ca-nhan-model/thong-tin-ca-nhan.model';
+import { DungChungService } from '../../_common/_services/dung-chung.service';
 
 const EMPTY_DATA = EMPTY_DATA_IACCOUNTINFORMATION;
 @Component({
-  selector: "app-thong-tin-ca-nhan",
-  templateUrl: "./thong-tin-ca-nhan.component.html",
-  styleUrls: ["./thong-tin-ca-nhan.component.scss"],
+  selector: 'app-thong-tin-ca-nhan',
+  templateUrl: './thong-tin-ca-nhan.component.html',
+  styleUrls: ['./thong-tin-ca-nhan.component.scss'],
 })
 export class ThongTinCaNhanComponent implements OnInit {
-  /* ------------------------ Inject Event Data -----------------------*/
   @Input() id: number;
 
-  /* --------------------------- Loading.... --------------------------*/
   isLoading$;
-  errorMessage = "";
+  errorMessage = '';
   isLoadingSpinner: boolean = false;
   data: IAccountInformation;
+  TenGiaoVien: any;
   formThongTin: FormGroup;
   danhSachCauHoi: IAccountInformation[];
   private subscriptions: Subscription[] = [];
-  /* ------------------------------------------------------------------*/
 
   constructor(
     private services: ThongTinCaNhanService,
@@ -42,11 +40,10 @@ export class ThongTinCaNhanComponent implements OnInit {
     private changeDetectorRefs: ChangeDetectorRef
   ) {}
 
-  /*---------------------------- LOAD DATA --------------------------------*/
   ngOnInit(): void {
     this.isLoading$ = this.services.isLoading$;
     this.loadData();
-    this.loadForm()
+    this.loadForm();
   }
 
   ngOnDestroy(): void {
@@ -59,7 +56,7 @@ export class ThongTinCaNhanComponent implements OnInit {
       .pipe(
         switchMap((params) => {
           // get id from URL
-          this.id = Number(params.get("id"));
+          this.id = Number(params.get('id'));
           if (this.id || this.id > 0) {
             return this.services.getItemById(this.id);
           }
@@ -72,42 +69,39 @@ export class ThongTinCaNhanComponent implements OnInit {
       )
       .subscribe((res: any) => {
         if (!res) {
-          this.router.navigate(["/hoc-sinh/danh-sach-thong-bao"], { relativeTo: this.route });
+          this.router.navigate(['/hoc-sinh/danh-sach-thong-bao'], { relativeTo: this.route });
         }
-        this.data = res.data;
+        this.data = res.data._item;
+        this.TenGiaoVien = res.data.TenGiaoVien;
       });
     this.subscriptions.push(sb);
   }
+
   loadForm() {
     this.formThongTin = this.fb.group({
-      oldPassword: ["", Validators.required],
-      newPassword: ["", Validators.required],
-      retypeNewPassword: ["", Validators.required],
+      oldPassword: ['', Validators.required],
+      newPassword: ['', Validators.required],
+      retypeNewPassword: ['', Validators.required],
     });
   }
+
   changePassword() {
-    const [oldPassword, newPassword] = [this.formThongTin.controls["oldPassword"].value, this.formThongTin.controls["newPassword"].value];
-    if (this.formThongTin.controls["newPassword"].value !== this.formThongTin.controls["retypeNewPassword"].value) {
-      this.layoutUtilsService.openSnackBar("Mật khẩu mới và mật khẩu nhập lại không chính xác", "Đóng");
+    const [oldPassword, newPassword] = [this.formThongTin.controls['oldPassword'].value, this.formThongTin.controls['newPassword'].value];
+    if (this.formThongTin.controls['newPassword'].value !== this.formThongTin.controls['retypeNewPassword'].value) {
+      this.layoutUtilsService.openSnackBar('Mật khẩu mới và mật khẩu nhập lại không chính xác', 'Đóng');
     } else {
       const sbCreate = this.services
         .changePassword(oldPassword, newPassword)
         .pipe(
           tap(() => {}),
           catchError((errorMessage) => {
-            console.error("UPDATE ERROR", errorMessage);
+            console.error('UPDATE ERROR', errorMessage);
             return of(this.data);
           })
         )
         .subscribe((res: any) => {
-          if (res && res.status == 1) {
-            this.data = res.data;
-            this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
+            this.layoutUtilsService.openSnackBar(res.error.message, 'Đóng');
             this.formThongTin.reset();
-          } else {
-            this.layoutUtilsService.openSnackBar(res.error.message, "Đóng");
-            this.formThongTin.reset();
-          }
         });
       this.subscriptions.push(sbCreate);
     }

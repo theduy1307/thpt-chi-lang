@@ -1,15 +1,15 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Inject, Injectable, OnDestroy } from "@angular/core";
-import { Observable, of } from "rxjs";
-import { catchError, finalize, map, tap } from "rxjs/operators";
-import { HttpUtilsService } from "src/app/_global/_services/http-utils.service";
-import { ITableState, TableResponseModel, TableService } from "src/app/_metronic/shared/crud-table";
-import { environment } from "src/environments/environment";
-import { IAccountInformation } from "../thong-tin-ca-nhan-model/thong-tin-ca-nhan.model";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { catchError, finalize, map, tap } from 'rxjs/operators';
+import { HttpUtilsService } from 'src/app/_global/_services/http-utils.service';
+import { ITableState, TableResponseModel, TableService } from 'src/app/_metronic/shared/crud-table';
+import { environment } from 'src/environments/environment';
+import { IAccountInformation } from '../thong-tin-ca-nhan-model/thong-tin-ca-nhan.model';
 
-const API_ROOT_URL = environment.ApiRoot + "/AccountInformation";
+const API_ROOT_URL = environment.ApiRoot + '/AccountInformation';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class ThongTinCaNhanService extends TableService<IAccountInformation> implements OnDestroy {
   private _httpHeaders: HttpHeaders;
 
@@ -55,7 +55,7 @@ export class ThongTinCaNhanService extends TableService<IAccountInformation> imp
 
   find(tableState: ITableState): Observable<TableResponseModel<IAccountInformation>> {
     return this.http
-      .post<any>(API_ROOT_URL + "/NotificationForStudent_List", tableState, {
+      .post<any>(API_ROOT_URL + '/NotificationForStudent_List', tableState, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -100,7 +100,7 @@ export class ThongTinCaNhanService extends TableService<IAccountInformation> imp
   create(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<IAccountInformation>(API_ROOT_URL + "/_Insert", item, {
+      .post<IAccountInformation>(API_ROOT_URL + '/_Insert', item, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -114,7 +114,7 @@ export class ThongTinCaNhanService extends TableService<IAccountInformation> imp
   update(item: any): Observable<any> {
     this.initCallService();
     return this.http
-      .post<IAccountInformation>(API_ROOT_URL + "/_Update", item, {
+      .post<IAccountInformation>(API_ROOT_URL + '/_Update', item, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -140,15 +140,17 @@ export class ThongTinCaNhanService extends TableService<IAccountInformation> imp
       finalize(() => this.setLoading(false))
     );
   }
-  changePassword(oldPassword: any, newPassword:any): Observable<any> {
+  changePassword(oldPassword: any, newPassword: any): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/NotificationForStudent_ChangePassword?oldPassword=${oldPassword}&newPassword=${newPassword}`, { headers: this._httpHeaders }).pipe(
-      catchError((err) => {
-        this.setErrorMess(err);
-        return of({});
-      }),
-      finalize(() => this.setLoading(false))
-    );
+    return this.http
+      .get(`${API_ROOT_URL}/NotificationForStudent_ChangePassword?oldPassword=${oldPassword}&newPassword=${newPassword}`, { headers: this._httpHeaders })
+      .pipe(
+        catchError((err) => {
+          this.setErrorMess(err);
+          return of({});
+        }),
+        finalize(() => this.setLoading(false))
+      );
   }
   // deleteItems(ids: number[] = []): Observable<any> {
   // 	this.initCallService();

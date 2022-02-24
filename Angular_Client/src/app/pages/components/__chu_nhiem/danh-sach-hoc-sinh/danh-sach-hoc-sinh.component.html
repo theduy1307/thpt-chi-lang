@@ -24,31 +24,6 @@
     </div>
     <!-- End Search Filter -->
 
-    <!-- Action with multiple selected -->
-    <!-- <ng-container *ngIf="grouping.getSelectedRowsCount()">
-        <div class="form">
-          <div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
-            <div class="col-xl-12">
-              <div class="form-group form-group-inline">
-                <div class="form-label form-label-no-wrap">
-                  <label class="font-bold font-danger"
-                    ><span
-                      >Số lượng đang chọn: <b>{{ grouping.getSelectedRowsCount() }}</b></span
-                    ></label
-                  >
-                </div>
-                <div>
-                  <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1">
-                    <i class="fa fa-trash"></i> Xóa tất cả</button
-                  >&nbsp;
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-container> -->
-    <!-- End Action -->
-
     <!-- Data table -->
     <div class="table-responsive angular-bootstrap-table">
       <table class="table table-head-custom table-vertical-center overflow-hidden">
@@ -84,38 +59,14 @@
         <tbody>
           <tr *ngFor="let item of services.items$ | async; let i = index">
             <td>{{ i + 1 }}</td>
-            <td style="text-transform:uppercase">{{ item.HoTen }}</td>
-            <td style="text-transform:uppercase">{{ item.TenLop }}</td>
+            <td>{{ item.HoTen | uppercase }}</td>
+            <td>{{ item.TenLop | uppercase }}</td>
             <td>{{ item.Phai }}</td>
             <td>{{ item.TenNienKhoa }}</td>
             <td>{{ item.NgaySinh | date: "dd/MM/YYYY" }}</td>
             <ul class="list-inline m-0">
               <li class="list-inline-item">
                 <td>
-                  <!-- <a
-                      matTooltip="Chỉnh sửa"
-                      matTooltipPosition="after"
-                      class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3"
-                    >
-                      <span
-                        [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'"
-                        cacheSVG="true"
-                        class="svg-icon svg-icon-md svg-icon-primary"
-                      >
-                      </span>
-                    </a>
-                    <a
-                      matTooltip="Xóa"
-                      matTooltipPosition="after"
-                      class="btn btn-icon btn-light btn-hover-danger btn-sm"
-                    >
-                      <span
-                        [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'"
-                        cacheSVG="true"
-                        class="svg-icon svg-icon-md svg-icon-danger"
-                      >
-                      </span>
-                    </a> -->
                   <a matTooltip="Cấp lại mật khẩu" matTooltipPosition="after"
                     class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3"
                     (click)="resetPassword(item.IdNv, item.HoTen)">
