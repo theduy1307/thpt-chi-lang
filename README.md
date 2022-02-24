@@ -1,4 +1,4 @@
-# HỆ THỐNG SOẠN THẢO ĐỀ THI CHO TRƯỜNG THPT (Đang cập nhật)
+# HỆ THỐNG SOẠN THẢO ĐỀ THI CHO TRƯỜNG THPT
 Xây dựng hệ thống soạn đề thi tự động, giúp cho giáo viên có thể chủ động hơn trong việc xây dựng đề thi một cách công bằng và hiệu quả
 
 ## Nội dung
