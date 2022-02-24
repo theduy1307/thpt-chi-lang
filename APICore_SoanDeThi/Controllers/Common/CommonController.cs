@@ -297,11 +297,12 @@ namespace APICore_SoanDeThi.Controllers.Common
             {
                 //long currentYear = _context.NienKhoa.Where(x => !x.Disabled).Select(x=>x.Id).ToList().LastOrDefault();
                 var _data = _context.SysNotifyDetail.Where(x => x.IdHocSinh == loginData.id /*&& x.IdNienKhoa == currentYear*/)
-                                    .Join(_context.SysNotifyMaster, detail => detail.IdMaster, master => master.Id, (detail, master)=>new { detail=detail, master = master})
-                                    .Join(_context.ViewNhanVien, notify => notify.master.CreateBy, emp=>emp.IdNv, (notify, emp) => new {notify = notify, emp=emp})
-                                    .OrderByDescending(x=>x.notify.detail.Id)
+                                    .Join(_context.SysNotifyMaster, detail => detail.IdMaster, master => master.Id, (detail, master) => new { detail = detail, master = master })
+                                    .Join(_context.ViewNhanVien, notify => notify.master.CreateBy, emp => emp.IdNv, (notify, emp) => new { notify = notify, emp = emp })
+                                    .OrderByDescending(x => x.notify.detail.Id)
                                       .Select(x => new INotify
                                       {
+                                          IdMaster = x.notify.master.Id,
                                           IdDetail = x.notify.detail.Id,
                                           Title = x.notify.master.Title,
                                           Content = x.notify.master.Content,

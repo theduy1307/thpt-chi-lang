@@ -65,11 +65,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                     _orderBy_ASC = ("desc".Equals(_tableState.sorting.direction) ? false : true);
                     _orderByExpression = _sortableFields[_tableState.sorting.column];
                 }
-                string _rules = "";
-                if (!string.IsNullOrEmpty(_tableState.filter["rules"]))
-                {
-                    _rules = _tableState.filter["rules"];
-                }
+
                 var _getIdLop = _context.Lop.Where(x => x.IdChuNhiem == loginData.id).FirstOrDefault();
                 var _data = _context.ViewNhanVien.Where(x => x.IdLop == _getIdLop.Id)
                                                   .Select(x => new IDanhSachHocSinh
@@ -77,20 +73,26 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                                                       IdNv = x.IdNv,
                                                       Manv = x.Manv,
                                                       HoTen = x.HoTen,
+                                                      Holot = x.Holot,
+                                                      Ten = x.Ten,
                                                       Phai = x.Phai == "1" ? "Nam" : "Nữ",
                                                       NgaySinh = x.Ngaysinh.Value,
                                                       SdtNguoiLienHe = x.SodienthoaiNguoilienhe,
                                                       TenLop = _getIdLop.TenLop,
                                                       TenNienKhoa = _context.NienKhoa.Where(x => x.Id == _getIdLop.IdNienKhoa).Select(t => t.TenNienKhoa).FirstOrDefault(),
-
+                                                      TenDangNhap = _context.ViewAccount.Where(t => t.IdNv == x.IdNv).Select(k => k.Username).FirstOrDefault()
                                                   });
 
-
+                string _rules = "";
+                if (!string.IsNullOrEmpty(_tableState.filter["rules"]))
+                {
+                    _rules = _tableState.filter["rules"];
+                }
                 if (!string.IsNullOrEmpty(_tableState.searchTerm))
                 {
                     _keywordSearch = _tableState.searchTerm.ToLower().Trim();
                     _data = _data.Where(x =>
-                          x.HoTen.ToLower().Contains(_keywordSearch)
+                          x.Holot.ToLower().Contains(_keywordSearch) || x.Ten.ToLower().Contains(_keywordSearch)
                    );
                     IQueryable<IDanhSachHocSinh> data = _data;
                 }

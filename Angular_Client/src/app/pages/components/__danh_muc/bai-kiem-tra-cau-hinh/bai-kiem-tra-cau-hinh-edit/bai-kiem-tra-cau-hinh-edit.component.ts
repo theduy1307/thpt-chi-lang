@@ -117,7 +117,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
       namHoc: [this.data.NamHoc, Validators.required],
       soLuongDe: [this.data.SoLuongDe, [Validators.required, Validators.min(1)]],
       thoiGianLamBai: [this.data.ThoiGianLamBai, [Validators.required, Validators.min(1)]],
-      hocKy: [this.data.HocKy + '', [Validators.required, Validators.min(1)]],
+      hocKy: [String(this.data.HocKy), [Validators.required, Validators.min(1)]],
       lop: [this.data.Lop+'', Validators.required],
       cauBiet: [this.data.CauBiet, Validators.required],
       cauHieu: [this.data.CauHieu, Validators.required],
@@ -165,7 +165,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
       questionFormArray.patchValue({
         id: question.Id,
         content: contentData,
-        correct: question.CorrectOption + '',
+        correct: String(question.CorrectOption),
         level: question.Level,
       });
     }
@@ -325,7 +325,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
       cauHoi.CreateBy = 1307;
       cauHoi.ModifyDate = moment(new Date()).format('YYYY-MM-DD[T]HH:mm:ss.SSS');
       cauHoi.ModifyBy = 1307;
-      cauHoi.CorrectOption = parseInt(element.correct);
+      cauHoi.CorrectOption = Number(element.correct);
       danhSachCauHoi.push(cauHoi);
     });
     return danhSachCauHoi;
@@ -343,8 +343,8 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
       cauHoi.CreateBy = 1307;
       cauHoi.ModifyDate = moment(new Date()).format('YYYY-MM-DD[T]HH:mm:ss.SSS');
       cauHoi.ModifyBy = 1307;
-      cauHoi.CorrectOption = parseInt(element.correct);
-      cauHoi.Class = parseInt(this.formThongTin.controls['lop'].value);
+      cauHoi.CorrectOption = Number(element.correct);
+      cauHoi.Class = Number(this.formThongTin.controls['lop'].value);
       if (
         cauHoi.Title.length === 0 ||
         cauHoi.OptionA.length === 0 ||
@@ -367,14 +367,14 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
       status: undefined,
       Id: this.data.Id,
       TenBaiKiemTra: this.formThongTin.controls['tenBaiKiemTra'].value,
-      SoLuongDe: parseInt(this.formThongTin.controls['soLuongDe'].value),
+      SoLuongDe: Number(this.formThongTin.controls['soLuongDe'].value),
       CauBiet: this.formThongTin.controls['cauBiet'].value,
       CauHieu: this.formThongTin.controls['cauHieu'].value,
       CauVanDungThap: this.formThongTin.controls['cauVanDungThap'].value,
       CauVanDungCao: this.formThongTin.controls['cauVanDungCao'].value,
       ThoiGianLamBai: this.formThongTin.controls['thoiGianLamBai'].value,
-      HocKy: parseInt(this.formThongTin.controls['hocKy'].value),
-      Lop: parseInt(this.formThongTin.controls['lop'].value),
+      HocKy: Number(this.formThongTin.controls['hocKy'].value),
+      Lop: Number(this.formThongTin.controls['lop'].value),
       NamHoc: this.formThongTin.controls['namHoc'].value,
       IdMonHoc: 8,
       NguoiTao: 1307,
@@ -399,7 +399,7 @@ export class BaiKiemTraCauHinhEditComponent implements OnInit, OnDestroy {
       let cauHoi: IQuestion;
       cauHoi = this.proceed(this.cauHoi.value[i].content);
       cauHoi.Level = this.cauHoi[i].value.level;
-      cauHoi.CorrectOption = parseInt(this.cauHoi[i].value.correct);
+      cauHoi.CorrectOption = Number(this.cauHoi[i].value.correct);
       if(cauHoi.OptionA.length===0 || cauHoi.OptionB.length===0 || cauHoi.OptionC.length===0 || cauHoi.OptionD.length===0 )
       {
         this.layoutUtilsService.openSnackBar(`Đáp án của câu ${this.isLoading$+1} còn để trồng`, 'Đóng');

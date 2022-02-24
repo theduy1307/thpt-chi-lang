@@ -158,7 +158,7 @@ export class QuanLiTaiKhoanEditComponent implements OnInit {
     return "";
   }
   setValueBoMon(event: any) {
-    let item = this.listBoMon.find((x) => x.Id == parseInt(event.value));
+    let item = this.listBoMon.find((x) => x.Id == Number(event.value));
   }
   //#endregion
 
@@ -298,7 +298,7 @@ export class QuanLiTaiKhoanEditComponent implements OnInit {
       LoaiTaiKhoan: undefined,
       TenChucDanh: "",
       Disable: this.data.Disable,
-      Cocauid: parseInt(formData.boMon),
+      Cocauid: Number(formData.boMon),
       TenCoCau: "",
       SodienthoaiNguoilienhe: formData.sodienthoai,
       /*

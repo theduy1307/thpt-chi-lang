@@ -27,7 +27,7 @@
         </div>
         <!--end::Symbol-->
         <div class="d-flex flex-column">
-          <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
+          <a (click)="information(_user.id)" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
             {{ _user.firstname }} {{ _user.lastname }}
           </a>
           <div class="text-muted mt-1">Quản trị hệ thống</div>
@@ -39,8 +39,6 @@
           <div class="navi mt-2">
             <a class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5 mr-5 cursor-pointer" (click)="logout()"
               >Quản lí tài khoản</a>
-              <a class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5 mr-5 cursor-pointer" (click)="changePassword()"
-              >Đổi mật khẩu</a>
             <a class="btn btn-sm btn-light-danger font-weight-bolder py-2 px-5 cursor-pointer" (click)="logout()"
               >Đăng xuất</a>
           </div>

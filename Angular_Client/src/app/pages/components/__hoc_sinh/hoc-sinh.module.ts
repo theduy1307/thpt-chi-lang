@@ -24,9 +24,11 @@ import { HocSinhComponent } from "./hoc-sinh.component";
 import { BaiKiemTraTrucTuyenDetailComponent } from './bai-kiem-tra-truc-tuyen/bai-kiem-tra-truc-tuyen-detail/bai-kiem-tra-truc-tuyen-detail.component';
 import { PasswordComponent } from "./bai-kiem-tra-truc-tuyen/components/password/password.component";
 import { CountdownModule } from "ngx-countdown";
+import { ThongBaoComponent } from './thong-bao/thong-bao.component';
+import { ThongBaoDetailComponent } from './thong-bao/thong-bao-detail/thong-bao-detail.component';
 
 @NgModule({
-  declarations: [HocSinhComponent, BaiKiemTraTrucTuyenComponent, BaiKiemTraTrucTuyenDetailComponent,PasswordComponent],
+  declarations: [HocSinhComponent, BaiKiemTraTrucTuyenComponent, BaiKiemTraTrucTuyenDetailComponent,PasswordComponent, ThongBaoComponent, ThongBaoDetailComponent],
   imports: [
     CountdownModule,
     CommonModule,

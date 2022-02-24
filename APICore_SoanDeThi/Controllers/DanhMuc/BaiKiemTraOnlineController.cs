@@ -102,7 +102,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                                                       GioThi = x.kiemtra.GioThi,
                                                       Password = x.kiemtra.Password,
                                                       isExam = x.kiemtra.isExam,
-                                                  }) ;
+                                                  });
 
                 if (!string.IsNullOrEmpty(_tableState.searchTerm))
                 {
@@ -143,7 +143,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                         .Take(_tableState.paginator.PageSize)
                         .ToList();
 
-                    
+
 
                 }
                 else
@@ -153,14 +153,14 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                         .Skip((_tableState.paginator.page - 1) * _tableState.paginator.PageSize)
                         .Take(_tableState.paginator.PageSize)
                         .ToList();
-                    
+
                 }
 
                 _baseModel.data = listData;
                 return _baseModel;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Utilities._responseData(0, ex.Message, null);
             }
@@ -238,6 +238,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                     }
 
                     var _check = _context.BaiKiemTra_TrucTuyen_HocSinh_ChiTiet.Where(x => x.IdBaiKiemTraHocSinh == hocsinh.Id)
+                        .OrderBy(x => x.Id)
                                                                                .Join(_context.Question,
                                                                                a => a.IdQueston,
                                                                                b => b.Id,
@@ -264,6 +265,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                     var asd = checkExist.Select(x => x.Id).FirstOrDefault();
                     var balo = _context.BaiKiemTra_TrucTuyen_HocSinh.Where(x => x.IdBaiKiemTraOnline == asd && x.IdHocSinh == loginData.id).FirstOrDefault();
                     var _check = _context.BaiKiemTra_TrucTuyen_HocSinh_ChiTiet.Where(x => x.IdBaiKiemTraHocSinh == balo.Id)
+                        .OrderBy(x => x.Id)
                                                                                .Join(_context.Question,
                                                                                a => a.IdQueston,
                                                                                b => b.Id,
@@ -281,13 +283,13 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                                                                                    choosen = k.a.choosen,
                                                                                }).ToList();
 
-                    
-                    
+
+
                     return Utilities._responseData(1, "", new { _check, _MaDe = checkExist.Select(x => x.MaDe).FirstOrDefault(), tenBaiKiemTra = detail_BaiKiemTra.TenBaiKiemTra, thoiGianLamBai = balo.ThoiGianLamBaiConLai, IdBaiKiemTraTrucTuyen_HocSinh = balo.Id });
                 }
-                
-                
-                
+
+
+
             }
             catch (Exception ex)
             {
@@ -340,7 +342,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
         [Route("BaiKiemTraOnline_Update")]
         //[Authorize(Roles = "10013")]
         [HttpGet]
-        public BaseModel<object> BaiKiemTraOnline_Update(long id, long IdQueston, string eventValue,float time)
+        public BaseModel<object> BaiKiemTraOnline_Update(long id, long IdQueston, string eventValue, float time)
         {
 
             string Token = Utilities._GetHeader(Request);
@@ -361,7 +363,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
                 _item.choosen = Int32.Parse(eventValue);
 
                 var temp = _context.BaiKiemTra_TrucTuyen_HocSinh.Where(k => k.Id == _item.IdBaiKiemTraHocSinh).FirstOrDefault();
-                temp.ThoiGianLamBaiConLai = (time/1000)/60;
+                temp.ThoiGianLamBaiConLai = (time / 1000) / 60;
                 _context.SaveChanges();
 
                 return Utilities._responseData(1, "", null);
@@ -387,7 +389,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
             try
             {
                 var item = _context.BaiKiemTra_TrucTuyen_HocSinh.Where(x => x.Id == id).FirstOrDefault();
-                if(item == null)
+                if (item == null)
                 {
                     return Utilities._responseData(0, "Lấy dữ liệu thất bại, vui lòng kiểm tra lại!", null);
                 }

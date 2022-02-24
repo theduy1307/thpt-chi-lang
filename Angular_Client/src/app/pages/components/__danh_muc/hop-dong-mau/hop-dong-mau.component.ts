@@ -119,7 +119,7 @@ export class HopDongMauComponent implements
         const rules = this.searchGroup.controls['rules'].value
         if (rules) {
             filter.keys = 'rules';
-            filter.vals = rules + '';
+            filter.vals = String(rules);
         }
         this.services.patchState({ filter });
     }

@@ -196,7 +196,7 @@ export class HopDongMauDetailComponent implements OnInit, OnDestroy {
     window.open(linkdownload);
   }
   setValueLoaiHopDong(event: any) {
-    let item = this.listLoaiHopDong.find((x) => x.Id === parseInt(event.value));
+    let item = this.listLoaiHopDong.find((x) => x.Id === Number(event.value));
     this.formGroup.controls.loaiHopDong.setValue(item.Id);
   }
   setValueRule(event: any) {

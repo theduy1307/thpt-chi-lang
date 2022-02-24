@@ -94,7 +94,7 @@ export class DieuKhoanMauAddComponent implements OnInit, OnDestroy {
       NguoiTao: 10174,
       TenNguoiTao: undefined,
       NgayTao: undefined,
-      NhomHopDong: parseInt(this.formGroup.controls["nhomHopDong"].value),
+      NhomHopDong: Number(this.formGroup.controls["nhomHopDong"].value),
       GhiChu: this.formGroup.controls["ghiChu"].value,
       NguoiSua: undefined,
       TenNguoiSua: undefined,

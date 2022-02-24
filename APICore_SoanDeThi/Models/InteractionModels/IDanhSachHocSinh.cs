@@ -9,6 +9,8 @@ namespace APICore_SoanDeThi.Models.InteractionModels
     {
         public long IdNv { get; set; }
         public string Manv { get; set; }
+        public string Holot { get; set; }
+        public string Ten { get; set; }
         public string HoTen { get; set; }
         public string Phai { get; set; }
         public DateTime NgaySinh { get; set; }
@@ -16,6 +18,7 @@ namespace APICore_SoanDeThi.Models.InteractionModels
         public string TenLop { get; set; }
         public long IdNienKhoa { get; set; }
         public string TenNienKhoa { get; set; }
-        
+        public string TenDangNhap { get; set; }
+
     }
 }

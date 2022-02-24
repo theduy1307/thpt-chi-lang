@@ -37,7 +37,7 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
             _account = new LoginController();
         }
 
-        #region NGÂN HÀNG CÂU HỎI - DANH SÁCH
+        #region THÔNG BÁO - DANH SÁCH
         [Route("Notification_List")]
         //[Authorize(Roles = "")]
         [HttpPost]
@@ -137,6 +137,61 @@ namespace APICore_SoanDeThi.Controllers.DanhMuc
             catch
             {
                 return Utilities._responseData(0, "Lỗi dữ liệu!", null);
+            }
+        }
+        #endregion
+
+        #region THÊM MỚI THÔNG BÁO
+        [Route("Notification_Create")]
+        //[Authorize(Roles = "10012")]
+        [HttpPost]
+        public BaseModel<object> Notification_Create([FromBody] ISysNotifyMaster data)
+        {
+            string Token = Utilities._GetHeader(Request);
+            UserLogin loginData = _account._GetInfoUser(Token);
+
+            if (loginData == null)
+                return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
+
+            try
+            {
+                if (string.IsNullOrEmpty(data.Title))
+                    return Utilities._responseData(0, "Vui lòng nhập số hợp đồng mua!!", null);
+
+                _context.Database.BeginTransaction();
+
+                SysNotifyMaster _item = new SysNotifyMaster();
+
+                _item.Title = string.IsNullOrEmpty(data.Title) ? "" : data.Title.ToString().Trim();
+                _item.Content = string.IsNullOrEmpty(data.Content) ? "" : data.Content.ToString().Trim();
+                _item.CreateDate = DateTime.Now;
+                _item.CreateBy = loginData.id;
+                _item.NotifyIcon = "flaticon2-layers text-primary";
+                _item.Type = 1;
+
+                _context.SysNotifyMaster.Add(_item);
+                _context.SaveChanges();
+
+                long _class = _context.Lop.Where(x => x.IdChuNhiem == loginData.id).OrderByDescending(x => x.Id).Select(x => x.Id).FirstOrDefault();
+                var _student = _context.ViewNhanVien.Where(x => x.IdLop == _class && (x.isStudent ?? false)).Select(x => x.IdNv).ToList();
+
+                foreach (var item in _student)
+                {
+                    SysNotifyDetail _detail = new SysNotifyDetail();
+                    _detail.IdHocSinh = item;
+                    _detail.IdMaster = _item.Id;
+                    _detail.IsRead = false;
+                    _context.SysNotifyDetail.Add(_detail);
+                    _context.SaveChanges();
+                }
+
+                _context.Database.CommitTransaction();
+                return Utilities._responseData(1, "Thêm mới thông báo thành công", data);
+
+            }
+            catch (Exception ex)
+            {
+                return Utilities._responseData(0, "Thêm mới thất bại, vui lòng kiểm tra lại! Lỗi: " + ex.Message, null);
             }
         }
         #endregion

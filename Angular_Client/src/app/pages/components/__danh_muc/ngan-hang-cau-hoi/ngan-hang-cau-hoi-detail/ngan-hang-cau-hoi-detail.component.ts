@@ -205,7 +205,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     return "";
   }
   setValueChuongMonHoc(event: any) {
-    let item = this.listChuongMonHoc.find((x) => x.Id == parseInt(event.value));
+    let item = this.listChuongMonHoc.find((x) => x.Id == Number(event.value));
     this.loadListBaiHoc(item.Id);
   }
   //#endregion
@@ -252,7 +252,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     return "";
   }
   setValueBaiHoc(event: any) {
-    let item = this.listBaiHoc.find((x) => x.Id === parseInt(event.value));
+    let item = this.listBaiHoc.find((x) => x.Id === Number(event.value));
   }
   //#endregion
   /* -----------------------------------------------------------------------*/
@@ -266,9 +266,9 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     this.data.OptionB = newQuestion.OptionB;
     this.data.OptionC = newQuestion.OptionC;
     this.data.OptionD = newQuestion.OptionD;
-    this.data.IdBaiHoc = parseInt(this.formGroup.controls["baiHoc"].value);
-    this.data.CorrectOption = parseInt(this.formGroup.controls["correctOption"].value);
-    this.data.Level = parseInt(this.formGroup.controls["level"].value);
+    this.data.IdBaiHoc = Number(this.formGroup.controls["baiHoc"].value);
+    this.data.CorrectOption = Number(this.formGroup.controls["correctOption"].value);
+    this.data.Level = Number(this.formGroup.controls["level"].value);
     this.data.CreateBy = newQuestion.CreateBy;
     this.data.CreateDate = newQuestion.CreateDate;
     this.data.ModifyDate = newQuestion.ModifyDate;

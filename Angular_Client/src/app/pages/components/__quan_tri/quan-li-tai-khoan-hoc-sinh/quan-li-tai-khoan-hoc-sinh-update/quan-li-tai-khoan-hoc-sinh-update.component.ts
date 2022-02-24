@@ -105,7 +105,7 @@ export class QuanLiTaiKhoanHocSinhUpdateComponent implements OnInit {
     return "";
   }
   setValueLopHoc(event: any) {
-    let item = this.listLopHoc.find((x) => x.Id === parseInt(event.value));
+    let item = this.listLopHoc.find((x) => x.Id === Number(event.value));
     this.informationFormGroup.controls["lopHoc"].setValue(item.Id.toString());
   }
   //#endregion

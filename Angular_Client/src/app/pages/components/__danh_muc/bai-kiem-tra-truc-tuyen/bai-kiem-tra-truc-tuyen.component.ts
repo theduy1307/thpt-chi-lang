@@ -131,7 +131,7 @@ export class BaiKiemTraTrucTuyenComponent implements OnInit, OnDestroy, ISortVie
       const searchLop = this.searchGroup.controls['searchLop'].value
       if (searchLop) {
           filter.keys = 'searchLop';
-          filter.vals = searchLop + '';
+          filter.vals = String(searchLop);
       }
       this.services.patchState({ filter });
   }

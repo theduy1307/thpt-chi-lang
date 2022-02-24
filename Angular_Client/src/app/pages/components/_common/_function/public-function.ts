@@ -75,8 +75,8 @@ export class FunctionPublic{
 	public static f_currency(value: string): any {
 		if (value == '-1') return '';
 		if (value == null || value == undefined || value == '') value = '0';
-		let nbr = Number((value + '').replace(/,/g, ""));
-		return (nbr + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+		let nbr = Number((String(value)).replace(/,/g, ""));
+		return (String(nbr)).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 	}
 	private static formatComparenumber(number: string){
 		return +number.replace(/\./g, "").replace(/,/g, ".");

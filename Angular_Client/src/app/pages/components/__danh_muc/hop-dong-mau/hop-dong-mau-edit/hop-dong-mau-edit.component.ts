@@ -201,7 +201,7 @@ export class HopDongMauEditComponent implements OnInit, OnDestroy, DoCheck {
     return "";
   }
   setValueLoaiHopDong(event: any) {
-    let item = this.listLoaiHopDong.find((x) => x.Id === parseInt(event.value));
+    let item = this.listLoaiHopDong.find((x) => x.Id === Number(event.value));
     this.formGroup.controls.loaiHopDong.setValue(item.Id);
   }
   setValueRule(event: any) {
@@ -236,7 +236,7 @@ export class HopDongMauEditComponent implements OnInit, OnDestroy, DoCheck {
       status: undefined,
       Id: this.data.Id,
       TenMau: this.formGroup.controls.tenHopDong.value,
-      LoaiHopDong_Id: parseInt(this.formGroup.controls.idLoaiHopDong.value),
+      LoaiHopDong_Id: Number(this.formGroup.controls.idLoaiHopDong.value),
       NguoiTao: 10174,
       TenNguoiTao: "",
       ThoiGianTao: moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
@@ -244,7 +244,7 @@ export class HopDongMauEditComponent implements OnInit, OnDestroy, DoCheck {
       ThoiGianSua: undefined,
       IsDisable: false,
       Attachment_Id: 0,
-      NhomHopDong: parseInt(this.formGroup.controls.nhomHopDong.value),
+      NhomHopDong: Number(this.formGroup.controls.nhomHopDong.value),
       NgayHieuLuc_Tu: moment(new Date(this.formGroup.controls.ngayHieuLuc.value)).format("YYYY-MM-DD[T]HH:mm:ss.SSS"),
       NgayHieuLuc_Den: moment(new Date(this.formGroup.controls.ngayHetHieuLuc.value)).format(
         "YYYY-MM-DD[T]HH:mm:ss.SSS"

@@ -1,0 +1,24 @@
+<div class="card card-custom gutter-b">
+    <!-- Header Modal -->
+    <div class="card-header">
+      <div class="card-title">
+        <h3 class="card-label">{{data.Title}}</h3>
+      </div>
+      <div class="card-toolbar">
+        <button type="button" class="btn btn-light btn-elevate mr-2" routerLink="/hoc-sinh/danh-sach-thong-bao">
+          Trở lại
+        </button>
+      </div>
+    </div>
+    <!-- End Header -->
+  
+    <!-- Body -->
+    <div class="card-body">
+        <p [innerHTML]="data.Content"></p>
+    </div>
+    <!-- End Body -->
+    <div class="card-footer">
+        <ng-container>{{data.CreateFrom}}</ng-container>
+    </div>
+  </div>
+  

@@ -216,7 +216,7 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
   //   return "";
   // }
   // setValueChuongMonHoc(event: any) {
-  //   let item = this.listChuongMonHoc.find((x) => x.Id == parseInt(event.value));
+  //   let item = this.listChuongMonHoc.find((x) => x.Id == Number(event.value));
   //   this.loadListBaiHoc(item.Id);
   // }
   // //#endregion
@@ -234,7 +234,7 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
   }
   locDanhSachBaiHoc(event: any) {
     this.listBaiHoc = [...this.listFullBaiHoc];
-    let newList = this.listFullBaiHoc.filter((x) => x.HocKy == parseInt(event.value));
+    let newList = this.listFullBaiHoc.filter((x) => x.HocKy == Number(event.value));
     this.listBaiHoc = [...newList];
   }
   deleteItem(id: number) {
@@ -284,7 +284,7 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
   //   return "";
   // }
   // setValueBaiHoc(event: any) {
-  //   let item = this.listBaiHoc.find((x) => x.Id === parseInt(event.value));
+  //   let item = this.listBaiHoc.find((x) => x.Id === Number(event.value));
   // }
   // //#endregion
   // /* -----------------------------------------------------------------------*/
@@ -305,8 +305,8 @@ export class BaiKiemTraAddComponent implements OnInit, OnDestroy {
       CauVanDungThap: this.getsecondFormGroup("cauVanDungThap"),
       CauVanDungCao: this.getsecondFormGroup("cauVanDungCao"),
       ThoiGianLamBai: this.getfirstFormGroup("thoiGianLamBai"),
-      HocKy: parseInt(this.getfirstFormGroup("hocKy")),
-      Lop: parseInt(this.getfirstFormGroup("lop")),
+      HocKy: Number(this.getfirstFormGroup("hocKy")),
+      Lop: Number(this.getfirstFormGroup("lop")),
       NamHoc: this.getfirstFormGroup("namHoc"),
       IdMonHoc: this.user.groupId,
       NguoiTao: this.user.id,

@@ -319,8 +319,8 @@ export class BaiKiemTraCauHinhAddComponent implements OnInit, OnDestroy {
       cauHoi.CreateBy = 1307;
       cauHoi.ModifyDate = moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS");
       cauHoi.ModifyBy = 1307;
-      cauHoi.CorrectOption = parseInt(element.correct);
-      cauHoi.Class = parseInt(this.formThongTin.controls["lop"].value);
+      cauHoi.CorrectOption = Number(element.correct);
+      cauHoi.Class = Number(this.formThongTin.controls["lop"].value);
       danhSachCauHoi.push(cauHoi);
     });
     return danhSachCauHoi;
@@ -337,8 +337,8 @@ export class BaiKiemTraCauHinhAddComponent implements OnInit, OnDestroy {
       cauHoi.CreateBy = 1307;
       cauHoi.ModifyDate = moment(new Date()).format("YYYY-MM-DD[T]HH:mm:ss.SSS");
       cauHoi.ModifyBy = 1307;
-      cauHoi.CorrectOption = parseInt(element.correct);
-      cauHoi.Class = parseInt(this.formThongTin.controls["lop"].value);
+      cauHoi.CorrectOption = Number(element.correct);
+      cauHoi.Class = Number(this.formThongTin.controls["lop"].value);
       if (
         cauHoi.Title.length === 0 ||
         cauHoi.OptionA.length === 0 ||
@@ -360,14 +360,14 @@ export class BaiKiemTraCauHinhAddComponent implements OnInit, OnDestroy {
       status: undefined,
       Id: undefined,
       TenBaiKiemTra: this.formThongTin.controls["tenBaiKiemTra"].value,
-      SoLuongDe: parseInt(this.formThongTin.controls["soLuongDe"].value),
+      SoLuongDe: Number(this.formThongTin.controls["soLuongDe"].value),
       CauBiet: this.formThongTin.controls["cauBiet"].value,
       CauHieu: this.formThongTin.controls["cauHieu"].value,
       CauVanDungThap: this.formThongTin.controls["cauVanDungThap"].value,
       CauVanDungCao: this.formThongTin.controls["cauVanDungCao"].value,
       ThoiGianLamBai: this.formThongTin.controls["thoiGianLamBai"].value,
-      HocKy: parseInt(this.formThongTin.controls["hocKy"].value),
-      Lop: parseInt(this.formThongTin.controls["lop"].value),
+      HocKy: Number(this.formThongTin.controls["hocKy"].value),
+      Lop: Number(this.formThongTin.controls["lop"].value),
       NamHoc: this.formThongTin.controls["namHoc"].value,
       IdMonHoc: 2,
       NguoiTao: 1307,

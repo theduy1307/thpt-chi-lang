@@ -124,7 +124,7 @@ export class BaiKiemTraComponent implements OnInit, OnDestroy, ISortView, IGroup
     const rules = this.searchGroup.controls["class"].value;
     if (rules) {
       filter.keys = "class";
-      filter.vals = rules + "";
+      filter.vals = String(rules);
     }
     this.services.patchState({ filter });
   }

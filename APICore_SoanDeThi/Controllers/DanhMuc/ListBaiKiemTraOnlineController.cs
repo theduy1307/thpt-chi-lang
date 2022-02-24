@@ -121,7 +121,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                     IQueryable<IBaiKiemTra_TrucTuyen_Group> data = _data;
                 }
 
-                if(_tableState.filter.vals != "")
+                if (_tableState.filter.vals != "")
                 {
                     _data = _data.Where(x => x.Lop == Int32.Parse(_tableState.filter.vals));
                     IQueryable<IBaiKiemTra_TrucTuyen_Group> data = _data;
@@ -180,7 +180,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
             //if (loginData == null)
             //    return Utilities._responseData(0, "Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!!", null);
-            
+
             try
             {
                 if (string.IsNullOrEmpty(data.TenBaiKiemTra))
@@ -213,7 +213,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _context.SaveChanges();
 
                 var listDeOffline = _context.BaiKiemTra.Where(x => x.IdGroup == data.Id_BaiKiemTra_Offline).ToList();
-                foreach(var item in listDeOffline)
+                foreach (var item in listDeOffline)
                 {
                     BaiKiemTra_TrucTuyen temp = new BaiKiemTra_TrucTuyen();
                     temp.IdGroup = _item.Id;
@@ -222,7 +222,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                     _context.SaveChanges();
 
                     var listCauHoi = _context.BaiKiemTra_ChiTiet.Where(x => x.IdBaiKiemTra == item.Id).ToList();
-                    foreach(var lego in listCauHoi)
+                    foreach (var lego in listCauHoi)
                     {
                         BaiKiemTra_TrucTuyen_ChiTiet ulatroi = new BaiKiemTra_TrucTuyen_ChiTiet();
                         ulatroi.IdBaiKiemTra = temp.Id;
@@ -258,7 +258,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
 
             try
             {
-                
+
                 if (string.IsNullOrEmpty(data.TenBaiKiemTra))
                     return Utilities._responseData(0, "Vui lòng nhập số hợp đồng mua!!", null);
 
@@ -378,7 +378,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
             }
             catch (Exception ex)
             {
-                return Utilities._responseData(0, "Xóa thất bại, vui lòng kiểm tra lại! Lỗi: "+ex.Message, null);
+                return Utilities._responseData(0, "Xóa thất bại, vui lòng kiểm tra lại! Lỗi: " + ex.Message, null);
             }
         }
         #endregion
@@ -448,10 +448,10 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                 CauVanDungThap = x.CauVanDungThap,
                                 CauVanDungCao = x.CauVanDungCao,
                             }).FirstOrDefault();
-                        
+
                         double _getSLCau = _SLCau.CauBiet + _SLCau.CauHieu + _SLCau.CauVanDungThap + _SLCau.CauVanDungCao;
                         double _diem1Cau = (double)10 / _getSLCau;
-                        for (int i = 1; i <= _getSLCau; i ++)
+                        for (int i = 1; i <= _getSLCau; i++)
                         {
                             worksheet.Cells[8, 5 + i].Value = "Câu " + i;
                         }
@@ -464,24 +464,24 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                         foreach (var item in _groupOnline)
                         {
                             var _TrucTuyenHocSinh = _context.BaiKiemTra_TrucTuyen_HocSinh.Where(x => x.IdBaiKiemTraOnline == item.Id).ToList(); /// ra 1 list học sinh cùng 1 đề
-                            
-                            for(int i = 0; i < _TrucTuyenHocSinh.Count(); i++)
+
+                            for (int i = 0; i < _TrucTuyenHocSinh.Count(); i++)
                             {
-                                worksheet.Cells[a, b].Value = stt + i ; //stt
+                                worksheet.Cells[a, b].Value = stt + i; //stt
                                 var tenHS = _context.ViewNhanVien.Where(x => x.IdNv == _TrucTuyenHocSinh[i].IdHocSinh).Select(x => x.HoTen).FirstOrDefault();
                                 worksheet.Cells[a, b + 1].Value = tenHS;
                                 var getLopHS = _context.ViewNhanVien.Where(x => x.IdNv == _TrucTuyenHocSinh[i].IdHocSinh).Select(x => x.IdLop).FirstOrDefault();
                                 var LopHS = _context.Lop.Where(x => x.Id == getLopHS).Select(x => x.TenLop).FirstOrDefault();
                                 worksheet.Cells[a, b + 2].Value = LopHS;
                                 worksheet.Cells[a, b + 3].Value = item.MaDe;
-                                var _TrucTuyenHSChiTiet = _context.BaiKiemTra_TrucTuyen_HocSinh_ChiTiet.Where(x => x.IdBaiKiemTraHocSinh == _TrucTuyenHocSinh[i].Id).ToList(); // lấy tất cả các câu trong 1 đề
+                                var _TrucTuyenHSChiTiet = _context.BaiKiemTra_TrucTuyen_HocSinh_ChiTiet.Where(x => x.IdBaiKiemTraHocSinh == _TrucTuyenHocSinh[i].Id).OrderBy(x => x.Id).ToList(); // lấy tất cả các câu trong 1 đề
                                 double countCorrectQuestion = 0;
                                 for (var j = 0; j < _TrucTuyenHSChiTiet.Count(); j++)
                                 {
                                     worksheet.Cells[a, b + 5 + j].Value = transAns(Convert.ToInt32(_TrucTuyenHSChiTiet[j].choosen));
                                     var _compareCorrectQuestion = _context.Question.Where(x => x.Id == _TrucTuyenHSChiTiet[j].IdQueston).Select(x => x.CorrectOption).FirstOrDefault();
-                                    
-                                    if(_compareCorrectQuestion == _TrucTuyenHSChiTiet[j].choosen)
+
+                                    if (_compareCorrectQuestion == _TrucTuyenHSChiTiet[j].choosen)
                                     {
                                         countCorrectQuestion++;
                                         worksheet.Cells[a, b + 5 + j].Style.Font.Color.SetColor(System.Drawing.Color.Red);
@@ -492,10 +492,10 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                 a++;
                             }
                             stt = stt + _TrucTuyenHocSinh.Count();
-                            
+
                         }
                         var _detailBaiKtra = _context.BaiKiemTra_TrucTuyen_Group.Where(x => x.Id == id).FirstOrDefault();
-                        worksheet.Cells[3, 2].Value = string.Format("{0:dd/MM/yyyy}", _detailBaiKtra.NgayThi) ; // ngày thi
+                        worksheet.Cells[3, 2].Value = string.Format("{0:dd/MM/yyyy}", _detailBaiKtra.NgayThi); // ngày thi
                         worksheet.Cells[4, 2].Value = _detailBaiKtra.GioThi; // giờ thi
                         worksheet.Cells[5, 2].Value = _detailBaiKtra.TenBaiKiemTra; // tên bài kt
                         worksheet.Cells[6, 2].Value = _detailBaiKtra.SoLuongDe; // tổng mã đề
@@ -537,10 +537,10 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                                                                 CauB = x.cauhoi.OptionB,
                                                                                                 CauC = x.cauhoi.OptionC,
                                                                                                 CauD = x.cauhoi.OptionD,
-                                                                                                CauDung = x.cauhoi.CorrectOption,                                                                                                
+                                                                                                CauDung = x.cauhoi.CorrectOption,
                                                                                             }).ToList()
                                             }).ToList();
-            var _data = _context.BaiKiemTra_Group.Where(x => x.Id == id).Join(_context.MonHoc, kiemtra => kiemtra.IdMonHoc, monhoc => monhoc.Id, (kiemtra, monhoc) => new {kiemtra, monhoc})
+            var _data = _context.BaiKiemTra_Group.Where(x => x.Id == id).Join(_context.MonHoc, kiemtra => kiemtra.IdMonHoc, monhoc => monhoc.Id, (kiemtra, monhoc) => new { kiemtra, monhoc })
                                                 .Select(x => new IBaiKiemTra_Print
                                                 {
                                                     Id = x.kiemtra.Id,

@@ -163,7 +163,7 @@ export class QuanLiLopAddComponent implements OnInit {
     return "";
   }
   setValueNienKhoa(event: any) {
-    let item = this.listNienKhoa.find((x) => x.Id === parseInt(event.value));
+    let item = this.listNienKhoa.find((x) => x.Id === Number(event.value));
     this.formGroup.controls.IdNienKhoa.setValue(item.Id+"");
   }
   // Chủ nhiệm
@@ -204,7 +204,7 @@ export class QuanLiLopAddComponent implements OnInit {
     return "";
   }
   setValueChuNhiem(event: any) {
-    let item = this.listChuNhiem.find((x) => x.Id_NV === parseInt(event.value));
+    let item = this.listChuNhiem.find((x) => x.Id_NV === Number(event.value));
     this.formGroup.controls.IdChuNhiem.setValue(item.Id_NV+"");
   }
   create() {

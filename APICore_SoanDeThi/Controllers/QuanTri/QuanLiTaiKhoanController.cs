@@ -72,13 +72,10 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                     _orderBy_ASC = ("desc".Equals(_tableState.sorting.direction) ? false : true);
                     _orderByExpression = _sortableFields[_tableState.sorting.column];
                 }
-                string _rules = "";
-                if (!string.IsNullOrEmpty(_tableState.filter["rules"]))
-                {
-                    _rules = _tableState.filter["rules"];
-                }
+
                 var _data = _context.ViewNhanVien.Where(x => x.Disable != 1 && x.AllowCode != 4).Join(_context.ViewAccount, emp => emp.IdNv, acc => acc.IdNv, (emp, acc) => new { emp = emp, acc = acc })
-                                                                            .Select(x => new IAccount { 
+                                                                            .Select(x => new IAccount
+                                                                            {
                                                                                 Id = x.acc.Id,
                                                                                 IdNv = x.emp.IdNv,
                                                                                 Holot = x.emp.Holot,
@@ -94,6 +91,12 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                                                                                 AllowCode = x.emp.AllowCode
                                                                             });
 
+                string _rules = "";
+                if (!string.IsNullOrEmpty(_tableState.filter["rules"]))
+                {
+                    _rules = _tableState.filter["rules"];
+                    _data = _data.Where(x => x.AllowCode.ToString().Contains(_rules));
+                }
                 if (!string.IsNullOrEmpty(_tableState.searchTerm))
                 {
                     _keywordSearch = _tableState.searchTerm.ToLower().Trim();
@@ -195,7 +198,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _item.Loaitaikhoan = 1;
                 _item.Isadmin = 1;
 
-                if(data.FileImport != null && !string.IsNullOrEmpty(data.FileImport.filename))
+                if (data.FileImport != null && !string.IsNullOrEmpty(data.FileImport.filename))
                 {
                     string _path = "wwwroot/assets/account-images/";
                     string _pathToSave = "assets/account-images/";
@@ -203,7 +206,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                     if (!Directory.Exists(_targetPath))
                         Directory.CreateDirectory(_targetPath);
                     string _fileName = _targetPath + data.FileImport.filename + "." + data.FileImport.extension;
-                    
+
                     byte[] _fileByte = null;
 
                     if (data.FileImport.fileByte != null)
@@ -263,7 +266,7 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 _emp.Ten = data.Ten;
                 _emp.Phai = data.Phai;
                 _emp.Ngaysinh = data.Ngaysinh;
-                _emp.Email = data.Email;                
+                _emp.Email = data.Email;
                 _emp.IdChucdanh = data.IdChucdanh;
                 _emp.SodienthoaiNguoilienhe = data.SodienthoaiNguoilienhe;
                 _emp.Cocauid = data.Cocauid;
@@ -351,7 +354,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
                 var _item = _context.ViewAccount.Where(x => x.Id == id && x.Disable == 0)
                                                 .Join(_context.ViewNhanVien, acc => acc.IdNv, emp => emp.IdNv, (acc, emp) => new { acc, emp })
                                                 .Join(_context.MonHoc, acc => acc.emp.IdMonHoc, org => org.Id, (acc, org) => new { acc, org })
-                                                .Select(x => new IAccount {
+                                                .Select(x => new IAccount
+                                                {
                                                     Id = x.acc.acc.Id,
                                                     IdNv = x.acc.acc.IdNv ?? 0,
                                                     Manv = x.acc.emp.Manv,
@@ -450,8 +454,8 @@ namespace APICore_SoanDeThi.Controllers.QuanTri
         private string setNewUserName(string initialUsername, string? primaryUsername, int count)
         {
             string newUsername = initialUsername;
-            var username = _context.ViewAccount.Where(x => x.Username.Equals(initialUsername)).Select(x=>x.Username).FirstOrDefault();
-            if(username != null)
+            var username = _context.ViewAccount.Where(x => x.Username.Equals(initialUsername)).Select(x => x.Username).FirstOrDefault();
+            if (username != null)
             {
                 count++;
                 newUsername = (primaryUsername + count).ToString();
