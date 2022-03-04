@@ -7,7 +7,7 @@ import { ITableState, TableResponseModel, TableService } from 'src/app/_metronic
 import { environment } from 'src/environments/environment';
 import { IAccountInformation } from '../thong-tin-ca-nhan-model/thong-tin-ca-nhan.model';
 
-const API_ROOT_URL = environment.ApiRoot + '/AccountInformation';
+const API_ROOT_URL = environment.ApiRoot + '/account-information';
 
 @Injectable({ providedIn: 'root' })
 export class ThongTinCaNhanService extends TableService<IAccountInformation> implements OnDestroy {
@@ -77,7 +77,7 @@ export class ThongTinCaNhanService extends TableService<IAccountInformation> imp
   }
   getItemById(id: number): Observable<any> {
     this.initCallService();
-    return this.http.get(`${API_ROOT_URL}/AccountInformation_Detail?id=${id}`, { headers: this._httpHeaders }).pipe(
+    return this.http.get(`${API_ROOT_URL}/${id}`, { headers: this._httpHeaders }).pipe(
       catchError((err) => {
         this.setErrorMess(err);
         return of({});
@@ -143,7 +143,7 @@ export class ThongTinCaNhanService extends TableService<IAccountInformation> imp
   changePassword(oldPassword: any, newPassword: any): Observable<any> {
     this.initCallService();
     return this.http
-      .get(`${API_ROOT_URL}/NotificationForStudent_ChangePassword?oldPassword=${oldPassword}&newPassword=${newPassword}`, { headers: this._httpHeaders })
+      .get(`${API_ROOT_URL}/change-password/${oldPassword}/${newPassword}`, { headers: this._httpHeaders })
       .pipe(
         catchError((err) => {
           this.setErrorMess(err);

@@ -19,7 +19,7 @@ using System.Text.RegularExpressions;
 
 namespace APICore_SoanDeThi.Controllers.CaNhan
 {
-    [Route("api/AccountInformation")]
+    [Route("api/account-information/")]
     [EnableCors("ExamPolicy")]
     public class ThongTinCaNhanController : ControllerBase
     {
@@ -38,9 +38,13 @@ namespace APICore_SoanDeThi.Controllers.CaNhan
         }
 
         #region LẤY CHI TIẾT THÔNG TIN CÁ NHÂN
-        [Route("AccountInformation_Detail")]
-        //[Authorize(Roles = "10014")]
-        [HttpGet]
+        /// <summary>
+        ///  Returns the information account
+        /// </summary>
+        /// <param id="long"></param>
+        /// <returns></returns>
+        /// 
+        [HttpGet("{id}")]
         public BaseModel<object> AccountInformation_Detail(long id)
         {
             string Token = Utilities._GetHeader(Request);
@@ -87,9 +91,9 @@ namespace APICore_SoanDeThi.Controllers.CaNhan
         #endregion
 
         #region ĐỔI PASSWORD
-        [Route("NotificationForStudent_ChangePassword")]
+        //[Route("change-password")]
         //[Authorize(Roles = "10014")]
-        [HttpGet]
+        [HttpGet("change-password/{oldPassword}/{newPassword}")]
         public BaseModel<object> NotificationForStudent_ChangePassword(string oldPassword, string newPassword)
         {
             string Token = Utilities._GetHeader(Request);
@@ -119,7 +123,7 @@ namespace APICore_SoanDeThi.Controllers.CaNhan
                 _context.SaveChanges();
 
                 _context.Database.CommitTransaction();
-                return Utilities._responseData(1, "Thay đồi mật khẩu thành công", _item);
+                return Utilities._responseData(1, "Thay đổi mật khẩu thành công", _item);
             }
             catch (Exception ex)
             {
