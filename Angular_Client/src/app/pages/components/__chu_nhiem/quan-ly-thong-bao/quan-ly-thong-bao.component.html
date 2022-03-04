@@ -103,15 +103,6 @@
                 (sort)="sort($event)"
               ></app-sort-icon>
             </th>
-            <th>
-              Mức độ
-              <app-sort-icon
-                column="Level"
-                [activeColumn]="sorting.column"
-                [activeDirection]="sorting.direction"
-                (sort)="sort($event)"
-              ></app-sort-icon>
-            </th>
             <th>Thao tác</th>
           </thead>
           <tbody>
@@ -128,21 +119,7 @@
               </td>
               <td>{{ i + 1 }}</td>
               <td>{{ this.formatData(item.Title) }}</td>
-              <td>Khối {{ item.Class }}</td>
-              <td>
-                <span
-                  class="label label-lg label-inline"
-                  [class.label-success]="item.Level === 1"
-                  [class.label-primary]="item.Level === 2"
-                  [class.label-warning]="item.Level === 3"
-                  [class.label-info]="item.Level === 4"
-                >
-                  <ng-container *ngIf="item.Level === 1">Biết</ng-container>
-                  <ng-container *ngIf="item.Level === 2">Hiểu</ng-container>
-                  <ng-container *ngIf="item.Level === 3">Vận dụng thấp</ng-container>
-                  <ng-container *ngIf="item.Level === 4">Vận dụng cao</ng-container>
-                </span>
-              </td>
+              <td>Khối {{ item.Class }}</td>              
               <td>
                 <a
                   matTooltip="Xem chi tiết"

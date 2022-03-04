@@ -217,10 +217,11 @@ namespace APICore_SoanDeThi.Controllers.Common
             try
             {
                 var _data = _context.ViewNhanVien.Where(x => x.Disable == Convert.ToInt16(false))
+                    .Join(_context.ViewAccount, emp => emp.IdNv, acc => acc.IdNv, (emp, acc) => new { emp, acc })
                           .Select(x => new IViewNhanVien
                           {
-                              Id_NV = x.IdNv,
-                              TenNV = x.HoTen
+                              Id_NV = x.emp.IdNv,
+                              TenNV = x.emp.HoTen + " ("+x.acc.Username+")"
                           });
 
                 _baseModel.status = 1;
