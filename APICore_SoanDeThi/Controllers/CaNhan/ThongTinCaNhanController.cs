@@ -16,11 +16,13 @@ using APICore_SoanDeThi.Models.DatabaseContext;
 using Wkhtmltopdf.NetCore;
 using Mammoth;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace APICore_SoanDeThi.Controllers.CaNhan
 {
-    [Route("api/AccountInformation")]
+    [Route("api/account-information")]
     [EnableCors("ExamPolicy")]
+    [Authorize]
     public class ThongTinCaNhanController : ControllerBase
     {
         private readonly IHostingEnvironment _hosting;
@@ -38,9 +40,7 @@ namespace APICore_SoanDeThi.Controllers.CaNhan
         }
 
         #region LẤY CHI TIẾT THÔNG TIN CÁ NHÂN
-        [Route("AccountInformation_Detail")]
-        //[Authorize(Roles = "10014")]
-        [HttpGet]
+        [HttpGet("employee/{id}")]
         public BaseModel<object> AccountInformation_Detail(long id)
         {
             string Token = Utilities._GetHeader(Request);
@@ -87,10 +87,10 @@ namespace APICore_SoanDeThi.Controllers.CaNhan
         #endregion
 
         #region ĐỔI PASSWORD
-        [Route("NotificationForStudent_ChangePassword")]
+        //[Route("NotificationForStudent_ChangePassword")]
         //[Authorize(Roles = "10014")]
-        [HttpGet]
-        public BaseModel<object> NotificationForStudent_ChangePassword(string oldPassword, string newPassword)
+        [HttpPost("change-password")]
+        public BaseModel<object> NotificationForStudent_ChangePassword(PasswordChangeInformation value)
         {
             string Token = Utilities._GetHeader(Request);
             UserLogin loginData = _account._GetInfoUser(Token);
@@ -109,13 +109,13 @@ namespace APICore_SoanDeThi.Controllers.CaNhan
 
                 }
 
-                if (!_item.Password.Equals(EncryptPassword(oldPassword)))
+                if (!_item.Password.Equals(EncryptPassword(value.OldPassword)))
                 {
                     _context.Database.RollbackTransaction();
                     return Utilities._responseData(0, "Mật khẩu cũ nhập không chính xác", null);
                 }
 
-                _item.Password = EncryptPassword(newPassword);
+                _item.Password = EncryptPassword(value.NewPassword);
                 _context.SaveChanges();
 
                 _context.Database.CommitTransaction();

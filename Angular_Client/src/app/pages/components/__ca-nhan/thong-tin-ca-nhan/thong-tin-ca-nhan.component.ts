@@ -8,10 +8,10 @@ import { catchError, switchMap, tap } from "rxjs/operators";
 import { LayoutUtilsService } from "src/app/_global/_services/layout-utils.service";
 import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { ThongTinCaNhanService } from "./thong-tin-ca-nhan-service/thong-tin-ca-nhan.service";
-import { EMPTY_DATA_IACCOUNTINFORMATION, IAccountInformation } from "./thong-tin-ca-nhan-model/thong-tin-ca-nhan.model";
+import { EMPTY_DATA_ACCOUNT_INFORMATION, AccountInformation } from "./thong-tin-ca-nhan-model/thong-tin-ca-nhan.model";
 import { DungChungService } from "../../_common/_services/dung-chung.service";
 
-const EMPTY_DATA = EMPTY_DATA_IACCOUNTINFORMATION;
+const EMPTY_DATA = EMPTY_DATA_ACCOUNT_INFORMATION;
 @Component({
   selector: "app-thong-tin-ca-nhan",
   templateUrl: "./thong-tin-ca-nhan.component.html",
@@ -25,9 +25,9 @@ export class ThongTinCaNhanComponent implements OnInit {
   isLoading$;
   errorMessage = "";
   isLoadingSpinner: boolean = false;
-  data: IAccountInformation;
+  data: AccountInformation;
   formThongTin: FormGroup;
-  danhSachCauHoi: IAccountInformation[];
+  danhSachCauHoi: AccountInformation[];
   private subscriptions: Subscription[] = [];
   /* ------------------------------------------------------------------*/
 

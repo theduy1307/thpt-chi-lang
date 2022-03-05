@@ -11,13 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using APICore_SoanDeThi.Models.DatabaseContext;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Xceed.Words.NET;
-using System.IO;
+
 
 namespace APICore_SoanDeThi.Controllers.HocSinh
 {
