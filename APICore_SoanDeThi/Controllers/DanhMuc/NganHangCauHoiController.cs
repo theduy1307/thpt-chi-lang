@@ -16,7 +16,6 @@ using APICore_SoanDeThi.Models.DatabaseContext;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
-using Xceed.Words.NET;
 using System.IO;
 
 namespace APICore_SoanDeThi.Controllers.DanhMuc

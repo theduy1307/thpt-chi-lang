@@ -1,6 +1,6 @@
 import { BaseModel } from "src/app/_metronic/shared/crud-table";
 
-export interface IAccountInformation extends BaseModel {
+export interface AccountInformation extends BaseModel {
     Id: number;
     HoLot: string;
     Ten: string;
@@ -16,7 +16,7 @@ export interface IAccountInformation extends BaseModel {
     Gender:number;
 }
 
-export const EMPTY_DATA_IACCOUNTINFORMATION:IAccountInformation = {
+export const EMPTY_DATA_ACCOUNT_INFORMATION:AccountInformation = {
     id:undefined, status:undefined, data:undefined,
     Id: undefined,
     HoLot: "",
@@ -33,7 +33,7 @@ export const EMPTY_DATA_IACCOUNTINFORMATION:IAccountInformation = {
     Gender: undefined,
 }
 
-export interface IChangePassword extends BaseModel {
+export interface PasswordChangeInformation {
     OldPassword:string;
     NewPassword:string;
 }

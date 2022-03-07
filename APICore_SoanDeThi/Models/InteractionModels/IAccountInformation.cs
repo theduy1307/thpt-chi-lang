@@ -22,4 +22,10 @@ namespace APICore_SoanDeThi.Models.InteractionModels
         public bool? IsStudent { get; set; }
         public long? IdLop { get; set; }
     }
+
+    public class PasswordChangeInformation
+    {
+        public string OldPassword { get; set; }
+        public string NewPassword { get; set; }
+    }
 }
