@@ -16,14 +16,7 @@
     <div class="form form-label-right">
       <div class="form-group row">
         <div class="col-lg-4" [formGroup]="searchGroup">
-          <input
-            type="text"
-            value=""
-            class="form-control"
-            placeholder="Tìm kiếm mã câu hỏi hoặc tiêu đề"
-            name="searchText"
-            formControlName="searchTerm"
-          />
+          <input type="text" value="" class="form-control" placeholder="Tìm kiếm mã câu hỏi hoặc tiêu đề" name="searchText" formControlName="searchTerm" />
           <small class="form-text text-muted"><b>Tìm kiếm</b> dữ liệu</small>
         </div>
         <div class="col-lg-4" [formGroup]="searchGroup">
@@ -61,9 +54,7 @@
                 >
               </div>
               <div>
-                <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1">
-                  <i class="fa fa-trash"></i> Xóa tất cả</button
-                >&nbsp;
+                <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1"><i class="fa fa-trash"></i> Xóa tất cả</button>&nbsp;
               </div>
             </div>
           </div>
@@ -73,60 +64,17 @@
     <!-- End Action -->
 
     <!-- Data table -->
-    <div class="table-responsive angular-bootstrap-table">
-      <table class="table table-head-custom table-vertical-center overflow-hidden">
+    <div class="table-responsive" style="overflow-x:auto">
+      <table class="table-responsive table table-vertical-center overflow-hidden">
         <thead>
-          <th class="selection-cell-header" data-row-selection="true">
-            <label class="checkbox checkbox-single">
-              <input
-                type="checkbox"
-                (click)="grouping.selectAllRows()"
-                [checked]="grouping.checkAreAllRowsSelected()"
-              /><span></span>
-            </label>
-          </th>
-          <th>STT</th>
-          <th>
-            Tiêu đề
-            <app-sort-icon
-              column="Title"
-              [activeColumn]="sorting.column"
-              [activeDirection]="sorting.direction"
-              (sort)="sort($event)"
-            ></app-sort-icon>
-          </th>
-          <th>
-            Khối
-            <app-sort-icon
-              column="Class"
-              [activeColumn]="sorting.column"
-              [activeDirection]="sorting.direction"
-              (sort)="sort($event)"
-            ></app-sort-icon>
-          </th>
-          <th>
-            Mức độ
-            <app-sort-icon
-              column="Level"
-              [activeColumn]="sorting.column"
-              [activeDirection]="sorting.direction"
-              (sort)="sort($event)"
-            ></app-sort-icon>
-          </th>
-          <th>Thao tác</th>
+          <th scope="col">STT</th>
+          <th scope="col">Tiêu đề</th>
+          <th scope="col">Khối</th>
+          <th scope="col">Mức độ</th>
+          <th scope="col">Thao tác</th>
         </thead>
         <tbody>
           <tr *ngFor="let item of services.items$ | async; let i = index">
-            <td class="selection-cell">
-              <label class="checkbox checkbox-single"
-                ><input
-                  type="checkbox"
-                  (click)="grouping.selectRow(item.Id)"
-                  [checked]="grouping.isRowSelected(item.Id)"
-                />
-                <span></span>
-              </label>
-            </td>
             <td>{{ i + 1 }}</td>
             <td>{{ this.formatData(item.Title) }}</td>
             <td>Khối {{ item.Class }}</td>
@@ -145,62 +93,25 @@
               </span>
             </td>
             <td>
-              <a
-                matTooltip="Xem chi tiết"
-                matTooltipPosition="after"
-                class="btn btn-icon btn-light btn-hover-primary btn-sm"
-                (click)="detail(item.Id)"
-              >
+              <a matTooltip="Xem chi tiết" matTooltipPosition="after" class="btn btn-icon btn-light btn-hover-primary btn-sm" (click)="detail(item.Id)">
                 <!-- (click)="detail(item.IdQuestion)" -->
-                <span
-                  [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'"
-                  cacheSVG="true"
-                  class="svg-icon svg-icon-md svg-icon-primary"
-                >
-                </span>
+                <span [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'" cacheSVG="true" class="svg-icon svg-icon-md svg-icon-primary"> </span>
               </a>
-              <a
-                matTooltip="Chỉnh sửa"
-                matTooltipPosition="after"
-                class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
-                (click)="edit(item.Id)"
-              >
-                <span
-                  [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'"
-                  cacheSVG="true"
-                  class="svg-icon svg-icon-md svg-icon-primary"
-                >
-                </span>
+              <a matTooltip="Chỉnh sửa" matTooltipPosition="after" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" (click)="edit(item.Id)">
+                <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true" class="svg-icon svg-icon-md svg-icon-primary"> </span>
               </a>
-              <a
-                matTooltip="Xóa"
-                matTooltipPosition="after"
-                class="btn btn-icon btn-light btn-hover-danger btn-sm"
-                (click)="delete(item.Id)"
-              >
-                <span
-                  [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'"
-                  cacheSVG="true"
-                  class="svg-icon svg-icon-md svg-icon-danger"
-                >
-                </span>
+              <a matTooltip="Xóa" matTooltipPosition="after" class="btn btn-icon btn-light btn-hover-danger btn-sm" (click)="delete(item.Id)">
+                <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true" class="svg-icon svg-icon-md svg-icon-danger"> </span>
               </a>
             </td>
           </tr>
         </tbody>
       </table>
-      <div class="text-center" style="margin: 20px 0; text-transform: uppercase" *ngIf="isEmptyDataSource()">
-        Không có dữ liệu
-      </div>
+      <div class="text-center" style="margin: 20px 0; text-transform: uppercase" *ngIf="isEmptyDataSource()">Không có dữ liệu</div>
     </div>
     <!-- End Data Table -->
 
-    <app-paginator
-      class="d-flex justify-content-between align-items-center flex-wrap"
-      [paginator]="paginator"
-      [isLoading]="isLoading"
-      (paginate)="paginate($event)"
-    >
+    <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator" [isLoading]="isLoading" (paginate)="paginate($event)">
     </app-paginator>
   </div>
   <!-- End Body -->

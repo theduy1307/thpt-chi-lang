@@ -55,7 +55,7 @@ export class ThongTinCaNhanService extends TableService<AccountInformation> impl
 
   find(tableState: ITableState): Observable<TableResponseModel<AccountInformation>> {
     return this.http
-      .post<any>(API_ROOT_URL + "/NotificationForStudent_List", tableState, {
+      .post<any>(API_ROOT_URL + '/NotificationForStudent_List', tableState, {
         headers: this._httpHeaders,
       })
       .pipe(
@@ -140,7 +140,7 @@ export class ThongTinCaNhanService extends TableService<AccountInformation> impl
       finalize(() => this.setLoading(false))
     );
   }
-  changePassword(oldPassword: any, newPassword:any): Observable<any> {
+  changePassword(oldPassword: any, newPassword: any): Observable<any> {
     this.initCallService();
     const value: PasswordChangeInformation = {
       OldPassword: oldPassword,

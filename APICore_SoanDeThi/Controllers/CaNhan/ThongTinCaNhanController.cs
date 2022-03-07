@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace APICore_SoanDeThi.Controllers.CaNhan
 {
+
     [Route("api/account-information")]
     [EnableCors("ExamPolicy")]
     [Authorize]
@@ -41,6 +42,14 @@ namespace APICore_SoanDeThi.Controllers.CaNhan
 
         #region LẤY CHI TIẾT THÔNG TIN CÁ NHÂN
         [HttpGet("employee/{id}")]
+
+        /// <summary>
+        ///  Returns the information account
+        /// </summary>
+        /// <param id="long"></param>
+        /// <returns></returns>
+        /// 
+
         public BaseModel<object> AccountInformation_Detail(long id)
         {
             string Token = Utilities._GetHeader(Request);
@@ -119,7 +128,7 @@ namespace APICore_SoanDeThi.Controllers.CaNhan
                 _context.SaveChanges();
 
                 _context.Database.CommitTransaction();
-                return Utilities._responseData(1, "Thay đồi mật khẩu thành công", _item);
+                return Utilities._responseData(1, "Thay đổi mật khẩu thành công", _item);
             }
             catch (Exception ex)
             {
